@@ -1,0 +1,45 @@
+\documentclass[brazilian]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage[margin=1.35in]{geometry}
+\usepackage[backend=biber,style=alphabetic]{biblatex}
+\usepackage{mathtools,amssymb,amsthm}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+\usepackage[capitalize,noabbrev]{cleveref}
+
+\usetikzlibrary{babel}
+
+\addbibresource{bibliografia.bib}
+
+\swapnumbers
+\newtheorem{teo}{Teorema}[section]
+\newtheorem{lema}[teo]{Lema}
+\newtheorem{corol}[teo]{Corolário}
+
+\theoremstyle{definition}
+\newtheorem{defin}[teo]{Definição}
+\newtheorem{obs}[teo]{Observação}
+\newtheorem{exem}[teo]{Exemplo}
+
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\Abs}{\lVert}{\rVert}
+
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\ct}{\mathrm{ct}}
+\newcommand{\Ar}{\mathrm{Ar}}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\title{Teoria de Homotopia Abstrata}
+\author{Edmundo Martins}
+\date{\today}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:

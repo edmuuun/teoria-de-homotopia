@@ -1,0 +1,214 @@
+\input{preamble}
+
+\begin{document}
+
+\maketitle
+
+\section{Categorias modelo}
+
+\begin{defin}
+  Seja $\mathsf{M}$ uma categoria localmente pequena, completa e co-completa.
+  Uma \textbf{estrutura modelo} em $\mathsf{M}$ consiste de três classes de morfismos $\mathcal{W},\, \mathcal{F},\, \mathcal{C} \subseteq \mathrm{Mor}(\mathsf{M})$ cujos elementos são chamados, respectivamente, \textbf{equivalências fracas}, \textbf{fibrações} e \textbf{cofibrações}, as quais devem satisfazer as seguintes condições:
+  \begin{enumerate}
+  \item[(M1)] (Propriedade 2-de-3) Dados morfismos $f: X \to Y$ e $g: Y \to Z$ em $\mathsf{M}$, se dois dos morfismos do conjunto $\{f,\,g,\, g \circ f\}$ estiverem em $\mathcal{W}$, então o terceiro também deve estar.
+    
+  \item[(M2)] (Propriedade de retração) Se um morfismo $f: A \to X$ é retração de um morfismo $g: B \to Y$, ou seja, se existe um diagrama comutativo como abaixo,
+    \begin{displaymath}
+      \begin{tikzcd}
+        A
+        \arrow[r]
+        \arrow[d, "f" swap]
+        \arrow[rr, bend left=25, "\id_{A}"]
+        & B
+        \arrow[r]
+        \arrow[d, "g"]
+        & A
+        \arrow[d, "f"]
+        \\ X
+        \arrow[r]
+        \arrow[rr, bend right=25, "\id_{X}" swap]
+        & Y
+        \arrow[r]
+        & X
+      \end{tikzcd}
+    \end{displaymath}
+    e $g$ pertence a $\mathcal{W}$ (ou a $\mathcal{F}$, ou a $\mathcal{C}$), então $f$ também pertence a $\mathcal{W}$ (ou a $\mathcal{F}$, ou a $\mathcal{C}$, respectivamente).
+    Em suma, as classes $\mathcal{W}$, $\mathcal{F}$ e $\mathcal{C}$ são todas fechadas por retrações.
+    
+  \item[(M3)] (Propriedade de levantamento) Dado um diagrama comutativo como abaixo,
+    \begin{displaymath}
+      \begin{tikzcd}
+        A
+        \arrow[r]
+        \arrow[d, "i" swap]
+        & X
+        \arrow[d, "p"]
+        \\ B
+        \arrow[r]
+        & Y
+      \end{tikzcd}
+    \end{displaymath}
+    onde $i$ é uma cofibração, e $p$ é uma fibração; se um dos dois morfismos $i$ ou $p$ é também uma equivalência fraca, então o diagrama admite um levantamento, ou seja, existe um morfismo $f: B \to X$ que faz comutar o diagrama abaixo.
+    \begin{displaymath}
+      \begin{tikzcd}
+        A
+        \arrow[r]
+        \arrow[d, "i" swap]
+        & X
+        \arrow[d, "p"]
+        \\ B
+        \arrow[r]
+        \arrow[ru, dashed, "f" description]
+        & Y
+      \end{tikzcd}
+    \end{displaymath}
+    
+  \item[(M4)] (Propriedade de fatoração) Qualquer morfismo $f: X \to Y$ em $\mathsf{M}$ pode ser fatorado nas duas formas mostradas abaixo,
+    \begin{displaymath}
+      \begin{tikzcd}
+        X
+        \arrow[rr, "f"]
+        \arrow[rd, "i" swap]
+        & & Y
+        \\ & \widehat{X}
+        \arrow[ru, "p" swap]
+      \end{tikzcd}
+      \qquad
+      \begin{tikzcd}
+        X
+        \arrow[rr, "f"]
+        \arrow[rd, "j" swap]
+        & &
+        Y
+        \\ & \widetilde{Y}
+        \arrow[ru, "q" swap]
+      \end{tikzcd}
+    \end{displaymath}
+    onde $p$ é simultaneamente uma fibração e uma equivalência fraca, enquanto $j$ é simultaneamente uma cofibração e uma equivalência fraca.
+  \end{enumerate}
+\end{defin}
+
+Vamos introduzir um pouco de terminologia antes de fazermos alguns comentários sobre a definição acima.
+Os morfismos de $\mathsf{M}$ que pertencem à classe $\mathcal{W} \cap \mathcal{F}$ são chamados de \textbf{fibrações triviais} ou \textbf{fibrações acíclicas}, enquanto os morfismos que pertencem à classe $\mathcal{W} \cap \mathcal{C}$ são chamados de \textbf{cofibrações triviais} ou \textbf{cofibrações acíclicas}.
+
+
+\begin{obs}
+  Lembremos que, dados objetos $X$ e $Y$ de uma categoria $\mathsf{C}$ qualquer, dizemos que $X$ é um \textbf{retrato} de $Y$ se existem morfismos $s: X \to Y$ e $r: Y \to X$ tais que $r \circ s = \id_{X}$.
+  Comumente nos referimos ao morfismo $s$ por \textbf{seção} e ao morfismo $r$ por \textbf{retração}.
+  A condição $r \circ s = \id_{X}$ garante que $s$ seja um monomorfismo.
+  De fato, se $f,\, g: W \to X$ são morfismos tais que $s \circ f = s \circ g$, então
+  \begin{displaymath}
+    f
+    = \id_{X} \circ f
+    = r \circ s \circ f
+    = r \circ s \circ g
+    = \id_{X} \circ g
+    = g.
+  \end{displaymath}
+  Isso nos permite encarar $X$ como um subobjeto de $Y$, e o morfismo $r$ então intuitivamente deforma $Y$ para esse subobjeto, mas de forma a mantê-lo fixado.
+  Note que a condição $r \circ s = \id_{X}$ garante também que o morfismo $r$ seja um epimorfismo.
+
+  A noção de retração que aparece nos axiomas de uma estrutura modelo enunciados acima pode ser interpretada nesse sentido em uma categoria adequada.
+  Lembremos que toda categoria $\mathsf{C}$ dá origem a uma categoria de setas $\Ar(\mathsf{C})$. Os objetos dessa categorias são precisamente morfismos $f: A \to B$ na categoria incial $\mathsf{C}$, e dados dois tais objetos $f: A \to B$ e $g: X \to Y$, um morfismo do tipo $(f: A \to B) \to (g: X \to Y)$ na categoria de setas $\Ar(\mathsf{C})$ é dado por um par de morfismos $(\alpha: A \to X,\, \beta: B \to Y)$ satisfazendo a igualdade $\beta \circ f = g \circ \alpha$.
+  Podemos então visualizar esse morfismo em $\Ar(\mathsf{C})$ na forma de um quadrado comutativo como mostrado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "f"]
+      \arrow[d, "\alpha" swap]
+      & B
+      \arrow[d, "\beta"]
+      \\ X
+      \arrow[r, "g" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  A composição de morfismos é definida ``colando'' quadrados comutativos adjacentes.
+  Mais precisamente, dados três objetos $f: X_{1} \to Y_{1},\, g: X_{2} \to Y_{2}$ e $h: X_{3} \to Y_{3}$ da categoria $\Ar(\mathsf{C})$, e dados também dois morfismos componíveis
+  \begin{displaymath}
+    (\alpha_{1}: X_{1} \to X_{2},\, \beta_{1}: Y_{1} \to Y_{2}) \qquad (\alpha_{2}: X_{2} \to X_{3},\, \beta_{2}: Y_{2} \to Y_{3}),
+  \end{displaymath}
+  sua composição é o morfismo
+  \begin{displaymath}
+    (\alpha_{2}, \beta_{2}) \circ (\alpha_{1},\beta_{1}): (f: X_{1} \to Y_{1}) \to (h: X_{3} \to Y_{3})
+  \end{displaymath}
+  dado pelo par
+  \begin{displaymath}
+    (\alpha_{2},\beta_{2}) \circ (\alpha_{1},\beta_{1}) \coloneqq (\alpha_{2} \circ \alpha_{1},\, \beta_{2} \circ \beta_{1}).
+  \end{displaymath}
+  Essa composição pode também ser visualizada como mostrado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X_{1}
+      \arrow[r, "f"]
+      \arrow[d, "\alpha_{1}" swap]
+      & Y_{1}
+      \arrow[d, "\beta_{1}"]
+      \\ X_{2}
+      \arrow[r, "g"]
+      \arrow[d, "\alpha_{2}" swap]
+      & Y_{2}
+      \arrow[d, "\beta_{2}"]
+      \\ X_{3}
+      \arrow[r, "h" swap]
+      & Y_{3}
+    \end{tikzcd}
+    \quad \Rightarrow \quad
+    \begin{tikzcd}
+      X_{1}
+      \arrow[r, "f"]
+      \arrow[d, "\alpha_{2} \circ \alpha_{1}" swap]
+      & Y_{1}
+      \arrow[d, "\beta_{2} \circ \beta_{1}"]
+      \\ X_{3}
+      \arrow[r, "h" swap]
+      & Y_{3}
+    \end{tikzcd}
+  \end{displaymath}
+
+  A associatividade dessa composição via colagem segue diretamente da associatividade da composição na categoria inicial $\mathsf{C}$.
+  Por fim, dado um objeto $f: X \to Y$ qualquer, o morfismo idêntico associado a ele é dado pelo par $\id_{f} \coloneqq (\id_{X},\id_{Y})$, conforme mostrado no quadrado comutativo abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[r, "f"]
+      \arrow[d, "\id_{X}" swap]
+      & Y
+      \arrow[d, "\id_{Y}"]
+      \\ X
+      \arrow[r, "f" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+
+  Note agora que, se o objeto $f: A \to B$ é um retrato do objeto $g: X \to Y$ \emph{na categoria de setas $\Ar(\mathsf{M})$}, então por definição existem morfismos $s_{1}: A \to X,\, s_{2}: B \to Y,\, r_{1}: X \to A$ e $r_{2}: Y \to B$ tais que $(r_{1},r_{2}) \circ (s_{1},s_{2}) = \id_{f}$, o que também pode ser expresso pelo diagrama comutativo abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "f"]
+      \arrow[d, "s_{1}" swap]
+      \arrow[dd, bend right=45, "\id_{A}" swap]
+      & B
+      \arrow[d, "s_{2}"]
+      \arrow[dd, bend left=45, "\id_{B}"]
+      \\ X
+      \arrow[r, "g"]
+      \arrow[d, "r_{1}" swap]
+      & Y
+      \arrow[d, "r_{2}"]
+      \\ A
+      \arrow[r, "f" swap]
+      & B
+    \end{tikzcd}
+  \end{displaymath}
+
+  O diagrama acima (a menos de uma rotação de 90 graus e de algumas nomenclaturas adicionais para morfismos) é precisamente o diagrama que aparece no axioma de retração na definição de uma estrutura modelo.
+  Podemos então reformular tal axioma dizendo que as classes de equivalências fracas, fibrações e cofibrações são todas fechadas por \emph{retrações na categoria de setas $\Ar(\mathsf{C})$}.
+\end{obs}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
