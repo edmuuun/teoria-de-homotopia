@@ -92,7 +92,7 @@
 
 Vamos introduzir um pouco de terminologia antes de fazermos alguns comentários sobre a definição acima.
 Os morfismos de $\mathsf{M}$ que pertencem à classe $\mathcal{W} \cap \mathcal{F}$ são chamados de \textbf{fibrações triviais} ou \textbf{fibrações acíclicas}, enquanto os morfismos que pertencem à classe $\mathcal{W} \cap \mathcal{C}$ são chamados de \textbf{cofibrações triviais} ou \textbf{cofibrações acíclicas}.
-
+Usando essa terminologia o axioma de fatoração (M5) pode ser enunciado da seguinte forma: todo morfismo em uma categoria modelo pode ser fatorado como uma cofibração seguido de uma fibração trivial, ou como uma cofibração trivial seguido de uma fibração.
 
 \begin{obs}
   Lembremos que, dados objetos $X$ e $Y$ de uma categoria $\mathsf{C}$ qualquer, dizemos que $X$ é um \textbf{retrato} de $Y$ se existem morfismos $s: X \to Y$ e $r: Y \to X$ tais que $r \circ s = \id_{X}$.
@@ -112,7 +112,7 @@ Os morfismos de $\mathsf{M}$ que pertencem à classe $\mathcal{W} \cap \mathcal{
 
   A noção de retração que aparece no axioma (M3) de uma estrutura modelo enunciado acima pode ser interpretada nesse sentido em uma categoria adequada.
   Lembremos que toda categoria $\mathsf{C}$ dá origem a uma categoria de setas $\Arr(\mathsf{C})$.
-  Os objetos dessa categorias são precisamente morfismos $f: A \to B$ na categoria incial $\mathsf{C}$, e dados dois tais objetos $f: A \to B$ e $g: X \to Y$, um morfismo do tipo $(f: A \to B) \to (g: X \to Y)$ na categoria de setas $\Ar(\mathsf{C})$ é dado por um par de morfismos $(\alpha: A \to X,\, \beta: B \to Y)$ satisfazendo a igualdade $\beta \circ f = g \circ \alpha$.
+  Os objetos dessa categorias são precisamente morfismos $f: A \to B$ na categoria incial $\mathsf{C}$, e dados dois tais objetos $f: A \to B$ e $g: X \to Y$, um morfismo do tipo $(f: A \to B) \to (g: X \to Y)$ na categoria de setas $\Arr(\mathsf{C})$ é dado por um par de morfismos $(\alpha: A \to X,\, \beta: B \to Y)$ satisfazendo a igualdade $\beta \circ f = g \circ \alpha$.
   Podemos então visualizar esse morfismo em $\Arr(\mathsf{C})$ na forma de um quadrado comutativo como mostrado abaixo.
   \begin{displaymath}
     \begin{tikzcd}
@@ -207,6 +207,100 @@ Os morfismos de $\mathsf{M}$ que pertencem à classe $\mathcal{W} \cap \mathcal{
 
    Esse é precisamente o diagrama que aparece no axioma de retração na definição de uma estrutura modelo.
   Podemos então reformular tal axioma dizendo que as classes de equivalências fracas, fibrações e cofibrações são todas fechadas por \emph{retrações na categoria de setas $\Arr(\mathsf{C})$}.
+\end{obs}
+
+\begin{obs}
+  Quando trabalhamos com categorias modelo, no lugar de dizermos explicitamente que um morfismo é uma equivalência fraca, ou uma cofibração, ou uma fibração, simplesmente adornarmos de alguma forma a seta que representa o morfismo em questão.
+  A convenção notacional que seguiremos nesse aspecto é a seguinte:
+  \begin{itemize}
+  \item uma equivalência fraca será denotada por $\overset{\sim}{\rightarrow}$;
+    
+  \item uma cofibração será denotada por $\cofib$;
+    
+  \item uma fibração será denotada por $\fib$.
+  \end{itemize}
+  Também denotaremos cofibrações ou fibrações trivias por uma combinação dos símbolos acima:
+  \begin{itemize}
+  \item uma cofibração trivial será denotada por $\overset{\sim}{\cofib}$;
+    
+  \item uma fibração trivial será denotada por $\overset{\sim}{\fib}$.
+  \end{itemize}
+
+  Seguindo essa convenção notacional, podemos, por exemplo, enunciar o axioma de levantamento (M4) da seguinte forma: em uma categoria modelo, todo quadrado comutativo da forma
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r]
+      \arrow[d, tail, "i" swap, "\sim" sloped]
+      & X
+      \arrow[d, two heads, "p"]
+      \\ B
+      \arrow[r]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  admite um levantamento $f: B \to X$
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r]
+      \arrow[d, tail, "i" swap, "\sim" sloped]
+      & X
+      \arrow[d, two heads, "p"]
+      \\ B
+      \arrow[r]
+      \arrow[ru, dashed, "f" description]
+      & Y,
+    \end{tikzcd}
+  \end{displaymath}
+  e todo quadrado comutativo da forma
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r]
+      \arrow[d, "i" swap]
+      & X
+      \arrow[d, two heads, "\sim" {swap, sloped}, "p"]
+      \\ B
+      \arrow[r]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  admite um levantamento $f: B \to X$
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r]
+      \arrow[d, "i" swap]
+      & X
+      \arrow[d, two heads, "\sim" {swap, sloped}, "p"]
+      \\ B
+      \arrow[r]
+      \arrow[ru, dashed, "f" description]
+      & Y.
+    \end{tikzcd}
+  \end{displaymath}
+
+  Usando a mesma convenção, o axioma de fatoração (M5) pode ser enunciado da seguinte maneira: em uma categoria modelo, todo morfismo $f: X \to Y$ possui duas fotarações como mostrado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[rr, "f"]
+      \arrow[rd, tail, "i" swap]
+      & & Y
+      \\ & \widehat{X}
+      \arrow[ru, two heads, "p" {swap}, "\sim" {sloped}]
+    \end{tikzcd}
+    \qquad
+    \begin{tikzcd}
+      X
+      \arrow[rr, "f"]
+      \arrow[rd, tail, "j" {swap}, "\sim" {sloped}]
+      & & Y
+      \\ & \widetilde{Y}
+      \arrow[ru, two heads, "q" swap]
+    \end{tikzcd}
+  \end{displaymath}
 \end{obs}
 
 \end{document}
