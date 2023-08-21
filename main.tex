@@ -94,7 +94,7 @@ Vamos introduzir um pouco de terminologia antes de fazermos alguns comentários 
 Os morfismos de $\mathsf{M}$ que pertencem à classe $\mathcal{W} \cap \mathcal{F}$ são chamados de \textbf{fibrações triviais} ou \textbf{fibrações acíclicas}, enquanto os morfismos que pertencem à classe $\mathcal{W} \cap \mathcal{C}$ são chamados de \textbf{cofibrações triviais} ou \textbf{cofibrações acíclicas}.
 Usando essa terminologia o axioma de fatoração (M5) pode ser enunciado da seguinte forma: todo morfismo em uma categoria modelo pode ser fatorado como uma cofibração seguido de uma fibração trivial, ou como uma cofibração trivial seguido de uma fibração.
 
-\begin{obs}
+\begin{obs}\label{obs:axioma_retracao_explicacao}
   Lembremos que, dados objetos $X$ e $Y$ de uma categoria $\mathsf{C}$ qualquer, dizemos que $X$ é um \textbf{retrato} de $Y$ se existem morfismos $s: X \to Y$ e $r: Y \to X$ tais que $r \circ s = \id_{X}$.
   Comumente nos referimos ao morfismo $s$ por \textbf{seção} e ao morfismo $r$ por \textbf{retração}.
   A condição $r \circ s = \id_{X}$ garante que $s$ seja um monomorfismo.
@@ -301,6 +301,58 @@ Usando essa terminologia o axioma de fatoração (M5) pode ser enunciado da segu
       \arrow[ru, two heads, "q" swap]
     \end{tikzcd}
   \end{displaymath}
+\end{obs}
+
+\begin{obs}[Fatorações funtoriais]
+  Por vezes a forma como o axioma de fatoração (M5) foi enunciado é suficiente, mas em geral é mais conveniente assumirmos a existência de \emph{fatorações funtoriais} em uma categoria modelo, e o objetivo desse comentário é justamente explicar o significado preciso disso.
+
+  Na \cref{obs:axioma_retracao_explicacao} discutimos como toda categoria $\mathsf{C}$ dá origem a uma categoria de setas $\Arr(\mathsf{C})$ cujos objetos são morfismos de $\mathsf{C}$, e cujos morfismos sãos quadrados comutativos ``conectando'' dois morfismos de $\mathsf{C}$.
+  Essa categoria vem naturalmente equipada com um \emph{funtor domínio} $\dom: \Arr(\mathsf{C}) \to \mathsf{C}$ definido da seguinte forma: dado um objeto $X \overset{f}{\to} Y$ em $\Arr(\mathsf{C})$, definimos $\dom(f) \coloneqq X$, e dado um morfismo $(\alpha: X_{1} \to X_{2},\, \beta: Y_{1} \to Y_{2})$ em $\Arr(\mathsf{C})$ entre os objetos $X_{1} \overset{f}{\to} Y_{1}$ e $X_{2} \overset{g}{\to} Y_{2}$ como mostrado abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      X_{1}
+      \arrow[d, "f" swap]
+      \arrow[r, "\alpha"]
+      & X_{2}
+      \arrow[d, "g"]
+      \\ Y_{1}
+      \arrow[r, "\beta" swap]
+      & Y_{2}
+    \end{tikzcd}
+  \end{displaymath}
+  definimos $\dom(\alpha,\beta) \coloneqq \alpha$.
+  Veja que é uma definição razoável, pois $\dom(f) = X_{1}$, e $\dom(g) = X_{2}$, portanto $\dom(\alpha,\beta)$ define um morfismo de $\dom(f)$ para $\dom(g)$ na categoria $\mathsf{C}$.
+  A verificação de que isso define de fato um funtor do tipo $\Arr(\mathsf{C}) \to \mathsf{C}$ segue de um raciocínio direto usando a definição da composição em $\Arr(\mathsf{C})$ via ``colagem de quadrados comutativos adjacentes''.
+  Analogamente, temos também um \emph{funtor codomínio} $\cod: \Arr(\mathsf{C}) \to \mathsf{C}$ que manda um objeto $X \overset{f}{\to} Y$ de $\Arr(\mathsf{C})$ para o objeto $\cod(f) \coloneqq Y$ de $\mathsf{C}$ e que manda um morfismo $(\alpha: X_{1} \to X_{2},\, \beta: Y_{1} \to Y_{2})$ em $\Arr(\mathsf{C})$ como acima para o morfismo $\cod(\alpha,\beta) \coloneqq \beta$ em $\mathsf{C}$.
+
+  Tendo em mãos os funtores domínio e codomínio, podemos definir uma \textbf{fatoração funtorial} em uma categoria $\mathsf{C}$ qualquer como um par de funtores $(\iota: \Arr(\mathsf{C}) \to \mathsf{C},\, \pi: \Arr(\mathsf{C}) \to \mathsf{C})$ satisfazendo as seguintes condições:
+  \begin{enumerate}
+  \item[(i)] $\dom \circ \iota = \dom$;
+    
+  \item[(ii)] $\cod \circ \pi = \cod$;
+    
+  \item[(iii)] $\cod \circ \iota = \dom \circ \pi$;
+    
+  \item[(iv)] $f = \pi(f) \circ \iota(f)$ para todo $f \in \Arr(\mathsf{C})$.
+  \end{enumerate}
+
+  Vamos entender o que cada uma dessas condições significa.
+  Os funtores $\iota$ e $\pi$ nos permitem, dado um morfismo $f$ em $\mathsf{C}$, produzir dois outros morfismos $\iota(f)$ e $\pi(f)$.
+  A condição (i) diz que o domínio de $\iota(f)$ é igual ao de $f$, a condição (ii) diz que o codomínio de $\pi(f)$ ao de $f$, e a condição (iii) diz que o codomínio de $\iota(f)$ é igual ao domínio de $\pi(f)$, de forma que a composição $\pi(f) \circ \iota(f)$ faz sentido e deve ser igual ao morfismo $f$ inicial de acordo com a condição (iv) acima.
+  Assim, se o morfismo $f$ é do tipo $X \to Y$, então $\iota(f)$ e $\pi(f)$ são do tipo $X \to Z$ e $Z \to Y$, respectivamente, para algum objeto $Z \in \mathsf{C}$, e pela condição (iv) esses três morfismos juntos formam o triângulo comutativo mostrado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[rr, "f"]
+      \arrow[rd, "\iota(f)" swap]
+      & & Y
+      \\ & Z
+      \arrow[ru, "\pi(f)" swap]
+    \end{tikzcd}
+  \end{displaymath}
+
+  Por vezes queremos que os morfismos $\iota(f)$ e $\pi(f)$ que aparecem na fatoração de $f$ pertençam a classes específicas de morfismos de $\mathsf{C}$.
+  Nesse sentido, se existem classes $\mathcal{R},\,\mathcal{L} \subseteq \Mor(\mathsf{C})$ para os quais a fatoração funtorial $(\iota,\pi)$ satisfaz as condições adicionais $\iota(f) \in \mathcal{R}$ e $\pi(f) \in \mathcal{L}$ para todo $f \in \Mor(\mathsf{C})$, diremos que o par $(\iota,\pi)$ define uma \textbf{$(\mathcal{R},\mathcal{L})$-fatoração funtorial}.
 \end{obs}
 
 \end{document}
