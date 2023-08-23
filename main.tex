@@ -369,6 +369,224 @@ Inicialmente, definimos a noção de levantamento de forma mais geral.
   \end{displaymath}
 \end{defin}
 
+Tendo a definição acima em mãos, podemos formular uma noção categórica de fatoração geral o suficiente para englobar a situação que aparece no estudo de categorias modelo.
+
+\begin{defin}
+  Um \textbf{sistema de fatoração fraco} em uma categoria $\mathsf{C}$ consiste de um par $(\mathcal{L},\mathcal{R})$, onde $\mathcal{L},\, \mathcal{R} \subseteq \Mor(\mathsf{C})$ são duas classes de morfismos, satisfazendo as seguintes condições:
+  \begin{enumerate}
+  \item[(i)] Todo morfismo $f \in \Mor(\mathsf{C})$ pode ser escrito na forma $f = f_{L} \circ f_{R}$ com $f_{L} \in \mathcal{L}$ e $f_{R} \in \mathcal{R}$;
+    \begin{displaymath}
+      \begin{tikzcd}[column sep=1.25cm]
+        X
+        \arrow[r, "f_{L} \in \mathcal{L}"]
+        \arrow[rr, bend right=20, "f" swap]
+        & Y
+        \arrow[r, "f_{R} \in \mathcal{R}"]
+        & Z
+      \end{tikzcd}
+    \end{displaymath}
+    
+  \item[(ii)] $\mathcal{L}$ consiste precisamente dos morfismos de $\mathsf{C}$ que satisfazem a propriedade de levantamente à esquerda com relação a $\mathcal{R}$;
+    
+  \item[(iii)] $\mathcal{R}$ consiste precisamente dos morfismos de $\mathsf{C}$ que satisfazem a propriedade de levantamento à direita com relação a $\mathcal{L}$.
+  \end{enumerate}
+\end{defin}
+
+Os principais exemplos de sistemas de fatoração fracos nos quais estaremos interessados envolvem as cofibrações e fibrações triviais em uma categoria modelo, embora talves ainda não seja claro como essas classes dão origem a um sistema de fatoração.
+Antes de detalharmos esse exemplo, entretanto, vamos demonstrar algumas propriedades gerais de sistemas de fatoração fracos.
+
+\begin{prop}
+  Suponha que $(\mathcal{L},\mathcal{R})$ seja um sistema de fatoração fraco em uma categoria $\mathsf{C}$.
+  Valem as seguintes propriedades:
+  \begin{enumerate}
+  \item Ambas as classes contêm todos os isomorfismos de $\mathsf{C}$.
+    
+  \item Ambas as classes são fechadas por composição.
+    
+  \item Ambas as classes são fechadas por retratos na categoria de setas $\Arr(\mathsf{C})$.
+    
+  \item $\mathcal{L}$ é fechada pela formação de pushouts, enquanto $\mathcal{R}$ é fechada pela formação de pullbacks.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  1. Suponha que $f: A \to B$ seja um isomorfismo.
+  Sabemos da definição de sistema de fatoração fraco que $\mathcal{L}$ consiste precisamente dos morfismos de $\mathsf{C}$ que satisfazem a propriedade de levantamento à esquerda com relação a $\mathcal{R}$.
+  Considere então um quadrado comutativo como abaixo, onde $g: X \to Y$ é um morfismo pertencente à classe $\mathcal{R}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Sendo $f$ um isomorfismo por hipótese, podemos considerar o morfismo inverso $f^{-1}: B \to A$, e definir então um morfismo $h: B \to X$ por meio da composição $h \coloneqq \alpha \circ f^{-1}$.
+  Note então que por um lado
+  \begin{displaymath}
+    h \circ f
+    = \alpha \circ f^{-1} \circ f
+    = \alpha \circ \id_{A}
+    = \alpha,
+  \end{displaymath}
+  e por outro
+  \begin{displaymath}
+    g \circ h
+    = g \circ \alpha \circ f^{-1}
+    = \beta \circ f \circ f^{-1}
+    = \beta \circ \id_{B}
+    = \beta;
+  \end{displaymath}
+  mostando que $h$ faz comutar o diagrama abaixo, definindo então um levantamento para o quadrado comutativo original.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      \arrow[ru, dashed, "h" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+
+  A demonstração de que $\mathcal{R}$ contém todos os isomorfismos é análoga.
+  Se $g: X \to Y$ é um isomorfismo, considere o quadrado comutativo abaixo onde $f: A \to B$ pertence à classe $\mathcal{L}$.
+  \begin{displaymath}
+     \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Dessa vez definimos um morfismo $h: B \to Y$ pela composição $h \coloneqq g^{-1} \circ \beta$, e notamos que esse morfismo satisfaz a igualdade
+  \begin{displaymath}
+    g \circ h
+    = g \circ g^{-1} \circ \beta
+    = \id_{Y} \circ \beta
+    = \beta,
+  \end{displaymath}
+  e também a igualdade
+  \begin{displaymath}
+    h \circ f
+    = g^{-1} \circ \beta \circ f
+    = g^{-1} \circ g \circ \alpha
+    = \id_{X} \circ \alpha
+    = \alpha;
+  \end{displaymath}
+  portanto $h$ define um levantamento neste caso também.
+
+  \smallskip
+  2. Suponha que $f_{1}: A \to B$ e $f_{2}: B \to C$ sejam dois morfismos pertencentes à classe $\mathcal{L}$.
+  A fim de mostrarmos que sua composição $f_{2} \circ f_{1}: A \to C$ também pertence a $\mathcal{L}$, vamos mostrar que essa composição satisfaz a condição de levantamento à esquerda com relação à $\mathcal{R}$.
+  Considere então um quadrado comutativo como abaixo, onde $g: X \to Y$ pertence à classe $\mathcal{R}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f_{2} \circ f_{1}" swap]
+      & X
+      \arrow[d, "g"]
+      \\ C
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  A partir do quadrado acima podemos obter o quadrado comutativo mostrado abaixo, o qual admite um levantamento $h_{1}: B \to Y$ pois $f_{1} \in \mathcal{L}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f_{1}" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B
+      \arrow[r, "\beta \circ f_{2}" swap]
+      \arrow[ru, dashed, "h_{1}" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Usando o levantamento $h_{1}$ obtemos um terceiro quadrado comutativo como mostrado abaixo, o qual admite um levantamento $h_{2}: C \to X$ pois $f_{2} \in \mathcal{L}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      B
+      \arrow[r, "h_{1}"]
+      \arrow[d, "f_{2}" swap]
+      & X
+      \arrow[d, "g"]
+      \\ C
+      \arrow[r, "\beta" swap]
+      \arrow[ru, dashed, "h_{2}" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Afirmamos que $h_{2}: C \to X$ define também um levantamento para o quadrado comutativo considerado inicialmente.
+  De fato, por um lado a igualade $g \circ h_{2} = \beta$ segue diretamente da comutatividade do último quadrado acima, e por outro temos a sequência de igualdades
+  \begin{displaymath}
+    h_{2} \circ f_{2} \circ f_{1} = h_{1} \circ f_{1} = \alpha;
+  \end{displaymath}
+  portanto $h_{2}$ satisfaz as condições de comutatividades necessárias.
+
+  A demonstração da segunda parte é análoga.
+  Suponha que $g_{1}: X \to Y$ e $g_{2}: Y \to Z$ sejam dois morfismos pertencentes à classe $\mathcal{R}$, e considere o quadrado comutativo abaixo, onde $f: A \to B$ pertence à classe $\mathcal{L}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & X
+      \arrow[d, "g_{2} \circ g_{1}"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      & Z
+    \end{tikzcd}
+  \end{displaymath}
+  Considere então o quadrado comutativo abaixo, o qual admite um levantamento $h_{2}: B \to Y$ pois $g_{2}$ pertence a $\mathcal{R}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "g_{1} \circ \alpha"]
+      \arrow[d, "f" swap]
+      & Y
+      \arrow[d, "g_{2}"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      \arrow[ru, dashed, "h_{2}" description]
+      & Z
+    \end{tikzcd}
+  \end{displaymath}
+  Usando $h_{2}$ consideramos então o quadrado comutativo abaixo, o qual também admite um levantamento $h_{1}: B \to X$ pois $g_{1} \in \mathcal{R}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & X
+      \arrow[d, "g_{1}"]
+      \\ B
+      \arrow[r, "h_{2}" swap]
+      \arrow[ru, dashed, "h_{1}" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  O morfismo $h_{1}$ é precisamente o procurado, já que por um lado a igualdade $h_{1} \circ f = \alpha$ segue diretamente da comutatividade acima, e por outro temos a sequência de igualdades
+  \begin{displaymath}
+    g_{2} \circ g_{1} \circ h_{1} = g_{2} \circ h_{2} = \beta;
+  \end{displaymath}
+  mostrando então que $h_{1}$ define um levantamento para o quadrado comutativo inicial.
+\end{proof}
+
 \end{document}
 
 %%% Local Variables:
