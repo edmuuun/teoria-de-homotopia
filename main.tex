@@ -682,6 +682,87 @@ Antes de detalharmos esse exemplo, entretanto, vamos demonstrar algumas propried
   \begin{displaymath}
     f \circ H = f \circ r_{1} \circ h = r_{2} \circ g \circ h = r_{2} \circ s_{2} \circ \psi = \id_{B} \circ \psi = \psi.
   \end{displaymath}
+
+  \smallskip
+  4. Suponha que $f: X_{1} \to Y_{1}$ pertença a $\mathcal{L}$ e que o quadrado comutativo abaixo seja um pushout em $\mathsf{C}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X_{1}
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & X_{2}
+      \arrow[d, "g"]
+      \\ Y_{1}
+      \arrow[r, "\beta" swap]
+      & Y_{2}
+    \end{tikzcd}
+  \end{displaymath}
+  Nosso objetivo é mostrar que então $g$ também pertence a $\mathcal{L}$, e com esse intuito consideramos o problema de levantamento abaixo, onde $p: P \to Q$ é um morfismo qualquer na classe $\mathcal{R}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X_{2}
+      \arrow[r, "\varphi"]
+      \arrow[d, "g" swap]
+      & P
+      \arrow[d, "p"]
+      \\ Y_{2}
+      \arrow[r, "\psi" swap]
+      & Q
+    \end{tikzcd}
+  \end{displaymath}
+  Note primeiro que o quadrado comutativo abaixo admite um levantamento $h: Y_{1} \to P$ pois $f \in \mathcal{L}$ por hipótese.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X_{1}
+      \arrow[r, "\varphi \circ \alpha"]
+      \arrow[d, "f" swap]
+      & P
+      \arrow[d, "p"]
+      \\ Y_{1}
+      \arrow[r, "\psi \circ \beta" swap]
+      \arrow[ru, dashed, "h" description]
+      & Q
+    \end{tikzcd}
+  \end{displaymath}
+  A igualdade $h \circ f = \varphi \circ \alpha$ nos permite então usar a hipótese de que temos um pushout para obtermos um morfismo $H: Y_{2} \to P$ que faz comutar todo o diagrama abaixo.
+  \begin{displaymath}
+     \begin{tikzcd}
+      X_{1}
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & X_{2}
+      \arrow[d, "g"]
+      \arrow[rdd, bend left=30, "\varphi"]
+      \\ Y_{1}
+      \arrow[r, "\beta" swap]
+      \arrow[rrd, bend right=30, "h" swap]
+      & Y_{2}
+      \arrow[rd, dashed, "H" description]
+      \\ & & P
+    \end{tikzcd}
+  \end{displaymath}
+  Afirmamos que o morfismo $H$ obtido dessa maneira é o levantamento procurado.
+  Note primeiro que a igualdade $H \circ g = \varphi$ segue imediatamente da comutatividade acima.
+  Já a igualdade $p \circ H = \psi$ requer um pouco mais de trabalho.
+  Repare com carinho que estes dois morfismos fazem comutar o diagrama abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      X_{1}
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & X_{2}
+      \arrow[d, "g"]
+      \arrow[rdd, bend left=30, "p \circ \varphi"]
+      \\ Y_{1}
+      \arrow[r, "\beta" swap]
+      \arrow[rrd, bend right=30, "\psi \circ \beta" swap]
+      & Y_{2}
+      \arrow[rd, shift left=1.2, "\psi"]
+      \arrow[rd, shift right=1.2, "p \circ H" swap]
+      \\ & & Q
+    \end{tikzcd}
+  \end{displaymath}
+  mas como o quadrado que aparece neste diagrama é um pushout, sua propriedade universal garante que existe um único morfismo do tipo $Y_{2} \to Q$ que faça tudo comutar, portanto deve valer a igualdade $p \circ H = \psi$.
 \end{proof}
 
 \end{document}
