@@ -585,6 +585,103 @@ Antes de detalharmos esse exemplo, entretanto, vamos demonstrar algumas propried
     g_{2} \circ g_{1} \circ h_{1} = g_{2} \circ h_{2} = \beta;
   \end{displaymath}
   mostrando então que $h_{1}$ define um levantamento para o quadrado comutativo inicial.
+
+  \smallskip
+  3. Suponha que o morfismo $f: A \to B$ seja um retrato do morfismo $g: X \to Y$ o qual pertence à classe $\mathcal{L}$.
+  Temos então por definição o diagrama comutativo abaixo
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "s_{1}"]
+      \arrow[d, "f" swap]
+      \arrow[rr, bend left=45, "\id_{A}"]
+      & X
+      \arrow[r, "r_{1}"]
+      \arrow[d, "g"]
+      & A
+      \arrow[d, "f"]
+      \\ B
+      \arrow[r, "s_{2}" swap]
+      \arrow[rr, bend right=45, "\id_{B}" swap]
+      & Y
+      \arrow[r, "r_{2}" swap]
+      & B
+    \end{tikzcd}
+  \end{displaymath}
+  A fim de mostrarmos que $f$ também pertence a $\mathcal{L}$, considere o quadrado comutativo abaixo onde $p: P \to Q$ é um morfismo qualquer da classe $\mathcal{R}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & P
+      \arrow[d, "p"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      & Q
+    \end{tikzcd}
+  \end{displaymath}
+  A partir deste quadrado e do diagrama anterior produzimos o quadrado comutativo, o qual admite um levantamento $h: Y \to P$ já que $g \in \mathcal{L}$ por hipótese.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[r, "\alpha \circ r_{1}"]
+      \arrow[d, "g" swap]
+      & P
+      \arrow[d, "p"]
+      \\ Y
+      \arrow[r, "\beta \circ r_{2}" swap]
+      \arrow[ru, dashed, "h" description]
+      & Q
+    \end{tikzcd}
+  \end{displaymath}
+  Afirmamos então que o morfismo $H: B \to P$ dado pela composição $H \coloneqq h \circ s_{2}$ define um levantamento para o quadrado inicial.
+  De fato, por um lado temos
+  \begin{displaymath}
+    H \circ f = h \circ s_{2} \circ f = h \circ g \circ s_{1} = \alpha \circ r_{1} \circ s_{1} = \alpha \circ \id_{A} = \alpha,
+  \end{displaymath}
+  e por outro temos também
+  \begin{displaymath}
+    p \circ H = p \circ h \circ s_{2} = \beta \circ r_{2} \circ s_{2} = \beta \circ \id_{B} = \beta.
+  \end{displaymath}
+
+  Supondo ainda que $f$ seja um retrato de $g$, considere agora o caso em que $g$ pertence à classe $\mathcal{R}$.
+  A fim de mostrarmos que $f$ também pertence a $\mathcal{R}$, considere o quadrado comutativo abaixo onde $j: M \to N$ é um morfismo qualquer da classe $\mathcal{L}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      M
+      \arrow[r, "\varphi"]
+      \arrow[d, "j" swap]
+      & A
+      \arrow[d, "f"]
+      \\ N
+      \arrow[r, "\psi" swap]
+      & B
+    \end{tikzcd}
+  \end{displaymath}
+  A partir disso obtemos o quadrado comutativo abaixo, o qual admite um levantamento $h: N \to X$ pois $g$ pertence à classe $\mathcal{R}$ por hipótese.
+  \begin{displaymath}
+    \begin{tikzcd}
+      M
+      \arrow[r, "s_{1} \circ \varphi"]
+      \arrow[d, "j" swap]
+      & X
+      \arrow[d, "g"]
+      \\ N
+      \arrow[r, "s_{2} \circ \psi" swap]
+      \arrow[ru, dashed, "h" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Afirmamos então que $H: N \to A$ definido por $H \coloneqq r_{1} \circ h$ é o levantamento procurado para o quadrado considerado inicialmente.
+  De fato, por um lado temos as igualdades
+  \begin{displaymath}
+    H \circ j = r_{1} \circ h \circ j = r_{1} \circ s_{1} \circ \varphi = \id_{A} \circ \varphi = \varphi,
+  \end{displaymath}
+  e por outro temos também as igualdades
+  \begin{displaymath}
+    f \circ H = f \circ r_{1} \circ h = r_{2} \circ g \circ h = r_{2} \circ s_{2} \circ \psi = \id_{B} \circ \psi = \psi.
+  \end{displaymath}
 \end{proof}
 
 \end{document}
