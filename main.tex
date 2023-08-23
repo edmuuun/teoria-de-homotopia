@@ -409,6 +409,8 @@ Antes de detalharmos esse exemplo, entretanto, vamos demonstrar algumas propried
   \end{enumerate}
 \end{prop}
 
+%TODO: Eu provavelmente deveria numerar alguns diagramas nessa demonstração e então referenciá-los nas sequências de igualdades a fim de tornar a demonstração mais fácil de acompanhar.
+
 \begin{proof}
   1. Suponha que $f: A \to B$ seja um isomorfismo.
   Sabemos da definição de sistema de fatoração fraco que $\mathcal{L}$ consiste precisamente dos morfismos de $\mathsf{C}$ que satisfazem a propriedade de levantamento à esquerda com relação a $\mathcal{R}$.
@@ -763,6 +765,89 @@ Antes de detalharmos esse exemplo, entretanto, vamos demonstrar algumas propried
     \end{tikzcd}
   \end{displaymath}
   mas como o quadrado que aparece neste diagrama é um pushout, sua propriedade universal garante que existe um único morfismo do tipo $Y_{2} \to Q$ que faça tudo comutar, portanto deve valer a igualdade $p \circ H = \psi$.
+
+  A demonstração de que morfismos em $\mathcal{R}$ são preservados por pullbacks é novamente análoga.
+  Suponha agora que o quadrado comutativo abaixo seja um pullback e que o morfismo $g: X_{2} \to Y_{2}$ seja pertence a $\mathcal{R}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X_{1}
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & X_{2}
+      \arrow[d, "g"]
+      \\ Y_{1}
+      \arrow[r, "\beta" swap]
+      & Y_{2}
+    \end{tikzcd}
+  \end{displaymath}
+  A fim de mostrarmos que $f$ também pertence a $\mathcal{R}$, consideramos o problema de levantamento abaixo, onde $j: M \to N$ é um morfismo qualquer pertencente à classe $\mathcal{L}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      M
+      \arrow[r, "\varphi"]
+      \arrow[d, "j" swap]
+      & X_{1}
+      \arrow[d, "f"]
+      \\ N
+      \arrow[r, "\psi" swap]
+      & Y_{1}
+    \end{tikzcd}
+  \end{displaymath}
+  Colando estes dois quadrados obtemos o quadrado comutativo abaixo, o qual admite um levantamento $h: N \to X_{2}$ pois $g \in \mathcal{R}$ por hipótese.
+  \begin{displaymath}
+    \begin{tikzcd}
+      M
+      \arrow[r, "\alpha \circ \varphi"]
+      \arrow[d, "j" swap]
+      & X_{2}
+      \arrow[d, "g"]
+      \\ N
+      \arrow[r, "\beta \circ \psi" swap]
+      \arrow[ru, dashed, "h" description]
+      & Y_{2}
+    \end{tikzcd}
+  \end{displaymath}
+  A estratégia para obtermos um morfismo do tipo $N \to X_{1}$ é usarmos a propriedade universal do pullback.
+  A igualdade $h \circ j = \alpha \circ \varphi$ implicada pela comutatividade acima diz que a ``camada externa'' do diagrama abaixo comuta, portanto segue da propriedade universal do pullback que existe um único morfismo do tipo $H: N \to X_{1}$ fazendo comutar o diagrama todo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      N
+      \arrow[rd, dashed, "H" description]
+      \arrow[rdd, bend right=30, "\psi" swap]
+      \arrow[rrd, bend left=30, "h"]
+      \\ & X_{1}
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & X_{2}
+      \arrow[d, "g"]
+      \\ & Y_{1}
+      \arrow[r, "\beta" swap]
+      & Y_{2}
+    \end{tikzcd}
+  \end{displaymath}
+
+  Resta mostrarmos que $H$ é o levantamento procurado para o quadrado comutativo inicial.
+  A igualdade $f \circ H = \psi$ segue imediatamente da comutatividade acima.
+  Analogamente ao que ocorreu no caso do pushout, a fim de mostrarmos que a igualdade $H \circ j = \varphi$ também vale, precisamos utilizar a unicidade na propriedade universal do pullback.
+  Ambos os morfismos $H \circ j$ e $\varphi$ fazem comutar o diagrama abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      M
+      \arrow[rd, shift left=1.2, "H \circ j"]
+      \arrow[rd, shift right=1.2, "\varphi" swap]
+      \arrow[rrd, bend left=30, "\alpha \circ \varphi"]
+      \arrow[rdd, bend right=30, "f \circ \varphi" swap]
+      \\ & X_{1}
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & X_{2}
+      \arrow[d, "g"]
+      \\ & Y_{1}
+      \arrow[r, "\beta" swap]
+      & Y_{2}
+    \end{tikzcd}
+  \end{displaymath}
+  mas a propriedade universal do pullback garante a existência de um único morfismo do tipo $M \to X_{1}$ fazendo comutar o diagrama acima, de onde podemos concluímos enfim que a igualdade $H \circ j = \varphi$ deve ser verdadeira.
 \end{proof}
 
 \end{document}
