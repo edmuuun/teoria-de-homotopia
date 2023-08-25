@@ -395,7 +395,7 @@ Tendo a definição acima em mãos, podemos formular uma noção categórica de 
 Os principais exemplos de sistemas de fatoração fracos nos quais estaremos interessados envolvem as cofibrações e fibrações triviais em uma categoria modelo, embora talves ainda não seja claro como essas classes dão origem a um sistema de fatoração.
 Antes de detalharmos esse exemplo, entretanto, vamos demonstrar algumas propriedades gerais de sistemas de fatoração fracos.
 
-\begin{prop}
+\begin{prop}\label{prop:propriedades_fatoracao_fraca}
   Suponha que $(\mathcal{L},\mathcal{R})$ seja um sistema de fatoração fraco em uma categoria $\mathsf{C}$.
   Valem as seguintes propriedades:
   \begin{enumerate}
@@ -406,6 +406,8 @@ Antes de detalharmos esse exemplo, entretanto, vamos demonstrar algumas propried
   \item Ambas as classes são fechadas por retratos na categoria de setas $\Arr(\mathsf{C})$.
     
   \item $\mathcal{L}$ é fechada pela formação de pushouts, enquanto $\mathcal{R}$ é fechada pela formação de pullbacks.
+    
+  \item $\mathcal{L}$ é fechada por coprodutos, enquanto $\mathcal{R}$ é fechada por produtos.
   \end{enumerate}
 \end{prop}
 
@@ -848,6 +850,105 @@ Antes de detalharmos esse exemplo, entretanto, vamos demonstrar algumas propried
     \end{tikzcd}
   \end{displaymath}
   mas a propriedade universal do pullback garante a existência de um único morfismo do tipo $M \to X_{1}$ fazendo comutar o diagrama acima, de onde podemos concluímos enfim que a igualdade $H \circ j = \varphi$ deve ser verdadeira.
+
+  \smallskip
+  5. Suponha que $f: A_{1} \to B_{1}$ e $g: A_{2} \to B_{2}$ sejam dois morfismos que pertençam a $\mathcal{L}$.
+  A fim de mostrarmos que seu coproduto $f \sqcup g: A_{1} \sqcup A_{2} \to B_{1} \sqcup B_{2}$ também pertence a $\mathcal{L}$, basta mostrarmos que o problema de levantamento abaixo admite uma solução, onde $p: X \to Y$ é um morfismo qualquer na classe $\mathcal{R}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A_{1} \sqcup A_{2}
+      \arrow[r, "\alpha"]
+      \arrow[d, "f \sqcup g" swap]
+      & X
+      \arrow[d, "p"]
+      \\ B_{1} \sqcup B_{2}
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+
+  Se $i_{1}: A_{1} \to A_{1} \sqcup A_{2}$, $i_{2}: A_{2} \to A_{1} \sqcup A_{2}$, $j_{1}: B_{1} \to B_{1} \sqcup B_{2}$ e $j_{2}: B_{2} \to B_{1} \sqcup B_{2}$ denotam as várias inclusões canônicas nos respectivos coprodutos, lembre-se que $f \sqcup g$ é por definição o único mapa do tipo $A_{1} \sqcup A_{2} \to B_{1} \sqcup B_{2}$ que faz comutar o diagrama abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}[column sep=1.5cm]
+      A_{1}
+      \arrow[r, "f"]
+      \arrow[d, "i_{1}" swap]
+      & B_{1}
+      \arrow[d, "j_{1}"]
+      \\ A_{1} \sqcup A_{2}
+      \arrow[r, dashed, "f \sqcup g" description]
+      & B_{1} \sqcup B_{2}
+      \\ A_{2}
+      \arrow[u, "i_{2}"]
+      \arrow[r, "g" swap]
+      & B_{2}
+      \arrow[u, "j_{2}" swap]
+    \end{tikzcd}
+  \end{displaymath}
+
+  A partir do quadrado comutativo inicial obtemos o quadrado comutativo abaixo o qual admite um levantamento pois $f \in \mathcal{L}$ por hipótese.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A_{1}
+      \arrow[r, "\alpha \circ i_{1}"]
+      \arrow[d, "f" swap]
+      & X
+      \arrow[d, "p"]
+      \\ B_{1}
+      \arrow[r, "\beta \circ j_{1}" swap]
+      \arrow[ru, dashed, "h_{1}" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Veja que o quadrado é realmente comutativo pois
+  \begin{displaymath}
+    \beta \circ j_{1} \circ f = \beta \circ (f \sqcup g) \circ i_{1} = p \circ \alpha \circ i_{1}.
+  \end{displaymath}
+  Analogamento, temos também o quadrado comutativo abaixo que admite um levantamento pelo fato que $g \in \mathcal{L}$ também.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A_{2}
+      \arrow[r, "\alpha \circ i_{2}"]
+      \arrow[d, "g" swap]
+      & X
+      \arrow[d, "p"]
+      \\ B_{2}
+      \arrow[r, "\beta \circ j_{2}" swap]
+      \arrow[ru, dashed, "h_{2}" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+
+  Combinando estes dois levantamentos obtemos por meio da propriedade universal do coproduto um morfismo $\langle h_{1},h_{2} \rangle: B_{1} \sqcup B_{2} \to X$ o qual afirmamos ser o levantamento procurado para o quadrado original.
+  Por um lado, a fim de mostrarmos a igualdade
+  \begin{displaymath}
+    p \circ \langle h_{1},h_{2} \rangle = \beta,
+  \end{displaymath}
+  pela unicidade na propriedade universal do coproduto basta mostrarmos as duas igualdades abaixo,
+  \begin{displaymath}
+    \begin{cases}
+      p \circ \langle h_{1}, h_{2} \rangle \circ j_{1} = \beta \circ j_{1}, \\
+      p \circ \langle h_{1}, h_{2} \rangle \circ j_{2} = \beta \circ j_{2};
+    \end{cases}
+  \end{displaymath}
+  mas pelas propriedades dos morfismos envolvidos vemos que
+  \begin{displaymath}
+    p \circ \langle h_{1}, h_{2} \rangle \circ j_{1} =  p \circ h_{1} = \beta \circ j_{1},
+  \end{displaymath}
+  sendo que a segunda igualdade segue de uma sequência análoga de igualdades.
+
+  Já a igualdade $\langle h_{1}, h_{2} \rangle \circ (f \sqcup g) = \alpha$ seguirá também da unicidade na propriedade do coproduto se mostrarmos as igualdades
+  \begin{displaymath}
+    \begin{cases}
+      \langle h_{1}, h_{2} \rangle \circ (f \sqcup g) \circ i_{1} = \alpha \circ i_{1}, \\
+      \langle h_{1}, h_{2} \rangle \circ (f \sqcup g) \circ i_{2} = \alpha \circ i_{2}.
+    \end{cases}
+  \end{displaymath}
+  No primeiro caso basta vermos que
+  \begin{displaymath}
+    \langle h_{1}, h_{2} \rangle \circ (f \sqcup g) \circ i_{1} = \langle h_{1}, h_{2} \rangle \circ j_{1} \circ f = h_{1} \circ f = \alpha \circ i_{1},
+  \end{displaymath}
+  enquanto no segundo caso temos uma sequência análoga de igualdades.  
 \end{proof}
 
 Agora mostramos como podemos usar a estrutura de uma categoria modelo para construirmos enfim exemplos um pouco mais concretos de sistemas de fatoração fracos.
