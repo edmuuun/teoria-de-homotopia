@@ -948,7 +948,88 @@ Antes de detalharmos esse exemplo, entretanto, vamos demonstrar algumas propried
   \begin{displaymath}
     \langle h_{1}, h_{2} \rangle \circ (f \sqcup g) \circ i_{1} = \langle h_{1}, h_{2} \rangle \circ j_{1} \circ f = h_{1} \circ f = \alpha \circ i_{1},
   \end{displaymath}
-  enquanto no segundo caso temos uma sequência análoga de igualdades.  
+  enquanto no segundo caso temos uma sequência análoga de igualdades.
+
+  A demonstração para o produto de morfismos na classe $\mathcal{R}$ é dual.
+  Suponha que $f: X_{1} \to Y_{1}$ e $g: X_{2} \to Y_{2}$ sejam dois morfismos da classe $\mathcal{R}$.
+  A fim de mostrarmos que o produto $f \times g: X_{1} \times X_{2} \to Y_{1} \times Y_{2}$ também pertence a $\mathcal{R}$, consideramos um morfismo $i: A \to B$ qualquer na classe $\mathcal{L}$, e procuramos uma solução para o problema de levantamento mostrado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "i" swap]
+      & X_{1} \times X_{2}
+      \arrow[d, "f \times g"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      & Y_{1} \times Y_{2}
+    \end{tikzcd}
+  \end{displaymath}
+  Se $p_{1}: X_{1} \times X_{2} \to X_{1}$, $p_{2}: X_{1} \times X_{2} \to X_{2}$, $q_{1}: Y_{1} \times Y_{2} \to Y_{1}$ e $q_{2}: Y_{1} \times Y_{2} \to Y_{2}$ denotam as projeções canônicas dos respectivos produtos, lembre-se que o morfismo $f \times g$ é por definição o único morfismo do tipo $X_{1} \times X_{2} \to Y_{1} \times Y_{2}$ que faz comutar o diagrama abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}[column sep=1.5cm]
+      X_{1}
+      \arrow[r, "f"]
+      & Y_{1}
+      \\ X_{1} \times X_{2}
+      \arrow[u, "p_{1}"]
+      \arrow[r, dashed, "f \times g" description]
+      \arrow[d, "p_{2}" swap]
+      & Y_{1} \times Y_{2}
+      \arrow[u, "q_{1}" swap]
+      \arrow[d, "q_{2}"]
+      \\ Y_{1}
+      \arrow[r, "g" swap]
+      & Y_{2}
+    \end{tikzcd}
+  \end{displaymath}
+
+  Usando o quadrado comutativo inicial obtemos os dois problemas de levantamento indicados abaixo, os quais possem soluções $h_{1}$ e $h_{2}$ pois $f$ e $g$ pertencem à classe $\mathcal{R}$ por hipótese.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "p_{1} \circ \alpha"]
+      \arrow[d, "i" swap]
+      & X_{1}
+      \arrow[d, "f"]
+      \\ B
+      \arrow[r, "q_{1} \circ \beta" swap]
+      \arrow[ru, dashed, "h_{1}" description]
+      & Y_{1}
+    \end{tikzcd}
+    \qquad
+    \begin{tikzcd}
+      A
+      \arrow[r, "p_{2} \circ \alpha"]
+      \arrow[d, "i" swap]
+      & X_{2}
+      \arrow[d, "g"]
+      \\ B
+      \arrow[r, "q_{2} \circ \beta" swap]
+      \arrow[ru, dashed, "h_{2}" description]
+      & Y_{2}
+    \end{tikzcd}
+  \end{displaymath}
+
+  Os morfismos $h_{1}$ e $h_{2}$ combinados induzem o morfismo $(h_{1},h_{2}): B \to X_{1} \times X_{2}$, o qual afirmamos ser uma solução para o problema de levantamento considerado inicialmente.
+  De fato, temos as igualdades
+  \begin{displaymath}
+    p_{1} \circ (h_{1},h_{2}) \circ i = h_{1} \circ i = p_{1} \circ \alpha,
+  \end{displaymath}
+  e também as igualdades
+  \begin{displaymath}
+    p_{2} \circ (h_{1},h_{2}) \circ i = h_{2} \circ i = p_{2} \circ \alpha,
+  \end{displaymath}
+  e juntas essas duas implicam a igualdade $(h_{1},h_{2}) \circ i = \alpha$ desejada.
+  Por fim, usando a comutatividade do diagrama que caracteriza o produto $q_{1} \times q_{2}$ vemos que também valem as igualdades
+  \begin{displaymath}
+    q_{1} \circ (f \times g) \circ (h_{1},h_{2}) = f \circ p_{1} \circ (h_{1},h_{2}) = f \circ h_{1} = q_{1} \circ \beta
+  \end{displaymath}
+  e as igualdades
+  \begin{displaymath}
+    q_{2} \circ (f \times g) \circ (h_{1},h_{2}) = g \circ p_{2} \circ (h_{1},h_{2}) = g \circ h_{2} = q_{2} \circ \beta;
+  \end{displaymath}
+  e juntas essas igualdades implicam $(f \times g) \circ (h_{1},h_{2}) = \beta$ como desejado.
 \end{proof}
 
 Agora mostramos como podemos usar a estrutura de uma categoria modelo para construirmos enfim exemplos um pouco mais concretos de sistemas de fatoração fracos.
