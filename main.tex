@@ -1034,7 +1034,7 @@ Antes de detalharmos esse exemplo, entretanto, vamos demonstrar algumas propried
 
 Agora mostramos como podemos usar a estrutura de uma categoria modelo para construirmos enfim exemplos um pouco mais concretos de sistemas de fatoração fracos.
 
-\begin{prop}
+\begin{prop}\label{prop:categoria_modelo_induz_sistemas_de_fatoracao}
   Suponha que $(\mathsf{M},\mathcal{W},\mathcal{C},\mathcal{F})$ seja uma categoria modelo.
   As seguintes afirmações são verdadeiras:
   \begin{enumerate}
@@ -1240,6 +1240,45 @@ Agora mostramos como podemos usar a estrutura de uma categoria modelo para const
       & Y
     \end{tikzcd} \qedhere
   \end{displaymath}
+\end{proof}
+
+\begin{obs}
+  É comum dizer que os resultados da \cref{prop:categoria_modelo_induz_sistemas_de_fatoracao} mostram que a estrutura de uma categoria modelo é \emph{sobredeterminada}, pois o conhecimento de duas das três classes de morfismos $\mathcal{W}$, $\mathcal{C}$ e $\mathcal{F}$ nos permite determinar totalmente a terceira.
+  De fato, se conhecemos as classes $\mathcal{W}$ e $\mathcal{C}$, então conhecemos também a classe das cofibrações triviais $\mathcal{C} \cap \mathcal{W}$, e da proposição anterior sabemos que $\mathcal{F}$ pode ser descrita então como a classe dos morfismos que satisfazem a propriedade de levantamento à direita cmo relação a $\mathcal{C} \cap \mathcal{W}$.
+  Analogamente, se conhecemos as classes $\mathcal{W}$ e $\mathcal{F}$, então conhecemos a classe das fibrações triviais $\mathcal{F} \cap \mathcal{W}$, e pelo resultado anterior recuperamos $\mathcal{C}$ como a classe dos morfismos que satisfazem a propriedade de levantamento à esquerda com relação a $\mathcal{F} \cap \mathcal{W}$.
+  Fica a pergunta se as equivalências fracas podem ser recuperadas a partir das fibrações e cofibrações.
+  A resposta é que em certo sentido sim, como mostra o próximo resultado, embora mais precisamente tenhamos que conhecer as fibrações e cofibrações triviais.
+
+  Essa propriedade de sobredeterminação é por vezes utilizada para \emph{definirmos} uma estrutura modelo completa partindo apenas de alguns componentes de sua estrutura.
+  Um exemplo onde esse fenômenos ocorre, e que abordaremos em detalhes mais tarde, é no estudo das categorias modelo \emph{cofibrantemente geradas}, onde uma estrutura modelo é gerada a partir de uma coleção de morfismos que queremos considerar como cofibrações triviais.
+  Um exemplo concreto é a estrutura modelo usual na categoria $\mathsf{Top}$, onde a classe de cofibrações triviais inicial usada para gerar o resto das estruturas é o dos mapas $D^{n} \hookrightarrow D^{n} \times I$ incluindo o disco $D^{n}$ na base inferior do cilindro associado.
+\end{obs}
+
+Aplicando as propriedades gerais demonstradas na \cref{prop:propriedades_fatoracao_fraca} aos sistemas explícitos construídos na \cref{prop:categoria_modelo_induz_sistemas_de_fatoracao} obtemos as propriedades abaixo a respeito dos vários tipos de morfismos em uma categoria modelo.
+
+\begin{corol}\label{corol:propriedades_de_preservacao_categoria_modelo}
+  Em uma categoria modelo qualquer valem as seguintes propriedades:
+  \begin{enumerate}
+  \item Um isomorfismo é simultaneamento uma cofibração trivial e uma fibração trivial.
+    
+  \item Cofibrações, cofibrações triviais, fibrações e fibrações triviais são todas preservadas por composições.
+    
+  \item Cofibrações e cofibrações triviais são preservadas por pushouts, enquanto fibrações e fibrações triviais são preservadas por pullbacks.
+    
+  \item Cofibrações e cofibrações triviais são preservadas por coprodutos, enquanto fibrações e fibrações triviais são preservadas por produtos.
+  \end{enumerate}
+\end{corol}
+
+Por fim, temos o resultado simples abaixo mostrando como ``detectar'' equivalências fracas usando outras classes de morfismos.
+
+\begin{lema}\label{lema:detectando_equivalencia_fraca}
+  Em uma categoria modelo, um morfismo $f: X \to Y$ é uma equivalência fraca se, e somente se, ele pode ser fatorado como uma cofibração trivial seguida de uma fibração trivial.
+\end{lema}
+
+\begin{proof}
+  Uma das implicações é simples: se $f$ pode ser fatorado na forma descrita no enunciado, então $f$ é em particular a composição de duas equivalências fracas e, portanto, uma equivalência fraca também.
+  Reciprocamente, se $f$ é uma equivalência fraca, pelo axioma de fatoração podemos encontrar uma cofibração trivial $i: X \overset{\sim}{\cofib} \widehat{X}$ e uma fibração $p: \widehat{X} \fib Y$ tais que $f = p \circ i$.
+  Ora, como $f$ e $i$ são equivalências fracas, segue do axioma 2-de-3 que $p$ também o é, ou seja, $p$ é uma fibração trivial, e a fatoração $f = p \circ i$ exibe $f$ como uma cofibração trivial seguida de uma fibração trivial.
 \end{proof}
 
 \end{document}
