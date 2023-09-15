@@ -1602,7 +1602,70 @@ Em todos os exemplos úteis e relevantes de categorias modelo, a verificação d
   expressa $f$ como uma cofibração seguida de uma fibração trivial.
 \end{exem}
 
+\section{Objetos fibrantes e cofibrantes}
 
+Nessa seção introduzimos o conceito de objetos cofibrantes e fibrantes.
+Estas duas classes de objetos em uma categoria modelo serão de extrema importância em diferentes pontos da teoria, como na construção de um modelo mais simples para a localização de uma categoria modelo e na descrição de uma noção puramente categórica de homotopia.
+
+\begin{defin}
+  Sejam $\mathsf{M}$ uma categoria modelo, $\varnothing \in \mathsf{M}$ um objeto inicial qualquer, e $*$ um objeto final qualquer.\footnote{O fato de $\mathsf{M}$ ser cocompleta e completa garante a existência de objetos inicial e final.} Um objeto $X \in \mathsf{M}$ é dito \textbf{cofibrante} se o morfismo único $!_{X}: \varnothing \to X$ é uma cofibração, e é dito \textbf{fibrante} se o morfismo único $!_{X}: X \to *$ é uma fibração.
+\end{defin}
+
+\begin{obs}\label{obs:cofibrante_fibrante_independe_objeto_inicial_final}
+  Veja que a noção de objeto cofibrante não depende do objeto inicial $\varnothing \in \mathsf{M}$ fixado acima.
+  De fato, se $\varnothing$ e $\varnothing'$ são dois objetos iniciais, $X$ é um objeto qualquer, podemos considerar o diagrama comutativo abaixo onde todos os morfismos são aqueles dados pela propriedade que caracteriza um objeto inicial.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \varnothing
+      \arrow[rd, "!_{X}"]
+      \arrow[dd, bend right=15, "!_{\varnothing'}" swap]
+      \\ & X
+      \\ \varnothing'
+      \arrow[ru, "!'_{X}" swap]
+      \arrow[uu, bend right=15, "!'_{\varnothing}" swap]
+    \end{tikzcd}
+  \end{displaymath}
+  Como objetos iniciais possuem apenas a identidade como automorfismo, $!_{\varnothing'}$ e $!'_{\varnothing}$ são isomorfismos, sendo em particular cofibrações.
+  Segue disso que $!_{X}: \varnothing \to X$ é uma cofibração se, e somente se, $!'_{X}: \varnothing' \to X$ também o é.
+
+  É claro que um raciocínio dual mostra que a noção de um objeto ser fibrante também independe do objeto final considerado na categoria modelo.
+\end{obs}
+
+Vamos mostrar agora algumas propriedade simples a respeito de objetos cofibrantes e fibrantes.
+
+\begin{lema}
+  Em uma categoria modelo $\mathsf{M}$ qualquer valem as seguintes propriedades:
+  \begin{enumerate}
+  \item[(a)] Se $X$ é um objeto cofibrante, e $i: X \cofib Y$ é uma cofibração, então $Y$ também é cofibrante.
+    
+  \item[(b)] Se $Y$ é um objeto fibrante, e $p: X \fib Y$ é uma fibração, então $X$ também é fibrante.
+  \end{enumerate}
+\end{lema}
+
+\begin{proof}
+  (a) Queremos mostrar que o morfismo $!_{Y}: \varnothing \to Y$ é uma cofibração.
+  Ora, como esse morfismo é \emph{único}, certamente vale a igualdade $!_{Y} = f \circ !_{X}$, e como $!_{X}: \varnothing \to X$ é por hipótese uma cofibração, $!_{Y}$ é a composição de duas cofibrações e, portanto uma cofibração também.
+
+  \smallskip
+  (b) Queremos mostrar que o morfismo $!_{X}: X \to *$ é uma fibração.
+  Ora, como esse morfismo é \emph{único}, certamente vale a igualdade $!_{X} = !_{Y} \circ p$, e como $!_{Y}: Y \to *$ é por hipótese uma fibração, vemos que $!_{X}$ é a composição de duas fibrações e, portanto, uma fibração também.
+\end{proof}
+
+Veremos mais adiante que muitas construções categóricas usuais só se comportam de forma homotopicamente adequada quando aplicadas a objetos que são fibrantes ou cofibrantes.
+Assim, para que possamos realizar tais construções com objetos quaisquer, precisamos antes \emph{substituí-los} por outros que sejam fibrantes ou cofibrantes, uma noção que tornamos precisa na definição abaixo.
+
+\begin{defin}
+  Sejam $\mathsf{M}$ uma categoria modelo e $X \in \mathsf{M}$ um objeto qualquer.
+  \begin{enumerate}
+  \item Uma \textbf{substituição cofibrante} para $X$ é um par $(X_{c},\varphi)$, onde $X_{c}$ é um objeto cofibrante, e $\varphi: X_{c} \overset{\sim}{\to} X$ é uma equivalência fraca.
+    Quando $\varphi$ é também uma fibração, ou seja, quando $\varphi$ é uma fibração trivial, dizemos que o par $(X_{c},\varphi)$ define uma substituição cofibrante forte.
+    
+  \item Uma \textbf{substituição fibrante} para $X$ é um par $(X_{f},\psi)$, onde $X_{f}$ é um objeto fibrante, e $\psi: X \overset{\sim}{\to} X_{f}$ é uma equivalência fraca.
+    Quando $\psi$ é também uma cofibração, ou seja, quando $\psi$ é uma cofibração trivial, dizemos que o par $(X_{f},\psi)$ define uma substituição fibrante \textbf{forte}.
+  \end{enumerate}
+\end{defin}
+
+Naturalmente somos levados a nos indagar quanto à existência e à unicidade de substituições cofibrantes e fibrantes, e são essas duas questões que iremos investigar agora.
 
 \end{document}
 
