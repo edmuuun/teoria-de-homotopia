@@ -1608,7 +1608,8 @@ Nessa seção introduzimos o conceito de objetos cofibrantes e fibrantes.
 Estas duas classes de objetos em uma categoria modelo serão de extrema importância em diferentes pontos da teoria, como na construção de um modelo mais simples para a localização de uma categoria modelo e na descrição de uma noção puramente categórica de homotopia.
 
 \begin{defin}
-  Sejam $\mathsf{M}$ uma categoria modelo, $\varnothing \in \mathsf{M}$ um objeto inicial qualquer, e $*$ um objeto final qualquer.\footnote{O fato de $\mathsf{M}$ ser cocompleta e completa garante a existência de objetos inicial e final.} Um objeto $X \in \mathsf{M}$ é dito \textbf{cofibrante} se o morfismo único $!_{X}: \varnothing \to X$ é uma cofibração, e é dito \textbf{fibrante} se o morfismo único $!_{X}: X \to *$ é uma fibração.
+  Sejam $\mathsf{M}$ uma categoria modelo, $\varnothing \in \mathsf{M}$ um objeto inicial qualquer, e $*$ um objeto final qualquer.\footnote{O fato de $\mathsf{M}$ ser cocompleta e completa garante a existência de objetos iniciais e finais.} Um objeto $X \in \mathsf{M}$ é dito \textbf{cofibrante} se o morfismo único $!_{X}: \varnothing \to X$ é uma cofibração, e é dito \textbf{fibrante} se o morfismo único $!_{X}: X \to *$ é uma fibração.
+  Quando um objeto é simultaneamente cofibrante e fibrante, dizemos também que ele é \textbf{bifibrante}.
 \end{defin}
 
 \begin{obs}\label{obs:cofibrante_fibrante_independe_objeto_inicial_final}
@@ -1665,7 +1666,94 @@ Assim, para que possamos realizar tais construções com objetos quaisquer, prec
   \end{enumerate}
 \end{defin}
 
+\begin{obs}
+  Em alguns trabalhos da Literatura, é comum se referir a uma aproximação cofibrante forte $X_{c} \overset{\sim}{\fib} X$ como uma \emph{aproximação cofibrante fibrante}.
+  Perceba então que nessa terminologia o adjetivo cofibrante se refere ao objeto $X_{c}$, equanto o adjetivo fibrante se refere ao morfismo $X_{c} \to X$.
+  Analogamente, uma aproximação fibrante forte $X_{f} \overset{\sim}{\cofib} X$ é também chamada de uma \emph{aproximação fibrante cofibrante}.
+  Não usarei essa terminologia absolutamente horrível em nenhum outro lugar dessas notas, e na verdade espero muito que meu cérebro a esqueça o quanto antes.
+\end{obs}
+
 Naturalmente somos levados a nos indagar quanto à existência e à unicidade de substituições cofibrantes e fibrantes, e são essas duas questões que iremos investigar agora.
+
+\begin{prop}
+  As seguintes afirmações são válidas em uma categoria modelo $\mathsf{M}$ qualquer:
+  \begin{enumerate}
+  \item Todo objeto possui uma aproximação cofibrante forte e também uma aproximação fibrante forte.
+    
+  \item Se $\varphi: X_{c} \overset{\sim}{\fib} X$ é uma aproximação cofibrante forte, dada qualquer outra aproximação cofibrante $\psi: X_{c}' \overset{\sim}{\to} X$, existe uma equivalência fraca $\theta: X_{c}' \overset{\sim}{\to} X_{c}$.
+    
+  \item Se $\varphi: X \overset{\sim}{\cofib} X_{f}$ é uma aproximação fibrante forte, dada qualquer outra aproximação fibrante $\psi: X \overset{\sim}{\to} X_{f}'$, existe uma equivalência fraca $\theta: X_{f} \overset{\sim}{\to} X_{f}'$.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  1. Dado um objeto qualquer $X \in \mathsf{M}$, usando o axioma de fatoração (M5) podemos fatorar o morfismo único $!_{X}: \varnothing \to X$ como uma cofibração seguinda de uma fibração trivial conforme indicado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \varnothing
+      \arrow[r, tail, "!_{X_{c}}" swap]
+      \arrow[rr, bend right=45, "!_{X}" swap]
+      & X_{c}
+      \arrow[r, two heads, "\varphi" {swap}, "\sim"]
+      & X
+    \end{tikzcd}
+  \end{displaymath}
+  Note então que o objeto $X_{c}$ é cofibrante e que o par $(X_{c},\varphi)$ define uma aproximação cofibrante forte para $X$.
+
+  Usando novamente o axioma de fatoração podemos reescrever o morfismo único $!_{X}: X \to *$ como uma cofibração trivial seguida de uma fibração conforme indicado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[r, tail, "\sim", "\psi" {swap}]
+      \arrow[rr, bend right=45, "!_{X}" swap]
+      & X_{f}
+      \arrow[r, two heads, "!_{X_{f}}" swap]
+      & *
+    \end{tikzcd}
+  \end{displaymath}
+  Basta notar então que o objeto $X_{f}$ é fibrante e que o par $(X_{f},\psi)$ define uma aproximação fibrante forte para $X$.
+
+  \smallskip
+  2. Usando os morfismos dados podemos montar o quadrado comtuativo mostrado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \varnothing
+      \arrow[r, tail, "!_{X_{c}}"]
+      \arrow[d, tail, "!_{X_{c}'}" swap]
+      & X_{c}
+      \arrow[d, two heads, "\sim" {swap, sloped}, "\varphi"]
+      \\ X_{c}'
+      \arrow[r, "\sim", "\psi" {swap}]
+      & X
+    \end{tikzcd}
+  \end{displaymath}
+  Note que o quadrado é realmente comutativo, já que as composições $\varphi \circ !_{X_{c}}$ e $\psi \circ !_{X_{c}'}$ ambas definem morfismos do tipo $\varnothing \to X$, mas só existe um único morfismo desse tipo.
+  Como $!_{X_{c}'}$ é uma cofibração, e $\varphi$ é uma fibração trivial, usando o axioma de levantamento (M4) podemos obter um morfismo diagonal $\theta: X_{c}' \to X_{c}$ fazendo comutar o diagrama todo.
+  Em particular, temos a igualdade $\varphi \circ \theta = \psi$, e como $\varphi$ e $\psi$ são equivalências fracas, segue do axioma 2-de-3 que $\theta$ também é uma equivalência fraca.
+
+  \smallskip
+  3. A demonstração é análoga ao que fizemos no item 2.
+  Usando os morfismos dados montamos o quadrado comutativo abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[r, "\psi", "\sim" {swap}]
+      \arrow[d, tail, "\varphi" {swap}, "\sim" {sloped}]
+      & X_{f}'
+      \arrow[d, two heads, "!_{X_{f}'}"]
+      \\ X_{f}
+      \arrow[r, "!_{X_{f}}" swap]
+      & *
+    \end{tikzcd}
+  \end{displaymath}
+  o qual admite um levantamento $\theta: X_{f} \to X_{f}'$ já que $\varphi$ é uma cofibraçao trivial, e $\psi$ é uma fibração.
+  Esse levantamento satisfaz a equação $\theta \circ \varphi = \psi$, portanto pelo axioma 2-de-3 concluímos que $\theta$ é uma equivalência fraca.
+\end{proof}
+
+Os itens 2 e 3 acima sçao o mais próximo que temos de uma unicidade para aproximações cofibrantes ou fibrantes.
+Podemos resumi-lo dizendo que toda aproximação cofibrante ou fibrante é fracamente equivalente a outra aproximação que é forte.
+Isso certamente não significa que as duas aproximações sejam \emph{isomorfas}, já que equivalências fracas não são invertíveis em geral.
+É verdade, entretanto, que aproximações diferentes se tornam isomorfas ao passarmos para a categoria homotópica de $\mathsf{M}$, já que esta é obtida por localização na classe das equivalêncas fracas.
 
 \end{document}
 
