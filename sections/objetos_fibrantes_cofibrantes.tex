@@ -1,0 +1,157 @@
+\section{Objetos fibrantes e cofibrantes}
+
+Nessa seção introduzimos o conceito de objetos cofibrantes e fibrantes.
+Estas duas classes de objetos em uma categoria modelo serão de extrema importância em diferentes pontos da teoria, como na construção de um modelo mais simples para a localização de uma categoria modelo e na descrição de uma noção puramente categórica de homotopia.
+
+\begin{defin}
+  Sejam $\mathsf{M}$ uma categoria modelo, $\varnothing \in \mathsf{M}$ um objeto inicial qualquer, e $*$ um objeto final qualquer.\footnote{O fato de $\mathsf{M}$ ser cocompleta e completa garante a existência de objetos iniciais e finais.} Um objeto $X \in \mathsf{M}$ é dito \textbf{cofibrante} se o morfismo único $!_{X}: \varnothing \to X$ é uma cofibração, e é dito \textbf{fibrante} se o morfismo único $!_{X}: X \to *$ é uma fibração.
+  Quando um objeto é simultaneamente cofibrante e fibrante, dizemos também que ele é \textbf{bifibrante}.
+\end{defin}
+
+\begin{obs}\label{obs:cofibrante_fibrante_independe_objeto_inicial_final}
+  Veja que a noção de objeto cofibrante não depende do objeto inicial $\varnothing \in \mathsf{M}$ fixado acima.
+  De fato, se $\varnothing$ e $\varnothing'$ são dois objetos iniciais, $X$ é um objeto qualquer, podemos considerar o diagrama comutativo abaixo onde todos os morfismos são aqueles dados pela propriedade que caracteriza um objeto inicial.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \varnothing
+      \arrow[rd, "!_{X}"]
+      \arrow[dd, bend right=15, "!_{\varnothing'}" swap]
+      \\ & X
+      \\ \varnothing'
+      \arrow[ru, "!'_{X}" swap]
+      \arrow[uu, bend right=15, "!'_{\varnothing}" swap]
+    \end{tikzcd}
+  \end{displaymath}
+  Como objetos iniciais possuem apenas a identidade como automorfismo, $!_{\varnothing'}$ e $!'_{\varnothing}$ são isomorfismos, sendo em particular cofibrações.
+  Segue disso que $!_{X}: \varnothing \to X$ é uma cofibração se, e somente se, $!'_{X}: \varnothing' \to X$ também o é.
+
+  É claro que um raciocínio dual mostra que a noção de um objeto ser fibrante também independe do objeto final considerado na categoria modelo.
+\end{obs}
+
+Vamos mostrar agora algumas propriedade simples a respeito de objetos cofibrantes e fibrantes.
+
+\begin{lema}
+  Em uma categoria modelo $\mathsf{M}$ qualquer valem as seguintes propriedades:
+  \begin{enumerate}
+  \item[(a)] Se $X$ é um objeto cofibrante, e $i: X \cofib Y$ é uma cofibração, então $Y$ também é cofibrante.
+    
+  \item[(b)] Se $Y$ é um objeto fibrante, e $p: X \fib Y$ é uma fibração, então $X$ também é fibrante.
+  \end{enumerate}
+\end{lema}
+
+\begin{proof}
+  (a) Queremos mostrar que o morfismo $!_{Y}: \varnothing \to Y$ é uma cofibração.
+  Ora, como esse morfismo é \emph{único}, certamente vale a igualdade $!_{Y} = f \circ !_{X}$, e como $!_{X}: \varnothing \to X$ é por hipótese uma cofibração, $!_{Y}$ é a composição de duas cofibrações e, portanto uma cofibração também.
+
+  \smallskip
+  (b) Queremos mostrar que o morfismo $!_{X}: X \to *$ é uma fibração.
+  Ora, como esse morfismo é \emph{único}, certamente vale a igualdade $!_{X} = !_{Y} \circ p$, e como $!_{Y}: Y \to *$ é por hipótese uma fibração, vemos que $!_{X}$ é a composição de duas fibrações e, portanto, uma fibração também.
+\end{proof}
+
+Veremos mais adiante que muitas construções categóricas usuais só se comportam de forma homotopicamente adequada quando aplicadas a objetos que são fibrantes ou cofibrantes.
+Assim, para que possamos realizar tais construções com objetos quaisquer, precisamos antes \emph{substituí-los} por outros que sejam fibrantes ou cofibrantes, uma noção que tornamos precisa na definição abaixo.
+
+\begin{defin}
+  Sejam $\mathsf{M}$ uma categoria modelo e $X \in \mathsf{M}$ um objeto qualquer.
+  \begin{enumerate}
+  \item Uma \textbf{substituição cofibrante} para $X$ é um par $(X_{c},\varphi)$, onde $X_{c}$ é um objeto cofibrante, e $\varphi: X_{c} \overset{\sim}{\to} X$ é uma equivalência fraca.
+    Quando $\varphi$ é também uma fibração, ou seja, quando $\varphi$ é uma fibração trivial, dizemos que o par $(X_{c},\varphi)$ define uma substituição cofibrante forte.
+    
+  \item Uma \textbf{substituição fibrante} para $X$ é um par $(X_{f},\psi)$, onde $X_{f}$ é um objeto fibrante, e $\psi: X \overset{\sim}{\to} X_{f}$ é uma equivalência fraca.
+    Quando $\psi$ é também uma cofibração, ou seja, quando $\psi$ é uma cofibração trivial, dizemos que o par $(X_{f},\psi)$ define uma substituição fibrante \textbf{forte}.
+  \end{enumerate}
+\end{defin}
+
+\begin{obs}
+  Em alguns trabalhos da Literatura, é comum se referir a uma aproximação cofibrante forte $X_{c} \overset{\sim}{\fib} X$ como uma \emph{aproximação cofibrante fibrante}.
+  Perceba então que nessa terminologia o adjetivo cofibrante se refere ao objeto $X_{c}$, equanto o adjetivo fibrante se refere ao morfismo $X_{c} \to X$.
+  Analogamente, uma aproximação fibrante forte $X_{f} \overset{\sim}{\cofib} X$ é também chamada de uma \emph{aproximação fibrante cofibrante}.
+  Não usarei essa terminologia absolutamente horrível em nenhum outro lugar dessas notas, e na verdade espero muito que meu cérebro a esqueça o quanto antes.
+\end{obs}
+
+Naturalmente somos levados a nos indagar quanto à existência e à unicidade de substituições cofibrantes e fibrantes, e são essas duas questões que iremos investigar agora.
+
+\begin{prop}
+  As seguintes afirmações são válidas em uma categoria modelo $\mathsf{M}$ qualquer:
+  \begin{enumerate}
+  \item Todo objeto possui uma aproximação cofibrante forte e também uma aproximação fibrante forte.
+    
+  \item Se $\varphi: X_{c} \overset{\sim}{\fib} X$ é uma aproximação cofibrante forte, dada qualquer outra aproximação cofibrante $\psi: X_{c}' \overset{\sim}{\to} X$, existe uma equivalência fraca $\theta: X_{c}' \overset{\sim}{\to} X_{c}$.
+    
+  \item Se $\varphi: X \overset{\sim}{\cofib} X_{f}$ é uma aproximação fibrante forte, dada qualquer outra aproximação fibrante $\psi: X \overset{\sim}{\to} X_{f}'$, existe uma equivalência fraca $\theta: X_{f} \overset{\sim}{\to} X_{f}'$.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  1. Dado um objeto qualquer $X \in \mathsf{M}$, usando o axioma de fatoração (M5) podemos fatorar o morfismo único $!_{X}: \varnothing \to X$ como uma cofibração seguinda de uma fibração trivial conforme indicado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \varnothing
+      \arrow[r, tail, "!_{X_{c}}" swap]
+      \arrow[rr, bend right=45, "!_{X}" swap]
+      & X_{c}
+      \arrow[r, two heads, "\varphi" {swap}, "\sim"]
+      & X
+    \end{tikzcd}
+  \end{displaymath}
+  Note então que o objeto $X_{c}$ é cofibrante e que o par $(X_{c},\varphi)$ define uma aproximação cofibrante forte para $X$.
+
+  Usando novamente o axioma de fatoração podemos reescrever o morfismo único $!_{X}: X \to *$ como uma cofibração trivial seguida de uma fibração conforme indicado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[r, tail, "\sim", "\psi" {swap}]
+      \arrow[rr, bend right=45, "!_{X}" swap]
+      & X_{f}
+      \arrow[r, two heads, "!_{X_{f}}" swap]
+      & *
+    \end{tikzcd}
+  \end{displaymath}
+  Basta notar então que o objeto $X_{f}$ é fibrante e que o par $(X_{f},\psi)$ define uma aproximação fibrante forte para $X$.
+
+  \smallskip
+  2. Usando os morfismos dados podemos montar o quadrado comtuativo mostrado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \varnothing
+      \arrow[r, tail, "!_{X_{c}}"]
+      \arrow[d, tail, "!_{X_{c}'}" swap]
+      & X_{c}
+      \arrow[d, two heads, "\sim" {swap, sloped}, "\varphi"]
+      \\ X_{c}'
+      \arrow[r, "\sim", "\psi" {swap}]
+      & X
+    \end{tikzcd}
+  \end{displaymath}
+  Note que o quadrado é realmente comutativo, já que as composições $\varphi \circ !_{X_{c}}$ e $\psi \circ !_{X_{c}'}$ ambas definem morfismos do tipo $\varnothing \to X$, mas só existe um único morfismo desse tipo.
+  Como $!_{X_{c}'}$ é uma cofibração, e $\varphi$ é uma fibração trivial, usando o axioma de levantamento (M4) podemos obter um morfismo diagonal $\theta: X_{c}' \to X_{c}$ fazendo comutar o diagrama todo.
+  Em particular, temos a igualdade $\varphi \circ \theta = \psi$, e como $\varphi$ e $\psi$ são equivalências fracas, segue do axioma 2-de-3 que $\theta$ também é uma equivalência fraca.
+
+  \smallskip
+  3. A demonstração é análoga ao que fizemos no item 2.
+  Usando os morfismos dados montamos o quadrado comutativo abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[r, "\psi", "\sim" {swap}]
+      \arrow[d, tail, "\varphi" {swap}, "\sim" {sloped}]
+      & X_{f}'
+      \arrow[d, two heads, "!_{X_{f}'}"]
+      \\ X_{f}
+      \arrow[r, "!_{X_{f}}" swap]
+      & *
+    \end{tikzcd}
+  \end{displaymath}
+  o qual admite um levantamento $\theta: X_{f} \to X_{f}'$ já que $\varphi$ é uma cofibraçao trivial, e $\psi$ é uma fibração.
+  Esse levantamento satisfaz a equação $\theta \circ \varphi = \psi$, portanto pelo axioma 2-de-3 concluímos que $\theta$ é uma equivalência fraca.
+\end{proof}
+
+Os itens 2 e 3 acima são o mais próximo que temos de uma unicidade para aproximações cofibrantes ou fibrantes.
+Podemos resumi-lo dizendo que toda aproximação cofibrante ou fibrante é fracamente equivalente a outra aproximação que é forte.
+Isso certamente não significa que as duas aproximações sejam \emph{isomorfas}, já que equivalências fracas não são invertíveis em geral.
+É verdade, entretanto, que aproximações diferentes se tornam isomorfas ao passarmos para a categoria homotópica de $\mathsf{M}$, já que esta é obtida por localização na classe das equivalêncas fracas.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

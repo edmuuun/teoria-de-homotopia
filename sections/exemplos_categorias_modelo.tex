@@ -1,0 +1,118 @@
+\section{Exemplos bobos e construções}
+
+O objetivo dessa seção é dar alguns exemplos de categorias modelo e descrever também algumasc construções que podem ser feitas com tais categorias.
+Todos os exemplos que podemos dar por hora são extremamente simples e essencialmente inúteis.
+Em todos os exemplos úteis e relevantes de categorias modelo, a verificação dos axiomas é bastante trabalhosa.
+
+\begin{exem}
+  Seja $\mathsf{M}$ uma categoria bicompleta qualquer, considere $\mathcal{W}$ como sendo a classe dos isomorfismos em $\mathsf{C}$, e considere $\mathcal{C}$ e $\mathcal{F}$ como sendo a classe de todos os morfismos.
+  Afirmamos que nesse caso a tupla $(\mathsf{M},\mathcal{W},\mathcal{C},\mathcal{F})$ define uma categoria modelo.
+
+  A validade do axioma (M1) segue da hipótese que fizemos sobre $\mathsf{C}$.
+  Considere agora dois morfismos $f: X \to Y$ e $g: Y \to Z$ em $\mathsf{C}$.
+  Se $f$ e $g$ pertencem a $\mathcal{W}$, ou seja, $f$ e $g$ são isomorfismos, então $g \circ f$ também pertence a $\mathcal{W}$, já que isomorfismos são preservados por composição.
+  Agora, se $f$ e $g \circ f$ pertencem a $\mathcal{W}$, a igualdade $g = (g \circ f) \circ f^{-1}$ expressa $g$ como composição de dois isomorfismos, logo $g \in \mathcal{W}$.
+  Por fim, se $g$ e $g \circ f$ pertencem a $\mathcal{W}$, então $f = g^{-1} \circ (g \circ f)$ expressa $f$ como composição de dois isomorfismos, portanto $f \in \mathcal{W}$.
+  Isso mostra que $\mathcal{W}$ satisfaz a propriedade 2-de-3.
+
+  A validade do axioma de retração é imediata para as classes $\mathcal{C}$ e $\mathcal{F}$ já que elas consistem de todos os morfismos.
+  Suponha agora que $f: X \to Y$ seja uma retração do isomorfismos $g: A \to B$, de forma que tenhamos um diagrama comutativo como abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[r, "s_{1}"]
+      \arrow[d, "f" swap]
+      \arrow[rr, bend left=45, "\id_{X}"]
+      & A
+      \arrow[r, "r_{1}"]
+      \arrow[d, "g"]
+      & X
+      \arrow[d, "f"]
+      \\ Y
+      \arrow[r, "s_{2}" swap]
+      \arrow[rr, bend right=45, "\id_{Y}" swap] 
+      & B
+      \arrow[r, "r_{2}" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Afirmamos que, nesse caso, o morfismo $r_{1} \circ g^{-1} \circ s_{2}$ é o inverso de $f$.
+  De fato, por um lado temos
+  \begin{displaymath}
+    r_{1} \circ g^{-1} \circ s_{2} \circ f = r_{1} \circ g^{-1} \circ g \circ s_{1} = r_{1} \circ \id_{A} \circ s_{1} = r_{1} \circ s_{1} = \id_{X},
+  \end{displaymath}
+  enquanto por outro temos
+  \begin{displaymath}
+    f \circ r_{1} \circ g^{-1} \circ s_{2}
+    = r_{2} \circ g \circ g^{-1} \circ s_{2}
+    = r_{2} \circ \id_{B} \circ s_{2}
+    = r_{2} \circ s_{2}
+    = \id_{Y}.
+  \end{displaymath}
+  Isso mostra que $f$ é um isomorfismo também, portanto a classe $\mathcal{W}$ é fechada por retrações.
+
+  Vamos checar agora o axioma de levantamento.
+  No problema de levantamento abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, tail, "i" {swap}, "\sim" {sloped}]
+      & X
+      \arrow[d, two heads, "p"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  dizer que $i$ é uma cofibração trivial significa apenas dizer que $i$ é um isomorfismo.
+  Veja então que o morfismo $h: B \to X$ dado por $h \coloneqq \alpha \circ i^{-1}$ soluciona o problema em questão pois
+  \begin{displaymath}
+    h \circ i = \alpha \circ i^{-1} \circ i = \alpha \circ \id_{A} = \alpha,
+  \end{displaymath}
+  e também
+  \begin{displaymath}
+    p \circ h = p \circ \alpha \circ i^{-1} = \beta \circ i \circ i^{-1} = \beta \circ \id_{B} = \beta.
+  \end{displaymath}
+
+  Considere agora o problema de levantamento abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, tail, "i" swap]
+      & X
+      \arrow[d, two heads, "p", "\sim" {swap, sloped}]
+      \\ B
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Como no caso anterior, dizer que $p$ é uma fibração trivial significa simplesmente dizer que $p$ é um isomorfismo.
+  Podemos então definir $h: B \to X$ pela composição $h \coloneqq p^{-1} \circ \beta$, e afirmamos que com essa definição obtemos um levantamento.
+  De fato, por um lado
+  \begin{displaymath}
+    p \circ h = p \circ p^{-1} \circ \beta = \id_{Y} \circ \beta = \beta,
+  \end{displaymath}
+  enquanto por outro
+  \begin{displaymath}
+    h \circ i = p^{-1} \circ \beta \circ i = p^{-1} \circ p \circ \alpha = \id_{X} \circ \alpha = \alpha.
+  \end{displaymath}
+
+  Resta agora mostrarmos a existência de fatorações, mas isso é bem simples pela forma como foram definidas as classes $\mathcal{W}$, $\mathcal{C}$ e $\mathcal{F}$.
+  Dado um morfismo $f: X \to Y$ qualquer, lembrando que as cofibrações triviais são os isomorfismos da categoria, e que as fibrações são todos os morfismos, a fatoração
+  \begin{displaymath}
+    f = f \circ \id_{X}
+  \end{displaymath}
+  exibe $f$ como uma cofibração trivial seguida de uma fibração.
+  Analogamente, como todo morfismo é uma cofibração, e todo isomorfismo é uma fibração trivial, a fatoração
+  \begin{displaymath}
+    f = \id_{Y} \circ f
+  \end{displaymath}
+  expressa $f$ como uma cofibração seguida de uma fibração trivial.
+\end{exem}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:
