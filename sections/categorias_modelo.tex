@@ -1482,6 +1482,175 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria modelo tam
   \end{displaymath}
 \end{proof}
 
+\subsection{Fatorações funtoriais}
+
+Nessa subseção formalizamos a noção de uma fatoração funtorial de morfismos em uma categoria.
+O conceito de fatoração funtorial é um tanto peculiar: na teoria ele oferece uma vantagem para descrevermos certas construções, mas na prática o processo de fatoração funtorial pode não ser necessariamente o mais simples ou o mais vantajoso em uma dada situação.
+
+Antes de definirmos uma fatoração propriamente dita, precisamos introduzir um outro tipo de categoria de setas relacionado à categoria $\Arr(\mathsf{C})$ introduzida anteriormente.
+Dada então uma categoria $\mathsf{C}$ qualquer, considere a categoria $\mathsf{C}^{[2]}$ cujos objetos são pares $(g,f)$ de \emph{setas componíveis em $\mathsf{C}$}, ou seja, morfismos satisfazendo a condição $\dom g = \cod f$, situação esta que também representaremos pelo diagrama da forma abaixo.
+\begin{displaymath}
+  \begin{tikzcd}
+    X
+    \arrow[d, "f" swap]
+    \\ Y
+    \arrow[d, "g" swap]
+    \\ Z
+  \end{tikzcd}
+\end{displaymath}
+
+Os morfismos em $\mathsf{C}^{[2]}$, como esperado, são triplas de morfismos horizontais fazendo comutar os dois quadrados evidentes.
+Mais precisamente, dados dois pares de setas componíveis $(g,f)$ e $(g',f')$, um morfismo do tipo $(g,f) \to (g',f')$ em $\mathsf{C}^{[2]}$ é dado por uma tripla de morfismos $(\alpha: \dom f \to \dom f',\, \beta: \cod f \to \cod f',\, \gamma: \cod g \to \cod g')$ fazendo comutar o diagrama a seguir.
+\begin{displaymath}
+  \begin{tikzcd}
+    X
+    \arrow[r, "\alpha"]
+    \arrow[d, "f" swap]
+    & X'
+    \arrow[d, "f'"]
+    \\ Y
+    \arrow[r, "\beta"]
+    \arrow[d, "g" swap]
+    & Y'
+    \arrow[d, "g'"]
+    \\ Z
+    \arrow[r, "\gamma" swap]
+    & Z'
+  \end{tikzcd}
+\end{displaymath}
+A composição de morfismos é análoga àquela existente na categoria $\Arr(\mathsf{C})$: colamos os dois pares de quadrados comutativos ao longo da ``aresta'' comum para obtermos um terceiro par de quadrados comutativos representando a composição dos dois morfismos.
+
+\begin{obs}
+  A notação $\mathsf{C}^{[2]}$ escolhida para denotar a categoria introduzida acima não é por acaso.
+  Lembre-se que todo conjunto parcialmente ordenado pode ser encarado como uma categoria.
+  Quando fazemos isso com o conjunto parcialmente ordenado $\{0 \leq 1 \leq 2\}$, obtemos uma categoria comumente denotada por $[2]$, e que pode ser visualizada pictoricamente da forma abaixo (omitindo os morfismos identidade).
+  \begin{displaymath}
+    \begin{tikzcd}
+      0
+      \arrow[r, "0 \leq 1"]
+      \arrow[rr, bend right=25, "0 \leq 2" swap]
+      & 1
+      \arrow[r, "1 \leq 2"]
+      & 2      
+    \end{tikzcd}
+  \end{displaymath}
+
+  A variante da categoria de setas que introduzimos anteriormente é então \emph{precisamente} a categoria de funtores do tipo $[2] \to \mathsf{C}$, o que justifica o uso da notação $\mathsf{C}^{[2]}$.
+  Note também que, se no lugar de $[2]$ considerarmos a categoria $[1]$ obtida a partir do conjunto parcialmente ordenado $0 \leq 1$, a qual está representada abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      0
+      \arrow[r, "0 \leq 1"]
+      & 1
+    \end{tikzcd}
+  \end{displaymath}
+  então a categoria $\mathsf{C}^{[1]}$ formada por funtores do tipo $[1] \to \mathsf{C}$ é exatamente a categoria de setas usual $\Arr(\mathsf{C})$ introduzida anteriormente.
+\end{obs}
+
+Lembremos que a categoria de setas $\Arr(\mathsf{C})$ vem equipada com os funtores domínio e codomínio $\dom,\, \cod: \Arr(\mathsf{C}) \to \mathsf{C}$.
+Analogamente, a categoria de setas componíveis $\mathsf{C}^{[2]}$ vem equipada com três funtores $d_{0},\, d_{1},\, \comp: \mathsf{C}^{[2]} \to \Arr(\mathsf{C})$ que vamos agora definir.
+O funtor $d_{0}$ nos objetos registra o primeiro morfismo de um par componível, ou seja, $d_{0}(g,f) \coloneqq f$, o que podemos visualizar da forma indicada a seguir.
+\begin{displaymath}
+  \begin{tikzcd}
+    X
+    \arrow[d, "f" swap]
+    \\ Y
+    \arrow[d, "g" swap]
+    \\ Z
+  \end{tikzcd}
+  \quad
+  \overset{d_{0}}{\rightsquigarrow}
+  \quad
+  \begin{tikzcd}
+    X
+    \arrow[d, "f" swap]
+    \\ Y
+  \end{tikzcd}
+\end{displaymath}
+Já nos morfismos, dado um morfismo $(\alpha,\beta,\gamma): (g,f) \to (g',f')$, temos por definição $d_{0}(\alpha,\beta,\gamma) \coloneqq (\alpha,\beta)$.
+Visualmente, $d_{0}$ seleciona o primeiro quadrado comutativo do par de quadrados comutativos que representa o morfismo $(\alpha,\beta,\gamma)$ em $\mathsf{C}^{[2]}$.
+\begin{displaymath}
+  \begin{tikzcd}
+    X
+    \arrow[d, "f" swap]
+    \arrow[r, "\alpha"]
+    & X'
+    \arrow[d, "f'"]
+    \\ Y
+    \arrow[d, "g" swap]
+    \arrow[r, "\beta"]
+    & Y'
+    \arrow[d, "g'"]
+    \\ Z
+    \arrow[r, "\gamma" swap]
+    & Z'
+  \end{tikzcd}
+  \quad \overset{d_{0}}{\rightsquigarrow} \quad
+  \begin{tikzcd}
+    X
+    \arrow[d, "f" swap]
+    \arrow[r, "\alpha"]
+    & X'
+    \arrow[d, "f'"]
+    \\ Y
+    \arrow[r, "\beta" swap]
+    & Y'
+  \end{tikzcd}
+\end{displaymath}
+O funtor $d_{1}$ é análogo: nos objetos ele seleciona o segundo morfismo do par componível, logo $d_{1}(g,f) \coloneqq g$, e nos morfismos ele seleciona o segundo quadrado comutativo, de forma que $d_{1}(\alpha,\beta,\gamma) \coloneqq (\beta,\gamma)$.
+Já o funtor $\comp: \mathsf{C}^{[2]} \to \Arr(\mathsf{C})$, como o nome muito sugere, é dado exatamente pela composição das setas componíveis.
+Dessa forma, nos objetos temos $\comp(g,f) \coloneqq g \circ f$,
+\begin{displaymath}
+  \begin{tikzcd}
+    X
+    \arrow[d, "f" swap]
+    \\ Y
+    \arrow[d, "g" swap]
+    \\ Z
+  \end{tikzcd}
+  \quad \overset{\comp}{\rightsquigarrow} \quad
+  \begin{tikzcd}
+    X
+    \arrow[d, "g \circ f" swap]
+    \\ Z
+  \end{tikzcd}
+\end{displaymath}
+enquanto nos morfismos temos $\comp(\alpha,\beta,\gamma) \coloneqq (\alpha,\gamma)$.
+\begin{displaymath}
+  \begin{tikzcd}
+    X
+    \arrow[d, "f" swap]
+    \arrow[r, "\alpha"]
+    & X'
+    \arrow[d, "f'"]
+    \\ Y
+    \arrow[d, "g" swap]
+    \arrow[r, "\beta"]
+    & Y'
+    \arrow[d, "g'"]
+    \\ Z
+    \arrow[r, "\gamma" swap]
+    & Z'
+  \end{tikzcd}
+  \quad \overset{\comp}{\rightsquigarrow} \quad
+  \begin{tikzcd}
+    X
+    \arrow[d, "g \circ f" swap]
+    \arrow[r, "\alpha"]
+    & X'
+    \arrow[d, "g' \circ f'"]
+    \\ Z
+    \arrow[r, "\gamma" swap]
+    & Z'
+  \end{tikzcd}
+\end{displaymath}
+
+Tendo introduzido a categoria $\mathsf{C}^{[2]}$, podemos enfim falar de fatoraçõs funtoriais.
+
+\begin{defin}\label{defin:fatoracao_funtorial}
+  Uma \textbf{fatoração funtorial} em uma categoria $\mathsf{C}$é  um funtor $\fac: \Arr(\mathsf{C}) \to \mathsf{C}^{[2]}$ que é uma seção do funtor de composição $\comp: \mathsf{C}^{[2]} \to \Arr(\mathsf{C})$, ou seja, que satisfaz a equação $\comp \circ \fac = \id_{\mathsf{\Arr(\mathsf{C})}}$.
+\end{defin}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../main"
