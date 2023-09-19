@@ -1651,6 +1651,86 @@ Tendo introduzido a categoria $\mathsf{C}^{[2]}$, podemos enfim falar de fatora�
   Uma \textbf{fatoração funtorial} em uma categoria $\mathsf{C}$é  um funtor $\fac: \Arr(\mathsf{C}) \to \mathsf{C}^{[2]}$ que é uma seção do funtor de composição $\comp: \mathsf{C}^{[2]} \to \Arr(\mathsf{C})$, ou seja, que satisfaz a equação $\comp \circ \fac = \id_{\mathsf{\Arr(\mathsf{C})}}$.
 \end{defin}
 
+Vamos procurar entender o significado prático da existência de fatorações funtoriais em uma categoria.
+O funtor $\fac$ associa a um morfismo $f: X \to Z$ em $\mathsf{C}$ um par de morfismos $(f_{1},f_{0})$ cuja composição $f_{1} \circ f_{0}$ deve ser igual ao morfismo $f$.
+Essa última igualdade garante então que tenhamos $\dom f_{0} = \dom f = X$ e $\cod f_{1} = \cod f = Z$.
+Se denotarmos $Y \coloneqq \cod f_{0} = \dom f_{1}$, temos a situação indicada abaixo.
+\begin{displaymath}
+  \begin{tikzcd}
+    X
+    \arrow[d, "f" swap]
+    \\ Z
+  \end{tikzcd}
+  \quad \overset{\fac}{\rightsquigarrow} \quad
+  \begin{tikzcd}
+    X
+    \arrow[d, "f_{0}" swap]
+    \arrow[dd, bend left=45, "f_{1} \circ f_{0} = f"]
+    \\ Y
+    \arrow[d, "f_{1}" swap]
+    \\ Z
+  \end{tikzcd}
+\end{displaymath}
+Dado outro morfismo $f': X' \to Z'$, e um morfismo $(\alpha: X \to X',\, \gamma: Z \to Z')$ de $f$ para $f'$ em $\Arr(\mathsf{C})$, a fatoração funtorial $\fac$ associa a esse morfismo do tipo $(f_{1},f_{0}) \to (f_{1}',f_{0}')$ em $\mathsf{C}^{[2]}$, ou seja, uma tripla de morfismos $(\varphi: X \to X',\, \psi: Y \to Y',\, \theta: Z \to Z')$ fazendo comutar os dois quadrados adjacentes.
+Note que, como $\fac$ é uma seção de $\comp$, devemos ter $(\alpha,\beta) = \comp(\fac(\alpha,\beta)) = \comp(\varphi,\psi,\theta) = (\varphi,\theta)$, de forma que os morfismos $\alpha$ e $\beta$ são em certo sentido preservados na fatoração funtorial, conforme indicado abaixo.
+\begin{displaymath}
+  \begin{tikzcd}
+    X
+    \arrow[d, "f" swap]
+    \arrow[r, "\alpha"]
+    & X'
+    \arrow[d, "f'"]
+    \\ Z
+    \arrow[r, "\beta" swap]
+    & Z'
+  \end{tikzcd}
+  \quad \overset{\fac}{\rightsquigarrow} \quad
+  \begin{tikzcd}
+    X
+    \arrow[r, "\alpha"]
+    \arrow[d, "f_{0}" swap]
+    & X'
+    \arrow[d, "f_{0}'"]
+    \\ Y
+    \arrow[d, "f_{1}" swap]
+    \arrow[r, "\psi"]
+    & Y'
+    \arrow[d, "f_{1}'"]
+    \\ Z
+    \arrow[r, "\beta" swap]
+    & Z'
+  \end{tikzcd}
+\end{displaymath}
+
+Por fim, introduzimos a noção de um sistema de fatoração fraca funtorial, a noção que será de fato de nosso interesse no estudo de categorias modelo.
+
+\begin{defin}\label{defin:fatoracao_fraca_funtorial}
+  Um sistema de fatoração fraco $(\mathcal{L},\mathcal{R})$ uma categoria $\mathsf{C}$ é dito \textbf{funtorial} se existe um funtor $\fac: \Arr(\mathsf{C}) \to \mathsf{C}^{[2]}$ satisfazendo ass seguintes condições:
+  \begin{enumerate}
+  \item $\comp \circ \fac = \id_{\Arr(\mathsf{C})}$;
+    
+  \item $d_{0}(\fac(f)) \in \mathcal{L}$ e $d_{1}(\fac(f)) \in \mathcal{R}$ para todo $f \in \Arr(\mathsf{C})$.
+  \end{enumerate}
+\end{defin}
+
+A primeira condição acima diz simplesmente que o funtor $\fac$ define uma fatoração funtorial em $\mathsf{C}$, mas a segunda condição impõe que os morfismos que aparecem nessa fatoração interajam adequadamente com o sistema de fatoração fraco existente: o primeiro morfismo da fatoração deve necessariamente pertence à classe $\mathcal{L}$, enquanto o segundo deve necessariamente pertencer à classe $\mathcal{R}$.
+\begin{displaymath}
+  \begin{tikzcd}
+    X
+    \arrow[d, "f" swap]
+    \\ Z
+  \end{tikzcd}
+  \quad \overset{\fac}{\rightsquigarrow} \quad
+  \begin{tikzcd}
+    X
+    \arrow[d, "f_{0} \in \mathcal{L}" swap]
+    \arrow[dd, bend left=45, "f_{1} \circ f_{0} = f"]
+    \\ Y
+    \arrow[d, "f_{1} \in \mathcal{R}" swap]
+    \\ Z
+  \end{tikzcd}
+\end{displaymath}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../main"
