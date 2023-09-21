@@ -151,6 +151,55 @@ Podemos resumi-lo dizendo que toda aproximação cofibrante ou fibrante é fraca
 Isso certamente não significa que as duas aproximações sejam \emph{isomorfas}, já que equivalências fracas não são invertíveis em geral.
 É verdade, entretanto, que aproximações diferentes se tornam isomorfas ao passarmos para a categoria homotópica de $\mathsf{M}$, já que esta é obtida por localização na classe das equivalêncas fracas.
 
+\begin{obs}[Substituições funtoriais]
+  Suponha que a categoria modelo $\mathsf{M}$ admita fatorações funtoriais, ou seja, que os dois sistemas de fatoração fracos $(\mathcal{C} \cap \mathcal{W},\mathcal{F})$ e $(\mathcal{C},\mathcal{F} \cap \mathcal{W})$ sejam funtoriais, sendo $\fac,\, \fac': \Arr(\mathsf{M}) \to \mathsf{M}^{[2]}$ os respectivos funtores de fatoração.
+  Usando tais fatorações funtoriais podemos obter funtores de substituição cofibrante e fibrante.
+  Considere inicialmente o funtor $\init: \mathsf{M} \to \Arr(\mathsf{M})$ que associa a um objeto $X$ o morfismo único $!_{X}: \varnothing \to X$, e que associa a um morfismo $f: X \to Y$ o par de morfismos $(\id_{\varnothing},f)$, o qual faz comutar o diagrama abaixo
+  \begin{displaymath}
+    \begin{tikzcd}
+      \varnothing
+      \arrow[d, "!_{X}" swap]
+      \arrow[r, "\id_{\varnothing}"]
+      & \varnothing
+      \arrow[d, "!_{Y}"]
+      \\ X
+      \arrow[r, "f" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  e portanto define um morfismo do tipo $!_{X} \to !_{Y}$ na categoria de setas $\Arr(\mathsf{M})$.
+
+  Usando o funtor $\init$ introdudizo acima, definirmos um funtor $\mathrm{SC}: \mathsf{M} \to \Arr(\mathsf{M})$ por meio da composição indicada de funtores indicada abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \mathsf{M}
+      \arrow[r, "\init"]
+      \arrow[rrr, dashed, bend right=20, "\mathrm{SC}" swap]
+      & \Arr(\mathsf{M})
+      \arrow[r, "\fac'"]
+      & \mathsf{M}^{[2]}
+      \arrow[r, "d_{1}"]
+      & \Arr(\mathsf{M})
+    \end{tikzcd}
+  \end{displaymath}
+  Veja que, ao aplicarmos o funtor de fatoração $\fac'$ ao morfismo $!_{X}: \varnothing \to X$, obtemos um objeto $\widehat{X}$ para o qual o morfismo único $!_{\widehat{X}}: \varnothing \to \widehat{X}$ é uma cofibração, ou seja, $\widehat{X}$ é um objeto cofibrante, juntamente com uma fibração trivial $p_{X}: \widehat{X} \overset{\sim}{\fib} X$; e aplicando então o funtor $d_{1}$ obtemos o morfismo de substituição cofibrante $p$.
+  Como o processo todo é feito por meio de funtores, se $f: X \to Y$ é um morfismo, deve existir também um morfismo $\widehat{f}: \widehat{X} \to \widehat{Y}$ entre as substituições cofibrantes que faça comutar o quadrado a seguir.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \widehat{X}
+      \arrow[r, two heads, "p_{X}", "\sim" {swap}]
+      \arrow[d, "\widehat{f}" swap]
+      & X
+      \arrow[d, "f"]
+      \\ \widehat{Y}
+      \arrow[r, two heads, "\sim", "p_{Y}" {swap}]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+
+  É claro que podemos descrever um procedimento análogo para obtermos substituições fibrantes funtoriais usando o funtor de fatoração $\fac$ do sistema $(\mathcal{C},\mathcal{F} \cap \mathcal{W})$ e o funtor do tipo $\mathsf{M} \to \Arr(\mathsf{M})$ que associa a um objeto $X$ o morfismo único $!_{X}: X \to *$ para o objeto terminal da categoria.  
+\end{obs}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../main"
