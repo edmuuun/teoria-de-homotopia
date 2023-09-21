@@ -1,0 +1,59 @@
+\section{Localizações}
+
+Nessa seção discutimos inicialmente a noção de localização de uma categoria $\mathsf{C}$ em uma classe de morfismos, e em seguida mostramos como as várias estruturas adicionais existentes em uma categoria modelo nos ajudam a simplificar este processo esse processo e a torná-lo muito mais manejável.
+
+\begin{defin}
+  Sejam $\mathsf{C}$ uma categoria e $\mathcal{W} \subseteq \Mor(\mathsf{C})$ uma classe de morfismos qualquer.
+  Uma \textbf{localização} de $\mathsf{C}$ em $\mathcal{W}$ é um par $(\mathsf{L},\gamma)$, onde $\mathsf{L}$ é uma categoria, e $\gamma: \mathsf{C} \to \mathsf{L}$ é um funtor, que satisfazem as seguintes propriedades:
+  \begin{enumerate}
+  \item $\gamma(f)$ é um isomorfismo em $\mathsf{L}$ para todo morfismo $f \in \mathcal{W}$;
+    
+  \item se $\mathsf{D}$ é outro categoria, e $F: \mathsf{C} \to \mathsf{D}$ é um funtor que transforma morfismos de $\mathcal{W}$ em isomorfismos de $\mathsf{D}$, então existe um único funtor $\overline{F}: \mathsf{L} \to \mathsf{D}$ tal que $F = \overline{F} \circ \gamma$.
+    \begin{displaymath}
+      \begin{tikzcd}
+        \mathsf{C}
+        \arrow[r, "F"]
+        \arrow[d, "\gamma" swap]
+        & \mathsf{D}
+        \\ \mathsf{L}
+        \arrow[ru, dashed, "\overline{F}" swap]
+      \end{tikzcd}
+    \end{displaymath}
+  \end{enumerate}
+\end{defin}
+
+% O resultado abaixo mostra como uma localização induz uma correspondência entre certos tipos de funtores definidos em $\mathsf{C}$.
+% No enunciado, $\Fun_{\mathcal{W}}(\mathsf{C},\mathsf{D})$ denota a subcategoria plena da categoria de funtores $\Fun(\mathsf{C},\mathsf{D})$ gerada por aqueles funtores que transformam os morfismos de $\mathcal{W}$ em isomorfismos de $\mathsf{D}$.
+
+% \begin{prop}
+%   Sejam $\mathsf{C}$ uma categoria e $\mathcal{W} \subseteq \Mor(\mathsf{C})$ uma classe de morfismos.
+%   Se $(\mathsf{L},\gamma)$ é uma localização de $\mathsf{C}$ em $\mathcal{W}$, então dada qualquer outra categoria $\mathsf{D}$, a operação de pŕe-composição com $\gamma$ define um isomorfismo de categorias
+%   \begin{displaymath}
+%     \gamma^{*}: \Fun(\mathsf{L},\mathsf{D}) \overset{\cong}{\longrightarrow} \Fun_{\mathcal{W}}(\mathsf{C},\mathsf{D}).
+%   \end{displaymath}
+% \end{prop}
+
+% \begin{proof}
+%   Vamos antes esclarecer quem exatamente é o funtor $\gamma^{*}$.
+%   Dado um objeto $G \in \Fun(\mathsf{L},\mathsf{D})$, ou seja, dado um funtor $G: \mathsf{L} \to \mathsf{D}$, por definição $\gamma_{*}(G) \coloneqq G \circ \gamma$.
+%   Veja que, como $\gamma$ por definição transforma os morfismos da classe $\mathcal{W}$ em isomorfismos de $\mathsf{D}$, e como funtores sempre levam isomorfismos em isomorfismos, a composição $G \circ \gamma$ pertence de fato à subcategoria $\Fun_{\mathcal{W}}(\mathsf{C},\mathsf{D})$.
+%   Agora, dado um morfismo $\theta: F \Rightarrow G$ em $\Fun(\mathsf{L},\mathsf{D})$, ou seja, dada uma transformação natural entre dois funtores, $\gamma^{*}(\theta)$ é a transformação natural do tipo $F \circ \gamma \Rightarrow G \circ \gamma$ cujas componentes são definidas por
+%   \begin{displaymath}
+%     \gamma^{*}(\theta)_{X} \coloneqq \theta_{\gamma(X)} \qquad \forall\, X \in \mathsf{C}.
+%   \end{displaymath}
+
+%   Vamos então à demonstração.
+%   A estratégia é usarmos a propriedade universal que caracteriza a localização para definirmos um funtor
+%   \begin{displaymath}
+%     \phi: \Fun_{\mathcal{W}}(\mathsf{C},\mathsf{D}) \longrightarrow \Fun(\mathsf{L},\mathsf{D})
+%   \end{displaymath}
+%   que será o inverso de $\gamma^{*}$.
+%   Dado um funtor $F \in \Fun_{\mathcal{W}}(\mathsf{C},\mathsf{D})$, segue da propriedade universal da localização $(\mathsf{L},\gamma)$ que existe um único funtor $\overline{F} \in \Fun(\mathsf{L},\mathsf{D})$ tal que $\overline{F} \circ \gamma = F$, e definimos então $\phi(F) \coloneqq \overline{F}$.
+%   Suponha agora que tenhamos uma transformação natural $\psi: F \Rightarrow G$ entre os funtores $F,\, G \in \Fun_{\mathcal{W}}(\mathsf{C},\mathsf{D})$.
+  
+%\end{proof}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:
