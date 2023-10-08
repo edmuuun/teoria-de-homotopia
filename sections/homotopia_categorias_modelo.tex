@@ -1,0 +1,95 @@
+\section{Teoria de Homotopia em categorias modelo}
+
+Nessa seção introduzimos enfim noções homotópicas que podem ser descritas em uma categoria modelo qualquer.
+Veremos, entretanto, que mesmo a noção básica de homotopia entre dois morfismos possui sutilezas que a tornam mais complexa do que a noção clássica de homotopia entre mapas contínuos de espaços topológicos.
+Felizmente, também veremos que a noção categórica de homotopia se aproxima muito maisda clássica quando trabalhamos apenas com objetos cofibrantes ou fibrantes, e nesse caso podemos usar a construção usual da categoria homotópica para definirmos uma espécie de localização de uma categoria modelo.
+
+A fim de imitarmos a noção topológica de homotopia, o primeiro passo será darmos uma descrição categórica para a construção do cilindro $B \times I$ associado a um espaço topológico $B$ qualquer, onde é claro que $I$ denota o intervalo unitário da reta.
+
+Lembremos inicialmente que, dado um objeto $B$ de uma categoria $\mathsf{C}$ qualquer que admita coprodutos, a propriedade universal dessa construção garante a existência de um único mapa $\nabla: B \sqcup B \to B$ fazendo comutar o diagrama abaixo.
+\begin{displaymath}
+  \begin{tikzcd}
+    B
+    \arrow[rd, "j_{1}"]
+    \arrow[rrd, bend left=15, "\id_{B}"]
+    \\ & B \sqcup B
+    \arrow[r, dashed, "\nabla" description]
+    & B
+    \\ B
+    \arrow[ru, "j_{2}" swap]
+    \arrow[rru, bend right=15, "\id_{B}" swap]
+  \end{tikzcd}
+\end{displaymath}
+Tal morfismo é comumente chamado de \textbf{morfismo codiagonal} ou também de \textbf{morfismo de dobra}\footnote{Uma tradução direta do inglês \emph{fold map}.}.
+Intuitivamente, esse morfismo simplesmente cola duas cópias exatamente uma sobre a outra.
+Por vezes, se precisarmos distinguir entre os morfismos codiagonais associados a diferentes objetos, utilizaremos também a notação $\nabla_{B}$ para o morfismo descrito acima.
+
+\begin{defin}
+  Sejam $\mathsf{M}$ uma categoria modelo e $B \in \mathsf{M}$ um objeto qualquer.
+  Um \textbf{objeto cilindro} para $B$ é uma fatoração do mapa codiagonal $\nabla: B \sqcup B \to B$ como uma cofibração seguida de uma equivalência fraca.
+  Mais explicitamente, um objeto cilindro para $B$ é uma tripla $(\Cyl(B),i,\varepsilon)$, onde $i: B \sqcup B \cofib \Cyl(B)$ é uma cofibração e $\varepsilon: \Cyl(B) \overset{\sim}{\to} B$ é uma equivalência fraca tais que $\varepsilon \circ i = \nabla$, conforme mostrado no diagrama comutativo abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      B \sqcup B
+      \arrow[d, tail, "i" swap]
+      \arrow[rd, "\nabla"]
+      \\ \Cyl(B)
+      \arrow[r, "\varepsilon" {swap}, "\sim"]
+      & B
+    \end{tikzcd}
+  \end{displaymath}
+  Dizemos que a tripla $(\Cyl(B),i,\varepsilon)$ define um objeto cilindro \textbf{forte} se $\varepsilon$ é também uma fibração, ou seja, se $\varepsilon$ é uma fibração trivial.
+\end{defin}
+
+\begin{obs}
+  O axioma de fatoração (M5) garante que o morfismo $\nabla: B \sqcup B \to B$ pode ser fatorado como uma cofibração seguida de uma fibração trivial, portanto todo objeto de uma categoria modelo admite um objeto cilindro forte.
+  Entretanto, por vezes esse modelo para o objeto cilindro forte dado pelo axioma de fatoração pode ser muito complicado, por isso é vantajoso trabalharmos com cilindros fracos também, cuja descrição é por vezes mais simples.
+\end{obs}
+
+Vamos introduzir mais um pouco de terminologia.
+Dado  um objeto cilindro $(\Cyl(B),i,\varepsilon)$ para $B$, se $j_{1},\, j_{2}: B \to B \sqcup B$ são as injeções canônicas, frequentemente denotaremos os morfismos do tipo $B \to \Cyl(B)$ dados pelas composições $i \circ j_{1}$ e $i \circ j_{2}$ por $i_{0}$ e $i_{1}$, respectivamente.
+Essa diferença nos índices pode parecer estranho, mas a motivação para tal vem do caso topológico clássico, onde um modelo para o objeto cilindro $\Cyl(B)$ é o produto $B \times I$.
+Nesse caso, a composição $i_{0} = i \circ j_{1}$ mapeia $B$ para a face inferior $B \times \{0\}$ de $B \times I$, enquanto a composição $i_{1} = i \circ j_{2}$ mapeia $B$ para a face superior $B \times \{1\}$ do cilindro $B \times I$, o que justifica a razoabilidade dos índices aparecendo em cada uma das composições.
+
+Antes de vermos como a noção de objeto cilindro nos permite definir uma noção categórica de homotopia, vejamos algumas propriedades simples satisfeitas por tais objetos.
+
+\begin{lema}\label{lema:propriedades_objeto_cilindro}
+  Sejam $\mathsf{M}$ uma categoria modelo, $B \in \mathsf{M}$ um objeto qualquer, e $(\Cyl(B),i,\varepsilon)$ um objeto cilindro qualquer para $B$.
+  \begin{enumerate}
+  \item[(i)] Os morfismos $i_{0},\, i_{1}: B \to \Cyl(B)$ são equivalências fracas.
+    
+  \item[(ii)] Se $B$ é um objeto cofibrante, então os morfismos $i_{0},\, i_{1}: B \to \Cyl(B)$ são também cofibrações e, portanto, cofibrações triviais.
+  \end{enumerate}
+\end{lema}
+
+\begin{proof}
+  (i) Note que pela definição de $i_{0}$ temos
+  \begin{displaymath}
+    \varepsilon \circ i_{0} = \varepsilon \circ i \circ j_{1} = \nabla \circ j_{1} = \id_{B}.
+  \end{displaymath}
+  Ora, como $\id_{B}$ é uma equivalência fraca, o mesmo valendo para $\varepsilon$ pela definição de objeto cilindro, segue da propriedade 2-de-3 que $i_{0}$ é também uma equivalência fraca.
+  A demonstração de que $i_{1}$ é uma equivalência fraca segue de um raciocínio completamente análogo.
+
+  \smallskip
+  (ii) Lembremos que em qualquer categoria, o coproduto pode ser interpretado também como um pushout sobre o objeto inicial.
+  Mais precisamente, se $\varnothing$ denota um objeto inicial de $\mathsf{M}$, então o quadrado comutativo abaixo é um pushout.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \varnothing
+      \arrow[r, "!_{B}"]
+      \arrow[d, "!_{B}" swap]
+      & B
+      \arrow[d, "j_{1}"]
+      \\ B
+      \arrow[r, "j_{2}" swap]
+      & B \sqcup B
+    \end{tikzcd}
+  \end{displaymath}
+  Por hipótese $B$ é cofibrante, ou seja, o morfismo único $!_{B}$ é uma cofibração, mas já sabemos do \cref{corol:propriedades_de_preservacao_categoria_modelo} que cofibrações são preservadas por pushouts, portanto $j_{1}$ e $j_{2}$ são cofibrações.
+  Mas segue então que os morfismos $i_{0}$ e $i_{1}$ são composições de cofibrações e, portanto, cofibrações também de acordo com o \cref{corol:propriedades_de_preservacao_categoria_modelo}.
+\end{proof}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:
