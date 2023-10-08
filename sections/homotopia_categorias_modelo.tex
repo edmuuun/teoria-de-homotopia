@@ -89,6 +89,60 @@ Antes de vermos como a noção de objeto cilindro nos permite definir uma noçã
   Mas segue então que os morfismos $i_{0}$ e $i_{1}$ são composições de cofibrações e, portanto, cofibrações também de acordo com o \cref{corol:propriedades_de_preservacao_categoria_modelo}.
 \end{proof}
 
+Tendo em mãos essas propriedades básicas, podemos enfim definir uma primeira noção de homotopia entre morfismos em uma categoria modelo.
+
+\begin{defin}
+  Dois morfismos $f,\,g: B \to X$ em uma categoria modelo $\mathsf{M}$ são ditos \textbf{homotópicos à esquerda} se existe um objeto cilindro $(\Cyl(B),i,\varepsilon)$ para $B$ e um morfismo $h: \Cyl(B) \to X$ tal que $h \circ i = \langle f,g \rangle$, conforme mostrado no diagrama comutativo abaixo.
+  Nesse caso, denotamos essa relação por $f \sim_{L} g$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      B
+      & B \sqcup B
+      \arrow[l, "\nabla" swap]
+      \arrow[r, "{\langle f,g \rangle}"]
+      \arrow[d, tail, "i"]
+      & X
+      \\ & \Cyl(B)
+      \arrow[ru, dashed, "h" swap]
+      \arrow[lu, "\varepsilon", "\sim" {sloped}]
+    \end{tikzcd}
+  \end{displaymath}
+\end{defin}
+
+Se interpretarmos os morfismos $i_{0},\, i_{1}: B \to \Cyl(B)$ como sendo as faces inferior e superior do cilindro como no caso topológico clássico, então as composições $h \circ i_{0}$ e $h \circ i_{1}$ determinam os estágios inicial e final da homotopia $h$.
+Usando a definição de tais morfismos e a comutatividade acima vemos que por um lado
+\begin{displaymath}
+  h \circ i_{0} = h \circ i \circ j_{1} = \langle f,g \rangle \circ j_{1} = f,
+\end{displaymath}
+e por outro
+\begin{displaymath}
+  h \circ i_{1} = h \circ i \circ j_{2} = \langle f,g \rangle \circ j_{2} = g.
+\end{displaymath}
+Assim, recuperamos em certo sentido a intuição clássica de uma família de morfismos que começa em $f$ e termina em $g$.
+
+Veja que a definição acima possui uma sutileza: exigimos que a homotopia $h$ esteja definida em \emph{algum} objeto cilindro $\Cyl(B)$, mas $B$ pode muito bem admitir diversos objetos cilindros distintos.
+Isso pode representar uam dificuldade para ``combinarmos'' homotopias à esquerda, já que elas podem não estar definidas nos mesmos objetos cilindros.
+
+Uma propriedade básica que possivelmente justifica a terminologia usada é o fato de homotopias à esquerda serem preservadas por composições à esquerda.
+
+\begin{prop}\label{prop:composicao_a_esquerda_preserva_homotopia_a_esquerda}
+  Suponha que $f,\,g : B \to X$ sejam dois morfismos homotópicos à esquerda em uma categoria modelo $\mathsf{M}$.
+  Então, dado qualquer outro morfismo $\beta: X \to Y$, os morfismos $\beta \circ f,\, \beta \circ g: B \to Y$ também são homotópicos à esquerda.
+\end{prop}
+
+\begin{proof}
+  Por hipótese existe um objeto cilindro $(\Cyl(B),i,\varepsilon)$ para $B$ e um morfismo $h: \Cyl(B) \to X$ satisfazendo $h \circ i = \langle f,g \rangle$.
+  Afirmamos que $\beta \circ h$ é a homotopia à esquerda procurada de $\beta \circ f$ para $\beta \circ g$.
+  De fato, basta notar que
+  \begin{displaymath}
+    \beta \circ h \circ i = \beta \circ \langle f,g \rangle = \langle \beta \circ f, \beta \circ g \rangle,
+  \end{displaymath}
+  onde a última igualdade segue diretamente da propriedade universal do coproduto, já que a composição $\beta \circ \langle f,g \rangle$ satisfaz as igualdades
+  \begin{displaymath}
+    (\beta \circ \langle f,g \rangle) \circ j_{1} = \beta \circ f \quad \text{e} \quad (\beta \circ \langle f,g \rangle) \circ j_{2} = \beta \circ g. \qedhere
+  \end{displaymath}
+\end{proof}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../main"
