@@ -123,15 +123,23 @@ Assim, recuperamos em certo sentido a intuição clássica de uma família de mo
 Veja que a definição acima possui uma sutileza: exigimos que a homotopia $h$ esteja definida em \emph{algum} objeto cilindro $\Cyl(B)$, mas $B$ pode muito bem admitir diversos objetos cilindros distintos.
 Isso pode representar uam dificuldade para ``combinarmos'' homotopias à esquerda, já que elas podem não estar definidas nos mesmos objetos cilindros.
 
-Uma propriedade básica que possivelmente justifica a terminologia usada é o fato de homotopias à esquerda serem preservadas por composições à esquerda.
+O resultado abaixo mostra que homotopias à esquerda são preservadas por composição de morfismos à esquerda, o que possivelmente justifica a terminologia usada.
+Além disso, mostramos que homotopias à esquerda também são preservadas por composição de morfismos à direita quando supomos que o codomínio é fibrante, e essa hipótese também garante a independência do objeto cilindro no qual a homotopia está definida.
 
 \begin{prop}\label{prop:composicao_a_esquerda_preserva_homotopia_a_esquerda}
   Suponha que $f,\,g : B \to X$ sejam dois morfismos homotópicos à esquerda em uma categoria modelo $\mathsf{M}$.
-  Então, dado qualquer outro morfismo $\beta: X \to Y$, os morfismos $\beta \circ f,\, \beta \circ g: B \to Y$ também são homotópicos à esquerda.
+
+  \begin{enumerate}
+  \item Dado um morfismo $\beta: X \to Y$, os morfismos compostos $\beta \circ f,\, \beta \circ g: B \to Y$ são homotópicos à esquerda.
+    
+  \item Se $X$ é fibrante, então a homotopia entre $f$ e $g$ independe do objeto cilindro usado.
+    
+  \item Se $X$ é fibrante, então dado qualquer morfismo $\alpha: A \to B$, os morfismos compostos $f \circ \alpha,\, g \circ \alpha: A \to X$ são homotópicos à esquerda.
+  \end{enumerate}
 \end{prop}
 
 \begin{proof}
-  Por hipótese existe um objeto cilindro $(\Cyl(B),i,\varepsilon)$ para $B$ e um morfismo $h: \Cyl(B) \to X$ satisfazendo $h \circ i = \langle f,g \rangle$.
+  1. Por hipótese existe um objeto cilindro $(\Cyl(B),i,\varepsilon)$ para $B$ e um morfismo $h: \Cyl(B) \to X$ satisfazendo $h \circ i = \langle f,g \rangle$.
   Afirmamos que $\beta \circ h$ é a homotopia à esquerda procurada de $\beta \circ f$ para $\beta \circ g$.
   De fato, basta notar que
   \begin{displaymath}
@@ -139,7 +147,107 @@ Uma propriedade básica que possivelmente justifica a terminologia usada é o fa
   \end{displaymath}
   onde a última igualdade segue diretamente da propriedade universal do coproduto, já que a composição $\beta \circ \langle f,g \rangle$ satisfaz as igualdades
   \begin{displaymath}
-    (\beta \circ \langle f,g \rangle) \circ j_{1} = \beta \circ f \quad \text{e} \quad (\beta \circ \langle f,g \rangle) \circ j_{2} = \beta \circ g. \qedhere
+    (\beta \circ \langle f,g \rangle) \circ j_{1} = \beta \circ f \quad \text{e} \quad (\beta \circ \langle f,g \rangle) \circ j_{2} = \beta \circ g.
+  \end{displaymath}
+
+  \smallskip
+  2. Por hipótese sabemos que existe \emph{algum} objeto cilindro $(\Cyl(B),i,\varepsilon)$ para $B$ e um morfismo $h: \Cyl(B) \to X$ tal que $h \circ i = \langle f,g \rangle$.
+  Afirmamos que existe também uma homotopia de $f$ para $g$ definida em um cilindro \emph{forte}.
+  De fato, sabemos do axioma de fatoração que a equivalência fraca $\varepsilon: \Cyl(B) \to B$ pode ser fatorada como uma cofibração seguida de uma fibração trivial conforme indicado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \Cyl(B)
+      \arrow[rr, "\varepsilon", "\sim" {swap}]
+      \arrow[rd, tail, "j" swap]
+      & & B
+      \\ & C
+      \arrow[ru, two heads, "p" {swap}, "\sim" {sloped}]
+    \end{tikzcd}
+  \end{displaymath}
+  Afirmamos então que a tripla $(C,j \circ i,p)$ é um objeto cilindro forte para $B$.
+  Veja que $j \circ i$ e $p$ fatoram o morfismo de dobra $\nabla: B \to B \sqcup B$ pois
+  \begin{displaymath}
+    p \circ (j \circ i) = (p \circ j) \circ i = \varepsilon \circ i = \nabla,
+  \end{displaymath}
+  e como $p$ é uma fibração trivial pelo axioma de fatoração, a tripla em questão define de fato um cilindro forte.
+
+  Vamos agora mostrar que existe uma homotopia de $f$ para $g$ definida nesse cilindro forte.
+  Note inicialmente que o morfismo $j: \Cyl(B) \to C$ que apareceu na fatoração acima é uma cofibração trivial pela propriedade 2-de-3, já que $\varepsilon$ e $p$ são ambos equivalências fracas.
+  Como o morfismo único $!_{X}: X \to *$ é por hipótese uma fibração, segue do axioma de levantamento que existe um morfismo diagonal $\widetilde{h}: C \to X$ fazendo comutar o diagrama abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \Cyl(B)
+      \arrow[r, "h"]
+      \arrow[d, tail, "j" {swap}, "\sim" {sloped}]
+      & X
+      \arrow[d, two heads, "!_{X}"]
+      \\ C
+      \arrow[r, "!_{C}" swap]
+      \arrow[ru, dashed, "\widetilde{h}" description]
+      & *
+    \end{tikzcd}
+  \end{displaymath}
+  Note então que $\widetilde{h}$ define uma homotopia de $f$ para $g$ com relação ao cilindro forte $(C,j \circ i,p)$ pois
+  \begin{displaymath}
+    \widetilde{h} \circ (j \circ i)
+    = (\widetilde{h} \circ j) \circ i
+    = h \circ i
+    = \langle f,g \rangle.
+  \end{displaymath}
+
+  Vejamos agora como mostrar que a homotopia entre $f$ e $g$ independe do cilindro usado.
+  Segue da discussão acima que podemos assumir sem perda de generalidade que o objeto cilindro $(\Cyl(B),i,\varepsilon)$ no qual está definida a homotopia $h$ por hipótese é forte.
+  Suponha agora que $(S,i',\varepsilon')$ seja um outro objeto cilindro qualquer.
+  Queremos construir um morfismo $h': S \to X$ tal que $h' \circ i' = \langle f,g \rangle$.
+  A ideia é construirmos um morfismo do tipo $S \to \Cyl(B)$ que, ao ser composto com a homotopia $h$ já existente, forneça uma outra homotopia definida agora no objeto cilindro $S$.
+  A fim de construirmos tal morfismo, note que o quadrado mostrado abaixo é comutativo, pois ambos os pares $(i,\varepsilon)$ e $(i',\varepsilon')$ são fatorações do morfismo de dobra $\nabla$.
+  Ademais, como $i'$ é uma cofibração, pois $S$ é um objeto cilindro, e $\varepsilon$ é uma fibração trivial, pois $\Cyl(B)$ é um cilindro forte; segue do axioma de levantamento que existe um morfismo diagonal $\phi: S \to \Cyl(B)$ como indicado.
+  \begin{displaymath}
+    \begin{tikzcd}
+      B \sqcup B
+      \arrow[r, tail, "i"]
+      \arrow[d, tail, "i'" swap]
+      & \Cyl(B)
+      \arrow[d, two heads, "\varepsilon", "\sim" {swap,sloped}]
+      \\ S
+      \arrow[r, "\sim", "\varepsilon'" {swap}]
+      \arrow[ru, dashed, "\phi" description]
+      & B
+    \end{tikzcd}
+  \end{displaymath}
+  Veja então que a composição $h' \coloneqq h \circ \phi$ define a homotopia desejada, pois da comutatividade acima vemos que
+  \begin{displaymath}
+    h' \circ i' = h \circ \phi \circ i' = h \circ i = \langle f,g \rangle.
+  \end{displaymath}
+
+  \smallskip
+  3. Suponha que $(\Cyl(A),i_{A},\varepsilon_{A})$ seja um objeto cilindro qualquer para $A$ e que $(\Cyl(B),i_{B},\varepsilon_{B})$ seja um objeto cilindro \emph{forte} para $B$.
+  Sabemos pelo item 2 que certamente existe uma homotopia $h: \Cyl(B) \to X$ de $f$ para $g$ definida nesse cilindro forte.
+  Considere o diagrama de levantamento exibido abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}[column sep=1.25cm]
+      A \sqcup A
+      \arrow[r, "{i_{B} \circ \alpha \sqcup \alpha}"]
+      \arrow[d, tail, "i_{A}" swap]
+      & \Cyl(B)
+      \arrow[d, two heads, "\varepsilon_{B}", "\sim" {swap,sloped}]
+      \\ \Cyl(A)
+      \arrow[r, "\alpha \circ \varepsilon_{A}" swap]
+      & B
+    \end{tikzcd}
+  \end{displaymath}
+  Veja que o quadrado externo é de fato comutativo pois por um lado
+  \begin{displaymath}
+    \alpha \circ \varepsilon_{A} \circ i_{A} = \alpha \circ \nabla_{A} = \alpha \circ \langle \id_{A},\id_{A} \rangle = \langle \alpha,\alpha \rangle,
+  \end{displaymath}
+  e por outro
+  \begin{displaymath}
+    \varepsilon_{B} \circ i_{B} \circ \alpha \sqcup \alpha = \nabla_{B} \circ \alpha \sqcup \alpha = \langle \alpha,\alpha \rangle.
+  \end{displaymath}
+  Segue do axioma de levantamento que existe o morfismo diagonal $\phi: \Cyl(A) \to \Cyl(B)$ mostrado acima.
+  Note então que $h \circ \phi: \Cyl(A) \to X$ é a homotopia procurada pois
+  \begin{displaymath}
+    h \circ \phi \circ i_{A} = h \circ i_{B} \circ (\alpha \sqcup \alpha) = \langle f,g \rangle \circ (\alpha \sqcup \alpha) = \langle f \circ \alpha, g \circ \alpha \rangle. \qedhere
   \end{displaymath}
 \end{proof}
 
