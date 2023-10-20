@@ -362,6 +362,8 @@ Nosso objetivo agora é demonstrar um resultado análogo à \cref{prop:proprieda
   \end{enumerate}
 \end{prop}
 
+%TODO: Revisar a demonstração abaixo e deixá-la mais clara.
+
 \begin{proof}
   1. Como $f$ e $g$ são homotópicos à direita, existe \emph{algum} objeto de caminhos $(P(X),c,p)$ para $X$ juntamente com um morfismo $h: B \to P(X)$ tal que $p \circ h = (f,g)$.
   Afirmamos que o morfismo composto $h \circ \alpha: A \to P(X)$ define uma homotopia à direita de $f \circ \alpha$ para $g \circ \alpha$.
@@ -461,6 +463,82 @@ Nosso objetivo agora é demonstrar um resultado análogo à \cref{prop:proprieda
   De fato, basta notar que
   \begin{displaymath}
     p_{Y} \circ \phi \circ h = (\beta \times \beta) \circ p_{X} \circ h = (\beta \times \beta) \circ (f,g) = (\beta \circ f,\beta \circ g). \qedhere
+  \end{displaymath}
+\end{proof}
+
+Em geral, dizemos simplesmente que dois morfismos $f,\,g: B \to X$ em uma categoria modelo são \textbf{homotópicos} quando eles são homotópicos simultaneamente à esquerda e à direita.
+O resultado abaixo mostra que, quando o domínio e o codomínio são bons, a existência de uma homotopia de um dos lados já garante a existência de uma homotopia do outro lado, portanto o conceito de homotopia acima se reduz aos outros dois introduzidos anteriormente.
+
+\begin{prop}\label{prop:dominio_cofibrante_dominio_fibrante_implica_homotopia_bilateral}
+  Considere dois mrofismos $f,\,g : B \to X$ em uma categoria modelo $\mathsf{M}$.
+  Se $B$ é cofibrante, e $X$ é fibrante, então as afirmações a seguir são equivalentes:
+  \begin{enumerate}
+  \item $f$ e $g$ são homotópicos à esquerda;
+    
+  \item $f$ e $g$ são homotópicos à direita;
+    
+  \item $f$ e $g$ são homotópicos.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  É claro que a terceira afirmação implica a primeira, logo, a fim de mostrarmos a equivalência entre as duas, basta mostrarmos que toda homotopia à esquerda dá origem a uma homotopia à direita também.
+
+  Sejam $(\Cyl(B),i,\varepsilon)$ um objeto cilindro \emph{forte} para $B$ e $(P(X),c,p)$ um objeto de caminhos qualquer para $X$.
+  Como $X$ é por hipótese fibrante, podemos assumir sem perda de generalidade que a homotopia à esquerda entre $f$ e $g$ é com relação ao cilindro $\Cyl(B)$, ou seja, podemos assumir a existência de um morfismo $h: \Cyl(B) \to X$ tal que $h \circ i = \langle f,g \rangle$.
+
+  Considere o problema de levantamento dado pelo quadrado comutativo abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      B
+      \arrow[r, "c \circ f"]
+      \arrow[d, tail, "\sim" {sloped}, "i_{0}" {swap}]
+      & P(X)
+      \arrow[d, two heads, "p"]
+      \\ \Cyl(B)
+      \arrow[r, "{(f \circ \varepsilon, h)}" swap]
+      \arrow[ru, dashed, "\phi" description]
+      & X \times X
+    \end{tikzcd}
+  \end{displaymath}
+  A comutatividade do quadrado segue diretamente do fato de $h$ ser uma homotopia de $f$ para $g$, já que
+  \begin{displaymath}
+    (f \circ \varepsilon,h) \circ i_{0} = (f \circ \varepsilon \circ i_{0}, h \circ i_{0}) = (f \circ \id_{B}, f) = (f,f) = \Delta \circ f = p \circ c \circ f.
+  \end{displaymath}
+  Além disso, o fato de $i_{0}$ ser uma cofibração trivial segue da hipótese do cilindro $\Cyl(B)$ ser forte de acordo com o \cref{lema:propriedades_objeto_cilindro}.
+  Podemos então encontrar um morfismo diagonal $\phi: \Cyl(B) \to P(X)$ conforme indicado acima.
+  Afirmamos que a homotopia à direita desejada é dada pelo morfismo composto $\phi \circ i_{1}: B \to P(X)$.
+  De fato, note que
+  \begin{displaymath}
+    p \circ (\phi \circ i_{1}) = (p \circ \phi) \circ i_{1} = (f \circ \varepsilon, h) \circ i_{1} = (f \circ \varepsilon \circ i_{1}, h \circ i_{1}) = (f \circ \id_{B}, g) = (f,g).
+  \end{displaymath}
+
+  Também é claro que a terceira afirmação implica a segunda, de forma que resta apenas mostrarmos a implicação reversa, ou seja, que toda homotopia à direita nas condições do enunciado dá origem a uma homotopia à esquerda também.
+  A estratégia é dualizarmos a demonstração anterior.
+  Assim, sejam $(\Cyl(B),i,\varepsilon)$ um objeto cilindro qualquer para $B$ e $(P(X),c,p)$ um objeto de caminhos forte para $X$.
+  Como $B$ é cofibrante por hipótese, segue da \cref{prop:propriedades_de_preservacao_homotopia_a_direita} que existe uma homotopia à direita de $f$ para $g$ com relação ao objeto de caminhos $P(X)$, ou seja, existe um morfismo $h: B \to P(X)$ tal que $p \circ h = (f,g)$.
+  Considere o quadrado mostrado abaixo, o qual é comutativo pois
+  \begin{displaymath}
+    p_{0} \circ \langle c \circ f, h \rangle = \langle p_{0} \circ  c \circ f, p_{0} \circ h \rangle = \langle \id_{X} \circ f, f \rangle = \langle f,f \rangle = f \circ \nabla_{B} = f \circ \varepsilon \circ i.
+  \end{displaymath}
+  \begin{displaymath}
+    \begin{tikzcd}[column sep=1.35cm]
+      B \sqcup B
+      \arrow[d, tail, "i" swap]
+      \arrow[r, "{\langle c \circ f, h \rangle}"]
+      & P(X)
+      \arrow[d, two heads, "\sim" {swap, sloped}, "p_{0}"]
+      \\ \Cyl(B)
+      \arrow[r, "f \circ \varepsilon" swap]
+      \arrow[ru, dashed, "\psi" description]
+      & X
+    \end{tikzcd}
+  \end{displaymath}
+  Sendo $P(X)$ um objeto de caminhos forte, sabemos do \cref{lema:propriedades_objeto_de_caminhos} que $p_{0}: P(X) \to X$ é de fato uma fibração trivial; e ademais, $i: B \sqcup B \to \Cyl(B)$ é uma cofibração pela própria definição de objeto cilindro.
+  O axioma de levantamento (M4) fornece então o morfismo diagonal $\psi: \Cyl(B) \to P(X)$ indicado acima.
+  Note enfim que o morfismo composto $p_{1} \circ \psi: \Cyl(B) \to X$ define a homotopia à esquerda procurada como mostra a sequência de igualdades
+  \begin{displaymath}
+    p_{1} \circ \psi \circ i = p_{1} \circ \langle c \circ f, h \rangle = \langle p_{1} \circ c \circ f, p_{1} \circ h \rangle = \langle \id_{X} \circ f, g \rangle = \langle f,g \rangle. \qedhere
   \end{displaymath}
 \end{proof}
 
