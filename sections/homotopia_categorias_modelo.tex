@@ -430,9 +430,40 @@ Nosso objetivo agora é demonstrar um resultado análogo à \cref{prop:proprieda
   \end{displaymath}
   Basta notar agora que a composição $\phi \circ h: B \to P'$ define a homotopia à direita desejada, pois
   \begin{displaymath}
-    p' \circ \phi \circ h = p \circ h = (f,g). \qedhere
+    p' \circ \phi \circ h = p \circ h = (f,g).
+  \end{displaymath}
+
+  \smallskip
+  3. Suponha que $(P(X),c_{X},p_{X})$ seja um objeto de caminhos forte para $X$ e que $(P(Y),c_{Y},p_{Y})$ seja um objeto de caminhos qualquer para $Y$.
+  Sendo $B$ cofibrante, segue do item 2 que certamente existe uma homotopia de $f$ para $g$ em termos do objeto de caminhos $P(X)$, ou seja, um morfismo $h: B \to P(X)$ tal que $p_{X} \circ h = (f,g)$.
+  A ideia é obtermos um morfismo $\phi: P(X) \to P(Y)$ que nos permita ``empurrar'' a homotopia $h$ ao longo do morfismo $\beta$, e para isso é claro que vamos usar o axioma de levantamento.
+
+  Note que o quadrado abaixo é comutativo, pois
+  \begin{displaymath}
+    p_{Y} \circ c_{Y} \circ \beta = \Delta_{Y} \circ \beta = \beta \times \beta = (\beta \times \beta) \circ \id_{X} = (\beta \times \beta) \circ \Delta_{X} = (\beta \times \beta) \circ c_{X} \circ p_{X}.
+  \end{displaymath}
+  Aplicando o axioma de levantamento (M4) obtemos então o levantamento $\phi: P(X) \to P(Y)$ conforme indicado.
+  \begin{displaymath}
+    \begin{tikzcd}[column sep=1.35cm]
+      X
+      \arrow[r, "c_{Y} \circ \beta"]
+      \arrow[d, tail, "\sim" {sloped}, "c_{X}" {swap}]
+      & P(Y)
+      \arrow[d, two heads,"p_{Y}"]
+      \\ P(X)
+      \arrow[r, "(\beta \times \beta) \circ p_{X}" swap]
+      \arrow[ru, dashed, "\phi" description]
+      & Y \times Y
+    \end{tikzcd}
+  \end{displaymath}
+
+  Afirmamos que o morfismo composto $\phi \circ h: B \to P(Y)$ define a homotopia à direita desejada então $\beta \circ f$ e $\beta \circ g$.
+  De fato, basta notar que
+  \begin{displaymath}
+    p_{Y} \circ \phi \circ h = (\beta \times \beta) \circ p_{X} \circ h = (\beta \times \beta) \circ (f,g) = (\beta \circ f,\beta \circ g). \qedhere
   \end{displaymath}
 \end{proof}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../main"
