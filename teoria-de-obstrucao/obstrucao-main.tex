@@ -1,0 +1,277 @@
+\input{obstrucao-preamble}
+
+\begin{document}
+
+\maketitle
+
+% TODO:
+% - Falar de complexos de cadeias como um exemplo típico de categoria que já é pontuada sem a necessidade de passarmos para a categoria de objetos pontuados associada.
+% - Entender melhor o objeto final da categoria de conjuntos simpliciais para então entender melhor os conjuntos simpliciais pontuados.
+
+\section{Introdução e motivação}
+
+Considere o quadrado comutativo abaixo em uma categoria modelo $\mathsf{M}$ qualquer, onde $i: A \cofib B$ é uma cofibração, e $p: X \fib Y$ é uma fibração.
+
+\begin{displaymath}
+  \begin{tikzcd}
+    A
+    \arrow[r, "\alpha"]
+    \arrow[d, tail, "i" swap]
+    & X
+    \arrow[d, two heads, "p"]
+    \\ B
+    \arrow[r, "\beta" swap]
+    & Y
+  \end{tikzcd}
+\end{displaymath}
+O \emph{axioma de levantamento} na definição de uma categoria modelo $\mathsf{M}$ garante que, quando $i$ ou $p$ são equivalências fracas, então podemos encontrar um morfismo diagonal $h: B \to X$  (um levantamento) que faz os diagramas resultantes comutarem.
+\begin{displaymath}
+  \begin{tikzcd}
+     A
+    \arrow[r, "\alpha"]
+    \arrow[d, tail, "i" {swap}, "\sim" {sloped}]
+    & X
+    \arrow[d, two heads, "p"]
+    \\ B
+    \arrow[r, "\beta" swap]
+    \arrow[ru, dashed, "h" description]
+    & Y
+  \end{tikzcd}
+  \hspace{2cm}
+  \begin{tikzcd}
+     A
+    \arrow[r, "\alpha"]
+    \arrow[d, tail, "i" swap]
+    & X
+    \arrow[d, two heads, "p", "\sim" {swap,sloped}]
+    \\ B
+    \arrow[r, "\beta" swap]
+    \arrow[ru, dashed, "h" description]
+    & Y
+  \end{tikzcd}
+\end{displaymath}
+
+Mas o que ocorre quando removemos a condição de trivialidade sobre o morfismo $i$ ou sobre o morfismo $p$?
+Nesse caso, não há por que esperar que exista necesariamente um morfismo diagonal $h$ que complete o diagrama de forma comutativa.
+Vejamos um exemplo mais concreto para nos convencermos disso.
+
+\begin{exem}[Homotopias à esquerda e à direita]
+  \label{exem:homotopia_como_levantamento}
+  Em uma categoria modelo $\mathsf{M}$, sejam $B$ um objeto qualquer, $(\Cyl(B),i,\varepsilon)$ um objeto cilindro para $B$, e $X$ um objeto fibrante.
+  Dado um par de morfismos $f,\,g: B \to X$, podemos considerar o quadrado comutativo abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      B \sqcup B
+      \arrow[r, "{\langle f,g \rangle}"]
+      \arrow[d, tail, "i" swap]
+      & X
+      \arrow[d, two heads]
+      \\ \Cyl(B)
+      \arrow[r]
+      & *
+    \end{tikzcd}
+  \end{displaymath}
+  Veja que esse diagrama é do tipo considerado acima, já que $i: B \sqcup B \cofib \Cyl(B)$ é uma cofibração pela definição de objeto cilindro, e o morfismo único $X \fib *$ é uma fibração por conta da hipótese que fizemos sobre $X$.
+  Note que um morfismo diagonal $h: \Cyl(B) \to X$ faz comtuar o diagrama acima se, e somente se, a igualdade $h \circ i = \langle f,g \rangle$ é satisfeita; ou seja, um levantamento para o diagrama acima é o mesmo que uma homotopia à esquerda entre os morfismos $f$ e $g$, o que não necessariamente vai existir sempre.
+
+  Vale notar que a exigência de que $X$ seja fibrante não significa nada na estrutura modelo de Serre na categoria de espaços topológicos $\mathsf{Top}$, já que nessa estrutura modelo todo objeto é fibrante.
+  Em outras palavras, quando lidamos com espaços topológicos, todo problema de construção de uma homotopia entre dois mapas pode ser formulado como um problema de levantamento do tipo que estamos considerando.
+
+  É claro que também temos uma formulação análogo para o problema de construção de uma homotopia à direita entre os morfismos $f$ e $g$.
+  Nesse caso, supomos que $B$ seja um objeto cofibrante, tomamos $(P(X),c,p)$ um objeto de caminhos para $X$, e consideramos o quadrado comutativo abaixo o qual é do tipo que estamos considerando.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \varnothing
+      \arrow[d, tail]
+      \arrow[r]
+      & P(X)
+      \arrow[d, two heads, "p"]
+      \\ B
+      \arrow[r, "{(f,g)}" swap]
+      & X \times X
+    \end{tikzcd}
+  \end{displaymath}
+  Um morfismo diagonal $h: B \to P(X)$ faz comutar o diagrama acima se, e somente se, satisfaz a igualdade $p \circ h = (f,g)$; ou seja, um levantamento para o diagrama acima é precisamente uma homotopia à direita entre $f$ e $g$, a qual não necessariamente precisa existir.
+\end{exem}
+
+O próximo exemplo exige um lema simples a respeito da relação entre produtos e fibrações.
+
+\begin{lema}\label{lema:produto_com_fibrante_induz_fibracao}
+  Em uma categoria modelo $\mathsf{M}$, suponha que $X$ seja um objeto fibrante.
+  Então, dado qualquer outro objeto $B$, a projeção no primeiro fator $\pi_{1}: B \times X \to B$ é uma fibração.
+\end{lema}
+
+\begin{proof}
+  Bastar notar que o diagrama abaixo é um pullback e usar o fato que fibrações são preservadas por pullbacks.
+  \begin{displaymath}
+    \begin{tikzcd}
+      B \times X
+      \arrow[d, "\pi_{1}" swap]
+      \arrow[r, "\pi_{2}"]
+      & X
+      \arrow[d, two heads]
+      \\ B
+      \arrow[r]
+      & *
+    \end{tikzcd} \qedhere
+  \end{displaymath}
+\end{proof}
+
+\begin{exem}[Extensões ao longo de cofibrações]
+  \label{exem:extensao_ao_longo_de_cofibracao_como_levantamento}
+  Suponha que $i: A \cofib B$ seja uma cofibração em uma categoria modelo $\mathsf{M}$, o que geralmente interpretamos como $A$ sendo um \emph{bom} subobjeto de $B$.
+  Considere um morfismo $f: A \to X$, onde supomos que $X$ seja um objeto fibrante.
+  Segue do \cref{lema:produto_com_fibrante_induz_fibracao} acima que a projeção $\pi_{1}: B \times X \to B$ é uma fibração, e podemos então considerar o problema de levantamento dado pelo quadrado comutativo abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[d, tail, "i" swap]
+      \arrow[r, "{(i,f)}"]
+      & B \times X
+      \arrow[d, two heads, "\pi_{1}"]
+      \\ B
+      \arrow[r, "\id_{B}" swap]
+      & B
+    \end{tikzcd}
+  \end{displaymath}
+  Suponha então que $h: B \to B \times X$ seja um levantamento para o diagrama acima.
+  Note então que o morfismo $F \coloneqq \pi_{2} \circ h: B \to X$ satisfaz a igualdade
+  \begin{displaymath}
+    F \circ i = \pi_{2} \circ h \circ i = \pi_{2} \circ (i,f) = f;
+  \end{displaymath}
+  ou seja, $F$ é \emph{extensão do morfismo $f$ ao longo da cofibração $i$}.
+  Reciprocamente, se $F: B \to X$ satisfaz $F \circ i = f$, então o morfismo $h \coloneqq (\id_{B},F): B \to B \times X$ define um levantamento para o diagrama acima.
+  De fato, a igualdade $\pi_{1} \circ h = \id_{B}$ é imediata da definição, e a igualdade $h \circ i = (i,f)$ segue da sequência de igualdade
+  \begin{displaymath}
+    \pi_{1} \circ h \circ i = \id_{B} \circ i = i
+  \end{displaymath}
+  e também da sequência de igualdades
+  \begin{displaymath}
+    \pi_{2} \circ h \circ i = \pi_{2} \circ (\id_{B},F) \circ i = F \circ i = f.
+  \end{displaymath}
+
+  Em suma, o problema de levantamento acima admite uma solução se, e somente se, o morfismo $f: A \to X$ pode ser estendido a um morfismo $F: B \to X$ ao longo da cofibração $i: A \cofib B$.
+  Pensando novamente em cofibrações como boas inclusões, temos um morfismo definido \emph{parcialmente} no subobjeto $A$ e queremos estendê-lo a um morfismo definido \emph{globalmente} no objeto $B$.
+
+  Novamente, no caso clássico da categoria $\mathsf{Top}$, a exigência de que $X$ seja fibrante não impõe na verdade nenhuma restrição adicional sobre $X$, as projeções nos fatores de um produto são sempre fibrações de Serre, portanto qualquer problema de extensão de um mapa contínuo ao longo de uma cofibração na estrutura modelo de Serre pode ser formulado como um problema de levantamento no sentido em que estamos tratando aqui.
+\end{exem}
+
+\begin{exem}[Seções de uma fibração]
+  Considere uma cofibração $i: A \cofib B$, e uma fibração $p: E \fib B$.
+  Vamos supor que essa fibração admita uma \emph{seção parcial sobre $A$}, ou seja, que exista um morfismo $s: A \to E$ satisfazendo a igualdade $p \circ s = i$.
+  Podemos então considerar o problema de levantamento dado pelo quadrado comutativo abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[d, tail, "i" swap]
+      \arrow[r, "s"]
+      & E
+      \arrow[d, two heads, "p"]
+      \\ B
+      \arrow[r, "\id_{B}" swap]
+      & B
+    \end{tikzcd}
+  \end{displaymath}
+
+  Suponha que $S: B \to E$ seja um levantamento para o diagrama acima,o que significa que $S$ deve satisfazer as seguintes igualdades:
+  \begin{enumerate}
+  \item[(i)] $p \circ S = \id_{B}$;
+    
+  \item[(ii)] $S \circ i = s$.
+  \end{enumerate}
+  A primeira igualdade diz que $S$ é uma \emph{seção} da fibração $p$, enquanto a segunda igualdade diz que $S$ \emph{estende} a seção parcial $s$ considerada inicialmente ao longo da cofibração $i$.
+
+  No caso topológico, se considerarmos $A$ como um \emph{bom} subespaço de $B$, então no problema acima começamos com uma seção parcial da fibração $p$ definida apenas sobre o subespaço $A$, e queremos então estendê-la a uma outra seção que esteja definida globalmente no espaço $B$.
+\end{exem}
+
+Os exemplos acima ilustram algumas situações nas quais nos deparamos com problemas de levantamento não triviais.
+O objetivo da Teoria de Obstrução no contexto de categorias modelo é exatamente estudar esses problemas de levantamento não-triviais e obter critérios que nos permitam inferir quando eles admitem ou não alguma solução.
+
+\section{Categorias modelo pontuadas}
+
+Antes de definirmos propriamente a noção de uma teoria de obstrução para morfismos em uma categoria modelo, precisamos antes discutir a noção de uma categoria modelo pontuada, já que é nesse contexto que desenvolveremos nosso estudo.
+
+\begin{defin}\label{defin:categoria_pontuada}
+  Uma categoria $\mathsf{C}$ é dita \textbf{pontuada} se ela admite um objeto que seja tanto inicial quanto final.
+\end{defin}
+
+\begin{obs}
+  Por vezes, especialmente em contextos algébricos, um objeto que seja simultanemente inicial e final é chamado de \emph{objeto zero}.
+\end{obs}
+
+Uma forma (nada surpreendente) de obtermos categorias pontuadas é trabalhando com objetos pontuados.
+
+\begin{exem}[Categorias de objetos pontuados]
+  Dada uma categoria $\mathsf{C}$ contendo um objeto final $*$, considere a categoria co-slice $\mathsf{C}_{*} \coloneqq * \backslash \mathsf{C}$, ou seja, os objetos de $\mathsf{C}_{*}$ são pares $(A,a)$, onde $A$ é um objeto de $\mathsf{C}$, e $a: * \to A$ é um morfismo definido no objeto final; e um morfismo do tipo $(A,a) \to (B,b)$ é um morfismo $f: A \to B$ na categoria original $\mathsf{C}$ satisfazendo a igualdade $f \circ a = b$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[rr, dashed, "f"]
+      & & B
+      \\ & *
+      \arrow[lu, "a"]
+      \arrow[ru, "b" swap]
+    \end{tikzcd}
+  \end{displaymath}
+  É comum interpretarmos o morfismo $a: * \to A$ como uma escolha de ponto no objeto $A$, e nos referirmos então ao morfismo $a$ como um \emph{ponto base} para $A$ e ao par $(A,a)$ como um \emph{objeto pontuado} em $\mathsf{C}$.
+  Seguindo essa interpretação, a condição $f \circ a = b$ imposta sobre um morfismo $f: (A,a) \to (B,b)$ pode ser entendida como uma condição de \emph{preservação de pontos base}, razão pela qual dizemos que $f$ nesse caso é um \emph{morfismo pontuado}
+
+  Veja que o objeto terminal vem sempre equipado com o ponto base dado pelo morfismo idêntico $\id_{*}: * \to *$.
+  Afirmamos que o objeto pontuado $(*,\id_{*})$ é tanto inicial quanto final na categoria $\mathsf{C}_{*}$.
+  Dado um objeto pontuado $(A,a) \in \mathsf{C}_{*}$, o fato de $*$ ser final garante a existência de um único morfismo $!_{A}: A \to *$ na categoria original $\mathsf{C}$.
+  Veja que esse morfismo é automaticamente pontuado, já que a igualdade $!_{A} \circ a = \id_{*}$ segue diretamente do fato de ambos os morfismos $!_{A} \circ a$ e $\id_{*}$ terem o objeto final $*$ como codomínio.
+  Em outras palavras, $!_{A}$ é o único morfismo do tipo $(A,a) \to (*,\id_{*})$ em $\mathsf{C}_{*}$, o que mostra que $(*,\id_{*})$ é um objeto final nessa categoria.
+  Note agora que o morfismo $a: * \to A$ que determina o ponto base pode ser visto como um morfismo pontuado $a: (*,\id_{*}) \to (A,a)$.
+  Na verdade, pela definição de morfismo pontuado, esse é na verdade o único morfismo deste tipo, já que se $a': (*,\id_{*}) \to (A,a)$ é pontuado, então pode definição $a' \circ \id_{*} = a$, ou seja, $a' = a$.
+  Concluímos assim que existe um único morfismo do tipo $(*,\id_{*}) \to (A,a)$, o que mostra que $(*,\id_{*})$ é também um objeto inicial em $\mathsf{C}_{*}$.
+  Em suma, a categoria $\mathsf{C}_{*}$ é sempre pontuada.
+
+  Essa construção geral pode ser especializada para obtermos várias categorias de objetos pontuadas com as quais estamos habituados.
+  Tomando $\mathsf{C} \coloneqq \mathsf{Set}$ obtemos a categoria $\mathsf{Set_{*}}$ de \emph{conjuntos pontuados}.
+  Veja que uma função $a: * \to A$ determina um elemento único $a(*) \in A$, e reciprocamente, todo elemento de $A$ determina uma função do tipo $* \to A$, o que nos permite recuperar a noção mais usual de conjunto pontuado como sendo um par $(A,a)$, onde $A$ é um conjunto e $a \in A$ é um elemento deste conjunto.
+  Exatamente o mesmo raciocínio mostra que tomando $\mathsf{C} \coloneqq \mathsf{Top}$ recuperamos a categoria $\mathsf{Top_{*}}$ usual de espaços pontuados.
+  % No caso em que $\mathsf{C} \coloneqq \mathsf{sSet}$ é a categoria de conjuntos simpliciais, a qual possui o $0$-simplexo
+  % \begin{displaymath}
+  %   \Delta^{0} \coloneqq \Hom_{\mathsf{sSet}}(-,[0]): \mathsf{Simp^{op}} \to \mathsf{Set}
+  % \end{displaymath}
+  % como objeto final, se $(X,\theta)$ é um objeto de $\mathsf{sSet_{*}}$, então por definição $\theta$ é uma transformação natural do tipo $\Delta^{0} \Rightarrow X$, mas pelo Lema de Yoneda essa transformação natural está unicamente identificada com o elemento
+  % \begin{displaymath}
+  %   \theta_{[0]}(\id_{[0]}) \in X([0]) = X_{0},
+  % \end{displaymath}
+  % o qual define um vértice do conjunto simplicial $X$.
+  % Em outras palavras, um conjunto simplicial pontuado também pode ser pensado como um par $(X,v)$, onde $X$ é um conjunto simplicial, e $v \in X_{0}$ é um de seus vértices.
+\end{exem}
+
+Voltemos agora ao caso de uma categoria pontuada $\mathsf{C}$ qualquer.
+Dados dois objetos quaisquer $X,\, Y \in \mathsf{C}$, a existência de um objeto simultaneamente inicial e final nos permite definir um morfismo especial do tipo $X \to Y$ por meio da composição mostrada abaixo.
+\begin{displaymath}
+  \begin{tikzcd}
+    X
+    \arrow[rd, "!_{X}" swap]
+    \arrow[rr, dashed]
+    & & Y
+    \\ & *
+    \arrow[ru, "!_{Y}" swap]
+  \end{tikzcd}
+\end{displaymath}
+Vamos chamar tal morfismo de \textbf{morfismo constante de $X$ para $Y$} e denotá-lo por $\ct_{X,Y}$.
+
+\begin{exem}
+  Vejamos a interpretação dessa noção de morfismo constante em alguns exemplos concretos de categorias pontuadas.
+
+  \begin{enumerate}
+  \item[(i)] No caso da categoria de grupos $\mathsf{Grp}$, dados grupos $G$ e $H$, como o morfismo $!_{G}: G \to \{e\}$ manda todos os elementos de $G$ para $e$, enquanto o morfismo $!_{H}: \{e\} \to H$ manda $e$ para a identidade $e_{H}$ do grupo $H$, o morfismo constante $\ct_{G,H}: G \to H$ é constante e igual a $e_{H}$.
+
+  \item[(ii)] No caso da categoria de conjuntos pontuados $\mathsf{Set_{*}}$, dados $(A,a)$ e $(B,b)$, o morfismo constante $\ct_{(A,a),(B,b)}: (A,a) \to (B,b)$ manda todos os elementos de $A$ para o ponto base $b \in B$.
+    A interpretação é exatamente a mesma no caso da categoria $\mathsf{Top_{*}}$ de espaços pontuados.
+    
+  % \item[(iii)] O que acontece no caso de conjuntos simpiciais pontuados? Preciso entender melhor o objeto terminal nessa categoria...
+  \end{enumerate}
+\end{exem}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
