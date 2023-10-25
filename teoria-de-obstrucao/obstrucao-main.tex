@@ -5,8 +5,8 @@
 \maketitle
 
 % TODO:
-% - Falar de complexos de cadeias como um exemplo típico de categoria que já é pontuada sem a necessidade de passarmos para a categoria de objetos pontuados associada.
-% - Entender melhor o objeto final da categoria de conjuntos simpliciais para então entender melhor os conjuntos simpliciais pontuados.
+% - Entender o objeto final da categoria de conjuntos simpliciais.
+% - Descrever conjuntos simpliciais pontuados em termos de pares formados por um conjunto simplicial e uma escolha de vértice.
 
 \section{Introdução e motivação}
 
@@ -187,7 +187,7 @@ O próximo exemplo exige um lema simples a respeito da relação entre produtos 
 Os exemplos acima ilustram algumas situações nas quais nos deparamos com problemas de levantamento não triviais.
 O objetivo da Teoria de Obstrução no contexto de categorias modelo é exatamente estudar esses problemas de levantamento não-triviais e obter critérios que nos permitam inferir quando eles admitem ou não alguma solução.
 
-\section{Categorias modelo pontuadas}
+\section{Categorias pontuadas}
 
 Antes de definirmos propriamente a noção de uma teoria de obstrução para morfismos em uma categoria modelo, precisamos antes discutir a noção de uma categoria modelo pontuada, já que é nesse contexto que desenvolveremos nosso estudo.
 
@@ -197,12 +197,20 @@ Antes de definirmos propriamente a noção de uma teoria de obstrução para mor
 
 \begin{obs}
   Por vezes, especialmente em contextos algébricos, um objeto que seja simultanemente inicial e final é chamado de \emph{objeto zero}.
+  Seguindo essa terminologia, uma categoria pontuada é então uma categoria que possui um objeto zero.
 \end{obs}
 
-Uma forma (nada surpreendente) de obtermos categorias pontuadas é trabalhando com objetos pontuados.
+\begin{exem}\label{exem:categorias_pontuadas_algebricas}
+  A categoria de grupos $\mathsf{Grp}$ é pontuada, sendo seu objeto zero dado pelo grupo trivial $\{e\}$.
+
+  Dado um anel $R$ qualquer, a categoria $\mathsf{Ch}(R)$ de complexos de cadeias de $R$-módulos é uma categoria pontuada, sendo seu objeto zero dado pelo complexo trivial $0_{\bullet}$ cujo módulo de $n$-cadeias $0_{n}$ é por definição o $R$-módulo trivial $0$ e cujo morfismo de bordo $\partial_{n}: 0_{n} \to 0_{n-1}$ é por definição o morfismo trivial.
+\end{exem}
+
+Podemos obter uma categoria pontuada a partir de uma categoria arbitrária utilizando a noção de \emph{objetos pontuados}.
 
 \begin{exem}[Categorias de objetos pontuados]
-  Dada uma categoria $\mathsf{C}$ contendo um objeto final $*$, considere a categoria co-slice $\mathsf{C}_{*} \coloneqq * \backslash \mathsf{C}$, ou seja, os objetos de $\mathsf{C}_{*}$ são pares $(A,a)$, onde $A$ é um objeto de $\mathsf{C}$, e $a: * \to A$ é um morfismo definido no objeto final; e um morfismo do tipo $(A,a) \to (B,b)$ é um morfismo $f: A \to B$ na categoria original $\mathsf{C}$ satisfazendo a igualdade $f \circ a = b$.
+  \label{exem:categoria_objetos_pontuados}
+  Dada uma categoria $\mathsf{C}$ contendo um objeto final $*$, considere a categoria co-slice $\mathsf{C}_{*} \coloneqq * \backslash \mathsf{C}$, ou seja, os objetos de $\mathsf{C}_{*}$ são pares $(A,a)$, onde $A$ é um objeto de $\mathsf{C}$, e $a: * \to A$ é um morfismo; e um morfismo do tipo $(A,a) \to (B,b)$ é um morfismo $f: A \to B$ na categoria original $\mathsf{C}$ satisfazendo a igualdade $f \circ a = b$.
   \begin{displaymath}
     \begin{tikzcd}
       A
@@ -225,25 +233,20 @@ Uma forma (nada surpreendente) de obtermos categorias pontuadas é trabalhando c
   Na verdade, pela definição de morfismo pontuado, esse é na verdade o único morfismo deste tipo, já que se $a': (*,\id_{*}) \to (A,a)$ é pontuado, então pode definição $a' \circ \id_{*} = a$, ou seja, $a' = a$.
   Concluímos assim que existe um único morfismo do tipo $(*,\id_{*}) \to (A,a)$, o que mostra que $(*,\id_{*})$ é também um objeto inicial em $\mathsf{C}_{*}$.
   Em suma, a categoria $\mathsf{C}_{*}$ é sempre pontuada.
+\end{exem}
 
-  Essa construção geral pode ser especializada para obtermos várias categorias de objetos pontuadas com as quais estamos habituados.
+\begin{exem}[Conjuntos e espaços pontuados]
+  \label{exem:conjuntos_e_espacos_pontuados}
+  Aplicando a construção descrita no \cref{exem:categoria_objetos_pontuados} a algumas categorias bem conhecidas recuperamos exemplos familiares de objetos pontuados.
+   Essa construção geral pode ser especializada para obtermos várias categorias de objetos pontuadas com as quais estamos habituados.
   Tomando $\mathsf{C} \coloneqq \mathsf{Set}$ obtemos a categoria $\mathsf{Set_{*}}$ de \emph{conjuntos pontuados}.
   Veja que uma função $a: * \to A$ determina um elemento único $a(*) \in A$, e reciprocamente, todo elemento de $A$ determina uma função do tipo $* \to A$, o que nos permite recuperar a noção mais usual de conjunto pontuado como sendo um par $(A,a)$, onde $A$ é um conjunto e $a \in A$ é um elemento deste conjunto.
   Exatamente o mesmo raciocínio mostra que tomando $\mathsf{C} \coloneqq \mathsf{Top}$ recuperamos a categoria $\mathsf{Top_{*}}$ usual de espaços pontuados.
-  % No caso em que $\mathsf{C} \coloneqq \mathsf{sSet}$ é a categoria de conjuntos simpliciais, a qual possui o $0$-simplexo
-  % \begin{displaymath}
-  %   \Delta^{0} \coloneqq \Hom_{\mathsf{sSet}}(-,[0]): \mathsf{Simp^{op}} \to \mathsf{Set}
-  % \end{displaymath}
-  % como objeto final, se $(X,\theta)$ é um objeto de $\mathsf{sSet_{*}}$, então por definição $\theta$ é uma transformação natural do tipo $\Delta^{0} \Rightarrow X$, mas pelo Lema de Yoneda essa transformação natural está unicamente identificada com o elemento
-  % \begin{displaymath}
-  %   \theta_{[0]}(\id_{[0]}) \in X([0]) = X_{0},
-  % \end{displaymath}
-  % o qual define um vértice do conjunto simplicial $X$.
-  % Em outras palavras, um conjunto simplicial pontuado também pode ser pensado como um par $(X,v)$, onde $X$ é um conjunto simplicial, e $v \in X_{0}$ é um de seus vértices.
 \end{exem}
 
-Voltemos agora ao caso de uma categoria pontuada $\mathsf{C}$ qualquer.
-Dados dois objetos quaisquer $X,\, Y \in \mathsf{C}$, a existência de um objeto simultaneamente inicial e final nos permite definir um morfismo especial do tipo $X \to Y$ por meio da composição mostrada abaixo.
+Veremos agora como a existência de um objeto zero em uma categoria pontuada nos permite fazer uma série de construções especiais.
+
+Dados dois objetos quaisquer $X$ e $Y$ de uma categoria pontuada $\mathsf{C}$, a existência de um objeto simultaneamente inicial e final nos permite definir um morfismo especial $\ct_{X,Y}: X \to Y$ chamado \textbf{morfismo constante de $X$ para $Y$} por meio da composição mostrada abaixo.
 \begin{displaymath}
   \begin{tikzcd}
     X
@@ -254,7 +257,6 @@ Dados dois objetos quaisquer $X,\, Y \in \mathsf{C}$, a existência de um objeto
     \arrow[ru, "!_{Y}" swap]
   \end{tikzcd}
 \end{displaymath}
-Vamos chamar tal morfismo de \textbf{morfismo constante de $X$ para $Y$} e denotá-lo por $\ct_{X,Y}$.
 
 \begin{exem}
   Vejamos a interpretação dessa noção de morfismo constante em alguns exemplos concretos de categorias pontuadas.
@@ -264,10 +266,50 @@ Vamos chamar tal morfismo de \textbf{morfismo constante de $X$ para $Y$} e denot
 
   \item[(ii)] No caso da categoria de conjuntos pontuados $\mathsf{Set_{*}}$, dados $(A,a)$ e $(B,b)$, o morfismo constante $\ct_{(A,a),(B,b)}: (A,a) \to (B,b)$ manda todos os elementos de $A$ para o ponto base $b \in B$.
     A interpretação é exatamente a mesma no caso da categoria $\mathsf{Top_{*}}$ de espaços pontuados.
-    
-  % \item[(iii)] O que acontece no caso de conjuntos simpiciais pontuados? Preciso entender melhor o objeto terminal nessa categoria...
   \end{enumerate}
 \end{exem}
+
+Introduduziremos agora algumas construções envolvendo escolhas de pontos base que serão especialmente relevantes no estudo de categorias pontuadas.
+
+\begin{defin}\label{defin:fibra_sobre_ponto_base}
+  Sejam $f: X \to Y$ um morfismo em uma categoria $\mathsf{C}$ qualquer e $y: * \to Y$ uma escolha de ponto base no codomínio do mesmo.
+  Caso o diagrama
+  \begin{displaymath}
+    \begin{tikzcd}
+      & X
+      \arrow[d, "f"]
+      \\ *
+      \arrow[r, "y" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  admita um pullback $(F,i,!_{F})$, nos referiremos a este pullback por \textbf{fibra de $f$ sobre $y$}.
+  \begin{displaymath}
+    \begin{tikzcd}
+      F
+      \arrow[r, "i"]
+      \arrow[d, "!_{F}" swap]
+      & X
+      \arrow[d, "f"]
+      \\ *
+      \arrow[r, "y" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+\end{defin}
+
+Um fato que conforta o coração é que, conforme esperado, mesmo em uma categoria qualquer, a fibra de um morfismo ``vive dentro'' do domínio deste morfismo em um sentido categórico adequado como mostra o Lema abaixo.
+
+\begin{lema}\label{lema:fibra_define_subobjeto}
+  Sejam $f: X \to Y$ um morfismo em uma categoria $\mathsf{C}$ qualquer e $y: * \to Y$ um ponto base.
+  Se $(F,i,!_{F})$ é uma fibra de $f$ sobre o ponto $y$, então $i: F \to X$ é um monomorfismo, ou seja, a fibra $F$ define um subobjeto do domínio $X$.
+\end{lema}
+
+\begin{proof}
+  Afirmamos que o morfismo $y: * \to Y$ que define o ponto base é sempre um monomorfismo.
+  Isso pode parecer surpreendente, mas não passa de uma trivialidade absoluta: se $\alpha,\, \beta: Z \to *$ são dois morfismos tais que $y \circ \alpha = y \circ \beta$, necessariamente devemos ter $\alpha = \beta$ simplesmente pelo fato de $*$ ser um objeto final da categoria $\mathsf{C}$.
+  Sabendo disso, o resultado em questão segue diretamente do fato de monomorfismos serem preservados por pullbacks.
+\end{proof}
 
 \end{document}
 
