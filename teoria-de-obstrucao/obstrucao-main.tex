@@ -311,6 +311,84 @@ Um fato que conforta o coração é que, conforme esperado, mesmo em uma categor
   Sabendo disso, o resultado em questão segue diretamente do fato de monomorfismos serem preservados por pullbacks.
 \end{proof}
 
+\begin{exem}
+  Vejamos que essa noção categórica de fibra faz sentido nas categoriais usuais com as quais estamos acostumados.
+
+  \begin{enumerate}
+  \item[(i)] Suponha que $f: X \to Y$ seja um morfismo na categoria de conjuntos $\mathsf{Set}$.
+    Dado um ponto $y \in Y$, seja $p_{y}: \{*\} \to Y$ a função associada que escolhe esse elemento, ou seja, $p_{y}(*) \coloneqq y$.
+    Vamos mostrar que a fibra usual $f^{-1}(y)$ juntamente com o mapa de inclusão $i: f^{-1}(y) \hookrightarrow X$ e a função terminal $f^{-1}(y) \to \{*\}$ definem uma fibra também no sentido categórico, ou seja, vamos mostrar que o diagrama abaixo é um pullback em $\mathsf{Set}$.
+    \begin{displaymath}
+      \begin{tikzcd}
+        f^{-1}(y)
+        \arrow[r, "i"]
+        \arrow[d]
+        & X
+        \arrow[d, "f"]
+        \\ \{*\}
+        \arrow[r, "p_{y}" swap]
+        & Y
+      \end{tikzcd}
+    \end{displaymath}
+
+    Suponha então que $W$ seja outro conjunto e que $\alpha: W \to X$ seja uma função que juntamente com a função terminal $!_{W}: W \to \{*\}$ faz comutar a camada externa do diagrama abaixo.
+    \begin{displaymath}
+      \begin{tikzcd}
+        W
+        \arrow[rrd, bend left=20, "\alpha"]
+        \arrow[rdd, bend right=20, "!_{W}" swap]
+        \\ & f^{-1}(y)
+        \arrow[r, "i"]
+        \arrow[d]
+        & X
+        \arrow[d, "f"]
+        \\ & \{*\}
+        \arrow[r, "p_{y}" swap]
+        & Y
+      \end{tikzcd}
+    \end{displaymath}
+    Veja então que $\alpha$ necessariamente toma valores na fibra $f^{-1}(y)$, já que pela condição de comutatividade acima temos as igualdades
+    \begin{displaymath}
+      f(\alpha(w)) = p_{y}(!_{W}(w)) = p_{y}(*) = y
+    \end{displaymath}
+    para qualquer elemento $w \in W$.
+    Podemos então fatorar unicamente $\alpha$ pela fibra e obtermos uma função $\overline{\alpha}: W \to f^{-1}(y)$ que faz comutar todo o diagrama abaixo.
+    \begin{displaymath}
+      \begin{tikzcd}
+        W
+        \arrow[rrd, bend left=20, "\alpha"]
+        \arrow[rdd, bend right=20, "!_{W}" swap]
+        \arrow[rd, dashed, "\overline{\alpha}" description]
+        \\ & f^{-1}(y)
+        \arrow[r, "i"]
+        \arrow[d]
+        & X
+        \arrow[d, "f"]
+        \\ & \{*\}
+        \arrow[r, "p_{y}" swap]
+        & Y
+      \end{tikzcd}
+    \end{displaymath}
+    Exatamente o mesmo raciocínio mostra que a noção categórica de fibra coincide com a noção usual na categoria $\mathsf{Top}$.
+    
+  \item[(ii)] Seja $R$ um anel qualquer e consider a categoria $R-\mathsf{Mod}$ de $R$-módulos.
+    Como o objeto terminal dessa categoria é dado pelo $R$-módulo trivial $\mathbf{0}$, e morfismos de $R$-módulos sempre levam zero em zero, o único ponto base que um $R$-módulo $M$ qualquer possui é seu elemento zero $0_{M}$.
+    Assim, só podemos falar categoricamente de fibras sobre o zero, e como era de se esperar, dado um morfismo de $R$-módulos $f: M \to N$, um modelo concreto para tal fibra é dada pelo núcleo $\ker f$, juntamente com o morfismo de inclusão $i: \ker f \hookrightarrow M$ e o morfismo terminal $!: \ker f \to \mathbf{0}$; ou em outras palavras, o quadrado comutativo abaixo é um pullback na categoria $R-\mathsf{Mod}$.
+    \begin{displaymath}
+      \begin{tikzcd}
+        \ker f
+        \arrow[r, "i"]
+        \arrow[d, "!" swap]
+        & M
+        \arrow[d, "f"]
+        \\ \mathbf{0}
+        \arrow[r, "0" swap]
+        & N
+      \end{tikzcd}
+    \end{displaymath}
+  \end{enumerate}
+\end{exem}
+
 \end{document}
 
 %%% Local Variables:
