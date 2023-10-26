@@ -389,6 +389,68 @@ Um fato que conforta o coração é que, conforme esperado, mesmo em uma categor
   \end{enumerate}
 \end{exem}
 
+No caso de uma categoria pontuada, como cada objeto admite um único ponto base, já que o objeto terminal é também inicial, só faz sentido falarmos da fibra de um morfismo $f: X \to Y$ sobre o ponto base único $!_{Y}: * \to Y$.
+Nos referiremos a essa fibra sobre o único ponto base simplesmente como \textbf{a fibra} do morfismo $f$ e a denotaremos por $\Fib(f)$.
+\begin{displaymath}
+  \begin{tikzcd}
+    \Fib(f)
+    \arrow[r, "i_{f}"]
+    \arrow[d, "!_{\Fib(f)}" swap]
+    & X
+    \arrow[d, "f"]
+    \\ *
+    \arrow[r, "!_{Y}" swap]
+    & Y
+  \end{tikzcd}
+\end{displaymath}
+
+\begin{exem}[Fibra do morfismo constante]
+  \label{exem:fibra_morfismo_constate}
+  Sejam $X$ e $Y$ objetos quaisquer de uma categoria pontuada $\mathsf{C}$, e considere o morfismo constante $\ct_{X,Y}: X \to Y$.
+  Seguindo a experiência que temos com morfismos constantes em categorias concretas, parece razoável esperarmos que a fibra deste morfismo seja o próprio objeto $X$, e vamos mostrar que isso é de fato verdade, ou seja, que o diagram abaixo define um pullback em $\mathsf{C}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[r, "\id_{X}"]
+      \arrow[d, "!_{X}" swap]
+      & X
+      \arrow[d, "{\ct_{X,Y}}"]
+      \\ *
+      \arrow[r, "!_{Y}" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+
+  Note primeiro que o quadrado acima é comutativo, pois pela definição do morfismo constante temos
+  \begin{displaymath}
+    \ct_{X,Y} \circ \id_{X} = \ct_{X,Y} = !_{Y} \circ !_{X}.
+  \end{displaymath}
+  Se $W$ é outro objeto e $\alpha: W \to X$ é um morfismo tal que $\alpha \circ \ct_{X,Y} = !_{Y} \circ \alpha$, afirmamos que o próprio morfismo $\alpha: X \to Y$ pode ser usado para fazer o diagrama abaixo comutar.
+  \begin{displaymath}
+    \begin{tikzcd}
+      W
+      \arrow[rrd, bend left=20, "\alpha"]
+      \arrow[rdd, bend right=20, "!_{W}" swap]
+      \arrow[rd, dashed, "\alpha" description]
+      \\ & X
+      \arrow[d, "!_{X}" swap]
+      \arrow[r, "\id_{X}"]
+      & X
+      \arrow[d, "{\ct_{X,Y}}"]
+      \\ & *
+      \arrow[r, "!_{Y}" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  É claro que triângulo superior é comutativo, e a comutatividade do triângulo inferior segue simplesmente do fato de $!_{X} \circ \alpha$ e $!_{W}$ serem ambos morfismos para o objeto terminal $*$.
+  É claro também que $\alpha$ é o único morfismo satisfazendo tais condições de comutatividade, já que se $\alpha': W \to X$ é outro morfismo satisfazendo as mesmas condições, então em particular $\id_{X} \circ \alpha' = \alpha$, portanto $\alpha' = \alpha$.
+\end{exem}
+
+\section{Categorias modelo pontuadas}
+
+Após introduzirmos algumas das noções básicas associadas a categorias pontuadas, vejamos como essa estrutura se combina com a estrutura de uma categoria modelo.
+Uma \textbf{categoria modelo pontuada} é nada mais que uma categoria modelo $(\mathsf{M},\mathcal{W},\mathcal{C},\mathcal{F})$ cuja categoria subjacente $\mathsf{M}$ é pontuada no sentido da seção anterior.
+
 \end{document}
 
 %%% Local Variables:
