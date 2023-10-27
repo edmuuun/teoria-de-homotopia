@@ -451,6 +451,206 @@ Nos referiremos a essa fibra sobre o único ponto base simplesmente como \textbf
 Após introduzirmos algumas das noções básicas associadas a categorias pontuadas, vejamos como essa estrutura se combina com a estrutura de uma categoria modelo.
 Uma \textbf{categoria modelo pontuada} é nada mais que uma categoria modelo $(\mathsf{M},\mathcal{W},\mathcal{C},\mathcal{F})$ cuja categoria subjacente $\mathsf{M}$ é pontuada no sentido da seção anterior.
 
+A principal fonte de exemplo de categorias de modelos pontuadas para nós serão categorias de objetos pontuados em uma categoria de modelos inicial.
+
+\begin{exem}\label{exem:estrutura_modelo_objetos_pontuados}
+  Seja $(\mathsf{M},\mathcal{W},\mathcal{C},\mathcal{F})$ uma categoria modelo.
+  Vejamos como definir uma estrutura modelo na categoria de objetos pontuados $\mathsf{M_{*}}$ introduzida no \cref{exem:categoria_objetos_pontuados}.
+  Diremos que um morfismo pontuado $f: (A,a) \to (B,b)$ é uma equivalência fraca (respectivamente uma cofibração, uma fibração) se o morfismo subjacente $f: A \to B$ na categoria $\mathsf{M}$ é uma equivalência fraca (respectivamente uma cofibração, uma fibração).
+  Vamos denotar as classes de morfismos resultantes em $\mathsf{M}_{*}$ por $\mathcal{W}_{*}$, $\mathcal{C}_{*}$ e $\mathcal{F}_{*}$, respectivamente.
+
+  Vejamos que essas três classes de morfismos em $\mathsf{M}_{*}$ satisfazem os axiomas que definem uma estrutura modelo.
+  \begin{enumerate}
+  \item[(M1)] Não vamos pensar na bicompletude de $\mathsf{M}_{*}$ por enquanto...
+    
+  \item[(M2)] Como a composição de morfismos em $\mathsf{M}_{*}$ é dada pela composição em $\mathsf{M}$, é imediato que as equivalências fracas pontuadas satisfazem a propriedade 2-de-3.
+    
+  \item[(M3)] Suponha que o morfismo pontuado $f: (A,a) \to (B,b)$ seja um retrato do da equivalência fraca pontuada $g: (X,x) \to (Y,y)$.
+    Vale então que $f: A \to B$ é uma retração da equivalência fraca $g: X \to Y$ na categoria $\mathsf{M}$ subjacente, logo $f$ é também uma equivalência fraca e, portanto, uma equivalência fraca pontuada.
+    Um argumento análogo mostra que as classes de cofibrações e fibrações pontuadas são também fechadas por retrações.
+    
+  \item[(M4)] Considere o quadrado comutativo abaixo em $\mathsf{M}_{*}$, onde $i: (A,a) \to (B,b)$ é uma cofibração trivial pontuada e $p: (X,x) \to (Y,y)$ é uma fibração pontuada.
+    \begin{displaymath}
+      \begin{tikzcd}
+        (A,a)
+        \arrow[r, "\alpha"]
+        \arrow[d, tail, "i" {swap}, "\sim" {sloped}]
+        & (X,x)
+        \arrow[d, two heads, "p", "\sim" {swap,sloped}]
+        \\ (B,b)
+        \arrow[r, "\beta" swap]
+        & (Y,y)
+      \end{tikzcd}
+    \end{displaymath}
+    Esquecendo os pontos base obtemos o quadrado comutativo abaixo na categoria $\mathsf{M}$ onde $i$ e $p$ são agora uma cofibração trivial e uma fibração trivial, respectivamente.
+    Usando o axioma de levantamento em $\mathsf{M}$ obtemos um morfismo $h: B \to X$ fazendo comutar o diagrama todo.
+    \begin{displaymath}
+      \begin{tikzcd}
+        A
+        \arrow[r, "\alpha"]
+        \arrow[d, tail, "i" {swap}, "\sim" {sloped}]
+        & X
+        \arrow[d, two heads, "p", "\sim" {swap,sloped}]
+        \\ B
+        \arrow[r, "\beta" swap]
+        \arrow[ru, dashed, "h" description]
+        & Y
+      \end{tikzcd}
+    \end{displaymath}
+    Veja que $h$ é um morfismo pontuado pois
+    \begin{displaymath}
+      h \circ b = h \circ (i \circ a) = (h \circ i) \circ a = \alpha \circ a = x.
+    \end{displaymath}
+    Consequentemente, podemos ver $h$ como um morfismo do tipo $(B,b) \to (X,x)$ na categoria $\mathsf{M}_{*}$, e então obtemos o levantamento necessário para o quadrado considerado inicialmente.
+    \begin{displaymath}
+      \begin{tikzcd}
+        (A,a)
+        \arrow[r, "\alpha"]
+        \arrow[d, tail, "i" {swap}, "\sim" {sloped}]
+        & (X,x)
+        \arrow[d, two heads, "p", "\sim" {swap,sloped}]
+        \\ (B,b)
+        \arrow[r, "\beta" swap]
+        \arrow[ru, dashed, "h" description]
+        & (Y,y)
+      \end{tikzcd}
+    \end{displaymath}
+    Um raciocínio completamente análogo mostra que a existência de um levantamento pontuado no caso onde $i$ é apenas uma cofibração pontuada, mas $p$ é uma fibração trivial pontuada.
+    
+  \item[(M5)] Dado um morfismo pontuado $f: (A,a) \to (B,b)$, podemos fatorar o morfismo subjacente $f: A \to B$ como uma cofibração trivial $i: A \to C$ seguida de uma fibração $p: C \to B$.
+    Considere no objeto $C$ o ponto base $c: * \to C$ dado pela composição $c \coloneqq i \circ a$.
+    É óbvio que com essa escolha de ponto base em $C$ o morfismo $i$ se torna pontuado, e o mesmo é verdade para o morfismo $p$ já que
+    \begin{displaymath}
+      p \circ c = p \circ i \circ a = f \circ a = b.
+    \end{displaymath}
+    Temos então a fatoração de $f$ como uma cofibração trivial pontuada $i: (A,a) \to (C,c)$ seguida de uma fibração pontuada $p: (C,c) \to (B,b)$, conforme indicado abaixo.
+    \begin{displaymath}
+      \begin{tikzcd}
+        (A,a)
+        \arrow[rr, "f"]
+        \arrow[rd, tail, "i" {swap}, "\sim" {sloped}]
+        & & (B,b)
+        \\ & (C,c)
+        \arrow[ru, two heads, "p" swap]
+      \end{tikzcd}
+    \end{displaymath}
+
+    Um argumento análogo mostra que $f$ também pode ser fatorado como uma cofibração pontuada $j: (A,a) \to (D,d)$ seguida de uma fibração trivial pontuada $q: (D,d) \to (B,b)$.
+  \end{enumerate}
+\end{exem}
+
+\begin{obs}
+  O leitor percebeu que não mencionamos nada sobre a bicompletude da categoria de objetos pontuados $\mathsf{M}_{*}$ associada a uma categoria $\mathsf{M}$.
+  Isso é porque essa é uma questão puramente categórica que não tem relação com a estrutura modelo de $\mathsf{M}$.
+
+  É um fato geral que, se $\mathsf{C}$ é uma categoria completa, então a categoria de objetos pontuados $\mathsf{C}_{*}$ é completa também.
+  Isso é relativamente tranquilo de demonstrar.
+  Dado um diagrama pequeno $F: \mathsf{J} \to \mathsf{C}_{*}$, se $\mathcal{E}: \mathsf{C}_{*} \to \mathsf{C}$ é o morfismo de esquecimento evidente, temos o diagrama pequeno $\mathcal{E} \circ F: \mathsf{J} \to \mathsf{C}$ na categoria inicial, o qual admite um limite $(L,(p_{j}: L \to F(j))_{j \in \mathsf{J}})$ pela hipótese de completude.
+  Veja que $L$ possui uma escolha natural de ponto base, pois como cada $F(j)$ possui um ponto base $x_{j}: * \to F(j)$, e a coleção $(p_{j}: * \to F(j))_{j \in \mathsf{J}}$ define um cone sobre $\mathcal{E} \circ F$ com vértice no objeto terminal $*$, a propriedade universal do limite garante a existência de um único morfismo $x: * \to L$ tal que $p_{j} \circ x = x_{j}$ para todo $j \in J$.
+  Essa coleção de igualdades diz que os morfismos estruturais $p_{j}$ do limite podem ser vistos como morfismos pontuados $p_{j}: (L,x) \to (F(j),x_{j})$, e podemos então mostrar que o cone $((L,x),p_{j})$ é o limite procurado para o funtor $F$.
+
+  Também é um fato geral que, quando a categoria $\mathsf{C}_{*}$ é cocompleta, o mesmo é válido para a categoria de objetos pontuados $\mathsf{C}_{*}$, mas isso é um pouco mais difícil de demonstrar.
+  O início da demonstranção é o mesmo, começamos com um diagrama pequeno $F: \mathsf{J} \to \mathsf{C}_{*}$ na categoria de objetos pontuados e por meio do funtor de esquecimento obtemos um diagrama pequeno $\mathcal{E} \circ F: \mathsf{J} \to \mathsf{C}$ na categoria original.
+  Esse diagrama admite um colimite $Q$, mas o problema é que, diferentemente do limite no caso anterior que vinha com uma escolha natural de ponto base, nesse caso temos várias escolhas diferentes de ponto base.
+  De fato, se $(\lambda_{j}: F(j) \to Q)_{j \in \mathsf{J}}$ são os morfismos estruturais do colimite, então cada ponto base $x_{j}: * \to F(j)$ dá origem a um ponto base $\lambda_{j} \circ x_{j}: * \to Q$ no colimite.
+  A ideia é que o colimite correto é obtido identificando todos esses candidatos a ponto base para que não tenhamos que fazer uma escolha que não seja canônica, e essa identificação é feita por meio de um \emph{outro} colimite.
+  Consideramos a categoria $\mathsf{J^{+}}$ obtida de $\mathsf{J}$ pela adjunção de um objeto disjunto $0$ e de um morfismo $!_{j}: 0 \to j$ para cada objeto que já existia previamente.
+  O diagrama $F$ pode ser \emph{estendido} a um diagrama $F^{+}: \mathsf{J^{+}} \to \mathsf{C}$ definindo $F^{+}(0) \coloneqq *$ e $F^{+}(!_{j}) \coloneqq x_{j}: * \to F(j)$.
+  Podemos então mostrar que o colimite do funtor estendido $F^{+}$ pode ser usado para obtermos o colimite do funtor $F: \mathsf{J} \to \mathsf{C}_{*}$ considerado inicialmente.
+\end{obs}
+
+A existência de morfismos constantes em uma categoria pontuada nos permite definir a noção de morfismos homotopicamente nulos em categorias de modelos pontuadas.
+
+\begin{defin}
+  Um morfismo $f: X \to Y$ em uma categoria de modelos pontuada $\mathsf{M}$ é dito
+  \begin{enumerate}
+  \item[(a)] \textbf{homotopicamente nulo à esquerda} se $f$ é homotópico à esquerda ao morfismo constante $\ct_{X,Y}: X \to Y$;
+    
+  \item[(b)] \textbf{homotopicamente nulo à direita} se $f$ é homotópico à direita ao morfismo constante $\ct_{X,Y}: X \to Y$;
+    
+  \item[(c)] \textbf{homotopicamente nulo} se $f$ é homotópico ao morfismo constante $\ct_{X,Y}$.
+  \end{enumerate}
+\end{defin}
+
+\section{Teoria de Obstrução e o caso clássico}
+
+Temos enfim todos os ingredientes à nossa disposição para definirmos o que é uma teoria de obstrução em uma categoria modelo.
+
+\begin{defin}\label{defin:teoria_de_obstrucao_para_cofibracao}
+  Dizemos que uma cofibração $i: A \cofib B$ em uma categoria modelo pontuada $\mathsf{M}$ \textbf{admite uma teoria de obstrução} se para todo diagrama comutativo da forma
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[d, tail, "i" swap]
+      \arrow[r]
+      & X
+      \arrow[d, two heads, "p"]
+      \\ B
+      \arrow[r]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  onde $p: X \fib Y$ é uma fibração, existem um objeto $W$ e um morfismo $\alpha: W \to \Fib(p)$ com a seguinte propriedade: o problema de levantamento acima admite uma solução se, e somente se, $\alpha$ é homotopicamente nulo.
+\end{defin}
+
+\begin{obs}
+  Na definição dada no artigo existe a exigência de que o morfismo $\alpha$, ou mais precisamente sua classe de homotopia $[a] \in [W,\Fib(p)]$ dependa funtorialmente da fibração $p$, mas vamos deixar isso de lado momentaneamente.
+\end{obs}
+
+Antes de investigarmos propriedades dessa definição categórica geral de teoria de obstrução, vamos entender como ela se relaciona com alguns resultados bem connhecidos da Teoria de Homotopia clássica.
+
+Dado um espaço pontuado $(X,x_{0})$, considere um mapa pontuado $f: (S^{n},*_{S^{n}}) \to (X,x_{0})$, onde $*_{S^{n}} \coloneqq (1,0,\dots,0)$.
+O resultado clássico abaixo diz que a classe de homotopia pontuada do mapa $f$ é uma obstrução à existência de uma extensão de $f$ para o interior do disco.
+
+\begin{teo}
+  Um mapa pontuado $f: (S^{n},*_{S^{n}}) \to (X,x_{0})$ admite uma extensão para um mapa pontuado $F: (D^{n+1},*_{S^{n}}) \to (X,x_{0})$ se, e somente se, $f$ é homotopicamente nulo no sentido pontuado.
+\end{teo}
+
+\begin{proof}[Rascunho da demonstração]
+  Se existe a extensão $F: (D^{n+1},*_{S^{n}}) \to (X,x_{0})$, então essa extensão é necessariamente homotopicamente nula no sentido pontuado pois o disco $(D^{n+1},*_{S^{n}})$ é contrátil, logo o mapa pontuado $f$ é homotopicamente nulo também.
+
+  Reciprocamente, suponha que $f$ seja homotopicamente nulo no sentido pontuado, e considere $H: S^{n} \times I \to X$ uma homotopia pontuada de $f$ para o mapa constante $\ct_{(S^{n},*),(X,x_{0})}$.
+  Sendo a homotopia $H$ pontuada, ela é constante e igual a $x_{0}$ no subespaço $\{*_{S^{n}}\} \times I \, \cup \, S^{n} \times \{1\}$ do cilindro $S^{n} \times I$, portanto faz sentido formarmos o espaço quociente
+  \begin{displaymath}
+    CS^{n} \coloneqq \frac{S^{n} \times I}{\{*_{S^{n}}\} \times I \, \cup \, S^{n} \times \{1\}},
+  \end{displaymath}
+  chamado de \emph{cone reduzido} de $S^{n}$, e olharmos para o mapa pontuado induzido nesse quociente
+  \begin{displaymath}
+    \overline{H}: (CS^{n},[*_{S^{n}}]) \to (X,x_{0}).
+  \end{displaymath}
+
+  O passo final da demonstração é compararmos esse cone reduzido com o disco.
+  Note que o mapa $\theta: S^{n} \times I \to D^{n+1}$ dada por
+  \begin{displaymath}
+    \theta(x,t) \coloneqq (1-t) \cdot x + t \cdot *_{S^{n}} \qquad \forall\, (x,t) \in S^{n} \times I
+  \end{displaymath}
+  satisfaz é constante e igual a $*_{S^{n}}$ no subespaço $\{*_{S^{n}}\} \times I \, \cup \, S^{n} \times \{1\}$, portanto existe um mapa pontuado induzido no quociente
+  \begin{displaymath}
+    \overline{\theta}: (CS^{n},[*_{S^{n}}]) \to (D^{n+1},*_{S^{n}}),
+  \end{displaymath}
+  e podemos mostrar que esse mapa induzido é na verdade um homeomorfismo.
+  A extensão $F: (D^{n+1},*_{S^{n}}) \to (X,x_{0})$ desejada é obtida então por meio da composição
+  \begin{displaymath}
+    F \coloneqq \overline{H} \circ \overline{\theta}^{-1}. \qedhere
+  \end{displaymath}
+\end{proof}
+
+Lembremos que todo problema de extensão pode ser interpretado como um problema de levantamento.
+No caso anterior, temos o problema de levantamento.
+\begin{displaymath}
+  \begin{tikzcd}
+    (S^{n},*_{S^{n}})
+    \arrow[d, tail, "i" swap]
+    \arrow[r, "{(i,f)}"]
+    & (D^{n+1} \times X,(*_{S^{n}},x_{0}))
+    \arrow[d, two heads, "\pi_{1}"]
+    \\ (D^{n+1},*_{S^{n}})
+    \arrow[r, "\id_{D^{n+1}}" swap]
+    & (D^{n+1},*_{S^{n}})
+  \end{tikzcd}
+\end{displaymath}
+Vimos no Teorema anterior que tal problema admite uma solução se, e somente se, o mapa $f: (S^{n},*_{S^{n}}) \to (X,x_{0})$ é homotopicamente nulo, sendo que $(X,x_{0})$ é exatamente a fibra da fibração $\pi_{1}$ acima, ou seja, $\alpha$ é uma obstrução no sentido categórico da \cref{defin:teoria_de_obstrucao_para_cofibracao}.
+
 \end{document}
 
 %%% Local Variables:
