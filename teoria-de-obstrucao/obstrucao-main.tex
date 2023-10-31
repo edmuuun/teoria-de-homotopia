@@ -244,6 +244,98 @@ Podemos obter uma categoria pontuada a partir de uma categoria arbitrária utili
   Exatamente o mesmo raciocínio mostra que tomando $\mathsf{C} \coloneqq \mathsf{Top}$ recuperamos a categoria $\mathsf{Top_{*}}$ usual de espaços pontuados.
 \end{exem}
 
+Assumindo que $\mathsf{C}$ possua um pouco mais de estrutura, podemos relacioná-la com a categoria de objetos pontuadas $\mathsf{C}_{*}$.
+Mais assumindo que $\mathsf{C}$ admita coprodutos binários\footnote{A princíprio só precisamos da existência de coprodutos com o objeto terminal, mas enfim...}, podemos \emph{adjuntar um ponto base} a qualquer objeto $X \in \mathsf{C}$ formando o coproduto $X \sqcup *$, o qual e comumente denotado por $X^{+}$.
+Denotando os morfismos canônicos para esse coproduto por $j^{X}_{1}: X \to X^{+}$ e $j^{X}_{2}: * \to X^{+}$, o par $(X^{+}, j^{X}_{2})$ define define um objeto na categoria $\mathsf{C}_{*}$.
+Essa construção pode ser estendida aos morfismos de $\mathsf{C}$.
+De fato, dado $f: X \to Y$, podemos formar o coproduto $f^{+} \coloneqq f \sqcup \id_{*}$ o qual define um morfismo do tipo $X^{+} \to Y^{+}$.
+Lembremos que pela definição do coproduto de dois morfismos $f^{+}$ é o único morfismo de seu tipo que faz comutar o diagrama mostrado abaixo.
+\begin{equation}\label{eq:diagrama_adjuncao_ponto_base_em_morfismo}
+  \begin{tikzcd}[column sep=1.3cm]
+    X
+    \arrow[r, "f"]
+    \arrow[d, "j^{X}_{1}" swap]
+    & Y
+    \arrow[d, "j^{Y}_{1}"]
+    \\ X^{+}
+    \arrow[r, dashed, "f^{+}" description]
+    & Y^{+}
+    \\ *
+    \arrow[u, "j^{X}_{2}"]
+    \arrow[r, "\id_{*}" swap]
+    & *
+    \arrow[u, "j^{Y}_{2}" swap]
+  \end{tikzcd}
+\end{equation}
+Note que a comutatividade da parte inferior do diagrama mostra que $f^{+}$ define um morfismo pontuado do tipo $(X^{+},j^{X}_{2}) \to (Y^{+},j^{Y}_{2})$.
+
+Lembrando que o coproduto de objetos e morfismos depende funtorialmente de ambas as variáveis, temos as igualdades
+\begin{displaymath}
+  \id_{X}^{+} = \id_{X} \sqcup \id_{*} = \id_{X \sqcup *} = \id_{X^{+}}
+\end{displaymath}
+e também as igualdades
+\begin{displaymath}
+  (g \circ f)^{+} = (g \circ f) \sqcup \id_{*} = (g \sqcup \id_{*}) \circ (f \sqcup \id_{*}) = g^{+} \circ f^{+}.
+\end{displaymath}
+Em suma, associando a cada objeto $X \in \mathsf{C}$ o objeto pontuado $(X^{+},j^{X}_{2})$, e associando a cada morfismo $f: X \to Y$ o morfismo pontuado correspondente $f^{+}: (X^{+},j^{X}_{2}) \to (Y^{+},j^{Y}_{2})$ obtemos o \emph{funtor de adjunção de ponto base} $(-)^{+}: \mathsf{C} \to \mathsf{C}_{*}$.
+No caso de categorias pontuadas, o resultado abaixo mostra que essa construção identifica $\mathsf{C}$ com $\mathsf{C}_{*}$.
+
+\begin{prop}\label{prop:cat_pontuada_implica_adjuntar_ponto_base_eh_equiv}
+  Se $\mathsf{C}$ é uma categoria pontuada, então o funtor de adjunção de ponto base $(-)^{+}: \mathsf{C} \to \mathsf{C}_{*}$ é uma equivalência de categorias, sendo seu quasi-inverso dado pelo funtor de esquecimento $\mathcal{E}: \mathsf{C}_{*} \to \mathsf{C}$.
+\end{prop}
+
+\begin{proof}
+  Vamos mostrar primeiro que a composição $\mathcal{E} \circ (-)^{+}: \mathsf{C} \to \mathsf{C}$ é naturalmente isomorfa ao funtor idêntico.
+  Considere a transformação natural $\theta: \id_{\mathsf{C}} \Rightarrow \mathcal{E} \circ (-)^{+}$ cuja componente no objeto $X \in \mathsf{C}$ é dada pela injeção canônica $j^{X}_{1}: X \to X^{+}$.
+  Dado um morfismo $f: X \to Y$, a comutatividade do quadrado superior no diagrama \eqref{eq:diagrama_adjuncao_ponto_base_em_morfismo} usado na definição de $f^{+}$ mostra que a família $(j^{X}_{1})_{X \in \mathsf{C}}$ depende naturalmente de $X$, ou seja, temos de fato uma transformação natural.
+  Note agora que, se $!_{X}: * \to X$ denota o morfismo único decorrente do fato de $*$ ser também um objeto inicial, então a propriedade universal do coproduto fornece um morfismo $\langle \id_{X}, !_{X} \rangle: X^{+} \to X$ tal que $\langle \id_{X}, !_{X} \rangle \circ j^{X}_{1} = \id_{X}$; mostrando então que $j^{X}_{1}$ é um isomorfismo e que, portanto, temos um isomorfismo natural de funtores $\id_{\mathsf{C}} \cong \mathcal{E} \circ (-)^{+}$.
+
+  Resta construirmos um isomorfismo natural $(-)^{+} \circ \mathcal{E} \cong \id_{\mathsf{C}_{*}}$.
+  Dado um objeto pontuado $(X,x) \in \mathsf{C}_{*}$ qualquer, afirmamos que a injeção canônica $j^{X}_{1}: X \to X^{+}$ define na verdade um morfismo pontuado do tipo $(X,x) \to (X^{+},j^{X}_{2})$.
+  De fato, isso segue simplesmente do fato de que os morfismos $j^{X}_{1} \circ x$ e $j^{X}_{2}$ ambos têm o objeto inicial $*$ como domínio.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[rr, "j^{X}_{1}"]
+      & & X^{+}
+      \\ & *
+      \arrow[lu, "x"]
+      \arrow[ru, "j^{X}_{2}" swap]
+    \end{tikzcd}
+  \end{displaymath}
+  Dado um morfismo pontuado $f: (X,x) \to (Y,y)$, a comutatividade do diagrama usado na definição de $f^{+}: (X^{+},j^{X}_{2}) \to (Y^{+},j^{Y}_{2})$ mais uma vez mostra que temos o quadrado comutativo abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      (X,x)
+      \arrow[r, "f"]
+      \arrow[d, "j^{X}_{1}" swap]
+      & (Y,y)
+      \arrow[d, "j^{Y}_{1}"]
+      \\ (X^{+},j^{X}_{2})
+      \arrow[r, "f^{+}" swap]
+      & (Y^{+}, j^{Y}_{2})
+    \end{tikzcd}
+  \end{displaymath}
+  portanto a família de morfismos $(j^{X}_{1})_{(X,x) \in \mathsf{C}}$ define uma transformação natural do funtor identidade $\id_{\mathsf{C}_{*}}$ para a composição $(-)^{+} \circ \mathcal{E}$.
+
+  Dado agora um objeto pontuado $(X,x) \in \mathsf{C}^{*}$, o morfismo $x$ que escolhe ponto base dá origem por meio da propriedade universal do coproduto a um único morfismo $\langle \id_{X},x \rangle: X^{+} \to X$ fazendo comutar o diagrama abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}[column sep=1.5cm]
+      X
+      \arrow[rrd, bend left=15, "\id_{X}"]
+      \arrow[rd, "j^{X}_{1}" swap]
+      \\ & X^{+}
+      \arrow[r, dashed, "{\langle \id_{X},x \rangle}" description]
+      & X
+      \\ *
+      \arrow[ru, "j^{X}_{2}"]
+      \arrow[rru, bend right=15, "x" swap]
+    \end{tikzcd}
+  \end{displaymath}
+  Ora, a comutatividade da parte inferior do diagrama diz que $\langle \id_{X},x \rangle$ define um morfismo pontuado do tipo $(X^{+},j^{X}_{2}) \to (X,x)$, enquanto a comutatividade da parte superior diz precisamente que esse morfismo é o inverso do morfismo $j^{X}_{1}: (X,x) \to (X^{+},j^{X}_{2})$ considerado anteriormente.
+  Concluímos assim que a família $(j^{X}_{1})_{(X,x) \in \mathsf{C}_{*}}$ define na verdade um isomorfismo natural $\id_{\mathsf{C}_{*}} \cong (-)^{+} \circ \mathcal{E}$.
+\end{proof}
+
 Veremos agora como a existência de um objeto zero em uma categoria pontuada nos permite fazer uma série de construções especiais.
 
 Dados dois objetos quaisquer $X$ e $Y$ de uma categoria pontuada $\mathsf{C}$, a existência de um objeto simultaneamente inicial e final nos permite definir um morfismo especial $\ct_{X,Y}: X \to Y$ chamado \textbf{morfismo constante de $X$ para $Y$} por meio da composição mostrada abaixo.
@@ -444,6 +536,51 @@ Nos referiremos a essa fibra sobre o único ponto base simplesmente como \textbf
   \end{displaymath}
   É claro que triângulo superior é comutativo, e a comutatividade do triângulo inferior segue simplesmente do fato de $!_{X} \circ \alpha$ e $!_{W}$ serem ambos morfismos para o objeto terminal $*$.
   É claro também que $\alpha$ é o único morfismo satisfazendo tais condições de comutatividade, já que se $\alpha': W \to X$ é outro morfismo satisfazendo as mesmas condições, então em particular $\id_{X} \circ \alpha' = \alpha$, portanto $\alpha' = \alpha$.
+\end{exem}
+
+\begin{exem}
+  Suponha que $f: X \to Y$ seja um monomorfismo em uma categoria pontuada $\mathsf{C}$, sendo $*$ seu objeto zero.
+  Afirmamos então que a fibra de $f$ é dada por $*$.
+  De fato, no primeiro que o quadrado abaixo é trivialmente comutativo, já que $*$ é em particular um objeto inicial.
+  \begin{displaymath}
+    \begin{tikzcd}
+      *
+      \arrow[r, "!_{X}"]
+      \arrow[d, "\id_{*}" swap]
+      & X
+      \arrow[d, "f"]
+      \\ *
+      \arrow[r, "!_{Y}" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Suponha agora que $W$ seja outro objeto de $\mathsf{C}$ e que $\alpha: W \to X$ seja tal que $f \circ \alpha = !_{Y} \circ !_{W}$, ou seja, a parte externa do diagrama abaixo é comutativa.
+  Afirmamos então que o morfismo único $!_{W}: W \to *$ faz comutar o diagrama todo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      W
+      \arrow[rrd, bend left=20, "\alpha"]
+      \arrow[rdd, bend right=20, "!_{W}" swap]
+      \arrow[rd, dashed, "!_{W}" description]
+      \\ & *
+      \arrow[r, "!_{X}"]
+      \arrow[d, "\id_{*}" swap]
+      & X
+      \arrow[d, "f"]
+      \\ & *
+      \arrow[r, "!_{Y}" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  A comutatividade do triângulo inferior é imediata.
+  Já com relação à comutatividade do triângulo superior, note que
+  \begin{displaymath}
+    f \circ (!_{X} \circ !_{W}) = (f \circ !_{X}) \circ !_{Y} = !_{Y} \circ !_{W} = f \circ \alpha,
+  \end{displaymath}
+  e sendo $f$ um monomorfismo, podemos cancelá-lo na igualdade acima para obtermos a igualdade desejada $!_{X} \circ !_{W} = \alpha$.
+
+  A recíproca desse fato me parece ser falsa, ou seja, existem morfismos em categorias pontuadas cuja fibra é trivial mas que não são monomorfismos.
+  Isso é verdade, por exemplo, em categorias abelianas, mas nesse contexto podemos formar a diferença entre dois morfismos de forma que possamos utilizar a propriedade universal do pullback, mas não vejo como fazer algo análogo em um contexto geral.
 \end{exem}
 
 \section{Categorias modelo pontuadas}
