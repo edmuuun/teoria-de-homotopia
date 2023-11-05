@@ -400,7 +400,7 @@ Um fato que conforta o coração é que, conforme esperado, mesmo em uma categor
 \begin{proof}
   Afirmamos que o morfismo $y: * \to Y$ que define o ponto base é sempre um monomorfismo.
   Isso pode parecer surpreendente, mas não passa de uma trivialidade absoluta: se $\alpha,\, \beta: Z \to *$ são dois morfismos tais que $y \circ \alpha = y \circ \beta$, necessariamente devemos ter $\alpha = \beta$ simplesmente pelo fato de $*$ ser um objeto final da categoria $\mathsf{C}$.
-  Sabendo disso, o resultado em questão segue diretamente do fato de monomorfismos serem preservados por pullbacks.
+  Sabendo disso, o resultado em questão segue diretamente do fato de monomorfismos serem preservados por pullbacks (veja \cref{lema:pullback_de_mono_eh_mono}).
 \end{proof}
 
 \begin{exem}
@@ -787,6 +787,98 @@ No caso anterior, temos o problema de levantamento.
   \end{tikzcd}
 \end{displaymath}
 Vimos no Teorema anterior que tal problema admite uma solução se, e somente se, o mapa $f: (S^{n},*_{S^{n}}) \to (X,x_{0})$ é homotopicamente nulo, sendo que $(X,x_{0})$ é exatamente a fibra da fibração $\pi_{1}$ acima, ou seja, $\alpha$ é uma obstrução no sentido categórico da \cref{defin:teoria_de_obstrucao_para_cofibracao}.
+
+\appendix
+
+\section{Resultados categóricos}
+
+Esse apêndice contém alguns resultados auxiliares de natureza puramente categórica que são usados ao longo das notas.
+Resolvi incluí-los aqui para tornar o documento um pouquinho mais completo e (espero) um pouco mais útil para um eventual leitor.
+
+\begin{lema}\label{lema:pullback_de_mono_eh_mono}
+  Monomorfismos são preservados por pullbacks.
+  Mais precisamente, se o diagrama abaixo é um pullback em uma categoria $\mathsf{C}$ qualquer, e $g: X \to Y$ é um monomorfismo, então $f: A \to B$ também é um monomorfismo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+\end{lema}
+
+\begin{proof}
+  Suponha que tenhamos morfismos $r,\,s: Z \to A$ tais que $f \circ r = f \circ s$.
+  Nosso objetivo é mostrar que necessariamente temos então $r = s$.
+
+  Note primeiro que a propriedade universal do pullback garante que $r: Z \to A$ é o único morfismo de seu tipo que faz comutar o diagrama abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      Z
+      \arrow[rd, dashed, "r" description]
+      \arrow[rrd, bend left=20, "\alpha \circ r"]
+      \arrow[rdd, bend right=20, "f \circ r" swap]
+      \\ & A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & X
+      \arrow[d, "g"]
+      \\ & B
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Afirmamos que $s: Z \to A$ também satisfaz as mesmas condições de comutatividade.
+  De fato, por um lado a igualdade $f \circ s = f \circ r$ segue direta da hipótese feita sobre os morfismos $r$ e $s$; enquanto por outro temos
+  \begin{displaymath}
+    g \circ \alpha \circ s = \beta \circ f \circ s = \beta \circ f \circ r = g \circ \alpha \circ r,
+  \end{displaymath}
+  mas $g$ é um monomorfismo por hipótese, logo podemos cancelá-lo na sequência de igualdades acima para concluirmos que $\alpha \circ s = \alpha \circ r$ como desejado.
+
+  A unicidade sobre $r$ vinda da propriedade universal do pullback implica então $s = r$ como queríamos mostrar.
+\end{proof}
+
+\begin{teo}
+  Sejam $\mathsf{C}$ uma categoria qualquer, $A \in \mathsf{C}$ um objeto qualquer e $A / \mathsf{C}$ a categoria de objetos sob $A$.
+  \begin{enumerate}
+  \item Se $\mathsf{C}$ é completa, então $A / \mathsf{C}$ é completa também.
+    
+  \item Se $\mathsf{C}$ é co-completa, então $A / \mathsf{C}$ é co-completa também.
+  \end{enumerate}
+\end{teo}
+
+\begin{proof}
+  1. Denote por $\mathcal{E}: A / \mathsf{C} \to \mathsf{C}$ o funtor de esquecimento evidente.
+  Considere então uma categoria pequena $\mathsf{J}$ e um funtor $F: \mathsf{J} \to A / \mathsf{C}$.
+  Esse funtor associa a cada $j \in \mathsf{J}$ um par $(F_{j},f_{j})$, onde $F_{j}$ é um objeto de $\mathsf{C}$ e $f_{j}: A to F_{j}$ é um morfismo.
+  Além disso, dado um morfismo $\alpha: i \to j$ em $\mathsf{J}$ temos um morfismo correspondente $F(\alpha): (F_{i},f_{i}) \to (F_{j},f_{j})$, ou seja, um morfismo $F(\alpha): F_{i} \to F_{j}$ em $\mathsf{C}$ satisfazendo a condição de compatibilidade $F(\alpha) \circ f_{i} = f_{j}$.
+
+  Considere então o funtor composto $\mathcal{E} \circ F: \mathsf{J} \to \mathsf{C}$.
+  Sendo $\mathsf{C}$ completa por hipótese, tal funtor admite um limite $L \in \mathsf{C}$ o qual vem equipado com os morfismos estruturais $(p_{j}: L \to F_{j})_{j \in \mathsf{J}}$ que exibem tal limite como um cone terminal sobre o diagrama determinado pelo funtor $\mathcal{E} \circ F$.
+  Queremos enxergar $L$ como um objeto da categoria $A / \mathsf{C}$, e para isso precisamos de um morfismo do tipo $A \to L$ que obteremos por meio da propriedade universal do limite.
+  Note que a coleção de morfismos $(f_{j})_{j \in \mathsf{C}}$ determina um cone sobre $\mathcal{E} \circ F$ com vértice em $A$ graças às condições de compatibilidade satisfeitas pelos $f_{j}$.
+  Ora, como $L$ é um cone terminal, existe um único morfismo $f: A \to L$ satisfazendo as condições $p_{j} \circ f = f_{j}$ para todo $j \in \mathsf{J}$.
+
+  O par $(L,f)$ determina então um objeto da categoria $A / \mathsf{C}$, e graças às igualdades mencionadas no final do parágrafo anterior, os morfismos $p_{j}: L \to F_{j}$ podem ser vistos como morfismos $p_{j}: (L,f) \to (F_{j},f_{j})$ na categoria $\mathsf{C}$.
+  Veja que, se $\alpha: i \to j$ é um morfismo em $\mathsf{J}$, como os morfismos $(p_{j})_{j \in \mathsf{J}}$ determinavam um cone sobre $\mathcal{E} \circ F$ e vale que $(\mathcal{E} \circ F)(\alpha) = F(\alpha)$, temos a igualdade $F(\alpha) \circ p_{i} = p_{j}$; portanto a coleção $(p_{j})_{j \in \mathsf{J}}$ define também um cone \emph{sobre o funtor $F$} com vértice em $(L,f)$.
+
+  Nosso objetivo é mostrar que esse cone é na verdade um cone terminal, o que naturalmente será uma consequência de $L$ determinar um cone terminal sobre o funtor $\mathcal{E} \circ F$.
+  Suponha que $(p_{j}': (L',f') \to (F_{j},f_{j}))_{j \in \mathsf{J}}$ seja um outro cone sobre $F$ com vértice no objeto $(L',f')$.
+  Aplicando o funtor de esquecimento $\mathcal{E}$ obtemos então o cone $(p_{j'}: L' \to F_{j})_{j \in \mathsf{J}}$ sobre $\mathcal{E} \circ F$ com vértice em $L'$.
+  Sendo $L$ o limite deste funtor, existe um morfismo único $\theta: L' \to L$ tal que $p_{j} \circ \theta = p_{j}'$ para todo $j \in \mathsf{J}$.
+  Note que $\theta$ pode ser visto como um morfismo do tipo $(L',f') \to (L,f)$.
+  De fato, por construção $f: A \to L$ é o único morfismo de seu tipo a satisfazer a igualdade $p_{j} \circ f = f_{j}$ para todo $j \in \mathsf{J}$, mas usando que os $p_{j}$'s eram morfismos do tipo $(L',f') \to (F_{j},f_{j})$, temos
+  \begin{displaymath}
+    p_{j} \circ \theta \circ f' = p_{j}' \circ f' = f_{j},
+  \end{displaymath}
+  portanto pela unicidade devemos ter $\theta \circ f' = f$.
+  Esse raciocínio mostra que eixste um único morfismo do cone $(p_{j}': (L',f') \to (F_{j},f_{j}))_{j \in \mathsf{J}}$ para o cone $(p_{j}: (L,f) \to (F_{j},f_{j}))_{j \in \mathsf{J}}$, ou seja, o objeto $(L,f) \in A / \mathsf{C}$ determina um limite para o funtor $F$.
+\end{proof}
 
 \end{document}
 
