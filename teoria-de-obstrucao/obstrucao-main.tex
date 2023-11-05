@@ -94,66 +94,27 @@ Vejamos um exemplo mais concreto para nos convencermos disso.
   Um morfismo diagonal $h: B \to P(X)$ faz comutar o diagrama acima se, e somente se, satisfaz a igualdade $p \circ h = (f,g)$; ou seja, um levantamento para o diagrama acima é precisamente uma homotopia à direita entre $f$ e $g$, a qual não necessariamente precisa existir.
 \end{exem}
 
-O próximo exemplo exige um lema simples a respeito da relação entre produtos e fibrações.
-
-\begin{lema}\label{lema:produto_com_fibrante_induz_fibracao}
-  Em uma categoria modelo $\mathsf{M}$, suponha que $X$ seja um objeto fibrante.
-  Então, dado qualquer outro objeto $B$, a projeção no primeiro fator $\pi_{1}: B \times X \to B$ é uma fibração.
-\end{lema}
-
-\begin{proof}
-  Bastar notar que o diagrama abaixo é um pullback e usar o fato que fibrações são preservadas por pullbacks.
-  \begin{displaymath}
-    \begin{tikzcd}
-      B \times X
-      \arrow[d, "\pi_{1}" swap]
-      \arrow[r, "\pi_{2}"]
-      & X
-      \arrow[d, two heads]
-      \\ B
-      \arrow[r]
-      & *
-    \end{tikzcd} \qedhere
-  \end{displaymath}
-\end{proof}
-
 \begin{exem}[Extensões ao longo de cofibrações]
   \label{exem:extensao_ao_longo_de_cofibracao_como_levantamento}
   Suponha que $i: A \cofib B$ seja uma cofibração em uma categoria modelo $\mathsf{M}$, o que geralmente interpretamos como $A$ sendo um \emph{bom} subobjeto de $B$.
   Considere um morfismo $f: A \to X$, onde supomos que $X$ seja um objeto fibrante.
-  Segue do \cref{lema:produto_com_fibrante_induz_fibracao} acima que a projeção $\pi_{1}: B \times X \to B$ é uma fibração, e podemos então considerar o problema de levantamento dado pelo quadrado comutativo abaixo.
+  Podemos então considerar o problema de levantamento dado pelo quadrado comutativo abaixo.
   \begin{displaymath}
     \begin{tikzcd}
       A
       \arrow[d, tail, "i" swap]
-      \arrow[r, "{(i,f)}"]
-      & B \times X
-      \arrow[d, two heads, "\pi_{1}"]
+      \arrow[r, "f"]
+      & X
+      \arrow[d, two heads, "!_{X}"]
       \\ B
       \arrow[r, "\id_{B}" swap]
-      & B
+      & *
     \end{tikzcd}
   \end{displaymath}
-  Suponha então que $h: B \to B \times X$ seja um levantamento para o diagrama acima.
-  Note então que o morfismo $F \coloneqq \pi_{2} \circ h: B \to X$ satisfaz a igualdade
-  \begin{displaymath}
-    F \circ i = \pi_{2} \circ h \circ i = \pi_{2} \circ (i,f) = f;
-  \end{displaymath}
-  ou seja, $F$ é \emph{extensão do morfismo $f$ ao longo da cofibração $i$}.
-  Reciprocamente, se $F: B \to X$ satisfaz $F \circ i = f$, então o morfismo $h \coloneqq (\id_{B},F): B \to B \times X$ define um levantamento para o diagrama acima.
-  De fato, a igualdade $\pi_{1} \circ h = \id_{B}$ é imediata da definição, e a igualdade $h \circ i = (i,f)$ segue da sequência de igualdade
-  \begin{displaymath}
-    \pi_{1} \circ h \circ i = \id_{B} \circ i = i
-  \end{displaymath}
-  e também da sequência de igualdades
-  \begin{displaymath}
-    \pi_{2} \circ h \circ i = \pi_{2} \circ (\id_{B},F) \circ i = F \circ i = f.
-  \end{displaymath}
+  Veja que uma solução para o problema de levantamento acima é precisamente um morfismo $F: B \to X$ satisfazendo a igualdade $F \circ i = f$, ou seja, $F$ é \emph{extensão do morfismo $f$ ao longo da cofibração $i$}.
+  Pensando novamente em cofibrações como boas inclusões, temos um morfismo definido \emph{parcialmente} no ``subobjeto'' $A$ e queremos estendê-lo a um morfismo definido \emph{globalmente} no objeto $B$.
 
-  Em suma, o problema de levantamento acima admite uma solução se, e somente se, o morfismo $f: A \to X$ pode ser estendido a um morfismo $F: B \to X$ ao longo da cofibração $i: A \cofib B$.
-  Pensando novamente em cofibrações como boas inclusões, temos um morfismo definido \emph{parcialmente} no subobjeto $A$ e queremos estendê-lo a um morfismo definido \emph{globalmente} no objeto $B$.
-
-  Novamente, no caso clássico da categoria $\mathsf{Top}$, a exigência de que $X$ seja fibrante não impõe na verdade nenhuma restrição adicional sobre $X$, as projeções nos fatores de um produto são sempre fibrações de Serre, portanto qualquer problema de extensão de um mapa contínuo ao longo de uma cofibração na estrutura modelo de Serre pode ser formulado como um problema de levantamento no sentido em que estamos tratando aqui.
+  Novamente, no caso clássico da categoria $\mathsf{Top}$, a exigência de que $X$ seja fibrante não impõe na verdade nenhuma restrição adicional sobre $X$, portanto qualquer problema de extensão de um mapa contínuo ao longo de uma cofibração na estrutura modelo de Serre pode ser formulado como um problema de levantamento no sentido em que estamos tratando aqui.
 \end{exem}
 
 \begin{exem}[Seções de uma fibração]
