@@ -171,15 +171,15 @@ Podemos obter uma categoria pontuada a partir de uma categoria arbitrária utili
 
 \begin{exem}[Categorias de objetos pontuados]
   \label{exem:categoria_objetos_pontuados}
-  Dada uma categoria $\mathsf{C}$ contendo um objeto final $*$, considere a categoria co-slice $\mathsf{C}_{*} \coloneqq * \backslash \mathsf{C}$, ou seja, os objetos de $\mathsf{C}_{*}$ são pares $(A,a)$, onde $A$ é um objeto de $\mathsf{C}$, e $a: * \to A$ é um morfismo; e um morfismo do tipo $(A,a) \to (B,b)$ é um morfismo $f: A \to B$ na categoria original $\mathsf{C}$ satisfazendo a igualdade $f \circ a = b$.
+  Dada uma categoria $\mathsf{C}$ contendo um objeto final $*$, considere a categoria co-slice $\mathsf{C}_{*} \coloneqq * / \mathsf{C}$, ou seja, os objetos de $\mathsf{C}_{*}$ são pares $(A,a)$, onde $A$ é um objeto de $\mathsf{C}$, e $a: * \to A$ é um morfismo; e um morfismo do tipo $(A,a) \to (B,b)$ é um morfismo $f: A \to B$ na categoria original $\mathsf{C}$ satisfazendo a igualdade $f \circ a = b$.
   \begin{displaymath}
     \begin{tikzcd}
-      A
-      \arrow[rr, dashed, "f"]
+      & *
+      \arrow[ld, "a" swap]
+      \arrow[rd, "b"]
+      \\ A
+      \arrow[rr, dashed, "f" swap]
       & & B
-      \\ & *
-      \arrow[lu, "a"]
-      \arrow[ru, "b" swap]
     \end{tikzcd}
   \end{displaymath}
   É comum interpretarmos o morfismo $a: * \to A$ como uma escolha de ponto no objeto $A$, e nos referirmos então ao morfismo $a$ como um \emph{ponto base} para $A$ e ao par $(A,a)$ como um \emph{objeto pontuado} em $\mathsf{C}$.
@@ -669,6 +669,40 @@ A existência de morfismos constantes em uma categoria pontuada nos permite defi
   \item[(c)] \textbf{homotopicamente nulo} se $f$ é homotópico ao morfismo constante $\ct_{X,Y}$.
   \end{enumerate}
 \end{defin}
+
+Uma noção que é bem comportada em uma categoria modelo pontuada é a de objeto fracamento contrátil.
+
+\begin{defin}\label{defin:objeto_fracamente_contratil}
+  Seja $\mathsf{M}$ uma categoria modelo pontuada tendo $*$ como objeto zero.
+  Um objeto $X \in \mathsf{M}$ é dito \textbf{fracamente contrátil} se o morfismo inicial $* \to X$ é uma equivalência fraca.
+\end{defin}
+
+O lema simples abaixo mostra que a definição acima também pode ser formulada em termos de morfismos terminais.
+
+\begin{lema}\label{lema:fracamente_contratil_sse_morfismo_terminal_eh_equiv_fraca}
+  Seja $\mathsf{M}$ uma categoria modelo pontuada tendo $*$ como objeto zero.
+  Dado um objeto $X \in \mathsf{M}$, as seguintes condições são equivalentes:
+  \begin{enumerate}
+  \item[(i)] $X$ é fracamento contrátil;
+    
+  \item[(ii)] o morfismo terminal $X \to *$ é uma equivalência fraca.
+  \end{enumerate}
+\end{lema}
+
+\begin{proof}
+  Veja que temos o diagrama comutativo abaixo envolvendo os morfismos inicial e terminal associados ao objeto $X$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      *
+      \arrow[rr, "\id_{*}", "\sim" {swap}]
+      \arrow[rd]
+      & & *
+      \\ & X
+      \arrow[ru]
+    \end{tikzcd}
+  \end{displaymath}
+  Sendo o morfismo idêntico $\id_{*}: * \to *$ uma equivalência fraca, segue diretamente da propriedade 2-de-3 que o morfismo inicial $* \to X$ é uma equivalência fraca se, e somente se, o morfismo terminal $X \to *$ também o é.
+\end{proof}
 
 \section{Teoria de Obstrução e o caso clássico}
 
