@@ -53,7 +53,7 @@ Nesse caso, a composição $i_{0} = i \circ j_{1}$ mapeia $B$ para a face inferi
 
 Antes de vermos como a noção de objeto cilindro nos permite definir uma noção categórica de homotopia, vejamos algumas propriedades simples satisfeitas por tais objetos.
 
-\begin{lema}\label{lema:propriedades_objeto_cilindro}
+\begin{lema}\label{lema:props_obj_cilindro}
   Sejam $\mathsf{M}$ uma categoria modelo, $B \in \mathsf{M}$ um objeto qualquer, e $(\Cyl(B),i,\varepsilon)$ um objeto cilindro qualquer para $B$.
   \begin{enumerate}
   \item[(i)] Os morfismos $i_{0},\, i_{1}: B \to \Cyl(B)$ são equivalências fracas.
@@ -126,7 +126,7 @@ Isso pode representar uam dificuldade para ``combinarmos'' homotopias à esquerd
 O resultado abaixo mostra que homotopias à esquerda são preservadas por composição de morfismos à esquerda, o que possivelmente justifica a terminologia usada.
 Além disso, mostramos que homotopias à esquerda também são preservadas por composição de morfismos à direita quando supomos que o codomínio é fibrante, e essa hipótese também garante a independência do objeto cilindro no qual a homotopia está definida.
 
-\begin{prop}\label{prop:propriedades_de_preservacao_homotopia_a_esquerda}
+\begin{prop}\label{prop:props_homotopia_esquerda}
   Suponha que $f,\,g : B \to X$ sejam dois morfismos homotópicos à esquerda em uma categoria modelo $\mathsf{M}$.
 
   \begin{enumerate}
@@ -251,9 +251,191 @@ Além disso, mostramos que homotopias à esquerda também são preservadas por c
   \end{displaymath}
 \end{proof}
 
+Uma consequência particularmente útil é que a noção de homotopia à esquerda se torna uma relação de equivalência quando trabalhamos com morfismos tendo codomínio fibrante.
+
+\begin{corol}\label{corol:homotopia_esquerda_rel_equiv_se_dom_cofib}
+  Em uma categoria de modelos $(\mathsf{M},\mathcal{W},\mathcal{C},\mathcal{F})$, se $B$ é um objeto cofibrante e $X$ é um objeto qualquer, então a relação de homotopia à esquerda $\simeq_{L}$ define uma relação de equivalência no conjunto de morfismos $\mathsf{M}(B,X)$.
+\end{corol}
+
+\begin{proof}
+  Vejamos primeiro a reflexividade da relação de homotopia à esquerda.
+  Dado um morfismo $f: B \to X$, considere $(\Cyl(B),i,\varepsilon)$ um objeto cilindro qualquer para $B$.
+  Veja que o quadrado indicado abaixo é comutativo pois
+  \begin{displaymath}
+    f \circ \varepsilon \circ i = f \circ \nabla = f \circ \langle \id_{B},\id_{B} \rangle = \langle f,f \rangle,
+  \end{displaymath}
+  e como o morfismo idêntico $\id_{X}: X \to X$ é uma fibração trivial, e $i: B \sqcup B \to \Cyl(B)$ é uma cofibração por hipótese, segue do axioma de levantamento que existe o morfismo diagonal $h: \Cyl(B) \to X$ mostrado, e a comuatividade mostra que tal morfismo define uma homotopia à esquerda de $f$ para si mesmo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      B \sqcup B
+      \arrow[r, "{\langle f,f \rangle}"]
+      \arrow[d, tail, "i" swap]
+      & X
+      \arrow[d, two heads, "\id_{X}", "\sim" {swap, sloped}]
+      \\ \Cyl(B)
+      \arrow[r, "f \circ \varepsilon" swap]
+      \arrow[ru, dashed, "h" description]
+      & X
+    \end{tikzcd}
+  \end{displaymath}
+  Note que a demonstração acima não usa em nenhum momento a hipótese de cofibrância sobre $B$, ou seja, a relação de homotopia à esquerda é \emph{sempre} reflexiva.
+
+  Vejamos agora a demonstração da simetria da relação.
+  Dados dois morfismos $f,\,g: B \to X$ que sejam homotópicos à esquerda, suponhamos que tal homotopia $h: \Cyl(B) \to X$ esteja definido em um objeto cilindro $(\Cyl(B),i,\varepsilon)$ qualquer.
+  A ideia é montarmos um outro objeto cilindro que tenha as ``faces trocadas'', e faremos isso trocando a ordem das parcelas do coproduto $B \sqcup B$.
+  Mais precisamente, sabemos da propriedade universal do coproduto que existe um único morfismo $\Sigma: B \sqcup B$ tal que $\Sigma \circ j_{1} = j_{2}$ e $\Sigma \circ j_{2} = j_{1}$, onde $j_{1},\, j_{2}: B \to B \sqcup B$ denotam as injeções canônicas no coproduto.
+  Intuitivamente, $\Sigma$ troca as duas cópias de $B$ que compõem o coproduto $B \sqcup B$.
+  Uma propriedade do morfismo $\Sigma$ que será importante para nós é sua interação com o morfismo codiagonal $\nabla: B \sqcup B \to B$.
+  Mais precisamente, afirmamos que vale a igualdade $\nabla \circ \Sigma = \nabla$.
+  Faz bastante sentido que essa igualdade seja verdadeira, pois se $\nabla$ intuitivamente idetifica as duas cópias de $B$ que formam o coproduto $B \sqcup B$, não faz diferença trocarmos essas cópias de lugar antes de fazermos a identificação.
+  A demonstração dessa igualdade é uma aplicação direta da propriedade universal do coproduto, pois $\nabla$ é caracterizado unicamente por satisfazer as igualdades
+  \begin{displaymath}
+    \nabla \circ j_{1} = \nabla \circ j_{2} = \id_{B},
+  \end{displaymath}
+  mas a composição $\nabla \circ \Sigma$ satisfaz as mesmas igualdades, pois por um lado
+  \begin{displaymath}
+    (\nabla \circ \Sigma) \circ j_{1} = \nabla \circ (\Sigma \circ j_{1}) = \nabla \circ j_{2} = \id_{B}
+  \end{displaymath}
+  e por outro
+  \begin{displaymath}
+    (\nabla \circ \Sigma) \circ j_{2} = \nabla \circ (\Sigma \circ j_{2}) = \nabla \circ j_{1} = \id_{B}.
+  \end{displaymath}
+
+  Sabendo das propriedades acima, afirmamos que a tripla $(\Cyl(B),i \circ \Sigma,\varepsilon)$ define um outro objeto cilindro para $B$.
+  Note primeiro que o morfismo de troca $\Sigma$ é um automorfismo de $B \sqcup B$, já que uma aplicação direta da propriedade universal do coproduto mostra que vale a igualdade $\Sigma \circ \Sigma = \id_{B}$.
+  Segue em particular que $\Sigma$ é uma cofibração, portanto o mesmo é válido para a composição $i \circ \Sigma: B \cofib \Cyl(B)$.
+  Por fim, usando a propriedade de $\Sigma$ discutida no parágrafo anterior vemos que $i \circ \Sigma$ e $\varepsilon$ fatoram o morfismo codiagonal, pois
+  \begin{displaymath}
+    \varepsilon \circ (i \circ \Sigma) = (\varepsilon \circ i) \circ \Sigma = \nabla \circ \Sigma = \nabla.
+  \end{displaymath}
+  
+  Afirmamos então que o próprio morfismo $h: \Cyl(B) \to X$ define a homotopia desejada de $g$ para $f$ com respeito ao objeto cilindro ``trocado'' $(\Cyl(B),i \circ \Sigma,\varepsilon)$.
+  De fato, note que por um lado
+  \begin{displaymath}
+    h \circ (i \circ \Sigma) \circ j_{1}
+    = (h \circ i) \circ (\Sigma \circ j_{1})
+    = \langle f,g \rangle \circ j_{2}
+    = g,
+  \end{displaymath}
+  e por outro
+  \begin{displaymath}
+    h \circ (i \circ \Sigma) \circ j_{2}
+    = (h \circ i) \circ (\Sigma \circ j_{2})
+    = \langle f,g \rangle \circ j_{1}
+    = f;
+  \end{displaymath}
+  portanto $h \circ (i \circ \Sigma) = \langle g,f \rangle$ conforme desejado.
+  Note que essa demonstração também não necessita da hipótese de cofibrância sobre $B$, ou seja, a relação de homotopia à esquerda é \emph{sempre} simétrica.
+
+  Resta verificarmos a transitividade da relação, e é aqui onde finalmente usamos a hipótese de cofibrância sobre $B$.
+  Suponha que tenhamos três morfismos $f_{1},\,f_{2},\,f_{3}: B \to X$ tais que $f_{1} \simeq_{L} f_{2}$ e $f_{2} \simeq_{L} f_{3}$.
+  A primeira homotopia à esquerda é dada por um morfismo $h_{1}: \Cyl(B) \to X$, enquanto a segunda é dada por um morfismo $h_{2}: \Cyl'(B) \to X$, sendo que $(\Cyl(B),i,\varepsilon)$ e $(\Cyl'(B),i',\varepsilon')$ são objetos cilindros possivelmente \emph{distintos}.\footnote{Aqui não podemos usar o resultado de independência de objetos cilindro pois isso requer que o codomínio dos morfismos seja fibrante.}
+  A ideia é que podemos colar os dois cilindros juntos de uma forma que vai nos permitir ``concatenar'' as homotopias $h_{1}$ e $h_{2}$ de forma a obtermos uma homotopia de $f_{1}$ para $f_{3}$.
+  Inicialmente, consideramos o objeto $Q \in \mathsf{M}$ dado pelo diagrama de pushout abaixo, onde $i_{1}: B \to \Cyl(B)$ e $i_{0}': B \to \Cyl'(B)$ são componentes das cofibrações $i: B \sqcup B \to \Cyl(B)$ e $i': B \sqcup B \to \Cyl'(B)$, respectivamente.
+  \begin{displaymath}
+    \begin{tikzcd}
+      B
+      \arrow[r, "i_{1}"]
+      \arrow[d, "i_{0}'" swap]
+      & \Cyl(B)
+      \arrow[d, "b"]
+      \\ \Cyl'(B)
+      \arrow[r, "t" swap]
+      & Q
+    \end{tikzcd}
+  \end{displaymath}
+  A hipótese de cofibrância sobre $B$ garante por meio do \cref{lema:props_obj_cilindro} que os morfismos $i_{1}$ e $i_{0}'$ são cofibrações triviais, e como esse tipo de morfismo é preservado por pushouts, seque que os morfismos $b: \Cyl(B) \to Q$ e $t: \Cyl'(B) \to Q$ que aparecem acima são também cofibrações triviais.
+  Como os morfismos $\varepsilon: \Cyl(B) \to B$ e $\varepsilon': \Cyl'(B) \to B$ satisfazem as igualdades $\varepsilon \circ i_{1} = \varepsilon' \circ i_{0}' = \id_{B}$, segue da propriedade universal do pushout a existência de um morfismo $\widetilde{\varepsilon}: Q \to B$ fazendo comutar o diagrama mostrado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      B
+      \arrow[r, "i_{1}"]
+      \arrow[d, "i_{0}'" swap]
+      & \Cyl(B)
+      \arrow[d, "b"]
+      \arrow[rdd, bend left=20, "\varepsilon"]
+      \\ \Cyl'(B)
+      \arrow[r, "t" swap]
+      \arrow[rrd, bend right=20, "\varepsilon'" swap]
+      & Q
+      \arrow[rd, dashed, "\widetilde{\varepsilon}" description]
+      \\ & & B
+    \end{tikzcd}
+  \end{displaymath}
+  Note que, como $\varepsilon$ e $b$ são equivalências fracas, o mesmo é válido para $\widetilde{\varepsilon}$ por conta da igualdade $\widetilde{\varepsilon} \circ b = \varepsilon$ e da propriedade 2-de-3.
+
+  Considere agora o morfismo $\widetilde{i}: B \sqcup B \to Q$ definido como $\widetilde{i} \coloneqq \langle b \circ i_{0}, t \circ i_{1}' \rangle$ por meio da propriedade universal do coproduto $B \sqcup B$.
+  Afirmamos que $\widetilde{\varepsilon}$ e $\widetilde{i}$ juntos fatoram o morfismo codiagonal.
+  De fato, por um lado temos
+  \begin{displaymath}
+    \widetilde{\varepsilon} \circ \widetilde{i} \circ j_{1}
+    = \widetilde{\varepsilon} \circ b \circ i_{0}
+    = \varepsilon \circ i_{0}
+    = \id_{B},
+  \end{displaymath}
+  e por outro temos também
+  \begin{displaymath}
+    \widetilde{\varepsilon} \circ \widetilde{i} \circ j_{2}
+    = \widetilde{\varepsilon} \circ t \circ i_{1}'
+    = \varepsilon' \circ i_{1}'
+    = \id_{B};
+  \end{displaymath}
+  portanto a propriedade universal do coproduto implica a igualdade $\widetilde{\varepsilon} \circ \widetilde{i} = \nabla$ desejada.
+
+  Veja que como a homotopia $h_{1}: \Cyl(B) \to X$ ``termina'' em $f_{2}$, enquanto a homotopia $h_{2}: \Cyl'(B) \to X$ ``começa'' em $f_{2}$, ou seja, temos as igualdades $h \circ i_{1} = h \circ i_{0}' = f_{2}$, a camada externa do diagrama abaixo comuta, portanto pela propriedade universal do pushout obtemos o morfismo $h: Q \to X$ indicado.
+  \begin{displaymath}
+     \begin{tikzcd}
+      B
+      \arrow[r, "i_{1}"]
+      \arrow[d, "i_{0}'" swap]
+      & \Cyl(B)
+      \arrow[d, "b"]
+      \arrow[rdd, bend left=20, "h_{1}"]
+      \\ \Cyl'(B)
+      \arrow[r, "t" swap]
+      \arrow[rrd, bend right=20, "h_{2}" swap]
+      & Q
+      \arrow[rd, dashed, "h" description]
+      \\ & & B
+    \end{tikzcd}
+  \end{displaymath}
+  Afirmamos que o morfismo $h$ construído dessa forma satisfaz a igualdade $h \circ \widetilde{i} = \langle f_{1},f_{3} \rangle$.
+  De fato, pré-compondo com a injeção $j_{1}$ no coproduto vemos que
+  \begin{displaymath}
+    h \circ \widetilde{i} \circ j_{1} = h \circ b \circ i_{0} = h_{1} \circ i_{0} = f_{1},
+  \end{displaymath}
+  e pré-compondo com a outra injeção $j_{2}$ vemos também que
+  \begin{displaymath}
+    h \circ \widetilde{i} \circ j_{2} = h \circ t \circ i_{1}' = h_{2} \circ i_{1}' = f_{3};
+  \end{displaymath}
+  de forma que a igualdade desejada segue da propriedade universal do coproduto novamente.
+
+  Infelizmente, embora isso pareça muito ser verdade, $h$ \emph{não} define uma homotopia de $f_{1}$ para $f_{3}$, pois a tripla $(Q,\widetilde{i},\widetilde{\varepsilon})$ \emph{não} define um objeto cilindro para $B$ já que $\widetilde{i}$ pode não ser uma cofibração.
+  Felizmente, podemos usar o axioma de fatoração para corrigirmos esse defeito sem grandes dores de cabeça.
+  Mais precisamente, usando tal axioma podemos reescrever $\widetilde{i}$ como uma cofibração $\widehat{i}: B \sqcup B \to \widehat{Q}$ seguida de uma fibração trivial $p: \widehat{Q} \overset{\sim}{\fib} C$ conforme mostrado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      B \sqcup B
+      \arrow[rr, "\widetilde{i}"]
+      \arrow[rd, tail, "\widehat{i}" swap]
+      & & Q
+      \\ & \widehat{Q}
+      \arrow[ru, two heads, "\sim" {sloped}, "p" {swap}]
+    \end{tikzcd}
+  \end{displaymath}
+  Veja que a tripla $(\widehat{Q},\widehat{i},\widetilde{\varepsilon} \circ p)$ define realmente um objeto cilindro: $\widehat{i}$ é uma cofibração por hipótese, $\widetilde{\varepsilon} \circ p$ é a composição de duas equivalências fracas e, portanto, uma equivalência fraca também; e os dois morfismos em questão fatoram a codiagonal pois
+  \begin{displaymath}
+    \widetilde{\varepsilon} \circ p \circ \widehat{i} = \widetilde{\varepsilon} \circ \widetilde{i} = \nabla.
+  \end{displaymath}
+  Note agora que o morfismo composto $h \circ p: \widehat{Q} \to X$ define enfim a homotopia procurada com relação a esse verdadeiro objeto cilindro como mostra a sequeência de igualdades
+  \begin{displaymath}
+    h \circ p \circ \widehat{i} = h \circ \widetilde{i} = \langle f_{1},f_{3} \rangle. \qedhere
+  \end{displaymath}
+\end{proof}
+
 Introduzimos agora uma noção de certa forma dual àquela de objeto cilindro.
 
-\begin{defin}\label{defin:objeto_de_caminhos}
+\begin{defin}\label{defin:obj_de_caminhos}
   Sejam $\mathsf{M}$ uma categoria modelo e $B \in \mathsf{M}$ um objeto qualquer.
   Um \textbf{objeto de caminhos} para $B$ é uma fatoração do morfismo diagonal $\Delta: B \to B \times B$ como uma equivalência fraca seguida de uma fibração.
   Mais explicitamente, um objeto de caminhos para $B$ é uma tripla $(P(B),c,p)$, onde $P(B) \in \mathsf{M}$ é um objeto da categoria, $c: B \overset{\sim}{\to} P(B)$ é uma equivalência fraca, e $p: P(B) \fib B \times B$ é uma fibração tais que $\Delta = p \circ c$, conforme mosrado no diagrama abaixo.
@@ -267,7 +449,7 @@ Introduzimos agora uma noção de certa forma dual àquela de objeto cilindro.
       & B \times B
     \end{tikzcd}
   \end{displaymath}
-  Quando o morfismo $c$ é também uma equivalência fraca, portanto uma cofibração trivial, dizemos que a tripla $(P(B),c,p)$ define um objeto de caminhos \textbf{forte} para $B$.
+  Quando o morfismo $c$ é também uma cofibração, portanto uma cofibração trivial, dizemos que a tripla $(P(B),c,p)$ define um objeto de caminhos \textbf{forte} para $B$.
 \end{defin}
 
 \begin{obs}
@@ -284,7 +466,7 @@ Nesse caso, os mapas $p_{0},\,p_{1}: B^{I} \to B$ introduzidos acima são simple
 Vamos agora percorrer um caminho completamente análogo ao que percorremos para objetos cilindros.
 Começamos inicialmente verificando algumas de suas propriedades básicas.
 
-\begin{lema}\label{lema:propriedades_objeto_de_caminhos}
+\begin{lema}\label{lema:props_obj_de_caminhos}
   Sejam $\mathsf{M}$ uma categoria modelo, $B \in \mathsf{M}$ um objeto, e $(P(B),c,p)$ um objeto de caminhos qualquer para $B$.
   \begin{enumerate}
   \item[(i)] Os morfismos $p_{0},\, p_{1}: P(B) \to B$ são equivalência fracas.
@@ -349,9 +531,9 @@ Para cada $b \in B$, o caminho associada $h(b)$ tem $f(b)$ como ponto inicial po
 e analogamente, $h(b)$ tem como ponto final a imagem $g(b)$.
 Assim, a família de caminhos definida pela homotopia $h$ em certo sentido ``conecta'' a imagem do estágio inicial $f$ da homotopia ao estágio final $g$ da mesma.
 
-Nosso objetivo agora é demonstrar um resultado análogo à \cref{prop:propriedades_de_preservacao_homotopia_a_esquerda} para homotopias à direita.
+Nosso objetivo agora é demonstrar um resultado análogo à \cref{prop:props_homotopia_esquerda} para homotopias à direita.
 
-\begin{prop}\label{prop:propriedades_de_preservacao_homotopia_a_direita}
+\begin{prop}\label{prop:props_homotopia_direita}
   Suponha que $f,\,g: B \to X$ sejam dois morfismos homotópicos à direita em uma categoria modelo $\mathsf{M}$.
   \begin{enumerate}
   \item Dado um morfismo $\alpha: A \to B$, os morfismos compostos $f \circ \alpha,\, g \circ \alpha: A \to X$ são homotópicos à direita.
@@ -505,7 +687,7 @@ O resultado abaixo mostra que, quando o domínio e o codomínio são bons, a exi
   \begin{displaymath}
     (f \circ \varepsilon,h) \circ i_{0} = (f \circ \varepsilon \circ i_{0}, h \circ i_{0}) = (f \circ \id_{B}, f) = (f,f) = \Delta \circ f = p \circ c \circ f.
   \end{displaymath}
-  Além disso, o fato de $i_{0}$ ser uma cofibração trivial segue da hipótese do cilindro $\Cyl(B)$ ser forte de acordo com o \cref{lema:propriedades_objeto_cilindro}.
+  Além disso, o fato de $i_{0}$ ser uma cofibração trivial segue da hipótese do cilindro $\Cyl(B)$ ser forte de acordo com o \cref{lema:props_obj_cilindro}.
   Podemos então encontrar um morfismo diagonal $\phi: \Cyl(B) \to P(X)$ conforme indicado acima.
   Afirmamos que a homotopia à direita desejada é dada pelo morfismo composto $\phi \circ i_{1}: B \to P(X)$.
   De fato, note que
@@ -516,7 +698,7 @@ O resultado abaixo mostra que, quando o domínio e o codomínio são bons, a exi
   Também é claro que a terceira afirmação implica a segunda, de forma que resta apenas mostrarmos a implicação reversa, ou seja, que toda homotopia à direita nas condições do enunciado dá origem a uma homotopia à esquerda também.
   A estratégia é dualizarmos a demonstração anterior.
   Assim, sejam $(\Cyl(B),i,\varepsilon)$ um objeto cilindro qualquer para $B$ e $(P(X),c,p)$ um objeto de caminhos forte para $X$.
-  Como $B$ é cofibrante por hipótese, segue da \cref{prop:propriedades_de_preservacao_homotopia_a_direita} que existe uma homotopia à direita de $f$ para $g$ com relação ao objeto de caminhos $P(X)$, ou seja, existe um morfismo $h: B \to P(X)$ tal que $p \circ h = (f,g)$.
+  Como $B$ é cofibrante por hipótese, segue da \cref{prop:props_homotopia_direita} que existe uma homotopia à direita de $f$ para $g$ com relação ao objeto de caminhos $P(X)$, ou seja, existe um morfismo $h: B \to P(X)$ tal que $p \circ h = (f,g)$.
   Considere o quadrado mostrado abaixo, o qual é comutativo pois
   \begin{displaymath}
     p_{0} \circ \langle c \circ f, h \rangle = \langle p_{0} \circ  c \circ f, p_{0} \circ h \rangle = \langle \id_{X} \circ f, f \rangle = \langle f,f \rangle = f \circ \nabla_{B} = f \circ \varepsilon \circ i.
@@ -534,7 +716,7 @@ O resultado abaixo mostra que, quando o domínio e o codomínio são bons, a exi
       & X
     \end{tikzcd}
   \end{displaymath}
-  Sendo $P(X)$ um objeto de caminhos forte, sabemos do \cref{lema:propriedades_objeto_de_caminhos} que $p_{0}: P(X) \to X$ é de fato uma fibração trivial; e ademais, $i: B \sqcup B \to \Cyl(B)$ é uma cofibração pela própria definição de objeto cilindro.
+  Sendo $P(X)$ um objeto de caminhos forte, sabemos do \cref{lema:props_obj_de_caminhos} que $p_{0}: P(X) \to X$ é de fato uma fibração trivial; e ademais, $i: B \sqcup B \to \Cyl(B)$ é uma cofibração pela própria definição de objeto cilindro.
   O axioma de levantamento (M4) fornece então o morfismo diagonal $\psi: \Cyl(B) \to P(X)$ indicado acima.
   Note enfim que o morfismo composto $p_{1} \circ \psi: \Cyl(B) \to X$ define a homotopia à esquerda procurada como mostra a sequência de igualdades
   \begin{displaymath}
