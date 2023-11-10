@@ -436,51 +436,51 @@ Uma consequência particularmente útil é que a noção de homotopia à esquerd
 Introduzimos agora uma noção de certa forma dual àquela de objeto cilindro.
 
 \begin{defin}\label{defin:obj_de_caminhos}
-  Sejam $\mathsf{M}$ uma categoria modelo e $B \in \mathsf{M}$ um objeto qualquer.
-  Um \textbf{objeto de caminhos} para $B$ é uma fatoração do morfismo diagonal $\Delta: B \to B \times B$ como uma equivalência fraca seguida de uma fibração.
-  Mais explicitamente, um objeto de caminhos para $B$ é uma tripla $(P(B),c,p)$, onde $P(B) \in \mathsf{M}$ é um objeto da categoria, $c: B \overset{\sim}{\to} P(B)$ é uma equivalência fraca, e $p: P(B) \fib B \times B$ é uma fibração tais que $\Delta = p \circ c$, conforme mosrado no diagrama abaixo.
+  Sejam $\mathsf{M}$ uma categoria modelo e $X \in \mathsf{M}$ um objeto qualquer.
+  Um \textbf{objeto de caminhos} para $B$ é uma fatoração do morfismo diagonal $\Delta: X \to X \times X$ como uma equivalência fraca seguida de uma fibração.
+  Mais explicitamente, um objeto de caminhos para $B$ é uma tripla $(P(X),c,p)$, onde $P(X) \in \mathsf{M}$ é um objeto da categoria, $c: X \overset{\sim}{\to} P(X)$ é uma equivalência fraca, e $p: P(X) \fib X \times X$ é uma fibração tais que $\Delta = p \circ c$, conforme mosrado no diagrama abaixo.
   \begin{displaymath}
     \begin{tikzcd}
-      & P(B)
+      & P(X)
       \arrow[d, two heads, "p"]
-      \\ B
+      \\ X
       \arrow[ru, "c", "\sim" {swap,sloped}]
       \arrow[r, "\Delta" swap]
-      & B \times B
+      & X \times X
     \end{tikzcd}
   \end{displaymath}
-  Quando o morfismo $c$ é também uma cofibração, portanto uma cofibração trivial, dizemos que a tripla $(P(B),c,p)$ define um objeto de caminhos \textbf{forte} para $B$.
+  Quando o morfismo $c$ é também uma cofibração, portanto uma cofibração trivial, dizemos que a tripla $(P(X),c,p)$ define um objeto de caminhos \textbf{forte} para $X$.
 \end{defin}
 
 \begin{obs}
-  O axioma de fatoração (M5) garante que o morfismo diagonal $\Delta: B \times B \to B$ pode ser fatorado como uma cofibração trivial seguida de uma fibração, portanto todo objeto de uma categoria modelo admite um objeto de caminhos que é até mesmo forte.
-  Como no caso do objetos cilindro, nem sempre esse modelo obtido pelo axioma de fatoração é o mais conveniente para trabalharmos, de forma que é vantajoso considerarmos também objetos de caminhos que não sejam fortes.
+  O axioma de fatoração (M5) garante que o morfismo diagonal $\Delta: X \times X \to X$ pode ser fatorado como uma cofibração trivial seguida de uma fibração, portanto todo objeto de uma categoria modelo admite um objeto de caminhos que é até mesmo forte.
+  Como no caso do objetos cilindro, nem sempre esse modelo obtido pelo axioma de fatoração é o mais conveniente para trabalharmos, de forma que é vantajoso considerarmos também objetos de caminhos que não necessariamente sejam fortes.
 \end{obs}
 
 Neste caso temos também algumas notações associadas.
-Dado um objeto cilindro $(P(B),c,p)$ para $B$, se $\pi_{1},\,\pi_{2}: B \times B \to B$ são as projeções canônicas associadas ao produto, denotaremos os morfismos compostos $\pi_{1} \circ p,\,pi_{2} \circ p: P(B) \to B$ por $p_{0}$ e $p_{1}$, respectivamente.
+Dado um objeto de caminhos $(P(X),c,p)$ para $X$, se $\pi_{1},\,\pi_{2}: X \times X \to X$ são as projeções canônicas associadas ao produto, denotaremos os morfismos compostos $\pi_{1} \circ p,\,pi_{2} \circ p: P(X) \to X$ por $p_{0}$ e $p_{1}$, respectivamente.
 Note então que a fibração $p$ é precisamente o morfismo induzido por $p_{0}$ e $p_{1}$ por meio da propriedade universal do produto, ou seja, $p = (p_{0},p_{1})$.
-Como no caso de objetos cilindros, os índices usados na notação ficam claros quando examinamos o caso topológico clássico, onde o objeto de caminhos é dado pelo espaço de mapas $B^{I}$ munido da topologia compacto-aberta, a equivalência fraca $c: B \to B^{I}$ associa a cada ponto $b \in B$ o caminho $c(b): I \to B$ constante naquele ponto, e a fibração $p: B^{I} \to B \times B$ associa a um caminho $\gamma \in B^{I}$ seus pontos inicial e final, ou seja, $p(\gamma) \coloneqq (\gamma(0),\gamma(1))$.
-Nesse caso, os mapas $p_{0},\,p_{1}: B^{I} \to B$ introduzidos acima são simplesmente os mapas de avaliação no instante inicial $0$ e no instante final $1$, respectivamente.
+Como no caso de objetos cilindros, os índices usados na notação ficam claros quando examinamos o caso topológico clássico, onde o objeto de caminhos é dado pelo espaço de mapas $X^{I}$ munido da topologia compacto-aberta, a equivalência fraca $c: X \to X^{I}$ associa a cada ponto $x \in X$ o caminho $c(b): I \to X$ constante naquele ponto, e a fibração $p: X^{I} \to X \times X$ associa a um caminho $\gamma \in B^{X}$ seus pontos inicial e final, ou seja, $p(\gamma) \coloneqq (\gamma(0),\gamma(1))$.
+Nesse caso, os mapas $p_{0},\,p_{1}: X^{I} \to B$ introduzidos acima são simplesmente os mapas de avaliação no instante inicial $0$ e no instante final $1$, respectivamente, o que justifica nossa escolha de índice na notação usada para tais morfismos.
 
 Vamos agora percorrer um caminho completamente análogo ao que percorremos para objetos cilindros.
-Começamos inicialmente verificando algumas de suas propriedades básicas.
+Começamos inicialmente verificando algumas das propriedades básicas satisfeitas por objetos de caminhos.
 
 \begin{lema}\label{lema:props_obj_de_caminhos}
-  Sejam $\mathsf{M}$ uma categoria modelo, $B \in \mathsf{M}$ um objeto, e $(P(B),c,p)$ um objeto de caminhos qualquer para $B$.
+  Sejam $\mathsf{M}$ uma categoria modelo, $X \in \mathsf{M}$ um objeto, e $(P(X),c,p)$ um objeto de caminhos qualquer para $X$.
   \begin{enumerate}
-  \item[(i)] Os morfismos $p_{0},\, p_{1}: P(B) \to B$ são equivalência fracas.
+  \item[(i)] Os morfismos $p_{0},\, p_{1}: P(X) \to X$ são equivalência fracas.
     
-  \item[(ii)] Se $B$ é um objeto fibrante, então os morfismos $p_{0},\, p_{1}: P(B) \to B$ são também fibrações e, portanto, fibrações triviais.
+  \item[(ii)] Se $X$ é um objeto fibrante, então os morfismos $p_{0},\, p_{1}: P(X) \to X$ são também fibrações e, portanto, fibrações triviais.
   \end{enumerate}
 \end{lema}
 
 \begin{proof}
   (i) Note que pela definição de $p_{0}$ e do morfismo diagonal $\Delta$ temos
   \begin{displaymath}
-    p_{0} \circ c = \pi_{1} \circ p \circ c = \pi_{1} \circ \Delta = \id_{B}.
+    p_{0} \circ c = \pi_{1} \circ p \circ c = \pi_{1} \circ \Delta = \id_{X}.
   \end{displaymath}
-  Ora, como $\id_{B}$ é uma equivalência fraca, o mesmo valendo para $c$ pela definição de objeto de caminhos, segue da propriedade 2-de-3 que $p_{0}$ é uma equivalência fraca.
+  Ora, como $\id_{X}$ é uma equivalência fraca, o mesmo valendo para $c$ pela definição de objeto de caminhos, segue da propriedade 2-de-3 que $p_{0}$ é uma equivalência fraca.
   A demonstração de que $p_{1}$ também é uma equivalência fraca segue de um raciocínio completamente análogo.
 
   \smallskip
@@ -488,7 +488,7 @@ Começamos inicialmente verificando algumas de suas propriedades básicas.
   Mais precisamente, se $* \in \mathsf{M}$ denota um objeto final qualquer de $\mathsf{M}$, então o quadrado comutativa abaixo é um pullback.
   \begin{displaymath}
     \begin{tikzcd}
-      B \times B
+      X \times X
       \arrow[r, "\pi_{1}"]
       \arrow[d, "\pi_{2}" swap]
       & B
@@ -498,15 +498,15 @@ Começamos inicialmente verificando algumas de suas propriedades básicas.
       & *
     \end{tikzcd}
   \end{displaymath}
-  Como $B$ é por hipótese fibrante, ou seja, o morfismo $!_{B}: B \to *$ é uma fibração, e como fibrações são preservadas por pullbacks de acordo com a \cref{corol:propriedades_de_preservacao_categoria_modelo}, concluímos que as projeções canônicas $\pi_{1}$ e $\pi_{2}$ são fibrações também.
-  Segue então que os morfismos $p_{0} = \pi_{1} \circ p$ e $p_{1} = \pi_{2} \circ p$ são composições de fibrações e, portanto, fibrações também de acordo com o \cref{corol:propriedades_de_preservacao_categoria_modelo}.
+  Como $X$ é por hipótese fibrante, ou seja, o morfismo $!_{X}: X \to *$ é uma fibração, e como fibrações são preservadas por pullbacks de acordo com a \cref{corol:propriedades_de_preservacao_categoria_modelo}, concluímos que as projeções canônicas $\pi_{1}$ e $\pi_{2}$ são fibrações também.
+  Segue então que os morfismos $p_{0} = \pi_{1} \circ p$ e $p_{1} = \pi_{2} \circ p$ são composições de fibrações e, portanto, fibrações também de acordo com o \cref{corol:propriedades_de_preservacao_categoria_modelo} novamente.
 \end{proof}
 
 Objetos de caminhos dão origem a uma noção de homotopia entre morfismos que é dual à noção de homotopia à esquerda introduzida anteriormente em termos de objetos cilindros.
 
-\begin{defin}\label{defin:homotopia_a_direita}
+\begin{defin}\label{defin:homotopia_direita}
   Dois morfismos $f,\, g: B \to X$ em uma categoria modelo $\mathsf{M}$ são ditos \textbf{homotópicos à direita} se existe um objeto de caminhos $(P(X),c,p)$ para $X$ e um morfismo $h: B \to P(X)$ tal que $p \circ h = (f,g)$, conforme mostrado no diagrama abaixo.
-  Neste caso, denotamos essa relação por $f \sim_{R} g$.
+  Neste caso, denotamos essa relação por $f \sim_{r} g$.
   \begin{displaymath}
     \begin{tikzcd}
       & P(X)
