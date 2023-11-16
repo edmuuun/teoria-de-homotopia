@@ -7,20 +7,116 @@ Note, entretanto, que a situação é mais sútil para morfismos na categoria de
 Isso significa que construções universais envolvendo \emph{categorias em si} podem ser formuladas de duas formas: uma versão \emph{estrita} usando apenas igualdades entre funtores, e uma versão \emph{fraca} usando isomorfismos naturais entre funtores.
 A primeira definição de localização que daremos, a qual aparece por exemplo nas referências \cite[Definição 7.30]{heuts-moerdijk} e \cite{nlab:localization}, é a versão fraca.
 Essa é a versão que realmente aparece na teoria de categoria de modelos, já que a construção de uma localização na classe de equivalências fracas por meio das classes de homotopia de morfismos entre objetos bifibrantes satisfaz apenas essa versão fraca da definição.
+Uma boa discussão comparando estas duas possíveis definições e também outras existentes na literatura também pode ser encontrada em \cite{overflow:localization}.
 
-\begin{defin}
+\begin{defin}\label{defin:localizacao_fraca}
   Sejam $\mathsf{C}$ uma categoria e $\mathcal{W} \Mor(\mathsf{C})$ uma classe qualquer de morfismos.
   Uma \textbf{localização fraca de $\mathsf{C}$ em $\mathcal{W}$} é um par $(\mathsf{L},\gamma)$, onde $\mathsf{L}$ é uma categoria e $\gamma: \mathsf{C} \to \mathsf{L}$ é um funtor, satisfazendo as seguintes condições:
   \begin{enumerate}
-  \item[(i)] O funtor $\gamma$ transforma os morfismo de $\mathcal{W}$ em isomorfismos de $\mathsf{L}$.
+  \item[(i)] O funtor $\gamma$ transforma os morfismos de $\mathcal{W}$ em isomorfismos de $\mathsf{L}$.
     
   \item[(ii)] Dada uma outra categoria $\mathsf{D}$ qualquer, o funtor de pré-composição com $\gamma$ define uma \emph{equivalência} de categorias
     \begin{displaymath}
-      \gamma^{*}: \Fun(\mathsf{L},\mathsf{D}) \overset{\simeq}{\longrightarrow} \Fun_{\mathcal{W}}(\mathsf{C},\mathsf{D}),
+      \Fun(\gamma,\mathsf{D}): \Fun(\mathsf{L},\mathsf{D}) \overset{\simeq}{\longrightarrow} \Fun_{\mathcal{W}}(\mathsf{C},\mathsf{D}),
     \end{displaymath}
     onde $\Fun_{\mathcal{W}}(\mathsf{C},\mathsf{D})$ denota a subcategoria plena da categoria de funtores $\Fun(\mathsf{C},\mathsf{D})$ gerada por aqueles funtores que transformam morfismos de $\mathcal{W}$ em isomorfismos de $\mathsf{D}$.
   \end{enumerate}
 \end{defin}
+
+O resultado abaixo mostra que a definição acima pode ser reformulada de forma a ficar mais similar a outras definições feitas por meio de propriedades universais.
+
+\begin{prop}\label{prop:localizacao_fraca_via_prop_universal}
+  Sejam $\mathsf{C}$ uma categoria e $\mathcal{W} \subseteq \Mor(\mathsf{C})$ uma classe de morfismos.
+  Dada uma categoria $\mathsf{L}$ e um funtor $\gamma: \mathsf{C} \to \mathsf{L}$ que transforma os morfismos de $\mathcal{W}$ em isomorfismos de $\mathsf{L}$, o par $(\mathsf{L},\gamma)$ define uma localização fraca de $\mathsf{C}$ em $\mathcal{W}$ se, e somente se, as duas condições abaixo são satisfeitas para qualquer categoria $\mathsf{D}$:
+  \begin{enumerate}
+  \item Se $F: \mathsf{C} \to \mathsf{D}$ é um funtor que transforma morfismos de $\mathcal{W}$ em isomorfismos de $\mathsf{D}$, então existe um funtor $\overline{F}: \mathsf{L} \to \mathsf{D}$ e um isomorfismo natural de funtores $\overline{F} \circ \gamma \cong F$.
+    
+  \item Dados dois funtores $G_{1},\, G_{2}: \mathsf{L} \to \mathsf{D}$ quaisquer, a função
+    \begin{displaymath}
+      \Fun(\gamma,\mathsf{D})_{G_{1},G_{2}}: \Hom_{\Fun(\mathsf{L},\mathsf{D})}(G_{1},G_{2}) \to \Hom_{\Fun_{\mathcal{W}}(\mathsf{C},\mathsf{D})}(G_{1} \circ \gamma, G_{2} \circ \gamma)
+    \end{displaymath}
+  \end{enumerate}
+  associada ao funtor de pré-composição $\Fun(\gamma,\mathsf{D}): \Fun(\mathsf{L},\mathsf{D}) \to \Fun_{\mathcal{W}}(\mathsf{C},\mathsf{D})$ é uma bijeção.
+\end{prop}
+
+\begin{proof}
+  Lembremos que um funtor $F: \mathsf{C} \to \mathsf{D}$ define uma equivalência de categorias se, e somente se, ele é essencialmente sobrejetivo, pleno e fiel, ou seja, se ele satisfaz as seguintes condições:
+  \begin{enumerate}
+  \item Dado um objeto $Y \in \mathsf{D}$ qualquer, existe um objeto $X \in \mathsf{C}$ e um isomorfismo $F(X) \cong Y$.
+    
+  \item Dados dois objetos $X_{1},\, X_{2} \in \mathsf{C}$ quaisquer, a função
+    \begin{displaymath}
+      F_{X_{1},X_{2}}: \Hom_{\mathsf{C}}(X_{1},X_{2}) \to \Hom_{\mathsf{D}}(F(X_{1}),F(X_{2}))
+    \end{displaymath}
+    associado a funtor $F: \mathsf{C} \to \mathsf{D}$ é uma bijeção.
+  \end{enumerate}
+
+  O resultado do enunciado segue então dessa caracterização de equivalência aplicada ao funtor $\Fun(\gamma,\mathsf{D}): \Fun(\mathsf{L},\mathsf{D}) \to \Fun_{\mathcal{W}}(\mathsf{C},\mathsf{D})$.
+\end{proof}
+
+Apesar da formulação de localização acima ser mais similar a outras propriedades unviversais com as quias estamos acostumados, existe uma diferença sútil mas importante: as propriedades universais usuais estabelecem a existência sob certas condições de um morfismo \emph{único} satisfazendo certas \emph{igualdades}.
+Já a propriedade universal da \cref{prop:localizacao_fraca_via_prop_universal} que caracteriza a localização fraca estabelece a existência sob certas hipóteses de \emph{algum} funtor satisfazendo uma condição de \emph{isomorfismo natural} e não de igualdade.
+Veremos agora que, apesar de não termos a unicidade na caracterização acima, temos uma unicidade a menos de isomorfismos naturais de funtores.
+
+\begin{prop}\label{prop:unicidade_fraca_funtor_induzido_localizacao_fraca}
+  Sejam $\mathsf{C}$ e $\mathsf{D}$ categorias, $\mathcal{W} \subseteq \Mor(\mathsf{C})$ uma classe qualquer de morfismos, e $F: \mathsf{C} \to \mathsf{D}$ um funtor que inverte os morfismos de $\mathcal{W}$.
+  Se $(\mathsf{L},\gamma)$ é uma localização fraca de $\mathsf{C}$ em $\mathcal{W}$, e $\overline{F},\,\widehat{F}: \mathsf{L} \to \mathsf{D}$ são dois funtores tais que $\overline{F} \circ \gamma \cong F$ e $\widehat{F} \circ \gamma \cong F$, então existe também um isomorfismo natural $\overline{F} \cong \widehat{F}$.
+\end{prop}
+
+O resultado acima segue facilmente do seguinte resultado mais geral a respeito de equivalências de categorias.
+
+\begin{lema}\label{lema:equiv_categorias_quase_injetivo}
+  Suponha que $F: \mathsf{C} \to \mathsf{D}$ seja uma equivalência de categorias.
+  Se $X,\, Y \in \mathsf{C}$ são dois objetos tais que $F(X) \cong F(Y)$, então existe também um isomorfismo $X \cong Y$.
+\end{lema}
+
+\begin{proof}
+   Sejam $G: \mathsf{D} \to \mathsf{C}$ o funtor quase-inverso a $F$ e $\theta: G \circ F \Rightarrow \id_{\mathsf{C}}$ um isomorfismo natural de funtores.
+  Existe por hipótese um isomorfiso $\alpha: F(X) \to F(Y)$, e aplicando $G$ obtemos então um isomorfismo $G(\alpha): G(F(X)) \to G(F(Y))$.
+  Considerando então os isomorfismos componentes $\theta_{X}: G(F(X)) \to X$ e $\theta_{Y}: G(F(Y)) \to Y$, a composição
+  \begin{displaymath}
+    \theta_{Y} \circ G(\alpha) \circ \theta_{X}^{-1}: X \to Y
+  \end{displaymath}
+  define o isomorfismo desejado.
+\end{proof}
+
+\begin{proof}[Demonstração da \cref{prop:unicidade_fraca_funtor_induzido_localizacao_fraca}]
+  Sabemos da definição de localização fraca que o funtor de pré-composição
+  \begin{displaymath}
+    \Fun(\gamma,\mathsf{D}): \Fun(\mathsf{L},\mathsf{D}) \to \Fun_{\mathcal{W}}(\mathsf{C},\mathsf{D})
+  \end{displaymath}
+  é uma equivalência de categorias, mas pelas hipóteses do enunciado temos
+  \begin{displaymath}
+    \Fun(\gamma,\mathsf{D})(\overline{F}) = \overline{F} \circ \gamma \cong F \cong \widehat{F} \circ \gamma = \Fun(\gamma,\mathsf{D})(\widehat{F});
+  \end{displaymath}
+  logo o resultado segue diretamente do \cref{lema:equiv_categorias_quase_injetivo} aplicado à equivalência $\Fun(\gamma,\mathsf{D})$.
+\end{proof}
+
+Uma consequência importante é que, embora duas localizações fracas possam não ser isomorfas, elas serão sempre equivalentes.
+Isso pode parecer mais fraco do que gostaríamos, mas a experiência mostra que em geral a noção de equivalência entre categorias é mais razoável do que a noção de isomorfismo entre categorias.
+
+\begin{corol}\label{corol:localizacao_fraca_unica_a_menos_de_equiv}
+  Dada uma categoria $\mathsf{C}$ e uma classe de morfismos $\mathcal{W} \subseteq \mathsf{C}$, quaisquer duas localizações de $\mathsf{C}$ em $\mathcal{W}$ são equivalentes.
+\end{corol}
+
+\begin{proof}
+  Suponha que $(\mathsf{L},\gamma)$ e $(\mathsf{J},\delta)$ sejam duas localizações de $\mathsf{C}$ em $\mathcal{W}$.
+  Como $\delta: \mathsf{C} \to \mathsf{J}$ inverte morfismos de $\mathcal{W}$, aplicando a \cref{prop:localizacao_fraca_via_prop_universal} ao par $(\mathsf{L},\gamma)$ obtemos um funtor $\overline{\delta}: \mathsf{L} \to \mathsf{J}$ juntamente com um isomorfismo natural de funtores $\overline{\delta} \circ \gamma \cong \delta$.
+  Ora, como $\gamma: \mathsf{C} \to \mathsf{L}$ também inverte morfismos de $\mathcal{W}$, aplicado o mesmo resultado agora ao par $(\mathsf{J},\delta)$ obtemos um funtor $\overline{\gamma}: \mathsf{J} \to \mathsf{L}$ e um isomorfismo natural de funtores $\delta \circ \overline{\gamma} \cong \gamma$.
+
+  Afirmamos que $\overline{\delta}$ e $\overline{\gamma}$ são funtores quase-inversos, ou seja, que existem isomorfismos naturais de funtores $\overline{\gamma} \circ \overline{\delta} \cong \id_{\mathsf{L}}$ e $\overline{\delta} \circ \overline{\gamma} \cong \id_{\mathsf{J}}$.
+  No primeiro caso, veja que, como o funtor idêntico $\id_{\mathsf{L}}$ satisfaz $\id_{\mathsf{L}} \circ \gamma = \gamma$, segue da \cref{prop:unicidade_fraca_funtor_induzido_localizacao_fraca} que, se $G: \mathsf{L} \to \mathsf{L}$ é um funtor tal que $G \circ \gamma \cong \gamma$, então necessariamente devemos ter também um isomorfismo natural $G \cong \id_{\mathsf{L}}$.
+  Ora, basta notar agora que
+  \begin{displaymath}
+    \overline{\gamma} \circ \overline{\delta} \circ \gamma \cong \overline{\gamma} \circ \delta \cong \gamma,
+  \end{displaymath}
+  de onde concluímos que $\overline{\gamma} \circ \overline{\delta} \cong \id_{\mathsf{L}}$.
+  Analogamente, o funtor $\id_{\mathsf{J}}$ é o único a menos de isomorfismo do seu tipo que fatora $\delta$, mas temos os isomorfismos naturais
+  \begin{displaymath}
+    \overline{\delta} \circ \overline{\gamma} \circ \delta \cong \overline{\delta} \circ \gamma \cong \delta,
+  \end{displaymath}
+  portanto temos também o isomorfismo natural $\overline{\delta} \circ \overline{\gamma} \cong \id_{\mathsf{J}}$.
+\end{proof}
 
 %%% Local Variables:
 %%% mode: latex
