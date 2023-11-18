@@ -153,7 +153,7 @@ Isso certamente não significa que as duas aproximações sejam \emph{isomorfas}
 
 \begin{obs}[Substituições funtoriais]
   \label{obs:substituicoes_cofibrantes_fibrantes_funtoriais}
-  Suponha que a categoria modelo $\mathsf{M}$ admita fatorações funtoriais, ou seja, que os dois sistemas de fatoração fracos $(\mathcal{C} \cap \mathcal{W},\mathcal{F})$ e $(\mathcal{C},\mathcal{F} \cap \mathcal{W})$ sejam funtoriais, sendo $\fac,\, \fac': \Arr(\mathsf{M}) \to \mathsf{M}^{[2]}$ os respectivos funtores de fatoração.
+  Suponha que a categoria de modelos $\mathsf{M}$ admita fatorações funtoriais, ou seja, que os dois sistemas de fatoração fracos $(\mathcal{C} \cap \mathcal{W},\mathcal{F})$ e $(\mathcal{C},\mathcal{F} \cap \mathcal{W})$ sejam funtoriais, sendo $\fac,\, \fac': \Arr(\mathsf{M}) \to \mathsf{M}^{[2]}$ os respectivos funtores de fatoração.
   Usando tais fatorações funtoriais podemos obter funtores de substituição cofibrante e fibrante.
   Considere inicialmente o funtor $\init: \mathsf{M} \to \Arr(\mathsf{M})$ que associa a um objeto $X$ o morfismo único $!_{X}: \varnothing \to X$, e que associa a um morfismo $f: X \to Y$ o par de morfismos $(\id_{\varnothing},f)$, o qual faz comutar o diagrama abaixo
   \begin{displaymath}
@@ -170,12 +170,12 @@ Isso certamente não significa que as duas aproximações sejam \emph{isomorfas}
   \end{displaymath}
   e portanto define um morfismo do tipo $!_{X} \to !_{Y}$ na categoria de setas $\Arr(\mathsf{M})$.
 
-  Usando o funtor $\init$ introdudizo acima, definirmos um funtor $\mathrm{SC}: \mathsf{M} \to \Arr(\mathsf{M})$ por meio da composição indicada de funtores indicada abaixo.
+  Usando o funtor $\init$ introdudizo acima, definirmos um funtor $\mathrm{subcof}: \mathsf{M} \to \Arr(\mathsf{M})$ por meio da composição mostrada abaixo.
   \begin{displaymath}
     \begin{tikzcd}
       \mathsf{M}
       \arrow[r, "\init"]
-      \arrow[rrr, dashed, bend right=20, "\mathrm{SC}" swap]
+      \arrow[rrr, dashed, bend right=20, "\mathrm{subcof}" swap]
       & \Arr(\mathsf{M})
       \arrow[r, "\fac'"]
       & \mathsf{M}^{[2]}
@@ -183,22 +183,93 @@ Isso certamente não significa que as duas aproximações sejam \emph{isomorfas}
       & \Arr(\mathsf{M})
     \end{tikzcd}
   \end{displaymath}
-  Veja que, ao aplicarmos o funtor de fatoração $\fac'$ ao morfismo $!_{X}: \varnothing \to X$, obtemos um objeto $\widehat{X}$ para o qual o morfismo único $!_{\widehat{X}}: \varnothing \to \widehat{X}$ é uma cofibração, ou seja, $\widehat{X}$ é um objeto cofibrante, juntamente com uma fibração trivial $p_{X}: \widehat{X} \overset{\sim}{\fib} X$; e aplicando então o funtor $d_{1}$ obtemos o morfismo de substituição cofibrante $p$.
-  Como o processo todo é feito por meio de funtores, se $f: X \to Y$ é um morfismo, deve existir também um morfismo $\widehat{f}: \widehat{X} \to \widehat{Y}$ entre as substituições cofibrantes que faça comutar o quadrado a seguir.
+  Veja que, ao aplicarmos o funtor de fatoração $\fac'$ ao morfismo $!_{X}: \varnothing \to X$, obtemos uma fatoração dada por uma cofibração $!_{\widehat{X}}: \varnothing \to \widehat{X}$ seguida de uma fibração trivial $p_{X}: \widehat{X} \to X$ conforme indicado abaixo.
   \begin{displaymath}
     \begin{tikzcd}
+      \varnothing
+      \arrow[rr, "!_{X}"]
+      \arrow[rd, tail, "!_{\widehat{X}}" swap]
+      & & X
+      \\ & \widehat{X}
+      \arrow[ru, two heads, "p_{X}" {swap}, "\sim" {sloped}]
+    \end{tikzcd}
+  \end{displaymath}
+  Note então que o par $(\widehat{X},p_{X})$ define uma substituição cofibrante forte para $X$.
+  A funtorialidade da construção pode ser entendida da seguinte maneira: se $f: X \to Y$ é um morfismo em $\mathsf{M}$, existe também um morfismo induzido $\widehat{f}: \widehat{X} \to \widehat{Y}$ entre as substituições cofibrantes que faz comutar o diagrama abaixo.
+  \begin{equation}\label{eq:funtorialidade_substituicao_cofibrante}
+    \begin{tikzcd}
       \widehat{X}
-      \arrow[r, two heads, "p_{X}", "\sim" {swap}]
-      \arrow[d, "\widehat{f}" swap]
-      & X
-      \arrow[d, "f"]
-      \\ \widehat{Y}
-      \arrow[r, two heads, "\sim", "p_{Y}" {swap}]
+      \arrow[r, dashed, "\widehat{f}"]
+      \arrow[d, two heads, "p_{X}" {swap}, "\sim" {sloped}]
+      & \widehat{Y}
+      \arrow[d, two heads, "p_{Y}", "\sim" {swap,sloped}]
+      \\ X
+      \arrow[r, "f" swap]
       & Y
+    \end{tikzcd}
+  \end{equation}
+
+  Denotando por $\mathsf{M}_{c}$ a subcategoria plena de $\mathsf{M}$ gerada pelos objetos cofibrantes, temos um funtor
+  \begin{displaymath}
+    \dom \circ \mathrm{subcof}: \mathsf{M} \to \mathsf{M}_{c},
+  \end{displaymath}
+  e a comutatividade do quadrado acima diz que a coleção de morfismos $(p_{X})_{X \in \mathsf{M}}$ define tanto uma transformação natural do tipo $i \circ (\dom \circ \mathrm{subcof}) \Rightarrow \id_{\mathsf{M}}$, enquanto a coleção $(p_{X})_{X \in \mathsf{M}_{c}}$ define uma transformação natural do tipo $(\dom \circ \mathrm{subcof}) \circ i \Rightarrow \id_{\mathsf{M}_{c}}$, onde $i: \mathsf{M}_{c} \to \mathsf{M}$ é o funtor de inclusão.
+
+  Existe também um processo análogo para obtermos substituições fibrantes funtoriais em uma categoria de modelos equipada com substituições funtoriais.
+  Consideramos inicialmente o funtor $\mathrm{term}: \mathsf{M} \to \Arr(\mathsf{M})$ que associa a cada objeto $X \in \mathsf{M}$ o morfismo terminal $!_{X}: X \to *$ e que associa a cada morfismo $f: X \to Y$ o par $(f,\id_{*})$, o qual faz comutar o quadrado indicado abaixo e, portanto, define um morfismo do tipo $!_{X} \to !_{Y}$ na categoria de setas.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[r, "f"]
+      \arrow[d, "!_{X}" swap]
+      & Y
+      \arrow[d, "!_{Y}"]
+      \\ *
+      \arrow[r, "\id_{*}" swap]
+      & *
     \end{tikzcd}
   \end{displaymath}
 
-  É claro que podemos descrever um procedimento análogo para obtermos substituições fibrantes funtoriais usando o funtor de fatoração $\fac$ do sistema $(\mathcal{C},\mathcal{F} \cap \mathcal{W})$ e o funtor do tipo $\mathsf{M} \to \Arr(\mathsf{M})$ que associa a um objeto $X$ o morfismo único $!_{X}: X \to *$ para o objeto terminal da categoria.  
+  Consideramos então o funtor $\mathrm{subfib}: \mathsf{M} \to \Arr(\mathsf{M})$ dado pela composição indicada abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \mathsf{M}
+      \arrow[r, "\mathrm{term}"]
+      \arrow[rrr, dashed, bend right=20, "\mathrm{subfib}" swap]
+      & \Arr(\mathsf{M})
+      \arrow[r, "\mathrm{fac}"]
+      & \mathsf{M^{[2]}}
+      \arrow[r, "d_{0}"]
+      & \Arr(\mathsf{M})
+    \end{tikzcd}
+  \end{displaymath}
+  Tal funtor associa a cada objeto $X \in \mathsf{M}$ uma cofibração trivial $j_{X}: X \overset{\sim}{\cofib} \widetilde{X}$ que faz comutar o diagrama abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[rr, "!_{X}"]
+      \arrow[rd, tail, "j_{X}" {swap}, "\sim" {sloped}]
+      & & *
+      \\ & \widetilde{X}
+      \arrow[ru, two heads, "!_{\widetilde{X}}" swap]
+    \end{tikzcd}
+  \end{displaymath}
+  portanto o par $(\widetilde{X},j_{X})$ define uma substituição fibrante para $X$.
+  Além disso, o funtor $\mathrm{subfib}$ em questão associa também a cada morfismo $f: X \to Y$ em $\mathsf{M}$ um morfismo correspondente $\widetilde{f}: \widetilde{X} \to \widetilde{Y}$ entre as substituições fibrantes que faz comutar o quadrado abaixo.
+  \begin{equation}\label{eq:funtorialidade_sub_fib}
+    \begin{tikzcd}
+      X
+      \arrow[d, tail, "j_{X}" {swap}, "\sim" {sloped}]
+      \arrow[r, "f"]
+      & Y
+      \arrow[d, tail, "j_{Y}", "\sim" {swap,sloped}]
+      \\ \widetilde{X}
+      \arrow[r, dashed, "\widetilde{f}" swap]
+      & \widetilde{Y}
+    \end{tikzcd}
+  \end{equation}
+
+  Denotando por $\mathsf{M}_{f}$ a subcategoria plena de $\mathsf{M}$ gerada pelos objeos fibrantes, temos o funtor composto $\cod \circ \mathrm{subfib}: \mathsf{M} \to \mathsf{M}_{f}$, e a comutatividade do diagrama \eqref{eq:funtorialidade_sub_fib} diz que a coleção de morfismos $(j_{X})_{X \in \mathsf{M}}$ define uma transformação natural do tipo $\id_{\mathsf{M}} \Rightarrow i \circ (\cod \circ \mathrm{subfib})$, enquanto a coleção de morfismos $(j_{X})_{X \in \mathsf{M}_{f}}$ define uma transformação natural $\id_{\mathsf{M}_{f}} \Rightarrow (\cod \circ \mathrm{subfib}) \circ i$, onde $i: \mathsf{M}_{f} \to \mathsf{M}$ denota o morfismo de inclusão.
 \end{obs}
 
 %%% Local Variables:
