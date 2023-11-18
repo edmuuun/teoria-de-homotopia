@@ -1,5 +1,7 @@
 \section{Localizações}
 
+%TODO: Terminar a demonstração do teorema sobre localizações nos objetos cofibrantes/fibrantes/bifibrantes.
+
 Nessa seção discutimos inicialmente a noção de localização de uma categoria $\mathsf{C}$ em uma classe qualquer de morfismos, e em seguida discutimos como as estrutura de uma categoria de modelos nos permite de certa forma simplificar o processo de localização na classe das equivalências fracas, simplificação esta que nos permitirá mais adiante construir modelos muito mais manejáveis para essa localização em termos de classes de homotopia.
 
 Em geral, a única forma possível de compararmos dois morfismos em uma categoria $\mathsf{C}$ qualquer é por meio de igualdades.
@@ -116,6 +118,91 @@ Isso pode parecer mais fraco do que gostaríamos, mas a experiência mostra que 
     \overline{\delta} \circ \overline{\gamma} \circ \delta \cong \overline{\delta} \circ \gamma \cong \delta,
   \end{displaymath}
   portanto temos também o isomorfismo natural $\overline{\delta} \circ \overline{\gamma} \cong \id_{\mathsf{J}}$.
+\end{proof}
+
+Tendo em vista essa unicidade a menos de equivalências, é comum denotarmos qualquer localização de $\mathsf{C}$ em $\mathcal{W}$ por $\mathsf{C}[\mathcal{W}^{-1}]$.
+
+Tendo estudado algumas propriedade básicas das localizações fracas, a próxima pergunta natural é quanto a sua existência.
+Será que podemos sempre construir uma localização de uma categoria $\mathsf{C}$ em uma classe de morfismos $\mathcal{W} \subseteq \Mor(\mathsf{C})$?
+A resposta é que sim \emph{a menos de tecnicalidades conjuntistas}.
+Usando a construção da categoria livre gerada por um conjunto de setas, odemos construir no braço uma localização fraca, mas a categoria obtida dessa forma não é localmente pequena, o que nos força então a trabalhar com algum universo de Grothendieck grande o suficiente para que a construção faça sentido.
+Felizmente, no caso de uma categoria de modelos $(\mathsf{M},\mathcal{W},\mathcal{C},\mathcal{F})$, a estrutura adicional dada pelas cofibrações e fibrações nos permite construir um \emph{modelo alternativo} para uma localização fraca $\mathsf{M}[\mathcal{W}^{-1}]$ nas equivalências fracas.
+Essa construção alternativa depende crucialmente do resultado abaixo, o qual diz que podemos obter uma localização fraca para uma categoria de modelos trabalhando apenas com subcategorias de objetos bem comportados.
+
+\begin{teo}
+  Seja $(\mathsf{M},\mathcal{W},\mathcal{C},\mathcal{F})$ uma categoria de modelos.
+  Denote por $\mathsf{M}_{c}$ (respectivamente $\mathsf{M}_{f}$ e $\mathsf{M}_{cf}$) a subcategoria plena gerada pelos objetos cofibrantes (respectivamente fibrantes e bifibrantes), e denote por $\mathcal{W}_{c}$ (respectivamente $\mathcal{W}_{f}$ e $\mathcal{W}_{cf}$) a classe de morfismos dada pela interseção $\mathcal{W} \cap \Mor(\mathsf{M}_{c})$ (respectivamente $\mathcal{W} \cap \Mor(\mathsf{M}_{f})$ e $\mathcal{W} \cap \Mor(\mathsf{M}_{cf})$).
+  As seguintes categorias são todas equivalentes:
+  \begin{enumerate}
+  \item[(i)] $\mathsf{M}[\mathcal{W}^{-1}]$;
+    
+  \item[(ii)] $\mathsf{M}_{c}[\mathcal{W}_{c}^{-1}]$;
+    
+  \item[(iii)] $\mathsf{M}_{f}[\mathcal{W}_{f}^{-1}]$;
+    
+  \item[(iv)] $\mathsf{M}_{cf}[\mathcal{W}_{cf}^{-1}]$.
+  \end{enumerate}
+\end{teo}
+
+\begin{proof}
+  Vejamos primeiro a equivalência entre as localizações fracas $\mathsf{M}[\mathcal{W}^{-1}]$ e $\mathsf{M}_{c}[\mathcal{W}_{c}^{-1}]$.
+  Se $\gamma: \mathsf{M} \to \mathsf{M}[\mathcal{W}^{-1}]$ e $\gamma_{c}: \mathsf{M}_{c} \to \mathsf{M}[\mathcal{W}_{c}^{-1}]$ são so funtores de localização, e $i: \mathsf{M}_{c} \to \mathsf{M}$ denota o funtor de inclusão, note que o funtor composto
+  \begin{displaymath}
+    \gamma \circ i: \mathsf{M}_{c} \to \mathsf{M}[\mathcal{W}^{-1}]
+  \end{displaymath}
+  inverte os morfismos de $\mathcal{W}_{c}$, pois $\gamma$ inverte os morfismos de $\mathcal{W}$, e $\mathcal{W}_{c} \subseteq \mathcal{W}$.
+  Segue da propriedade universal da localização fraca que existe um funtor induzido $\overline{i}: \mathsf{M}_{c}[\mathcal{W}_{c}^{-1}] \to \mathsf{M}[\mathcal{W}^{-1}]$ juntamente com um isomorfismo natural $\overline{i} \circ \gamma_{c} \cong \gamma \circ i$.
+
+  Vejamos agora como construir um funtor no sentido contrário $\mathsf{M}[\mathcal{W}^{-1}] \to \mathsf{M}_{c}[\mathcal{W}_{c}^{-1}]$.
+  Seja $\mathrm{subcof}: \mathsf{M} \to \Arr(\mathsf{M})$ o funtor de substituição cofibrante como descrito na \cref{obs:substituicao_cofibrante_fibrante_funtorial}.
+  Lembremos que tal funtor associa a cada objeto $X \in \mathsf{M}$ uma fibração trivial $p_{X}: \widehat{X} \to X$, onde $\widehat{X}$ é um objeto cofibrante, e associa a um morfismo $f: X \to Y$ um morfismo correspondente $\widehat{f}: \widehat{X} \to \widehat{Y}$ entre as substituições cofibrantes que faz comutar o diagrama abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \widehat{X}
+      \arrow[r, "\widehat{f}"]
+      \arrow[d, two heads, "p_{X}" {swap}, "\sim" {sloped}]
+      & \widehat{Y}
+      \arrow[d, two heads, "p_{Y}", "\sim" {swap,sloped}]
+      \\ X
+      \arrow[r, "f" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Afirmamos que o funtor composto
+  \begin{displaymath}
+    \gamma_{c} \circ \dom \circ \mathrm{subcof}: \mathsf{M} \to \mathsf{M}_{c}[\mathcal{W}_{c}^{-1}]
+  \end{displaymath}
+  inverte os morfismos de $\mathcal{W}$.
+  De fato, note que, se $f: X \to Y$ é uma equivalência fraca, então o mesmo vale para a composição $f \circ p_{X}$, a qual é igual à composição $p_{Y} \circ \widehat{f}$; mas sendo $p_{Y}$ uma equivalência fraca também, segue da propriedade 2-de-3 que $\widehat{f}$ é uma equivalência fraca, portanto $\gamma_{c}(\widehat{f})$ é um isomorfismo.
+  Segue da propriedade universal da localização fraca que existe um morfismo induzido $\varphi: \mathsf{M}[\mathcal{W}^{-1}] \to \mathsf{M}_{c}[\mathcal{W}_{c}^{-1}]$ juntamente com um isomorfismo natural de funtores $\varphi \circ \gamma \cong \gamma_{c} \circ \dom \circ \mathrm{subcof}$.
+
+  Nosso objetivo agora é mostrar que os funtores $\overline{i}$ e $\varphi$ são quase-inversos.
+  Vimos na \cref{obs:substituicao_cofibrante_fibrante_funtorial} que a coleção $(p_{X})_{X \in \mathsf{M}}$ define uma transformação natural $i \circ \dom \circ \mathrm{subcof} \Rightarrow \id_{\mathsf{M}}$.
+  Como $\gamma(p_{X})$ é um isomorfismo para todo $X \in \mathsf{M}$, segue que a coleção $(\gamma(X))_{X \in \mathsf{M}}$ define um \emph{isomorfismo} natural de funtores
+  \begin{displaymath}
+    \gamma \circ i \circ \dom \circ \mathrm{subcof} \cong \gamma,
+  \end{displaymath}
+  mas note que pelas propriedades caracterizando os vários funtores acima temos também uma sequência de isomorfismos naturais
+  \begin{displaymath}
+    \gamma \circ i \circ \dom \circ \mathrm{subcof} \cong \overline{i} \circ \gamma_{c} \circ \dom \circ \mathrm{subcof} \cong \overline{i} \circ \varphi \circ \gamma.
+  \end{displaymath}
+  Combinando esses vários isomorfismos naturais obtemos o isomorfismo $\overline{i} \circ \varphi \circ \gamma \cong \gamma$, de onde concluímos que $\overline{i} \circ \varphi \cong \id_{\mathsf{M}}$, já que o funtor de pré-composição
+  \begin{displaymath}
+    \Fun(\gamma,\mathsf{M}[\mathcal{W}^{-1}]): \Fun(\mathsf{M}[\mathcal{W}^{-1}],\mathsf{M}[\mathcal{W}^{-1}]) \to \Fun_{\mathcal{W}}(\mathsf{M},\mathsf{M}[\mathcal{W}^{-1}])
+  \end{displaymath}
+  define uma equivalência de categorias.
+
+  O outro isomorfismo é obtido de forma similar.
+  A coleção $(p_{X})_{X \in \mathsf{M}_{c}}$ define uma transformação natural $\dom \circ \mathrm{subcof} \circ i \Rightarrow \id_{\mathsf{M}_{c}}$, mas $\gamma_{c}(p_{X})$ é um isomorfismo para todo $X \in \mathsf{M}_{c}$, portanto $(\gamma_{c}(p_{X}))_{X \in \mathsf{M}_{c}}$ define um \emph{isomorfismo} natural $\gamma_{c} \circ \dom \circ \mathrm{subcof} \circ i \cong \gamma_{c}$.
+  Basta ver agora que temos os isomorfismos naturais
+  \begin{displaymath}
+    \gamma_{c} \circ \dom \circ \mathrm{subcof} \circ i \cong \varphi \circ \circ i \cong \varphi \circ \overline{i} \circ \gamma_{c},
+  \end{displaymath}
+  logo $\varphi \circ \overline{i} \circ \gamma_{c} \cong \gamma_{c}$, o que implica o isomorfismo desejado $\varphi \circ \overline{i} \cong \id_{\mathsf{M}_{c}}$ já que o funtor
+  \begin{displaymath}
+    \Fun(\gamma_{c},\mathsf{M}_{c}[\mathcal{W}_{c}^{-1}]): \Fun(\mathsf{M}_{c}[\mathcal{W}_{c}^{-1}],\mathsf{M}_{c}[\mathcal{W}_{c}^{-1}]) \to \Fun_{\mathcal{W}_{c}}(\mathsf{M}_{c}, \mathsf{M}_{c}[\mathcal{W}_{c}^{-1}])
+  \end{displaymath}
+  define uma equivalência de categorias.
 \end{proof}
 
 %%% Local Variables:
