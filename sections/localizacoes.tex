@@ -203,6 +203,31 @@ Essa construção alternativa depende crucialmente do resultado abaixo, o qual d
     \Fun(\gamma_{c},\mathsf{M}_{c}[\mathcal{W}_{c}^{-1}]): \Fun(\mathsf{M}_{c}[\mathcal{W}_{c}^{-1}],\mathsf{M}_{c}[\mathcal{W}_{c}^{-1}]) \to \Fun_{\mathcal{W}_{c}}(\mathsf{M}_{c}, \mathsf{M}_{c}[\mathcal{W}_{c}^{-1}])
   \end{displaymath}
   define uma equivalência de categorias.
+
+  O argumento para mostrarmos a equivalência $\mathsf{M}[\mathcal{W}^{-1}] \cong \mathsf{M}_{f}[\mathcal{W}^{-1}_{f}]$ é análogo.
+  Por um lado, a composição do funtor de inclusão $i: \mathsf{M}_{f} \to \mathsf{M}$ com o funtor de localização $\gamma: \mathsf{M} \to \mathsf{M}[\mathcal{W}^{-1}]$ inverte os morfismos de $\mathcal{W}_{f}$, portanto nesse caso obtemos também um funtor $\overline{i}: \mathsf{M}_{f}[\mathcal{W}_{f}^{-1}] \to \mathsf{M}[\mathcal{W}^{-1}]$ juntamente com um isomorfismo natural $\overline{i} \circ \gamma_{f} \cong \gamma \circ i$.
+  A fim de obtermos um funtor no outro sentido, consideramos inicial o funtor de substituição fibrante
+  \begin{displaymath}
+    \mathrm{subfib}: \mathsf{M} \to \Arr(\mathsf{M})
+  \end{displaymath}
+  discutido também na \cref{obs:substituicao_cofibrante_fibrante_funtorial}, e verificamos que o funtor composto
+  \begin{displaymath}
+    \gamma_{f} \circ \cod \circ \mathrm{subfib}: \mathsf{M} \to \mathsf{M}_{f}[\mathcal{W}_{f}^{-1}]
+  \end{displaymath}
+  inverte os morfismos de $\mathcal{W}$, induzindo portanto um funtor $\psi: \mathsf{M}[\mathcal{W}^{-1}] \to \mathsf{M}_{f}[\mathcal{W}_{f}^{-1}]$ juntamente com um isomorfismo natural $\psi \circ \gamma \cong \gamma_{f} \circ \cod \circ \mathrm{subfib}$.
+  A demonstração de que os funtores $\overline{i}$ e $\psi$ são quase-inversos é análoga ao que fizemos no caso anterior.
+
+  Mostramos por fim a existência de uma equivalência $\mathsf{M}_{cf}[\mathcal{W}_{cf}^{-1}] \cong \mathsf{M}_{c}[\mathcal{W}_{c}^{-1}]$.
+  Se $\lambda: \mathsf{M}_{cf} \to \mathsf{M}_{c}$ denota o funtor de inclusão, como nos outros casos temos que a composição
+  \begin{displaymath}
+    \gamma_{c} \circ \lambda: \mathsf{M}_{cf} \to \mathsf{M}_{c}[\mathcal{W}_{c}^{-1}]
+  \end{displaymath}
+  inverte os morfismos de $\mathcal{W}_{cf}$, portanto a propriedade universal da localização fraca dá origem a um funtor $\overline{\lambda}: \mathsf{M}_{cf}[\mathcal{W}_{cf}^{-1}] \to \mathsf{M}_{c}[\mathcal{W}_{c}^{-1}]$ juntamente com um isomorfismo natural $\gamma_{c} \circ \lambda \cong \overline{\lambda} \circ \gamma_{cf}$.
+  Denote por $\mathrm{subfib'}: \mathsf{M}_{c} \to \Arr(\mathsf{M})$ a restrição do funtor de substituição fibrante à categoria $\mathsf{M}_{c}$ gerada pelos objetos cofibrantes.
+  Tal funtor associa a cada objeto cofibrante $X \in \mathsf{M}_{c}$ uma \emph{cofibração trivial} $j_{X}: X \overset{\sim}{\to} X_{f}$, onde $X_{f}$ é um objeto fibrante.
+  Note que, sendo $X$ cofibrante e $j_{X}$ uma cofibração, segue do \cref{lema:props_obj_cofib_fib} que $X_{f}$ é ainda cofibrante, sendo portanto um objeto \emph{bifibrante}.
+  Dessa forma, a composição $\cod \circ \mathrm{subfib}'$ pode ser vista como um funtor do tipo $\mathsf{M}_{c} \to \mathsf{M}_{cf}$, e podemos então mostrar que a composição $\gamma_{cf} \circ \cod \circ \mathrm{subfib}': \mathsf{M}_{c} \to \mathsf{M}_{cf}[\mathcal{W}_{cf}^{-1}]$ inverte morfismos de $\mathcal{W}_{c}$, dando origem portanto a um funtor induzido $\theta: \mathsf{M}_{c}[\mathcal{W}_{c}^{1}] \to \mathsf{M}_{cf}[\mathcal{W}_{cf}^{-1}]$ juntamente com um isomorfismo natural $\theta \circ \gamma_{c} \cong \gamma_{cf} \circ \cod \circ \mathrm{subfib}'$.
+  A demonstração de que os funtores $\overline{\lambda}$ e $\theta$ são quase-inversos segue, de forma similar aos casos anteriores, das propriedades universais das localizações fracas envolvidas e também do fato de que as coleções de morfismos $(\gamma_{c}(j_{X}))_{X \in \mathsf{M}_{c}}$ e $(\gamma_{cf}(j_{X}))_{X \in \mathsf{M}_{cf}}$ definem isomorfismos naturais $\gamma \cong \gamma \circ \lambda \circ \cod \circ \mathrm{subfib}'$ e $\gamma_{cf} \cong \gamma_{cf} \circ \cod \circ \mathrm{subfib}' \circ \lambda$, respectivamente.
 \end{proof}
 
 %%% Local Variables:
