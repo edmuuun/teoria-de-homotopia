@@ -183,25 +183,25 @@ Isso certamente não significa que as duas aproximações sejam \emph{isomorfas}
       & \Arr(\mathsf{M})
     \end{tikzcd}
   \end{displaymath}
-  Veja que, ao aplicarmos o funtor de fatoração $\fac'$ ao morfismo $!_{X}: \varnothing \to X$, obtemos uma fatoração dada por uma cofibração $!_{\widehat{X}}: \varnothing \to \widehat{X}$ seguida de uma fibração trivial $p_{X}: \widehat{X} \to X$ conforme indicado abaixo.
+  Veja que, ao aplicarmos o funtor de fatoração $\fac'$ ao morfismo $!_{X}: \varnothing \to X$, obtemos uma fatoração dada por uma cofibração $!_{X_{c}}: \varnothing \to X_{c}$ seguida de uma fibração trivial $p_{X}: X_{c} \to X$ conforme indicado abaixo.
   \begin{displaymath}
     \begin{tikzcd}
       \varnothing
       \arrow[rr, "!_{X}"]
-      \arrow[rd, tail, "!_{\widehat{X}}" swap]
+      \arrow[rd, tail, "!_{X_{c}}" swap]
       & & X
-      \\ & \widehat{X}
+      \\ & X_{c}
       \arrow[ru, two heads, "p_{X}" {swap}, "\sim" {sloped}]
     \end{tikzcd}
   \end{displaymath}
-  Note então que o par $(\widehat{X},p_{X})$ define uma substituição cofibrante forte para $X$.
-  A funtorialidade da construção pode ser entendida da seguinte maneira: se $f: X \to Y$ é um morfismo em $\mathsf{M}$, existe também um morfismo induzido $\widehat{f}: \widehat{X} \to \widehat{Y}$ entre as substituições cofibrantes que faz comutar o diagrama abaixo.
+  Note então que o par $(X_{c},p_{X})$ define uma substituição cofibrante forte para $X$.
+  A funtorialidade da construção pode ser entendida da seguinte maneira: se $f: X \to Y$ é um morfismo em $\mathsf{M}$, existe também um morfismo induzido $f_{c}: X_{c} \to Y_{c}$ entre as substituições cofibrantes que faz comutar o diagrama abaixo.
   \begin{equation}\label{eq:funtorialidade_substituicao_cofibrante}
     \begin{tikzcd}
-      \widehat{X}
-      \arrow[r, dashed, "\widehat{f}"]
+      X_{c}
+      \arrow[r, dashed, "f_{c}"]
       \arrow[d, two heads, "p_{X}" {swap}, "\sim" {sloped}]
-      & \widehat{Y}
+      & Y_{c}
       \arrow[d, two heads, "p_{Y}", "\sim" {swap,sloped}]
       \\ X
       \arrow[r, "f" swap]
@@ -213,9 +213,9 @@ Isso certamente não significa que as duas aproximações sejam \emph{isomorfas}
   \begin{displaymath}
     \dom \circ \mathrm{subcof}: \mathsf{M} \to \mathsf{M}_{c},
   \end{displaymath}
-  e a comutatividade do quadrado acima diz que a coleção de morfismos $(p_{X})_{X \in \mathsf{M}}$ define tanto uma transformação natural do tipo $i \circ (\dom \circ \mathrm{subcof}) \Rightarrow \id_{\mathsf{M}}$, enquanto a coleção $(p_{X})_{X \in \mathsf{M}_{c}}$ define uma transformação natural do tipo $(\dom \circ \mathrm{subcof}) \circ i \Rightarrow \id_{\mathsf{M}_{c}}$, onde $i: \mathsf{M}_{c} \to \mathsf{M}$ é o funtor de inclusão.
+  e a comutatividade do quadrado acima diz que a coleção de morfismos $(p_{X})_{X \in \mathsf{M}}$ define uma transformação natural do tipo $i \circ (\dom \circ \mathrm{subcof}) \Rightarrow \id_{\mathsf{M}}$, enquanto a coleção $(p_{X})_{X \in \mathsf{M}_{c}}$ define uma transformação natural do tipo $(\dom \circ \mathrm{subcof}) \circ i \Rightarrow \id_{\mathsf{M}_{c}}$, onde $i: \mathsf{M}_{c} \to \mathsf{M}$ é o funtor de inclusão.
 
-  Existe também um processo análogo para obtermos substituições fibrantes funtoriais em uma categoria de modelos equipada com substituições funtoriais.
+  Existe também um processo análogo para obtermos substituições fibrantes funtoriais em uma categoria de modelos equipada com fatorações funtoriais.
   Consideramos inicialmente o funtor $\mathrm{term}: \mathsf{M} \to \Arr(\mathsf{M})$ que associa a cada objeto $X \in \mathsf{M}$ o morfismo terminal $!_{X}: X \to *$ e que associa a cada morfismo $f: X \to Y$ o par $(f,\id_{*})$, o qual faz comutar o quadrado indicado abaixo e, portanto, define um morfismo do tipo $!_{X} \to !_{Y}$ na categoria de setas.
   \begin{displaymath}
     \begin{tikzcd}
@@ -243,29 +243,29 @@ Isso certamente não significa que as duas aproximações sejam \emph{isomorfas}
       & \Arr(\mathsf{M})
     \end{tikzcd}
   \end{displaymath}
-  Tal funtor associa a cada objeto $X \in \mathsf{M}$ uma cofibração trivial $j_{X}: X \overset{\sim}{\cofib} \widetilde{X}$ que faz comutar o diagrama abaixo,
+  Tal funtor associa a cada objeto $X \in \mathsf{M}$ uma cofibração trivial $j_{X}: X \overset{\sim}{\cofib} X_{f}$ que faz comutar o diagrama abaixo,
   \begin{displaymath}
     \begin{tikzcd}
       X
       \arrow[rr, "!_{X}"]
       \arrow[rd, tail, "j_{X}" {swap}, "\sim" {sloped}]
       & & *
-      \\ & \widetilde{X}
-      \arrow[ru, two heads, "!_{\widetilde{X}}" swap]
+      \\ & X_{f}
+      \arrow[ru, two heads, "!_{X_{f}}" swap]
     \end{tikzcd}
   \end{displaymath}
-  portanto o par $(\widetilde{X},j_{X})$ define uma substituição fibrante para $X$.
-  Além disso, o funtor $\mathrm{subfib}$ em questão associa também a cada morfismo $f: X \to Y$ em $\mathsf{M}$ um morfismo correspondente $\widetilde{f}: \widetilde{X} \to \widetilde{Y}$ entre as substituições fibrantes que faz comutar o quadrado abaixo.
+  portanto o par $(X_{f},j_{X})$ define uma substituição fibrante forte para $X$.
+  Além disso, o funtor $\mathrm{subfib}$ em questão associa também a cada morfismo $g: X \to Y$ em $\mathsf{M}$ um morfismo correspondente $g_{f}: X_{f} \to Y_{f}$ entre as substituições fibrantes que faz comutar o quadrado abaixo.
   \begin{equation}\label{eq:funtorialidade_sub_fib}
     \begin{tikzcd}
       X
       \arrow[d, tail, "j_{X}" {swap}, "\sim" {sloped}]
-      \arrow[r, "f"]
+      \arrow[r, "g"]
       & Y
       \arrow[d, tail, "j_{Y}", "\sim" {swap,sloped}]
-      \\ \widetilde{X}
-      \arrow[r, dashed, "\widetilde{f}" swap]
-      & \widetilde{Y}
+      \\ X_{f}
+      \arrow[r, dashed, "g_{f}" swap]
+      & Y_{f}
     \end{tikzcd}
   \end{equation}
 

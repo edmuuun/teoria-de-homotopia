@@ -155,13 +155,13 @@ Essa construção alternativa depende crucialmente do resultado abaixo, o qual d
 
   Vejamos agora como construir um funtor no sentido contrário $\mathsf{M}[\mathcal{W}^{-1}] \to \mathsf{M}_{c}[\mathcal{W}_{c}^{-1}]$.
   Seja $\mathrm{subcof}: \mathsf{M} \to \Arr(\mathsf{M})$ o funtor de substituição cofibrante como descrito na \cref{obs:substituicao_cofibrante_fibrante_funtorial}.
-  Lembremos que tal funtor associa a cada objeto $X \in \mathsf{M}$ uma fibração trivial $p_{X}: \widehat{X} \to X$, onde $\widehat{X}$ é um objeto cofibrante, e associa a um morfismo $f: X \to Y$ um morfismo correspondente $\widehat{f}: \widehat{X} \to \widehat{Y}$ entre as substituições cofibrantes que faz comutar o diagrama abaixo.
+  Lembremos que tal funtor associa a cada objeto $X \in \mathsf{M}$ uma fibração trivial $p_{X}: X_{c} \to X$, onde $X_{c}$ é um objeto cofibrante, e associa a um morfismo $f: X \to Y$ um morfismo correspondente $f_{c}: X_{c} \to Y_{c}$ entre as substituições cofibrantes que faz comutar o diagrama abaixo.
   \begin{displaymath}
     \begin{tikzcd}
-      \widehat{X}
-      \arrow[r, "\widehat{f}"]
+      X_{c}
+      \arrow[r, "f_{c}"]
       \arrow[d, two heads, "p_{X}" {swap}, "\sim" {sloped}]
-      & \widehat{Y}
+      & Y_{c}
       \arrow[d, two heads, "p_{Y}", "\sim" {swap,sloped}]
       \\ X
       \arrow[r, "f" swap]
@@ -173,7 +173,7 @@ Essa construção alternativa depende crucialmente do resultado abaixo, o qual d
     \gamma_{c} \circ \dom \circ \mathrm{subcof}: \mathsf{M} \to \mathsf{M}_{c}[\mathcal{W}_{c}^{-1}]
   \end{displaymath}
   inverte os morfismos de $\mathcal{W}$.
-  De fato, note que, se $f: X \to Y$ é uma equivalência fraca, então o mesmo vale para a composição $f \circ p_{X}$, a qual é igual à composição $p_{Y} \circ \widehat{f}$; mas sendo $p_{Y}$ uma equivalência fraca também, segue da propriedade 2-de-3 que $\widehat{f}$ é uma equivalência fraca, portanto $\gamma_{c}(\widehat{f})$ é um isomorfismo.
+  De fato, note que, se $f: X \to Y$ é uma equivalência fraca, então o mesmo vale para a composição $f \circ p_{X}$, a qual é igual à composição $p_{Y} \circ f_{c}$; mas sendo $p_{Y}$ uma equivalência fraca também, segue da propriedade 2-de-3 que $f_{c}$ é uma equivalência fraca, portanto $\gamma_{c}(f_{c})$ é um isomorfismo.
   Segue da propriedade universal da localização fraca que existe um morfismo induzido $\varphi: \mathsf{M}[\mathcal{W}^{-1}] \to \mathsf{M}_{c}[\mathcal{W}_{c}^{-1}]$ juntamente com um isomorfismo natural de funtores $\varphi \circ \gamma \cong \gamma_{c} \circ \dom \circ \mathrm{subcof}$.
 
   Nosso objetivo agora é mostrar que os funtores $\overline{i}$ e $\varphi$ são quase-inversos.
