@@ -1,0 +1,49 @@
+\section{A categoria homotópica}
+
+Nessa seção utilizamos as ferramentas homotópicas desenvolvidas na seção anterior para descrevermos uma construção explícita da localização de uma categoria de modelos na sua classe de equivalências fracas.
+O arcabouço técnico que sustenta tal construção é uma versão do celebrado Teorema de Whitehead válido para categorias de modelos que relaciona equivalências fracas e equivalências homotópicas.
+
+\begin{lema}[Levantamentos a menos de homotopia]
+  Em uma categoria de modelos $\mathsf{M}$, suponha que $p: X \fib Y$ seja uma fibração, $B$ seja um objeto cofibrante, e $f: B \to Y$ seja um morfismo qualquer.
+  Se existe um morfismo $f': B \to X$ tal que a composição $p \circ f'$ seja homotópica à esquerda a $f$, então existe também um morfismo $\widetilde{f}: B \to X$ satisfazendo a igualdade $p \circ \widetilde{f} = f$.
+\end{lema}
+
+\begin{proof}
+  Seja $H: \Cyl(B) \to Y$ uma homotopia à esquerda de $p \circ f'$ para $f$, e considere o quadrado comutativo abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      B
+      \arrow[d, tail, "\sim" {sloped}, "i_{0}" {swap}]
+      \arrow[r, "f'"]
+      & X
+      \arrow[d, two heads, "p"]
+      \\ \Cyl(B)
+      \arrow[r, "H" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Veja que o fato de $i_{0}$ ser uma cofibração trivial segue da hipótese de cofibrância de $B$ e do \cref{lema:props_obj_cilindro}.
+  Aplicando o axioma de levantamento obtemos um morfismo $\widetilde{H}: \Cyl(B) \to X$ conforme indicado no diagrama comutativo abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      B
+      \arrow[d, tail, "\sim" {sloped}, "i_{0}" {swap}]
+      \arrow[r, "f'"]
+      & X
+      \arrow[d, two heads, "p"]
+      \\ \Cyl(B)
+      \arrow[r, "H" swap]
+      \arrow[ru, dashed, "\widetilde{H}" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Note então que $\widetilde{f} \coloneqq H \circ i_{1}: B \to X$ é o morfismo procurado pois
+  \begin{displaymath}
+    p \circ \widetilde{f} = p \circ (\widetilde{H} \circ i_{1}) = (p \circ \widetilde{H}) \circ i_{1} = H \circ i_{1} = f. \qedhere
+  \end{displaymath}
+\end{proof}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

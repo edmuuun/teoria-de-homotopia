@@ -874,8 +874,7 @@ Em suma, o resultado abaixo diz que essas duas noções sempre coincidem quando 
 \end{proof}
 
 \begin{defin}\label{defin:homotopia}
-  Seja $(\mathsf{M},\mathcal{W},\mathcal{C},\mathcal{F})$ uma categoria de modelos.
-  Dois morfismos $f,\,g: B \to X$ são ditos \text{homotópicos} quando eles são simultaneamente homotópicos à esquerda e também homotópicos à direita.
+  Dois morfismos $f,\,g: B \to X$ em uma categoria de modelos $\mathsf{M}$ são ditos \textbf{homotópicos} quando são simultaneamente homotópicos à esquerda e à direita.
 \end{defin}
 
 Tendo a definição acima em mãos, podemos reformular o enunciado da \cref{prop:comparando_homotopia_esquerda_direita} da seguinte forma: quando o domínio é cofibrante, então dois morfismos homotópicos à esquerda são também homotópicos; e quando o codomínio é fibrante, dois morfismos homotópicos à direita são também homotópicos.
@@ -891,6 +890,14 @@ O caso que nos será mais útil e que deixamos registrados na forma do próximo 
   \item $f$ e $g$ são homotópicos.
   \end{enumerate}
 \end{corol}
+
+Dados então um objeto cofibrante $X$ e um objeto fibrante $Y$ em uma categoria de modelos $\mathsf{M}$, sabemos pelo  \cref{corol:homotopia_esquerda_rel_equiv_se_dom_cofib}, ou pelo \cref{corol:homotopia_direita_rel_equiv_se_cod_fib} que a relação de homotopia $\simeq$ entre morfismos define uma relação de equivalência no conjunto de morfismos $\mathsf{M}(X,Y)$, de forma que podemos então considerar o conjunto quociente
+\begin{equation}
+  \label{eq:conjunto_classes_homotopia}
+  [X,Y] \coloneqq \mathsf{M}(X,Y)/\simeq
+\end{equation}
+cujos elementos são chamados de \textbf{classes de homotopia} de morfismos de $X$ para $Y$.
+Veremos na próxima seção que podemos usar estes conjuntos de classes de homotopia de morfismos para construirmos um modelo (a menos de equivalência) explícito para a localização de $\mathsf{M}$ na classe das equivalências fracas imitando a construção da categoria homotópica usual vinda da Teoria de Homotopia clássica.
 
 %%% Local Variables:
 %%% mode: latex
