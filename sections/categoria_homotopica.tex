@@ -4,6 +4,7 @@ Nessa seção utilizamos as ferramentas homotópicas desenvolvidas na seção an
 O arcabouço técnico que sustenta tal construção é uma versão do celebrado Teorema de Whitehead válido para categorias de modelos que relaciona equivalências fracas e equivalências homotópicas.
 
 \begin{lema}[Levantamentos a menos de homotopia]
+  \label{lema:levantamento_a_menos_de_homotopia}
   Em uma categoria de modelos $\mathsf{M}$, suponha que $p: X \fib Y$ seja uma fibração, $B$ seja um objeto cofibrante, e $f: B \to Y$ seja um morfismo qualquer.
   Se existe um morfismo $f': B \to X$ tal que a composição $p \circ f'$ seja homotópica à esquerda a $f$, então existe também um morfismo $\widetilde{f}: B \to X$ satisfazendo a igualdade $p \circ \widetilde{f} = f$.
 \end{lema}
@@ -41,6 +42,174 @@ O arcabouço técnico que sustenta tal construção é uma versão do celebrado 
   \begin{displaymath}
     p \circ \widetilde{f} = p \circ (\widetilde{H} \circ i_{1}) = (p \circ \widetilde{H}) \circ i_{1} = H \circ i_{1} = f. \qedhere
   \end{displaymath}
+\end{proof}
+
+\begin{lema}[Extensão a menos de homotopia]
+  \label{lema:extensao_a_menos_de_homotopia}
+  Em uma categoria de modelos $\mathsf{M}$, suponha que $i: A \cofib B$ seja uma cofibração, $X$ seja um objeto fibrante, e $f: A \to X$ seja um morfismo qualquer.
+  Se existe um morfismo $f': B \to X$ tal que $f' \circ i \simeq_{r} f$, então existe também um morfismo $\widetilde{f}: B \to X$ tal que $\widetilde{f} \circ i = f$.
+\end{lema}
+
+\begin{proof}
+  Seja $h: A \to P(X)$ uma homotopia à direita de $f' \circ i $ para $f$.
+  Sabemos do \cref{lema:props_obj_de_caminhos} que o morfismo $p_{0}: P(X) \to X$ é uma fibração trivial, e aplicando então o axioma de levantamento obtemos o morfismo $H: B \to P(X)$ mostrado no diagrama comutativo abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[d, tail, "i" swap]
+      \arrow[r, "h"]
+      & P(X)
+      \arrow[d, two heads, "p_{0}", "\sim" {swap,sloped}]
+      \\ B
+      \arrow[r, "f'" swap]
+      \arrow[ru, dashed, "H" description]
+      & X
+    \end{tikzcd}
+  \end{displaymath}
+  Basta notar agora que $\widetilde{f} \coloneqq p_{1} \circ H$ é o morfismo procurado pois temos a sequência de igualdades
+  \begin{displaymath}
+    \widetilde{f} \circ i = (p_{1} \circ H) \circ i = p_{1} \circ (H \circ i) = p_{1} \circ h = f. \qedhere
+  \end{displaymath}
+\end{proof}
+
+Vimos na seção anterior que, se $B$ é um objeto cofibrante, então qualquer morfismo $\beta: X \to Y$ dá origem a uma função $[B,\beta]_{\ell}: [B,X]_{\ell} \to [B,Y]_{\ell}$.
+Inicialmente estudamos condições suficientes para que a função de pushforward
+\begin{displaymath}
+  [B,p]_{\ell}: [B,X]_{\ell} \to [B,Y]_{\ell}
+\end{displaymath}
+nas classes de homotopia (possivelmente à esquerda apenas) seja uma bijeção.
+A demonstração que apresentamos aqui é de certa forma uma combinação das demonstrações apresentadas em \cite[Proposição 7.25]{heuts-moerdijk} e em \cite[Proposição 1.2.5]{hovey}.
+Um ponto interessante da demonstração apresentada na segunda referência é que elas dá a oportunidade de apresentar o famigerado \emph{Lema de Brown}.
+Inicialmente provamos uma versão mais simples deste resultado que é usada para provar a versão usual.
+
+\begin{prop}[Lema de Fatoração]
+  \label{prop:lema_de_fatoracao}
+  Seja $f: X \to Y$ uma equivalência fraca entre objetos fibrantes de uma categoria de modelos.
+  Então $f$ pode ser fatorada como uma cofibração trivial $i: X \overset{\sim}{\cofib} Z$ seguida de uma fibração trivial $p: Z \overset{\sim}{\fib} Y$, e além disso existe também uma fibração trivial $q: Z \overset{\sim}{\fib} X$ tal que $q \circ i = \id_{X}$.
+\end{prop}
+
+\begin{proof}
+  Podemos fatorar o morfismo induzido $(\id_{X},f): X \to X \times Y$ como uma cofibração trivial $i: X \overset{\sim}{\to} Z$ seguida de uma fibração $\theta: Z \overset{\sim}{\to} X \times Y$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[rr, "{(\id_{X},f)}"]
+      \arrow[rd, tail, "\sim" {sloped}, "\lambda" {swap}]
+      & & X \times Y
+      \\ & Z
+      \arrow[ru, two heads, "\theta" swap]
+    \end{tikzcd}
+  \end{displaymath}
+
+  Se $\pi_{1}: X \times Y \to X$ e $\pi_{2}: X \times Y \to Y$ são as projeções canônicas, definimos então
+  \begin{displaymath}
+    q \coloneqq \pi_{1} \circ \theta: Z \to X \quad \text{e} \quad p \coloneqq \pi_{2} \circ \theta: Z \to Y.
+  \end{displaymath}
+  Veja que tais morfismos satisfazem as igualdades necessárias, já que por um lado
+  \begin{displaymath}
+    p \circ i = \pi_{2} \circ \theta \circ i = \pi_{2} \circ (\id_{X},f) = f,
+  \end{displaymath}
+  e por outro
+  \begin{displaymath}
+    q \circ i = \pi_{1} \circ \theta \circ i = \pi_{1} \circ (\id_{X},f) = \id_{X}.
+  \end{displaymath}
+
+  Resta apenas mostrarmos que $p$ e $q$ são fibrações triviais.
+  O fato de $p$ ser uma equivalência fraca segue da propriedade 2-de-3, já que temos a igualdade $p \circ i = f$ onde tanto $i$ quanto $f$ são equivalências fracas.
+  O fato de $q$ ser uam equivalência fraca também segue da propriedade 2-de-3, pois temos a igualdade $q \circ i = \id_{X}$ onde $i$ e $\id_{X}$ são equivalências fracas.
+  Por fim, para ver que $p$ e $q$ são fibrações, veja que temos um diagrama de pullback
+  \begin{displaymath}
+    \begin{tikzcd}
+      X \times Y
+      \arrow[r, "\pi_{1}"]
+      \arrow[d, "\pi_{2}" swap]
+      & X
+      \arrow[d, two heads, "!_{X}"]
+      \\ Y
+      \arrow[r, two heads, "!_{Y}" swap]
+      & *
+    \end{tikzcd}
+  \end{displaymath}
+  onde $!_{X}$ e $!_{Y}$ são fibrações graças ao fato de $X$ e $Y$ serem fibrantes.
+  Como fibrações são preservadas por pullbacks, segue que as projeções canônicas $\pi_{1}$ e $\pi_{2}$ são fibrações também, logo $p$ e $q$ são ambos composições de fibrações e, portanto, fibrações também.
+\end{proof}
+
+O tradicional Lema de Brown é então uma consequência direta da \cref{prop:lema_de_fatoracao}.
+
+\begin{corol}[Lema de Brown]
+  \label{corol:lema_de_brown}
+  Sejam $(\mathsf{M},\mathcal{W},\mathcal{C},\mathcal{F})$ uma categoria de modelos e $(\mathcal{D},\mathcal{W}')$ uma categoria com equivalências fracas, ou seja, $\mathcal{W}' \subseteq Mor(\mathsf{D})$ é uma classe de morfismos satisfazendo a propriedade 2-de-3.
+  Suponha que $F: \mathsf{M} \to \mathsf{D}$ seja um funtor que transforma fibrações triviais entre objetos fibrantes de $\mathsf{M}$ em equivalências fracas de $\mathsf{D}$.
+  Então $F$ também transforma equivalências fracas entre objetos fibrantes de $\mathsf{M}$ em equivalências fracas de $\mathsf{D}$.
+\end{corol}
+
+\begin{proof}
+  Seja $p: X \overset{\sim}{\to} Y$ uma equivalência fraca entre objetos fibrantes de $\mathsf{M}$.
+  Aplicando o \cref{prop:lema_de_brown_1} obtemos uma cofibração trivial $i: X \overset{\sim}{\cofib} Z$, uma fibração trivial $p: Z \overset{\sim}{\fib} Y$ e uma fibração trivial $q: Z \overset{\sim}{\fib} X$ tais que $p \circ i = f$ e $q \circ i = \id_{X}$.
+  Veja que $Z$ é um objeto fibrante, já que ele manda uma fibração para um objeto fibrante.
+  Assim, $p$ é uma fibração trivial entre objetos fibrantes, portanto $F(p): F(Z) \to F(Y)$ é uma equivalência fraca em $\mathsf{D}$.
+  Se cosneguirmos mostrar que $F(i): F(X) \to F(Z)$ é também uma equivalência fraca, o resultado desejado seguirá então da igualdade $F(p) \circ F(i) = F(f)$ e da propriedade 2-de-3 em $\mathsf{M}$.
+  Ora, sendo $q: Z \to X$ uma fibração trivial entre objetos fibrantes também, vale que $F(q): F(Z) \to F(X)$ é uma equivalência fraca, e a propriedade 2-de-3 aplicada à igualdade $F(q) \circ F(i) = \id_{F(X)}$ nos permite concluir que $F(i)$ é uma equivalência fraca, já que o morfismo idêntico $\id_{F(X)}$ é também uma equivalência fraca.
+\end{proof}
+
+Uma aplicação bastante bacana do Lema de Brown é uma demonstração simples de que equivalências fracas entre objetos fibrantes dão origem a bijeções entre classes de homotopia.
+
+\begin{prop}
+  Seja $B$ um objeto cofibrante de uma categoria de modelos $\mathsf{M}$.
+  \begin{enumerate}
+  \item Se $p: X \overset{\sim}{\fib} Y$ é uma fibração trivial, então $[B,p]_{\ell}: [B,X]_{\ell} \to [B,Y]_{\ell}$ é uma bijeção.
+    
+  \item Se $p: X \overset{\sim}{\to} Y$ é uma equivalência fraca entre objetos fibrantes, então $[B,p]: [B,X] \to [B,Y]$ é uma bijeção.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  1. Nesse caso, a função de pushoforward $\mathsf{M}(B,p): \mathsf{M}(B,X) \to \mathsf{M}(B,Y)$ a nível de morfismos já é sobrejetora.
+  De fato, dado um morfismo $g: B \to Y$ qualquer,  aplicando o axioma de levantamento ao quadrado abaixo, onde $!_{B}: \varnothing \to B$ é uma cofibração e $p: X \to Y$ é uma fibração trivial,
+  \begin{displaymath}
+    \begin{tikzcd}
+      \varnothing
+      \arrow[r, "!_{X}"]
+      \arrow[d, tail, "!_{B}" swap]
+      & X
+      \arrow[d, two heads, "p", "\sim" {swap,sloped}]
+      \\ B
+      \arrow[r, "g" swap]
+      \arrow[ru, dashed, "f" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  obtemos um morfismo $f: B \to X$ tal que $p \circ f = g$.
+  Consequentemente, a nível de classes de homotopia à esquerda temos
+  \begin{displaymath}
+    [B,p]_{\ell}([f]_{\ell}) = [p \circ f]_{\ell} = [g]_{\ell},
+  \end{displaymath}
+  portanto $[B,p]_{\ell}$ é também uma função sobrejetora.
+
+  Vejamos agora a questão da injetividade.
+  Suponha que $[f_{1}]_{\ell},\,[f_{2}]_{\ell} \in [B,X]_{\ell}$ sejam duas classes de homotopia à esquerda tais que $[B,p]_{\ell}([f_{1}]_{\ell}) = [B,p]_{\ell}([f_{2}]_{\ell})$, ou seja, existe uma homotopia à esquerda $p \circ f_{1} \simeq_{\ell} p \circ f_{2}$ dada pelo morfismo $h: \Cyl(B) \to Y$.
+  Usando a trivialidade da fibração $p$ podemos obter um levantamento $H: \Cyl(B) \to X$ para o quadrado comutativo indicado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}[column sep=1.25cm]
+      B \sqcup B
+      \arrow[d, tail, "i" swap]
+      \arrow[r, "{\langle f_{1},f_{2} \rangle}"]
+      & X
+      \arrow[d, two heads, "p", "\sim" {swap,sloped}]
+      \\ \Cyl(B)
+      \arrow[r, "h" swap]
+      \arrow[ru, dashed, "H" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  A condição $H \circ i = \langle f_{1},f_{2} \rangle$ diz precisamente que $H$ define uma homotopia à esquerda $f_{1} \simeq_{\ell} f_{2}$, portanto $[f_{1}]_{\ell} = [f_{2}]_{\ell}$, e $[B,p]_{\ell}$ é uma função injetora.
+
+  \smallskip
+  2. Vamos aplicar o Lema de Brown (\cref{corol:lema_de_brown}) de uma forma espertinha.
+  Considere o funtor $[B,-]_{\ell}: \mathsf{M} \to \mathsf{Set}$ que associa a cada objeto $X \in \mathsf{M}$ a classe de homotopia à esquerda $[B,X]_{\ell}$ e que associa a um morfismo $f: X \to Y$ a função de pushforward $[B,f]_{\ell}: [B,X]_{\ell} \to [B,Y]_{\ell}$ correspondente.
+  Considere $\mathsf{Set}$ como uma categoria com equivalências fracas no sentido do \cref{corol:lema_de_brown} tomando a classe $\mathsf{W}' \subseteq \Mor(\mathsf{Set})$ formada por todos as bijeções.
+  O item 1 diz então que o funtor $[B,-]_{\ell}: \mathsf{M} \to \mathsf{Set}$ introduzido transforma qualquer fibração trivial de $\mathsf{M}$ em uma equivalência fraca de $\mathsf{Set}$ no sentido acima.
+  Em particular, $[B,-]_{\ell}$ transforma também fibrações triviais entre objetos fibrantes em equivalências fracas, portanto pelo Lema de Brown concluímos que $[B,-]_{\ell}$ também transforma equivalência fracas entre objetos fibrantes em equivalências fracas; ou seja, se $p: X \overset{\sim}{\to} Y$ é uma equivalência fraca entre objetos fibrantes, a função de pushforward correspondente $[B,p]: [B,X] \to [B,Y]$ é uma bijeção.
 \end{proof}
 
 %%% Local Variables:
