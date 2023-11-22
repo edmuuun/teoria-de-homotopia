@@ -433,7 +433,32 @@ Uma consequência particularmente útil é que a noção de homotopia à esquerd
   \end{displaymath}
 \end{proof}
 
-Introduzimos agora uma noção de certa forma dual àquela de objeto cilindro.
+Tendo em vista o \cref{corol:homotopia_esquerda_rel_equiv_se_dom_cofib}, se $X$ é um objeto cofibrante, então para qualquer outro objeto $Y$ podemos formar o conjunto quociente
+\begin{displaymath}
+  [X,Y]_{\ell} \coloneqq \mathsf{M}(X,Y)/\simeq_{\ell}
+\end{displaymath}
+cujos elementos chamaremos de \textbf{classes de homotopia à esquerda} de morfismos.
+Dado um morfismo qualquer$f: X \to Y$, denotaremos por $[f]_{\ell}$ sua imagem no quociente $[X,Y]_{\ell}$.
+
+Note que, se $\beta: Y \to Z$ é um morfismo \emph{qualquer}, podemos temos a função $\mathsf{M}(X,\beta): \mathsf{M}(X,Y) \to \mathsf{M}(X,Z)$ de pushforward (pós-composição) ao longo de $\beta$.
+Sabemos da \cref{prop:props_homotopia_esquerda} que homotopias à esquerda são preservadas por pushforwards, a composição $\pi_{X,Z} \circ \mathsf{M}(X,\beta): \mathsf{M}(X,Y) \to [X,Z]_{\ell}$ é constante nas classes de homotopia à esquerda, portanto existe uma únicafunção induzida $[X,\beta]_{\ell}: [X,Y]_{\ell} \to [X,Z]_{\ell}$ fazendo comutar o diagrama abaixo,
+\begin{displaymath}
+  \begin{tikzcd}[column sep=1.25cm]
+    \mathsf{M}(X,Y)
+    \arrow[r, "{\mathsf{M}(X,\beta)}"]
+    \arrow[d, "{\pi_{X,Y}}" swap]
+    & \mathsf{M}(X,Z)
+    \arrow[d, "{\pi_{X,Z}}"]
+    \\ {[X,Y]_{\ell}}
+    \arrow[r, dashed, "{[X,\beta]_{\ell}}" swap]
+    & {[X,Z]_{\ell}}
+  \end{tikzcd}
+\end{displaymath}
+onde $\pi_{X,Y}: \mathsf{M}(X,Y) \to [X,Y]_{\ell}$ e $\pi_{X,Z}: \mathsf{M}(X,Z) \to [X,Z]_{\ell}$ denotam as projeções canônicas no quociente.
+Explicitamente, dada uma classe de homotopia à esquerda $[f]_{\ell} \in [X,Y]_{\ell}$, pela comutatividade do quadrado acima temos
+\begin{displaymath}
+  [X,\beta]_{\ell}([f]_{\ell}) = [\beta \circ f]_{\ell}.
+\end{displaymath}
 
 \begin{defin}\label{defin:obj_de_caminhos}
   Sejam $\mathsf{M}$ uma categoria modelo e $X \in \mathsf{M}$ um objeto qualquer.
@@ -790,6 +815,31 @@ O próximo passo no nosso estudo de homotopias em categorias de modelos é duali
     \widetilde{q} \circ (i \circ h) = (\widetilde{q} \circ i) \circ h = q \circ h = (f_{1},f_{3}). \qedhere
   \end{displaymath}
 \end{proof}
+
+Como no caso da relação de homotopia à esquerda, se $Y$ é um objeto fibrante, então para qualquer outro objeto $X$ podemos formar o conjunto quociente
+\begin{displaymath}
+  [X,Y]_{r} \coloneqq \mathsf{M}(X,Y)/\simeq_{r}
+\end{displaymath}
+cujos elementos são chamados de \textbf{classes de homotopia à direita} de morfismos.
+Dado um morfismo $f: X \to Y$, denotamos por $[f]_{r}$ sua imagem no conjunto quociente $[f]_{r}$.
+
+Analogamente ao que tínhamos no caso da relação de homotopia à esquerda, se $\alpha: W \to X$ é um morfismo \emph{qualquer}, a compatibilidade de homotopias à direita com pullbacks provada na \cref{prop:props_homotopia_direita} nos permite fatorar a função $\mathsf{M}(\alpha,Y): \mathsf{M}(X,Y) \to \mathsf{M}(W,Y)$ de pullback (pré-composição) ao longo de $\alpha$ pelas projeções canônicas para obtermos uma única função induzida $[\alpha,Y]_{r}: [X,Y]_{r} \to [W,Y]_{r}$ fazendo comutar o quadrado abaixo.
+\begin{displaymath}
+  \begin{tikzcd}[column sep=1.25cm]
+    \mathsf{M}(W,Y)
+    \arrow[d, "{\pi_{W,Y}}" swap]
+    & \mathsf{M}(X,Y)
+    \arrow[d, "{\pi_{X,Y}}"]
+    \arrow[l, "{\mathsf{M}(\alpha,Y)}" swap]
+    \\ {[W,Y]_{r}}
+    & {[X,Y]_{r}}
+    \arrow[l, dashed, "{[\alpha,Y]_{r}}"]
+  \end{tikzcd}
+\end{displaymath}
+Explicitamente, dada uma classe de homotopia à direita $[f]_{r} \in [X,Y]_{r}$, pela comutatividade acima temos
+\begin{displaymath}
+  [\alpha,Y]_{r}([f]_{r}) = [f \circ \alpha]_{r}.
+\end{displaymath}
 
 Encerraremos essa seção comparando as noções de homotopias à esquerda e à direita e procurando entender quando as duas coincidem ou não.
 Em suma, o resultado abaixo diz que essas duas noções sempre coincidem quando o domínio ou o codomínio são objetos bons do ponto de vista homotópico, ou seja, satisfazem condições de cofibrância ou fibrância.
