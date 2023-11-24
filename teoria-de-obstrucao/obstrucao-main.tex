@@ -1082,31 +1082,419 @@ Tal lema é uma consequência relativamente simples de um outro lema que fornece
   Ora, sendo $q: Z \to X$ uma fibração trivial entre objetos fibrantes também, vale que $F(q): F(Z) \to F(X)$ é uma equivalência fraca, e a propriedade 2-de-3 aplicada à igualdade $F(q) \circ F(i) = \id_{F(X)}$ nos permite concluir que $F(i)$ é uma equivalência fraca, já que o morfismo idêntico $\id_{F(X)}$ é também uma equivalência fraca.
 \end{proof}
 
+Vamos explorar agora algumas consequências bacanas do Lema de Ken Brown.
+Algumas dessas aplicações serão úteis no próprio texto, mas outras serão puramente \emph{for fun}.
+
+\begin{prop}
+  Seja $B$ um objeto cofibrante.
+  \begin{enumerate}
+  \item Se $p: X \to Y$ é uma fibração trivial, então a função induzida
+    \begin{displaymath}
+      [B,p]_{\ell}: [B,X]_{\ell} \to [B,Y]_{\ell}
+    \end{displaymath}
+    é uma bijeção.
+    
+  \item Se $p: X \to Y$ é uma equivalência fraca entre objetos fibrantes, então a função induzida
+    \begin{displaymath}
+      [B,p]: [B,X] \to [B,Y]
+    \end{displaymath}
+    é uma bijeção.
+  \end{enumerate}
+
+  De maneira dual, seja agora $X$ um objeto fibrante.
+  \begin{enumerate}
+  \item[3] Se $i: A \to B$ é uma cofibração trivial, então a função induzida
+    \begin{displaymath}
+      [i,X]_{r}: [B,X]_{r} \to [A,X]_{r}
+    \end{displaymath}
+    é uma bijeção.
+    
+  \item[4] Se $i: A \to B$ é uma equivalência fraca entre objetos cofibrantes, então a função induzida
+    \begin{displaymath}
+      [i,X]: [B,X] \to [A,X]
+    \end{displaymath}
+    é uma bijeção.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  1. Esse caso segue diretamente aplicando o axioma de levantamento adequadamente, não tem segredo.
+
+  \smallskip
+  2. Considere o funtor $[B,-]_{\ell}: \mathsf{M} \to \mathsf{Set}$.
+  Encaramos $\mathsf{Set}$ como uma categoria com equivalências fracas tomando $\mathcal{W}' \subseteq \Mor(\mathsf{Set})$ como sendo a classe formada por todas as bijeções entre conjuntos.
+  Segue do item 1 que $[B,-]_{\ell}$ transforma fibrações triviais entre objetos fibrantes de $\mathsf{M}$ em equivalências fracas de $\mathsf{Set}$ no sentido que acabamos de introduzir.
+  Segue então do Lema de Ken Brown que, se $p: X \to Y$ é uma equivalência fraca entre objetos fibrantes, então a função correspondente $[B,p]$ é uma equivalência fraca em $\mathsf{Set}$, ou seja, uma bijeção.
+
+  \smallskip
+  As demonstrações dos itens 3 e 4 são duais.
+\end{proof}
+
+Nosso próximo objetivo é usar o Lema de Ken Brown para mostrarmos que se duas fibrações entre objetos fibrantes são fracamente equivalentes, então suas fibras são fracamente equivalentes também.
+Apresentamos aqui uma demonstração deste fato que, embora similar à demonstração dada no artigo em alguns pontos, utiliza o Lema de Ken Brown para reduzir o argumento geral a um caso mais simples.
+Isso nos permite, em particular, evitar o uso de um lema sobre estabilidade de equivalências fracas entre objetos fibrantes por pullbacks ao longo de fibrações.
+
+\begin{lema}\label{lema:equivalencia_fibras_1}
+  Suponha que no diagrama comutativo abaixo $p$ e $p'$ sejam fibrações e $\alpha$ seja uma equivalência fraca.
+  Então o morfismo induzido $\Fib(\alpha,\id_{Y}): \Fib(p) \to \Fib(p')$ é uma equivalência fraca também.
+  Dito de outra forma, duas fibrações sobre um mesmo objeto que são fracamente equivalentes possuem fibras fracamente equivalentes também.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[rd, two heads, "p" swap]
+      \arrow[rr, "\alpha", "\sim" {swap}]
+      & & X'
+      \arrow[ld, two heads, "p'"]
+      \\ & Y
+    \end{tikzcd}
+  \end{displaymath}
+\end{lema}
+
+\begin{proof}
+  Considere a categoria slice $\mathsf{M}/Y$ com a estrutura modelo induzida de $\mathsf{M}$.
+  Temos um funtor $R: \mathsf{M}/Y \to \mathsf{M}$ que associa a cada objeto $f: X \to Y$ de $\mathsf{M}/Y$ sua fibra $\Fib(f)$ e que associa a um morfismo $\alpha: f \to g$ o morfismo $\Fib(\alpha,\id_{Y}): \Fib(f) \to \Fib(g)$ correspondente entre as fibras.
+  Tal funtor admite um adjunto à esquerda $L: \mathsf{M} \to \mathsf{M}/Y$ que associa a cada objeto $X \in \mathsf{M}$ o morfismo constante $\ct_{X,Y}: X \to Y$.
+  Segue diretamente da definição da estrutura modelo em $\mathsf{M}/Y$ que $L$ preserva cofibrações e cofibrações triviais, portanto o par $(L,R)$ define um \emph{par de Quillen}.
+  Uma consequência geral disso é que o funtor $R$ então preserva equivalências fracas entre objetos fibrantes, mas os objetos fibrantes de $\mathsf{M}/Y$ são exatamente as fibrações tendo $Y$ como codomínio, portanto essa condição de preservação é precisamente o conteúdo do enunciado.
+\end{proof}
+
+Um corolário interessante é que fibrações fracamente equivalentes possuem fibras fracamente equivalentes mesmo quando os codomínio são diferentes, desde que eles sejam ao menos fibrantes.
+
+\begin{corol}\label{corol:equivalencia_fibras_2}
+  Considere o diagrama abaixo em uma categoria de modelos pontuada,onde $p: X \fib Y$ e $p': X' \to Y'$ são fibraçõs entre objetos fibrantes, e $\alpha: X \to Y$ e $\beta: X' \to Y'$ são equivalências fracas.
+  Então o morfismo induzido $\Fib(\alpha,\beta): \Fib(p) \to \Fib(p')$ é uma equivalência fraca.
+  Em outras palavras, se duas fibrações entre objetos fibrantes são fracamente equivalentes, então suas fibras correspondentes são também fracamente equivalentes.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[r, "\alpha", "\sim" {swap}]
+      \arrow[d, two heads, "p" swap]
+      & X'
+      \arrow[d, two heads, "p'"]
+      \\ Y
+      \arrow[r, "\beta" {swap}, "\sim"]
+      & Y'
+    \end{tikzcd}
+  \end{displaymath}
+\end{corol}
+
+\begin{proof}
+  O processo de formar a fibra de um morfismo define um funtor $\Fib: \Arr(\mathsf{M}) \to \mathsf{M}$.
+  A estratégia da demonstração é equipar a categoria de setas $\Arr(\mathsf{M})$ com uma estrutura modelo de tal que forma que nosso objetivo seja mostrar que o funtor $\Fib$ preserva certas equivalências fracas nessa categoria, e faremos isso utilizando o Lema de Ken Brown.
+
+  Introduzimos uma estrutura modelo adequada em $\Arr(\mathsf{M})$: um morfismo $(\alpha,\beta): f \to g$ na categoria de setas como indicado no diagrama abaixo
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[r, "\alpha"]
+      \arrow[d, "p" swap]
+      & X'
+      \arrow[d, "p'"]
+      \\ Y
+      \arrow[r, "\beta" swap]
+      & Y'
+    \end{tikzcd}
+  \end{displaymath}
+  é dito uma
+  \begin{itemize}
+  \item equivalência fraca se $\alpha$ e $\beta$ são equivalências fracas;
+    
+  \item cofibração se $\alpha$ e $\beta$ são cofibrações;
+    
+  \item fibração se $\beta$ é uma fibração, e se o morfismo induzido $(\alpha,p): X \to X' \times_{Y'} Y$ mostrado no diagrama comutativo abaixo é uma fibração.
+    \begin{equation}\label{eq:diagrama_fibracao_injetiva}
+      \begin{tikzcd}
+        X
+        \arrow[rrd, bend left=30, "\alpha"]
+        \arrow[rdd, bend right=30, "p" swap]
+        \arrow[rd, dashed, "{(\alpha,p)}"]
+        \\ & X' \times_{Y'} Y
+        \arrow[r, "\pi_{1}"]
+        \arrow[d, "\pi_{2}" swap]
+        & X'
+        \arrow[d, "p'"]
+        \\ & Y
+        \arrow[r, "\beta" swap]
+        & Y'
+      \end{tikzcd}
+    \end{equation}
+    Veja que, no diagrama acima, $\pi_{1}$ é uma fibração, já que $\beta$ o é, logo a hipótese de $(\alpha,p)$ ser uma fibração juntamente com a igualdade $\pi_{1} \circ (\alpha,p) = \alpha$ garante que $\alpha$ seja uma fibração também.
+  \end{itemize}
+  Vamos assumir que isso define de fato uma estrutura modelo em $\Arr(\mathsf{C})$, a qual é comumente chamada de \textbf{estrutura modelo inejtiva}.
+  Seguiremos a terminologia do artigo e nos referiremos às fibrações dessa estrutura por \textbf{fibrações injetivas}.
+
+  O Lema de Ken Brown diz respeito a objetos fibrantes, portanto vamos entender os objetos fibrantes da estrutura modelo injetiva.
+  O objeto terminal da categoria de setas $\Arr(\mathsf{M})$ é dado pelo morfismo idêntico $\id_{*}: * \to *$ associado ao objeto terminal de $\mathsf{M}$, e dado um objeto $p: X \to Y$ qualquer, o morfismo único $p \to \id_{*}$ em $\Arr(\mathsf{C})$ é dado pelo par de morfismos terminais $(t_{X},t_{Y})$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[r, "t_{X}"]
+      \arrow[d, "p" swap]
+      & *
+      \arrow[d, "\id_{*}"]
+      \\ Y
+      \arrow[r, "t_{Y}" swap]
+      & *
+    \end{tikzcd}
+  \end{displaymath}
+  Se tal par for uma fibração injetiva, então por definição $t_{Y}: Y \to *$ é uma fibração, ou seja, $Y$ é um objeto fibrante, e o morfismo induzido $(t_{X},p): * \times_{*} Y$ é uma fibração também.
+  Ora, como o quadrado abaixo também é um pullback,
+  \begin{displaymath}
+    \begin{tikzcd}
+      Y
+      \arrow[r, "t_{Y}"]
+      \arrow[d, "\id_{Y}" swap]
+      & *
+      \arrow[d, "\id_{*}"]
+      \\ Y
+      \arrow[r, "t_{Y}" swap]
+      & *
+    \end{tikzcd}
+  \end{displaymath}
+  pela unicidade do pullback a projeção $* \times_{*} Y \to Y$ deve ser um isomorfismo, portanto a igualdade $\pi_{2} \circ (t_{X},p) = p$ mostra que $(t_{X},p)$ é uma fibração se, e somente se, $p$ é uma fibração.
+  Em suma, um objeto fibrante na estrutura modelo injetiva de $\Arr(\mathsf{M})$ é precisamente uma fibração tendo o codomínio fibrante, logo tendo o domínio fibrante também.
+  Tendo essa descrição dos objetos fibrantes em mãos, o enunciado em questão pode ser reformulado da seguinte forma: o funtor $\Fib: \Arr(\mathsf{M}) \to \mathsf{M}$ preserva equivalências fracas entre objetos fibrantes.
+  Fica claro então que podemos tentar usar o Lema de Ken Brown para demonstrarmos tal resultado.
+
+  Vamos começar a aplicar o Lema de Ken Brown.
+  Suponha que $(\alpha,\beta): p \to p'$ seja uma fibração trivial entre objetos fibrantes de $\Arr(\mathsf{M})$.
+  Isso significa que temos o quadrado comutativo abaixo onde todos os objetos envolvidos são fibrantes.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[r, two heads, "\alpha", "\sim" {swap}]
+      \arrow[d, two heads, "p" swap]
+      & X'
+      \arrow[d, two heads, "p'"]
+      \\ Y
+      \arrow[r, "\sim", "\beta" {swap}]
+      & Y'
+    \end{tikzcd}
+  \end{displaymath}
+  Queremos mostrar que nesse caso o morfismo induzido $\Fib(\alpha,\beta): \Fib(p) \to \Fib(p')$ é uma equivalência fraca.
+  O truque é trocar a fibra $\Fib(p')$ pela fibra de outra fibração definida sobre $Y$ também e então usar o \cref{lema:equivalencia_fibras_1}.
+  Considere para isso o pullback $X' \times_{Y} Y$ e o morfismo $(\alpha,p)$ como no diagrama \eqref{eq:diagrama_fibracao_injetiva}, o qual é uma fibração graças à hipótese de $(\alpha,\beta)$ ser uma fibração injetiva.
+  Sendo $\beta$ uma fibração trivial, o mesmo vale para $\pi_{1}: X' \times_{Y'} Y \to Y$, e a igualdade $\pi_{1} \circ (p,\alpha) = \alpha$ juntamente com o fato de $\alpha$ ser uma equivalência fraca mostram que $(p,\alpha): X \to X' \times_{Y}' Y$ é não só uma fibração, mas também uma equivalência fraca.
+
+  Temos então uma fibração trivial relacionando duas fibrações sobre o mesmo objeto $Y$ como mostrado no diagrama abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[rd, two heads, "p" swap]
+      \arrow[rr, two heads, "{(p,\alpha)}", "\sim" {swap}]
+      & & X' \times_{Y'} Y
+      \arrow[ld, two heads, "\pi_{2}"]
+      \\ & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Segue do \cref{lema:equivalencia_fibras_1} que o morfismo induzido $\Fib(p) \to \Fib(\pi_{1})$ é uma equivalência fraca.
+  Ora, mas se colarmos os dois diagramas de pullbacks mostrados abaixo concluímos que a fibra $\Fib(\pi_{1})$ é isomorfa à fibra $\Fib(p')$, portanto o morfismo induzido $\Fib(p) \to \Fib(p')$ também é uma equivalência fraca.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \Fib(\pi_{1})
+      \arrow[r, "i_{\pi_{1}}"]
+      \arrow[d]
+      & X' \times_{Y'} Y
+      \arrow[r, "\pi_{2}"]
+      \arrow[d, "\pi_{1}"]
+      & X'
+      \arrow[d, "p'"]
+      \\ *
+      \arrow[r]
+      & Y
+      \arrow[r, "\beta" swap]
+      & Y'
+    \end{tikzcd}
+  \end{displaymath}
+
+  O raciocínio acima mostra que $\Fib: \Arr(\mathsf{M}) \to \mathsf{M}$ transforma fibrações triviais entre objetos fibrantes em equivalências fracas.
+  Segue então do Lema de Ken Brown que $\Fib$ também transforma equivalências fracas entre objetos fibrantes em equivalências fracas, mas esse é precisamente o conteúdo do enunciado.
+\end{proof}
+
 \section{Construindo teorias de obstrução}
 
 Nessa seção mostramos enfim como obter teorias de obstrução para algumas classes de cofibrações.
 Mostramos inicialmente que cofibrações com condições de contratibilidade sempre admitem teorias de obstrução fibrantes, e em seguida mostramos que certas operações na classe de cofibrações preservam a existência de teorias de obstrução.
 
-\begin{prop}
-  Em uma categoria de modelos pontuada, considere uma cofibração $i: A \cofib B$ onde $A$ é cofibrante e $B$ é fibrante e fracamente contrátil.
-  Dado um morfismo $f: A \to X$, onde $X$ é um objeto fibrante, existe um morfismo $F: B \to X$ tal que $F \circ i = f$ se, e somente se, $f$ é homotopicamente nulo.
+\begin{teo}
+  Seja $i: A \cofib B$ uma cofibração tal que $A$ seja cofibrante e $B$ seja fibrante e fracamente contrátil.
+  Então $i$ admite uma teoria de obstrução fibrante.
+\end{teo}
+
+\begin{proof}[Rascunho da demonstração]
+  Seja $p: X \fib Y$ uma fibração entre dois objetos fibrantes e considere o problema de levantamento abaixo.
   \begin{displaymath}
     \begin{tikzcd}
       A
-      \arrow[r, "f"]
+      \arrow[r, "\alpha"]
       \arrow[d, tail, "i" swap]
       & X
-      \arrow[d, two heads, "t_{X}"]
+      \arrow[d, two heads, "p"]
       \\ B
-      \arrow[r, "t_{B}" swap]
-      \arrow[ru, dashed, "F" description]
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Formando o pullback de $p$ ao longo de $\beta$ obtemos uma outra fibração conforme indicado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X \times_{Y} B
+      \arrow[r, "\pi_{1}"]
+      \arrow[d, two heads, "\beta^{*}p" swap]
+      & X
+      \arrow[d, two heads, "p"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Um argumento de colagem de pullbacks mostra que a fibra $\Fib(\beta^{*}p)$ é isomorfa à fibra $\Fib(p)$.
+
+  Afirmamos que a condição de contratibilidade fraca sobre $B$ garante que o ``espaço total'' $X \times_{Y} B$ da fibração $\beta^{*}p$ seja fracamente equivalente à própria fibra $\Fib(\beta^{*}p)$.
+  De fato, o par de morfismos $(\id_{X \times_{Y} B},t_{B})$ define uma equivalência fraca entre as fibrações $\beta^{*}p: X \times_{Y} B \to B$ e $t: X \times_{Y} B \to *$ como mostrado no diagrama abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X \times_{Y} B
+      \arrow[d, two heads, "\beta^{*}p" swap]
+      \arrow[r, "\id", "\sim" {swap}]
+      & X \times_{Y} B
+      \arrow[d, two heads, "t"]
+      \\ B
+      \arrow[r, "t_{B}" {swap}, "\sim"]
       & *
     \end{tikzcd}
   \end{displaymath}
-\end{prop}
+  Como $\beta^{*}p$ e $t$ são fibrações entre objetos fibrantes, aplicando o \cref{corol:equivalencia_fibras_2} concluímos que o morfismo induzido entre fibras
+  \begin{displaymath}
+    \Fib(\id,t_{B}): \Fib(\beta^{*}p) \to \Fib(t)
+  \end{displaymath}
+  é uma equivalência fraca.
+  Ora, a fibra $\Fib(t)$ do morfismo terminal é isomorfa ao próprio objeto $X \times_{Y} B$ já que temos o diagrama de pullback abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X \times_{Y} B
+      \arrow[d, "t" swap]
+      \arrow[r, "\id"]
+      & X \times_{Y} B
+      \arrow[d, "t"]
+      \\ *
+      \arrow[r, "\id_{*}" swap]
+      & *
+    \end{tikzcd}
+  \end{displaymath}
+  Podemos mostrar que a composição de $\Fib(\id,t_{B})$ com o isomorfismo $\Fib(t) \overset{\cong} B \times_{Y} X$ é precisamente o ``morfismo de inclusão'' da fibra $i_{\beta^{*}p}: \Fib(\beta^{*}p) \to X \times_{Y} B$, o qual é portanto uma equivalência fraca.
 
-\begin{proof}
-  
+  Vamos enfim obter as classes de obstrução.
+  Defina $W \coloneqq A$ e considere a classe $\theta_{p} \in \Hom_{\Ho(\mathsf{M})(W,\Fib(\beta^{*}p))}$ dada pela composição
+  \begin{displaymath}
+    \theta_{p} \coloneqq \eta(i_{\beta^{*}p})^{-1} \circ \eta(\alpha,i),
+  \end{displaymath}
+  onde $(\alpha,i): A \to X \times_{Y} B$ é o morfismo induzido pela propriedade universal do pullback.
+
+  Resta mostrarmos que essa classe satisfaz as condições necessárias.
+  Suponha que $h: B \to X$ seja um levantamento para o problema original.
+  Então o morfismo induzido $(h,\id_{B}): B \to X \times_{Y} B$ fatora $(\alpha,i)$ por $i$, no sentido de que temos a igualdade $(\alpha,i) = (h,\id_{B}) \circ i$.
+  Afirmamos que a cofibração $i: A \cofib B$ é homotopicamente nula.
+  De fato, como $t_{B}: B \overset{\sim}{\to} *$ é uma equivalência fraca entre objetos fibrantes, e $A$ é cofibrante, a função
+  \begin{displaymath}
+    [A,t_{B}]: [A,B] \to [A,*]
+  \end{displaymath}
+  é uma bijeção, mas vale a igualdade
+  \begin{displaymath}
+    [A,t_{B}]([i]) = [t_{B} \circ i] = [t_{A}] = [t_{B} \circ \ct_{A,B}] = [A,t_{B}]([\ct_{A,B}]),
+  \end{displaymath}
+  logo pela injetividade devemos ter $[i] = [\ct_{A,B}]$.
+  Segue disso e da fatoração $(\alpha,i) = (h,\id_{B}) \circ i$ que $(\alpha,i)$ também é homotopicamente nulo.
+  Consequentemente, a classe $\eta(\alpha,i)$ é trivial, o mesmo valendo então para a classe de obstrução $\theta_{p}$.
+
+  Reciprocamente, suponha que $\theta_{p}$ seja trivial.
+  Segue disso que $\eta(\alpha,i)$ deve ser trivial também, o que por sua vez significa que o morfismo $(\alpha,i): A \to X \times_{Y} B$ é homotopicamente nulo.
+  Considere então $(\Cyl(A),j,\varepsilon)$ um objeto cilindro para $A$ e $H: \Cyl(A) \to X \times_{Y} B$ uma homotopia de $(\alpha,i)$ para o morfismo constante $\ct: A \to X \times_{Y} B$.
+  O fato da homotopia ser constante no estágio final sugere que consideremos o objeto obtido colapsando a face superior do cilindro $\Cyl(A)$.
+  Mais precisamente, temos o morfismo $j_{1}: A \to \Cyl(A)$, o qual é nesse caso uma cofibração trivial graças à hipótese de cofibrância sobre $A$, e consideramos o objeto $\Cone(A)$ obtido por meio do pushout indicado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "t_{A}"]
+      \arrow[d, tail, "j_{1}" {swap}, "\sim" {sloped}]
+      & *
+      \arrow[d, tail, "\sim" {swap,sloped}]
+      \\ \Cyl(A)
+      \arrow[r, "\varphi" swap]
+      & \Cone(A)
+    \end{tikzcd}
+  \end{displaymath}
+
+  O fato do morfismo $* \to \Cone(A)$ ser uma equivalência fraca diz que $\Cone(A)$ é um objeto fracamente contrátil.
+  Como a homotopia $H$ considerada satisfaz $H \circ j_{1} = \ct$, a propriedade universal do pushout nos permite fatorar $H$ pelo cone costruído para obtermos um morfismo $\overline{H}: \Cone(A) \to X \times_{Y} B$ como mostrado abaixo.
+  \begin{displaymath}
+     \begin{tikzcd}
+      A
+      \arrow[r, "t_{A}"]
+      \arrow[d, tail, "j_{1}" {swap}, "\sim" {sloped}]
+      & *
+      \arrow[d, tail, "\sim" {swap,sloped}]
+      \arrow[rdd, bend left=30]
+      \\ \Cyl(A)
+      \arrow[r, "\varphi" swap]
+      \arrow[rrd, bend right=30, "H" swap]
+      & \Cone(A)
+      \arrow[rd, dashed, "\overline{H}" description]
+      \\ & & X \times_{Y} B
+    \end{tikzcd}
+  \end{displaymath}
+
+  A ideia agora é relacionarmos $B$ e $\Cone(A)$ para conseguirmos um morfismo do tipo $B \to X \times_{Y} B$ que pode então ser utilizado para conseguirmos o levantamento $B \to X$ desejado.
+  Infelizmente, o cone construído pode não satisfazer condições de fibrância necessárias para construirmos um morfismo do tipo $B \to \Cone(A)$, mas isso pode ser corrigido usando uma fatoração adequada.
+  Mais precisamente, podemos fatorar $\overline{H}: \Cone(A) \to X \times_{Y} B$ como uma cofibração trivial $\lambda: \Cone(A) \overset{\sim}{\cofib} C$ seguida de uma fibração $\psi: C \fib X \times_{Y} B$ como indicado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \Cone(A)
+      \arrow[rr, "\overline{H}"]
+      \arrow[rd, tail, "\sim" {sloped}, "\lambda" {swap}]
+      & & X \times_{Y} B
+      \\ & C
+      \arrow[ru, two heads, "\psi" swap]
+    \end{tikzcd}
+  \end{displaymath}
+
+  Temos então o diagrama abaixo, onde o morfismo que aparece na direita é a composição de duas fibrações, portanto uma fibração também.
+  \begin{displaymath}
+    \begin{tikzcd}[column sep=1.25cm]
+      A
+      \arrow[d, tail, "i" swap]
+      \arrow[r, "\lambda \circ \varphi \circ j_{0}"]
+      & C
+      \arrow[d, two heads, "\beta^{*}p \circ \psi", "\sim" {swap,sloped}]
+      \\ B
+      \arrow[r, "\id_{B}" swap]
+      & B
+    \end{tikzcd}
+  \end{displaymath}
+  Note que o fato do morfismo vertical na direita ser uma equivalência fraca é simplesmente uma consequência de $C$ e $B$ serem ambos fracamente contráteis.
+
+  O axioma de levantamento nos fornece enfim um morfismo $\sigma: B \to C$ fazendo comutar o diagrama todo.
+  Afirmamos então que a composição
+  \begin{displaymath}
+    \pi_{1} \circ \psi \circ \sigma: B \to X
+  \end{displaymath}
+  define enfim o levantamento procurado.
+  De fato, fazendo as contas temos por um lado
+  \begin{align*}
+    p \circ \pi_{1} \circ \psi \circ \sigma
+    & = \beta \circ \beta^{*}p \circ \psi \circ \sigma \\
+    & = \beta \circ \id_{B} \\
+    & = \beta,
+  \end{align*}
+  e por outro temos também
+  \begin{align*}
+    \pi_{1} \circ \psi \circ \sigma \circ i
+    & = \pi_{1} \circ \psi \circ \lambda \circ \varphi \circ j_{0} \\
+    & = \pi_{1} \circ \overline{H} \circ \varphi \circ j_{0} \\
+    & = \pi_{1} \circ H \circ j_{0} \\
+    & = \pi_{1} \circ (\alpha,i) \\
+    & = \alpha. \qedhere
+  \end{align*}
 \end{proof}
 
 % \appendix
@@ -1200,6 +1588,8 @@ Mostramos inicialmente que cofibrações com condições de contratibilidade sem
 %   portanto pela unicidade devemos ter $\theta \circ f' = f$.
 %   Esse raciocínio mostra que eixste um único morfismo do cone $(p_{j}': (L',f') \to (F_{j},f_{j}))_{j \in \mathsf{J}}$ para o cone $(p_{j}: (L,f) \to (F_{j},f_{j}))_{j \in \mathsf{J}}$, ou seja, o objeto $(L,f) \in A / \mathsf{C}$ determina um limite para o funtor $F$.
 % \end{proof}
+
+\printbibliography
 
 \end{document}
 
