@@ -7,6 +7,7 @@
 % TODO:
 % - Entender o objeto final da categoria de conjuntos simpliciais.
 % - Descrever conjuntos simpliciais pontuados em termos de pares formados por um conjunto simplicial e uma escolha de vértice.
+% - Terminar a discussão sobre limites e colimites em categorias slice e co-slice.
 
 \section{Introdução e motivação}
 
@@ -704,12 +705,14 @@ O lema simples abaixo mostra que a definição acima também pode ser formulada 
   Sendo o morfismo idêntico $\id_{*}: * \to *$ uma equivalência fraca, segue diretamente da propriedade 2-de-3 que o morfismo inicial $* \to X$ é uma equivalência fraca se, e somente se, o morfismo terminal $X \to *$ também o é.
 \end{proof}
 
-\section{Teoria de Obstrução e o caso clássico}
+Assim como no caso clássico, as noções de objetos contráteis e morfismos homotopicamente nulos estão relacionadas, embora aqui tenhamos as sutilezas usuais envolvendo homotopias à esquerda e à direita, assim como condições de cofibrância e fbrância sobre os objetos.
+
+\section{Teorias de Obstrução}
 
 Temos enfim todos os ingredientes à nossa disposição para definirmos o que é uma teoria de obstrução em uma categoria modelo.
 
-\begin{defin}\label{defin:teoria_de_obstrucao_para_cofibracao}
-  Dizemos que uma cofibração $i: A \cofib B$ em uma categoria modelo pontuada $\mathsf{M}$ \textbf{admite uma teoria de obstrução} se para todo diagrama comutativo da forma
+\begin{defin}\label{defin:teoria_de_obstrucao}
+  Dizemos que uma cofibração $i: A \cofib B$ em uma categoria modelo pontuada $\mathsf{M}$ \textbf{admite uma teoria de obstrução} se existe um objeto $W$ tal que para todo diagrama comutativo da forma
   \begin{displaymath}
     \begin{tikzcd}
       A
@@ -722,158 +725,481 @@ Temos enfim todos os ingredientes à nossa disposição para definirmos o que é
       & Y
     \end{tikzcd}
   \end{displaymath}
-  onde $p: X \fib Y$ é uma fibração, existem um objeto $W$ e um morfismo $\alpha: W \to \Fib(p)$ com a seguinte propriedade: o problema de levantamento acima admite uma solução se, e somente se, $\alpha$ é homotopicamente nulo.
+  onde $p: X \fib Y$ é uma fibração, exista uma classe de homotopia $\theta_{p}\in \Hom_{\Ho(\mathsf{M})}(W,\Fib(p))$ com as seguintes propriedades:
+  \begin{enumerate}
+  \item O problema de levantamento admite solução se e somente se $\theta_{p}$ é trivial, ou seja, se e somente se $\theta_{p} = \eta(\ct_{W,\Fib(p)})$, onde $\eta: \mathsf{M} \to \Ho(\mathsf{M})$ é o funtor de localização.
+    
+  \item A classe $\theta_{p}$ depende funtorialmente da fibração $p$.
+  \end{enumerate}
 \end{defin}
 
-\begin{obs}
-  Na definição dada no artigo existe a exigência de que o morfismo $\alpha$, ou mais precisamente sua classe de homotopia $[a] \in [W,\Fib(p)]$ dependa funtorialmente da fibração $p$, mas vamos deixar isso de lado momentaneamente.
-\end{obs}
+Vamos analisar algumas sutilezas por trás da definição acima.
+Lembremos que, dados dois objetos \emph{quaisquer} $X,\,Y \in \mathsf{M}$ de uma categoria de modelos, a relação de homotopia, seja à esquerda ou à direita, em geral \emph{não} define uma relação de equivalência no conjunto de morfismos $\Hom_{\mathsf{M}}(X,Y)$, logo não existe um conjunto bem-definido de classes de homotopia de morfismos.
+Podemos obter conjuntos bem-definidos de classes de homotopia impondo condições adicionais de (co)fibrância sobre os objetos: se $X$ é cofibrante, então a relação de homotopia à esquerda é uma relação de equivalência, logo temos um conjunto quociente $[X,Y]_{\ell}$ formado por classes de homotopia à esquerda; e se $Y$ é fibrante, então a relação de homotopia à direita é uma relação de equivalência, dessa forma temos um conjunto quociente $[X,Y]_{r}$ formado por classes de homotopia à direita.
+Quando $X$ é cofibrante e $Y$ é fibrante, então as duas relações de homotopia coincidem e temos um conjunto quociente único $[X,Y]$ cujos elementos chamamos simplesmente de classes de homotopia.
+Se ademais $X$ e $Y$ forem ambos \emph{bifibrantes}, então as operações de pós-composição e pré-composição de morfismos respeitam a relação de homotopia, induzindo operações análogas a nível de classes de homotopia.
 
-Antes de investigarmos propriedades dessa definição categórica geral de teoria de obstrução, vamos entender como ela se relaciona com alguns resultados bem connhecidos da Teoria de Homotopia clássica.
+Sabendo desse bom comportamento da relação de homotopia para morfismos entre objetos bifibrantes, podemos construir a categoria homotópica $\Ho(\mathsf{M})$ por meio de substituições cofibrantes/fibrantes fortes funtoriais.
+Mais precisamente, assumindo que categoria de modelos $\mathsf{M}$ admite fatorações funtoriais, podemos associar a cada objeto $X \in \mathsf{M}$ uma substituição cofibrante forte $p_{X}: X_{c} \overset{\sim}{\fib} X$ e a cada morfismo $\alpha: X \to Y$ um morfismo $\alpha_{c}: X_{c} \to Y_{c}$ entre as substituições cofibrantes que faz comutar o quadrado abaixo.
+\begin{displaymath}
+  \begin{tikzcd}
+    X_{c}
+    \arrow[r, dashed, "\alpha_{c}"]
+    \arrow[d, two heads, "\sim" {sloped}, "p_{X}" swap]
+    & Y_{c}
+    \arrow[d, two heads, "\sim" {swap,sloped}, "p_{Y}"]
+    \\ X
+    \arrow[r, "\alpha" swap]
+    & Y
+  \end{tikzcd}
+\end{displaymath}
+Analogamente, associamos a cada objeto $X \in \mathsf{M}$ uma substituição fibrante forte $j_{X}: X \overset{\sim}{\cofib} X_{f}$ e a cada morfismo $\alpha: X \to Y$ um morfismo $\alpha_{f}: X_{f} \to Y_{f}$ entre as subsittuições fibrantes fazendo comutar o diagrama abaixo.
+\begin{displaymath}
+  \begin{tikzcd}
+    X_{f}
+    \arrow[r, dashed, "\alpha_{f}"]
+    & Y_{f}
+    \\ X
+    \arrow[u, tail, "j_{X}", "\sim" {swap,sloped}]
+    \arrow[r, "\alpha" swap]
+    & Y
+    \arrow[u, tail, "\sim" {sloped}, "j_{Y}" {swap}]
+  \end{tikzcd}
+\end{displaymath}
 
-Dado um espaço pontuado $(X,x_{0})$, considere um mapa pontuado $f: (S^{n},*_{S^{n}}) \to (X,x_{0})$, onde $*_{S^{n}} \coloneqq (1,0,\dots,0)$.
-O resultado clássico abaixo diz que a classe de homotopia pontuada do mapa $f$ é uma obstrução à existência de uma extensão de $f$ para o interior do disco.
+Fixados tais funtores de substituição, definimos a categoria homotópica $\Ho(\mathsf{M})$ da seguinte forma: os objetos de $\Ho(\mathsf{M})$ são precisamente os objetos de $\mathsf{M}$, e dados dois objetos $X,\, Y \in \mathsf{M}$, definimos o conjunto de morfismos $\Hom_{\Ho(\mathsf{M})}(X,Y)$ como sendo o conjunto de classes de homotopia de morfismos $[X_{cf},Y_{cf}]$.
+O funtor de localização $\eta: \mathsf{M} \to \Ho(\mathsf{M})$ mapeia então um objeto $X$ para si mesmo, e um morfismo $\alpha: X \to Y$ para a classe de homotopia $[\alpha_{cf}]$ do morfismo $\alpha_{cf}: X_{cf} \to Y_{cf}$ obtido por aplicação dos funtores de subsituição cofibrante e fibrante nessa ordem.
+O Teorema de Whitehead diz então precisamente que $\eta$ inverte equivalências fracas, uma das condições necessárias para que $\Ho(\mathsf{M})$ seja uma localização de $\mathsf{M}$ nesta classe de morfismos.
 
-\begin{teo}
-  Um mapa pontuado $f: (S^{n},*_{S^{n}}) \to (X,x_{0})$ admite uma extensão para um mapa pontuado $F: (D^{n+1},*_{S^{n}}) \to (X,x_{0})$ se, e somente se, $f$ é homotopicamente nulo no sentido pontuado.
-\end{teo}
+Assim, a rigor a classe $\theta_{p} \in \Hom_{\Ho(\mathsf{M})}(W,\Fib(p))$ que aparece na definição acima não é a classe de homotopia de um morfismo do tipo $W \to \Fib(p)$, mas sim a classe de homotopia de um morfismo do tipo $W_{cf} \to \Fib(p)_{cf}$ entre objetos bifibrantes equivalentes aos originais.
+Embora isso seja um pouco incômodo, em muitos casos podemos reinterpretar essa classe de homotopia em termos de outra classe involvendo objetos que estejam mais ``próximos'' dos originais do que as substituições bifibrantes consideradas.
+A razão por trás disso é o conteúdo do resultado abaixo.
 
-\begin{proof}[Rascunho da demonstração]
-  Se existe a extensão $F: (D^{n+1},*_{S^{n}}) \to (X,x_{0})$, então essa extensão é necessariamente homotopicamente nula no sentido pontuado pois o disco $(D^{n+1},*_{S^{n}})$ é contrátil, logo o mapa pontuado $f$ é homotopicamente nulo também.
-
-  Reciprocamente, suponha que $f$ seja homotopicamente nulo no sentido pontuado, e considere $H: S^{n} \times I \to X$ uma homotopia pontuada de $f$ para o mapa constante $\ct_{(S^{n},*),(X,x_{0})}$.
-  Sendo a homotopia $H$ pontuada, ela é constante e igual a $x_{0}$ no subespaço $\{*_{S^{n}}\} \times I \, \cup \, S^{n} \times \{1\}$ do cilindro $S^{n} \times I$, portanto faz sentido formarmos o espaço quociente
+\begin{prop}
+  Sejam $X$ e $Y$ objetos de uma categoria de modelos $\mathsf{M}$.
+  Se $p: \widetilde{X} \overset{\sim}{\to} X$ é uma substituição cofibrante qualquer, e $j: Y \overset{\sim}{\to} \widehat{Y}$ é uma substituição fibrante qualquer, existe uma bijeção
   \begin{displaymath}
-    CS^{n} \coloneqq \frac{S^{n} \times I}{\{*_{S^{n}}\} \times I \, \cup \, S^{n} \times \{1\}},
+    \Hom_{\Ho(\mathsf{M})}(X,Y) \cong \left[ \widetilde{X}, \widehat{Y} \right].
   \end{displaymath}
-  chamado de \emph{cone reduzido} de $S^{n}$, e olharmos para o mapa pontuado induzido nesse quociente
+  Em particular, se $X$ já é cofibrante, e $Y$ já é fibrante, então existe uma bijeção
   \begin{displaymath}
-    \overline{H}: (CS^{n},[*_{S^{n}}]) \to (X,x_{0}).
+    \Hom_{\Ho(\mathsf{M})}(X,Y) \cong [X,Y].
   \end{displaymath}
+\end{prop}
 
-  O passo final da demonstração é compararmos esse cone reduzido com o disco.
-  Note que o mapa $\theta: S^{n} \times I \to D^{n+1}$ dada por
+Assim, embora os funtores de substituição cofibrante/fibrante não façam necessariamente as escolhas mais convenientes, o resultado acima diz que, se estivermos interessados apenas em classes de homotopia de morfismos, então podemos trabalhar com substituições cofibrantes/fibrantes quaisquer, e não apenas aquelas determinadas pelos funtores.
+
+Essa independência a nível de homotopias também é verdade para a ação dos funtores de substituição nos morfismos.
+O funtor de substituição fibrante associa a cada morfismo $\alpha: X \to Y$ um morfismo $\alpha_{c}: X_{c} \to Y_{c}$ entre as substituições cofibrantes que faz comutar o quadrado abaixo.
+\begin{displaymath}
+  \begin{tikzcd}
+    X_{c}
+    \arrow[r, dashed, "\alpha_{c}"]
+    \arrow[d, two heads, "\sim" {sloped}, "p_{X}" {swap}]
+    & Y_{c}
+    \arrow[d, two heads, "p_{Y}", "\sim" {swap,sloped}]
+    \\ X
+    \arrow[r, "\alpha" swap]
+    & Y
+  \end{tikzcd}
+\end{displaymath}
+Entretanto, se estivermos interessados unicamente na classe de homotopia à esquerda de $\alpha_{c}$, podemos considerar \emph{qualquer} morfismo $\widetilde{\alpha}: X_{c} \to Y_{c}$ fazendo comutar o quadrado acima.
+De fato, se esse é o caso, então as classes de homotopia à esquerda $[\alpha_{c}]_{\ell},\, [\widetilde{\alpha}]_{\ell} \in [X_{c},Y_{c}]_{\ell}$ são ambas mapeadas para a classe de homotopia à esquerda $[\alpha \circ p_{X}]_{\ell} \in [X_{c},Y]_{\ell}$ pela função de pushforward
+\begin{displaymath}
+  [X_{c},p_{Y}]_{\ell}: [X_{c},Y_{c}]_{\ell} \to [X_{c},Y]_{\ell},
+\end{displaymath}
+mas como $p_{Y}$ é uma fibração trivial, e $X_{c}$ é cofibrante, segue do CITAR RESULTADO que tal função é uma bijeção, portanto devemos ter $[\alpha_{c}]_{\ell} = [\widetilde{\alpha}]_{\ell}$.
+
+Um argumento completamente análogo mostra que a classe de homotopia à esquerda das substituições cofibrantes depende apenas da classe de homotopia à esquerda do morfismo original quando os objetos envolvidos são fibrantes.
+Mais precisamente, se $X$ e $Y$ são fibrantes, e $\alpha,\, \beta: X \to Y$ são homotópicos à direita, então as substituições cofibrantes correspondentes $\alpha_{c},\, \beta_{c}: X_{c} \to Y_{c}$ são homotópicas.\footnote{Aqui não precisamos dizer se à direita ou à esquerda, já que os objetos $X_{c}$ e $Y_{c}$ são bifibrantes nesse caso, portanto todas as noções de homotopia coincidem.}
+De fato, basta ver que
+\begin{displaymath}
+  [X_{c},p_{Y}]([\alpha_{c}]) = [p_{X} \circ \alpha_{c}] = [\alpha \circ p_{Y}]_{r} = [\beta \circ p_{Y}]_{r} = [p_{X} \circ \beta_{c}] = [X_{c},p_{Y}]([\beta_{c}]),
+\end{displaymath}
+mas $[X_{c},p_{Y}]$ é novamente uma bijeção graças à cofibrância de $X_{c}$ e à trivialidade da fibração $p_{Y}$, portanto devemos ter $[\alpha_{c}] = [\beta_{c}]$ nesse caso também.
+
+É claro que existe toda uma discussão dual à discussão acima que diz respeito ao comportamento do funtor de substituição fibrante nas classes de homotopia.
+Uma consequência agradável dessa discussão é que temos uma certa ``liberdade de escolha'' para descrevermos as classes de homotopia associadas a morfismos por meio do funtor de localização $\eta: \mathsf{M} \to \Ho(\mathsf{M})$.
+
+\begin{prop}
+  Dado um morfismo $\alpha: X \to Y$, se $\alpha': X_{c} \to Y_{c}$ e $\alpha'': X_{cf} \to Y_{cf}$ são morfismos que fazem comutar o diagrama abaixo,
   \begin{displaymath}
-    \theta(x,t) \coloneqq (1-t) \cdot x + t \cdot *_{S^{n}} \qquad \forall\, (x,t) \in S^{n} \times I
+    \begin{tikzcd}
+      X_{cf}
+      \arrow[r, "\alpha''"]
+      & Y_{cf}
+      \\ X_{c}
+      \arrow[r, "\alpha'"]
+      \arrow[u, tail, "j_{X_{c}}"]
+      \arrow[d, two heads, "\sim" {sloped}, "p_{X}" {swap}]
+      & Y_{c}
+      \arrow[u, tail, "j_{Y_{c}}" {swap}]
+      \arrow[d, two heads, "p_{Y}", "\sim" {swap,sloped}]
+      \\ X
+      \arrow[r, "\alpha" swap]
+      & Y
+    \end{tikzcd}
   \end{displaymath}
-  satisfaz é constante e igual a $*_{S^{n}}$ no subespaço $\{*_{S^{n}}\} \times I \, \cup \, S^{n} \times \{1\}$, portanto existe um mapa pontuado induzido no quociente
+  então vale a igualdade $\eta(\alpha) = [\alpha'']$.
+\end{prop}
+
+\begin{proof}
+  Segue da discussão acima que $[\alpha']_{\ell} = [\alpha_{c}]_{\ell}$, portanto pela cofibrância de $X_{c}$ e $Y_{c}$ e pela discussão dual sobre substituições fibrantes também teremos $[\alpha'_{f}] = [\alpha_{cf}]$, mas pela comutatividade do diagrama também vale que $[\alpha'_{f}] = [\alpha'']$.
+  Juntando todas as igualdades temos então
   \begin{displaymath}
-    \overline{\theta}: (CS^{n},[*_{S^{n}}]) \to (D^{n+1},*_{S^{n}}),
-  \end{displaymath}
-  e podemos mostrar que esse mapa induzido é na verdade um homeomorfismo.
-  A extensão $F: (D^{n+1},*_{S^{n}}) \to (X,x_{0})$ desejada é obtida então por meio da composição
-  \begin{displaymath}
-    F \coloneqq \overline{H} \circ \overline{\theta}^{-1}. \qedhere
+    \eta(\alpha) = [\alpha_{cf}] = [\alpha'_{f}] = [\alpha'']. \qedhere
   \end{displaymath}
 \end{proof}
 
-Lembremos que todo problema de extensão pode ser interpretado como um problema de levantamento.
-No caso anterior, temos o problema de levantamento.
-\begin{displaymath}
-  \begin{tikzcd}
-    (S^{n},*_{S^{n}})
-    \arrow[d, tail, "i" swap]
-    \arrow[r, "{(i,f)}"]
-    & (D^{n+1} \times X,(*_{S^{n}},x_{0}))
-    \arrow[d, two heads, "\pi_{1}"]
-    \\ (D^{n+1},*_{S^{n}})
-    \arrow[r, "\id_{D^{n+1}}" swap]
-    & (D^{n+1},*_{S^{n}})
-  \end{tikzcd}
-\end{displaymath}
-Vimos no Teorema anterior que tal problema admite uma solução se, e somente se, o mapa $f: (S^{n},*_{S^{n}}) \to (X,x_{0})$ é homotopicamente nulo, sendo que $(X,x_{0})$ é exatamente a fibra da fibração $\pi_{1}$ acima, ou seja, $\alpha$ é uma obstrução no sentido categórico da \cref{defin:teoria_de_obstrucao_para_cofibracao}.
+Isso nos permite então obter classes de homotopia triviais a partir de morfismos triviais.
 
-\appendix
+\begin{corol}\label{corol:classe_de_homotopia_morfismo_constante}
+  Dados objetos $X$ e $Y$ quaisquer de uma categoria de modelos pontuada $\mathsf{M}$, vale a igualdade $\eta(\ct_{X,Y}) = [\ct_{X_{cf},Y_{cf}}]$.
+\end{corol}
 
-\section{Resultados categóricos}
+\begin{proof}
+  Basta ver que temos o diagrama comutativo abaixo e aplicar o resultado anterior.
+  \begin{displaymath}
+    \begin{tikzcd}[column sep=1.25cm]
+      X_{cf}
+      \arrow[r, "{\ct_{X_{cf},Y_{cf}}}"]
+      & Y_{cf}
+      \\ X_{c}
+      \arrow[r, "{\ct_{X_{c},Y_{c}}}"]
+      \arrow[u, tail, "j_{X_{c}}"]
+      \arrow[d, two heads, "\sim" {sloped}, "p_{X}" {swap}]
+      & Y_{c}
+      \arrow[u, tail, "j_{Y_{c}}" {swap}]
+      \arrow[d, two heads, "p_{Y}", "\sim" {swap,sloped}]
+      \\ X
+      \arrow[r, "{\ct_{X,Y}}" swap]
+      & Y
+    \end{tikzcd} \qedhere
+  \end{displaymath}
+\end{proof}
 
-Esse apêndice contém alguns resultados auxiliares de natureza puramente categórica que são usados ao longo das notas.
-Resolvi incluí-los aqui para tornar o documento um pouquinho mais completo e (espero) um pouco mais útil para um eventual leitor.
+\begin{obs}[Funtorialidade das classes de obstrução]
+  \label{obs:funtorialidade_classe_de_obstrucao}
+  Vamos precisar o significado da funtorialidade na definição de teoria de obstrução.
+  O processo de formação de fibras pode ser visto como um funtor na categoria de setas.
+  Mais precisamente, considere o quadrado comutativo abaixo em uma categoria pontuada qualquer.
+  \begin{equation}
+    \label{eq:morfismo_fibracoes}
+    \begin{tikzcd}
+      X
+      \arrow[d, "p" swap]
+      \arrow[r, "\varphi"]
+      & X'
+      \arrow[d, "p'"]
+      \\ Y
+      \arrow[r, "\psi" swap]
+      & Y'
+    \end{tikzcd}
+  \end{equation}
+  Podemos então tomar a fibra dos morfismos $p$ e $p'$ e obter os dois diagrama de pullback mostrados abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \Fib(p)
+      \arrow[d]
+      \arrow[r, "i_{p}"]
+      & X
+      \arrow[d, "p"]
+      \\ *
+      \arrow[r]
+      & Y
+    \end{tikzcd}
+    \qquad
+    \begin{tikzcd}
+      \Fib(p')
+      \arrow[d]
+      \arrow[r, "i_{p'}"]
+      & X'
+      \arrow[d, "p'"]
+      \\ *
+      \arrow[r]
+      & Y'
+    \end{tikzcd}
+  \end{displaymath}
 
-\begin{lema}\label{lema:pullback_de_mono_eh_mono}
-  Monomorfismos são preservados por pullbacks.
-  Mais precisamente, se o diagrama abaixo é um pullback em uma categoria $\mathsf{C}$ qualquer, e $g: X \to Y$ é um monomorfismo, então $f: A \to B$ também é um monomorfismo.
+  Usando a propriedae universal do pullback obtemos um morfismo $\Fib(\varphi,\psi): \Fib(p) \to \Fib(p')$ caracterizado unicamente por satisfazer a igualdade $\alpha \circ i_{p} \circ \Fib(\varphi,\psi) = i_{p'}$ conforme mostrado no diagrama abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \Fib(p)
+      \arrow[rrd, bend left=30, "\alpha \circ i_{p}"]
+      \arrow[rdd, bend right=30]
+      \arrow[rd, dashed, "{\Fib(\varphi,\psi)}"]
+      \\ & \Fib(p')
+      \arrow[r, "i_{p'}"]
+      \arrow[d]
+      & X'
+      \arrow[d, "p'"]
+      \\ & *
+      \arrow[r]
+      & Y'
+    \end{tikzcd}
+  \end{displaymath}
+
+  A funtorialidade da teoria de obstrução deve então ser entendida da seguinte maneira: dadas fibrações $p: X \fib Y$ e $p': X' \to Y'$ e um quadrado comutativo como em \eqref{eq:morfismo_fibracoes}, deve valer a igualdade de morfismos
+  \begin{displaymath}
+    \theta_{p'} = \eta(\Fib(\varphi,\psi)) \circ \theta_{p}
+  \end{displaymath}
+  na categoria homotópica $\Ho(\mathsf{M})$, onde $\theta_{p} \in \Hom_{\Ho(\mathsf{M})}(W,\Fib(p))$ e $\theta_{p'} \in \Hom_{\Ho(\mathsf{M})}(W,\Fib(p'))$ são as classes de obstrução associadas aos problemas de levantamento
   \begin{displaymath}
     \begin{tikzcd}
       A
       \arrow[r, "\alpha"]
-      \arrow[d, "f" swap]
+      \arrow[d, tail, "i" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, two heads, "p"]
       \\ B
       \arrow[r, "\beta" swap]
       & Y
     \end{tikzcd}
-  \end{displaymath}
-\end{lema}
-
-\begin{proof}
-  Suponha que tenhamos morfismos $r,\,s: Z \to A$ tais que $f \circ r = f \circ s$.
-  Nosso objetivo é mostrar que necessariamente temos então $r = s$.
-
-  Note primeiro que a propriedade universal do pullback garante que $r: Z \to A$ é o único morfismo de seu tipo que faz comutar o diagrama abaixo.
-  \begin{displaymath}
+    \qquad \text{e} \qquad
     \begin{tikzcd}
-      Z
-      \arrow[rd, dashed, "r" description]
-      \arrow[rrd, bend left=20, "\alpha \circ r"]
-      \arrow[rdd, bend right=20, "f \circ r" swap]
-      \\ & A
-      \arrow[r, "\alpha"]
-      \arrow[d, "f" swap]
-      & X
-      \arrow[d, "g"]
-      \\ & B
+      A
+      \arrow[r, "\varphi \circ \alpha"]
+      \arrow[d, tail ,"i" swap]
+      & X'
+      \arrow[d, two heads, "p'"]
+      \\ B
       \arrow[r, "\beta" swap]
-      & Y
+      & Y'
     \end{tikzcd}
   \end{displaymath}
-  Afirmamos que $s: Z \to A$ também satisfaz as mesmas condições de comutatividade.
-  De fato, por um lado a igualdade $f \circ s = f \circ r$ segue direta da hipótese feita sobre os morfismos $r$ e $s$; enquanto por outro temos
+  respectivamente.
+\end{obs}
+
+Nosso objetivo é entender um pouco quais tipos de cofibrações admitem uma teoria de obstrução no sentido acima.
+Dentre os problemas de levantamento não-triviais que nos interessam, um ponto de partida razoável é entendermos primeiro aqueles envolvendo fibrações do tipo $X \fib *$, ou seja, aqueles envolvendo objetos fibrantes.
+Vimos no \cref{exem:extensao_ao_longo_de_cofibracao_como_levantamento} que tais problemas de levantamento são nada mais do que problemas de extensão ao longo de cofibrações.
+Vamos entender qual é o conteúdo homotópico destes problemas no caso clássico das cofibrações geradoras $S^n \to D^{n+1}$ na estrutura modelo de Quillen em $\mathsf{Top}$.
+
+O interessante é que esse resultado pode ser generalizado de certa forma para o contexto de categorias de modelos, mas a categoria $\mathsf{Top}$ possui algumas boas propriedades que não são válidas em uma categoria de modelos geral, portanto essa generalização só é possível após enfraquecermos um pouco as hipóteses.
+Esse enfraquecimento tem a ver com os tipos de fibrações que aparecerão nos problemas de levantamento.
+
+\begin{defin}\label{defin:teoria_de_obstrucao_fibrante}
+  Uma cofibração $i: A \cofib B$ em uma categoria de modelos pontuada $\mathsf{C}$ \textbf{admite uma teoria de obstrução fibrante} se as propriedades da \cref{defin:teoria_de_obstrucao} são válidas para toda fibração $p: X \fib Y$ onde $Y$ é um objeto fibrante.\footnote{Veja que nesse caso $X$ é automticamente fibrante também, portanto temos uma fibração entre objetos fibrantes, e tais tipos de morfismos costumam ser bem comportados.}
+\end{defin}
+
+\section{Resultados auxiliares}
+
+Nessa seção coletamos alguns resultados auxiliares que serão úteis em diferentes partes do texto.
+Resolvi incluir algumas demonstrações por motivos de completude, especialmente para aqueles resultados cujas demonstrações na literatura foram deixadas para o leitor.
+
+Nosso primeiro objetivo é demonstrar o famoso \emph{Lema de Ken Brown}, um resultado que fornece condições suficientes para que um funtor preserve uma certa classe de equivalências fracas.
+Tal lema é uma consequência relativamente simples de um outro lema que fornece fatorações especiais para certas equivalências fracas.
+
+\begin{prop}[Lema de Fatoração]
+  \label{prop:lema_de_fatoracao}
+  Se $f: X \to Y$ uma equivalência fraca entre objetos fibrantes de uma categoria de modelos, então existem uma cofibração trivial $i: X \overset{\sim}{\cofib} Z$, uma fibração trivial $p: Z \overset{\sim}{\fib} Y$, e uma fibração trivial $q: Z \overset{\sim}{\fib} X$ tais que $p \circ i = f$ e $q \circ i = \id_{X}$.
   \begin{displaymath}
-    g \circ \alpha \circ s = \beta \circ f \circ s = \beta \circ f \circ r = g \circ \alpha \circ r,
+    \begin{tikzcd}
+      X
+      \arrow[rr, "f"]
+      \arrow[rd, tail, "i", "\sim" {swap,sloped}]
+      & & Y
+      \\ & Z
+      \arrow[ru, two heads, "p", "\sim" {swap,sloped}]
+      \arrow[lu, two heads, bend left=45, "q", "\sim" {sloped}]
+    \end{tikzcd}
   \end{displaymath}
-  mas $g$ é um monomorfismo por hipótese, logo podemos cancelá-lo na sequência de igualdades acima para concluirmos que $\alpha \circ s = \alpha \circ r$ como desejado.
-
-  A unicidade sobre $r$ vinda da propriedade universal do pullback implica então $s = r$ como queríamos mostrar.
-\end{proof}
-
-\begin{teo}
-  Sejam $\mathsf{C}$ uma categoria qualquer, $A \in \mathsf{C}$ um objeto qualquer e $A / \mathsf{C}$ a categoria de objetos sob $A$.
-  \begin{enumerate}
-  \item Se $\mathsf{C}$ é completa, então $A / \mathsf{C}$ é completa também.
-    
-  \item Se $\mathsf{C}$ é co-completa, então $A / \mathsf{C}$ é co-completa também.
-  \end{enumerate}
-\end{teo}
+  De maneira dual, se $f: X \to Y$ é uma equivalência fraca entre objetos cofibrantes, então existem uma fibração trivial $q: X \overset{\sim}{\fib} Z$, uma cofibração trivial $j: Z \overset{\sim}{\cofib} Y$ e uma cofibração trivial $i: Z \overset{\sim}{\cofib} X$ tais que $q \circ j = f$ e $q \circ i = \id_{X}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[rr, "f"]
+      \arrow[rd, two heads, "q", "\sim" {swap,sloped}]
+      & & Y
+      \\ & Z
+      \arrow[ru, tail, "j", "\sim" {swap,sloped}]
+      \arrow[lu, tail, bend left=45, "i", "\sim" {sloped}]
+    \end{tikzcd}
+  \end{displaymath}
+\end{prop}
 
 \begin{proof}
-  1. Denote por $\mathcal{E}: A / \mathsf{C} \to \mathsf{C}$ o funtor de esquecimento evidente.
-  Considere então uma categoria pequena $\mathsf{J}$ e um funtor $F: \mathsf{J} \to A / \mathsf{C}$.
-  Esse funtor associa a cada $j \in \mathsf{J}$ um par $(F_{j},f_{j})$, onde $F_{j}$ é um objeto de $\mathsf{C}$ e $f_{j}: A to F_{j}$ é um morfismo.
-  Além disso, dado um morfismo $\alpha: i \to j$ em $\mathsf{J}$ temos um morfismo correspondente $F(\alpha): (F_{i},f_{i}) \to (F_{j},f_{j})$, ou seja, um morfismo $F(\alpha): F_{i} \to F_{j}$ em $\mathsf{C}$ satisfazendo a condição de compatibilidade $F(\alpha) \circ f_{i} = f_{j}$.
-
-  Considere então o funtor composto $\mathcal{E} \circ F: \mathsf{J} \to \mathsf{C}$.
-  Sendo $\mathsf{C}$ completa por hipótese, tal funtor admite um limite $L \in \mathsf{C}$ o qual vem equipado com os morfismos estruturais $(p_{j}: L \to F_{j})_{j \in \mathsf{J}}$ que exibem tal limite como um cone terminal sobre o diagrama determinado pelo funtor $\mathcal{E} \circ F$.
-  Queremos enxergar $L$ como um objeto da categoria $A / \mathsf{C}$, e para isso precisamos de um morfismo do tipo $A \to L$ que obteremos por meio da propriedade universal do limite.
-  Note que a coleção de morfismos $(f_{j})_{j \in \mathsf{C}}$ determina um cone sobre $\mathcal{E} \circ F$ com vértice em $A$ graças às condições de compatibilidade satisfeitas pelos $f_{j}$.
-  Ora, como $L$ é um cone terminal, existe um único morfismo $f: A \to L$ satisfazendo as condições $p_{j} \circ f = f_{j}$ para todo $j \in \mathsf{J}$.
-
-  O par $(L,f)$ determina então um objeto da categoria $A / \mathsf{C}$, e graças às igualdades mencionadas no final do parágrafo anterior, os morfismos $p_{j}: L \to F_{j}$ podem ser vistos como morfismos $p_{j}: (L,f) \to (F_{j},f_{j})$ na categoria $\mathsf{C}$.
-  Veja que, se $\alpha: i \to j$ é um morfismo em $\mathsf{J}$, como os morfismos $(p_{j})_{j \in \mathsf{J}}$ determinavam um cone sobre $\mathcal{E} \circ F$ e vale que $(\mathcal{E} \circ F)(\alpha) = F(\alpha)$, temos a igualdade $F(\alpha) \circ p_{i} = p_{j}$; portanto a coleção $(p_{j})_{j \in \mathsf{J}}$ define também um cone \emph{sobre o funtor $F$} com vértice em $(L,f)$.
-
-  Nosso objetivo é mostrar que esse cone é na verdade um cone terminal, o que naturalmente será uma consequência de $L$ determinar um cone terminal sobre o funtor $\mathcal{E} \circ F$.
-  Suponha que $(p_{j}': (L',f') \to (F_{j},f_{j}))_{j \in \mathsf{J}}$ seja um outro cone sobre $F$ com vértice no objeto $(L',f')$.
-  Aplicando o funtor de esquecimento $\mathcal{E}$ obtemos então o cone $(p_{j'}: L' \to F_{j})_{j \in \mathsf{J}}$ sobre $\mathcal{E} \circ F$ com vértice em $L'$.
-  Sendo $L$ o limite deste funtor, existe um morfismo único $\theta: L' \to L$ tal que $p_{j} \circ \theta = p_{j}'$ para todo $j \in \mathsf{J}$.
-  Note que $\theta$ pode ser visto como um morfismo do tipo $(L',f') \to (L,f)$.
-  De fato, por construção $f: A \to L$ é o único morfismo de seu tipo a satisfazer a igualdade $p_{j} \circ f = f_{j}$ para todo $j \in \mathsf{J}$, mas usando que os $p_{j}$'s eram morfismos do tipo $(L',f') \to (F_{j},f_{j})$, temos
+  Vamos demonstrar o primeiro caso, já que este é que nos será útil.
+  A demonstração do segundo caso é dual.
+  Podemos fatorar o morfismo induzido $(\id_{X},f): X \to X \times Y$ como uma cofibração trivial $i: X \overset{\sim}{\to} Z$ seguida de uma fibração $\theta: Z \overset{\sim}{\to} X \times Y$.
   \begin{displaymath}
-    p_{j} \circ \theta \circ f' = p_{j}' \circ f' = f_{j},
+    \begin{tikzcd}
+      X
+      \arrow[rr, "{(\id_{X},f)}"]
+      \arrow[rd, tail, "\sim" {sloped}, "\lambda" {swap}]
+      & & X \times Y
+      \\ & Z
+      \arrow[ru, two heads, "\theta" swap]
+    \end{tikzcd}
   \end{displaymath}
-  portanto pela unicidade devemos ter $\theta \circ f' = f$.
-  Esse raciocínio mostra que eixste um único morfismo do cone $(p_{j}': (L',f') \to (F_{j},f_{j}))_{j \in \mathsf{J}}$ para o cone $(p_{j}: (L,f) \to (F_{j},f_{j}))_{j \in \mathsf{J}}$, ou seja, o objeto $(L,f) \in A / \mathsf{C}$ determina um limite para o funtor $F$.
+
+  Se $\pi_{1}: X \times Y \to X$ e $\pi_{2}: X \times Y \to Y$ são as projeções canônicas, definimos então
+  \begin{displaymath}
+    q \coloneqq \pi_{1} \circ \theta: Z \to X \quad \text{e} \quad p \coloneqq \pi_{2} \circ \theta: Z \to Y.
+  \end{displaymath}
+  Veja que tais morfismos satisfazem as igualdades necessárias, já que por um lado
+  \begin{displaymath}
+    p \circ i = \pi_{2} \circ \theta \circ i = \pi_{2} \circ (\id_{X},f) = f,
+  \end{displaymath}
+  e por outro
+  \begin{displaymath}
+    q \circ i = \pi_{1} \circ \theta \circ i = \pi_{1} \circ (\id_{X},f) = \id_{X}.
+  \end{displaymath}
+
+  Resta apenas mostrarmos que $p$ e $q$ são fibrações triviais.
+  O fato de $p$ ser uma equivalência fraca segue da propriedade 2-de-3, já que temos a igualdade $p \circ i = f$ onde tanto $i$ quanto $f$ são equivalências fracas.
+  O fato de $q$ ser uam equivalência fraca também segue da propriedade 2-de-3, pois temos a igualdade $q \circ i = \id_{X}$ onde $i$ e $\id_{X}$ são equivalências fracas.
+  Por fim, para ver que $p$ e $q$ são fibrações, veja que temos um diagrama de pullback
+  \begin{displaymath}
+    \begin{tikzcd}
+      X \times Y
+      \arrow[r, "\pi_{1}"]
+      \arrow[d, "\pi_{2}" swap]
+      & X
+      \arrow[d, two heads, "!_{X}"]
+      \\ Y
+      \arrow[r, two heads, "!_{Y}" swap]
+      & *
+    \end{tikzcd}
+  \end{displaymath}
+  onde $!_{X}$ e $!_{Y}$ são fibrações graças ao fato de $X$ e $Y$ serem fibrantes.
+  Como fibrações são preservadas por pullbacks, segue que as projeções canônicas $\pi_{1}$ e $\pi_{2}$ são fibrações também, logo $p$ e $q$ são ambos composições de fibrações e, portanto, fibrações também.
 \end{proof}
+
+\begin{corol}[Lema de Ken Brown]
+  \label{corol:lema_de_brown}
+  Sejam $(\mathsf{M},\mathcal{W},\mathcal{C},\mathcal{F})$ uma categoria de modelos e $(\mathcal{D},\mathcal{W}')$ uma categoria com equivalências fracas, ou seja, $\mathcal{W}' \subseteq Mor(\mathsf{D})$ é uma classe de morfismos fechada por composições, contendo todos os isomorfismos, e satisfazendo a propriedade 2-de-3.
+  Se $F: \mathsf{C} \to \mathsf{D}$ é um funtor que transforma fibrações triviais entre objetos fibrates de $\mathsf{M}$ em equivalências fracas de $\mathsf{D}$, então $F$ também tansforma equivalências fracas entre objetos fibrantes de $\mathsf{M}$ em equivalências fracas de $\mathsf{D}$.
+  De maneira dual, se $F$ transforma cofibrações triviais entre objetos cofibrantes de $\mathsf{M}$ em equivalências fracas de $\mathsf{D}$, então $F$ também transforma equivalências fracas entre objetos cofibrantes de $\mathsf{M}$ em equivalências fracas de $\mathsf{D}$.
+\end{corol}
+
+\begin{proof}
+  Seja $p: X \overset{\sim}{\to} Y$ uma equivalência fraca entre objetos fibrantes de $\mathsf{M}$.
+  Aplicando o \cref{prop:lema_de_fatoracao} obtemos uma cofibração trivial $i: X \overset{\sim}{\cofib} Z$, uma fibração trivial $p: Z \overset{\sim}{\fib} Y$ e uma fibração trivial $q: Z \overset{\sim}{\fib} X$ tais que $p \circ i = f$ e $q \circ i = \id_{X}$.
+  Veja que $Z$ é um objeto fibrante, já que ele manda uma fibração para um objeto fibrante.
+  Assim, $p$ é uma fibração trivial entre objetos fibrantes, portanto $F(p): F(Z) \to F(Y)$ é uma equivalência fraca em $\mathsf{D}$.
+  Se conseguirmos mostrar que $F(i): F(X) \to F(Z)$ é também uma equivalência fraca, o resultado desejado seguirá então da igualdade $F(p) \circ F(i) = F(f)$ e da propriedade 2-de-3 em $\mathsf{M}$.
+  Ora, sendo $q: Z \to X$ uma fibração trivial entre objetos fibrantes também, vale que $F(q): F(Z) \to F(X)$ é uma equivalência fraca, e a propriedade 2-de-3 aplicada à igualdade $F(q) \circ F(i) = \id_{F(X)}$ nos permite concluir que $F(i)$ é uma equivalência fraca, já que o morfismo idêntico $\id_{F(X)}$ é também uma equivalência fraca.
+\end{proof}
+
+\section{Construindo teorias de obstrução}
+
+Nessa seção mostramos enfim como obter teorias de obstrução para algumas classes de cofibrações.
+Mostramos inicialmente que cofibrações com condições de contratibilidade sempre admitem teorias de obstrução fibrantes, e em seguida mostramos que certas operações na classe de cofibrações preservam a existência de teorias de obstrução.
+
+\begin{prop}
+  Em uma categoria de modelos pontuada, considere uma cofibração $i: A \cofib B$ onde $A$ é cofibrante e $B$ é fibrante e fracamente contrátil.
+  Dado um morfismo $f: A \to X$, onde $X$ é um objeto fibrante, existe um morfismo $F: B \to X$ tal que $F \circ i = f$ se, e somente se, $f$ é homotopicamente nulo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "f"]
+      \arrow[d, tail, "i" swap]
+      & X
+      \arrow[d, two heads, "t_{X}"]
+      \\ B
+      \arrow[r, "t_{B}" swap]
+      \arrow[ru, dashed, "F" description]
+      & *
+    \end{tikzcd}
+  \end{displaymath}
+\end{prop}
+
+\begin{proof}
+  
+\end{proof}
+
+% \appendix
+
+% \section{Resultados categóricos}
+
+% Esse apêndice contém alguns resultados auxiliares de natureza puramente categórica que são usados ao longo das notas.
+% Resolvi incluí-los aqui para tornar o documento um pouquinho mais completo e (espero) um pouco mais útil para um eventual leitor.
+
+% \begin{lema}\label{lema:pullback_de_mono_eh_mono}
+%   Monomorfismos são preservados por pullbacks.
+%   Mais precisamente, se o diagrama abaixo é um pullback em uma categoria $\mathsf{C}$ qualquer, e $g: X \to Y$ é um monomorfismo, então $f: A \to B$ também é um monomorfismo.
+%   \begin{displaymath}
+%     \begin{tikzcd}
+%       A
+%       \arrow[r, "\alpha"]
+%       \arrow[d, "f" swap]
+%       & X
+%       \arrow[d, "g"]
+%       \\ B
+%       \arrow[r, "\beta" swap]
+%       & Y
+%     \end{tikzcd}
+%   \end{displaymath}
+% \end{lema}
+
+% \begin{proof}
+%   Suponha que tenhamos morfismos $r,\,s: Z \to A$ tais que $f \circ r = f \circ s$.
+%   Nosso objetivo é mostrar que necessariamente temos então $r = s$.
+
+%   Note primeiro que a propriedade universal do pullback garante que $r: Z \to A$ é o único morfismo de seu tipo que faz comutar o diagrama abaixo.
+%   \begin{displaymath}
+%     \begin{tikzcd}
+%       Z
+%       \arrow[rd, dashed, "r" description]
+%       \arrow[rrd, bend left=20, "\alpha \circ r"]
+%       \arrow[rdd, bend right=20, "f \circ r" swap]
+%       \\ & A
+%       \arrow[r, "\alpha"]
+%       \arrow[d, "f" swap]
+%       & X
+%       \arrow[d, "g"]
+%       \\ & B
+%       \arrow[r, "\beta" swap]
+%       & Y
+%     \end{tikzcd}
+%   \end{displaymath}
+%   Afirmamos que $s: Z \to A$ também satisfaz as mesmas condições de comutatividade.
+%   De fato, por um lado a igualdade $f \circ s = f \circ r$ segue direta da hipótese feita sobre os morfismos $r$ e $s$; enquanto por outro temos
+%   \begin{displaymath}
+%     g \circ \alpha \circ s = \beta \circ f \circ s = \beta \circ f \circ r = g \circ \alpha \circ r,
+%   \end{displaymath}
+%   mas $g$ é um monomorfismo por hipótese, logo podemos cancelá-lo na sequência de igualdades acima para concluirmos que $\alpha \circ s = \alpha \circ r$ como desejado.
+
+%   A unicidade sobre $r$ vinda da propriedade universal do pullback implica então $s = r$ como queríamos mostrar.
+% \end{proof}
+
+% \begin{teo}
+%   Sejam $\mathsf{C}$ uma categoria qualquer, $A \in \mathsf{C}$ um objeto qualquer e $A / \mathsf{C}$ a categoria de objetos sob $A$.
+%   \begin{enumerate}
+%   \item Se $\mathsf{C}$ é completa, então $A / \mathsf{C}$ é completa também.
+    
+%   \item Se $\mathsf{C}$ é co-completa, então $A / \mathsf{C}$ é co-completa também.
+%   \end{enumerate}
+% \end{teo}
+
+% \begin{proof}
+%   1. Denote por $\mathcal{E}: A / \mathsf{C} \to \mathsf{C}$ o funtor de esquecimento evidente.
+%   Considere então uma categoria pequena $\mathsf{J}$ e um funtor $F: \mathsf{J} \to A / \mathsf{C}$.
+%   Esse funtor associa a cada $j \in \mathsf{J}$ um par $(F_{j},f_{j})$, onde $F_{j}$ é um objeto de $\mathsf{C}$ e $f_{j}: A to F_{j}$ é um morfismo.
+%   Além disso, dado um morfismo $\alpha: i \to j$ em $\mathsf{J}$ temos um morfismo correspondente $F(\alpha): (F_{i},f_{i}) \to (F_{j},f_{j})$, ou seja, um morfismo $F(\alpha): F_{i} \to F_{j}$ em $\mathsf{C}$ satisfazendo a condição de compatibilidade $F(\alpha) \circ f_{i} = f_{j}$.
+
+%   Considere então o funtor composto $\mathcal{E} \circ F: \mathsf{J} \to \mathsf{C}$.
+%   Sendo $\mathsf{C}$ completa por hipótese, tal funtor admite um limite $L \in \mathsf{C}$ o qual vem equipado com os morfismos estruturais $(p_{j}: L \to F_{j})_{j \in \mathsf{J}}$ que exibem tal limite como um cone terminal sobre o diagrama determinado pelo funtor $\mathcal{E} \circ F$.
+%   Queremos enxergar $L$ como um objeto da categoria $A / \mathsf{C}$, e para isso precisamos de um morfismo do tipo $A \to L$ que obteremos por meio da propriedade universal do limite.
+%   Note que a coleção de morfismos $(f_{j})_{j \in \mathsf{C}}$ determina um cone sobre $\mathcal{E} \circ F$ com vértice em $A$ graças às condições de compatibilidade satisfeitas pelos $f_{j}$.
+%   Ora, como $L$ é um cone terminal, existe um único morfismo $f: A \to L$ satisfazendo as condições $p_{j} \circ f = f_{j}$ para todo $j \in \mathsf{J}$.
+
+%   O par $(L,f)$ determina então um objeto da categoria $A / \mathsf{C}$, e graças às igualdades mencionadas no final do parágrafo anterior, os morfismos $p_{j}: L \to F_{j}$ podem ser vistos como morfismos $p_{j}: (L,f) \to (F_{j},f_{j})$ na categoria $\mathsf{C}$.
+%   Veja que, se $\alpha: i \to j$ é um morfismo em $\mathsf{J}$, como os morfismos $(p_{j})_{j \in \mathsf{J}}$ determinavam um cone sobre $\mathcal{E} \circ F$ e vale que $(\mathcal{E} \circ F)(\alpha) = F(\alpha)$, temos a igualdade $F(\alpha) \circ p_{i} = p_{j}$; portanto a coleção $(p_{j})_{j \in \mathsf{J}}$ define também um cone \emph{sobre o funtor $F$} com vértice em $(L,f)$.
+
+%   Nosso objetivo é mostrar que esse cone é na verdade um cone terminal, o que naturalmente será uma consequência de $L$ determinar um cone terminal sobre o funtor $\mathcal{E} \circ F$.
+%   Suponha que $(p_{j}': (L',f') \to (F_{j},f_{j}))_{j \in \mathsf{J}}$ seja um outro cone sobre $F$ com vértice no objeto $(L',f')$.
+%   Aplicando o funtor de esquecimento $\mathcal{E}$ obtemos então o cone $(p_{j'}: L' \to F_{j})_{j \in \mathsf{J}}$ sobre $\mathcal{E} \circ F$ com vértice em $L'$.
+%   Sendo $L$ o limite deste funtor, existe um morfismo único $\theta: L' \to L$ tal que $p_{j} \circ \theta = p_{j}'$ para todo $j \in \mathsf{J}$.
+%   Note que $\theta$ pode ser visto como um morfismo do tipo $(L',f') \to (L,f)$.
+%   De fato, por construção $f: A \to L$ é o único morfismo de seu tipo a satisfazer a igualdade $p_{j} \circ f = f_{j}$ para todo $j \in \mathsf{J}$, mas usando que os $p_{j}$'s eram morfismos do tipo $(L',f') \to (F_{j},f_{j})$, temos
+%   \begin{displaymath}
+%     p_{j} \circ \theta \circ f' = p_{j}' \circ f' = f_{j},
+%   \end{displaymath}
+%   portanto pela unicidade devemos ter $\theta \circ f' = f$.
+%   Esse raciocínio mostra que eixste um único morfismo do cone $(p_{j}': (L',f') \to (F_{j},f_{j}))_{j \in \mathsf{J}}$ para o cone $(p_{j}: (L,f) \to (F_{j},f_{j}))_{j \in \mathsf{J}}$, ou seja, o objeto $(L,f) \in A / \mathsf{C}$ determina um limite para o funtor $F$.
+% \end{proof}
 
 \end{document}
 
