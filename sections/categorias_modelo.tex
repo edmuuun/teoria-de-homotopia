@@ -1,15 +1,15 @@
-\section{Categorias modelo}
+\section{Categorias de modelos}
 
-\begin{defin}
-  Seja $\mathsf{M}$ uma categoria localmente pequena, completa e co-completa.
-  Uma \textbf{estrutura modelo} em $\mathsf{M}$ consiste de três classes de morfismos $\mathcal{W},\, \mathcal{F},\, \mathcal{C} \subseteq \mathrm{Mor}(\mathsf{M})$ cujos elementos são chamados, respectivamente, \textbf{equivalências fracas}, \textbf{fibrações} e \textbf{cofibrações}, as quais devem satisfazer as seguintes condições:
+\begin{defin}\label{defin:estrutura_de_modelos}
+  Seja $\mathsf{M}$ uma categoria localmente pequena.
+  Uma \textbf{estrutura de modelos} em $\mathsf{M}$ consiste de três classes de morfismos $\mathcal{W},\, \mathcal{C},\, \mathcal{F} \subseteq \mathrm{Mor}(\mathsf{M})$ cujos elementos são chamados, respectivamente, \textbf{equivalências fracas}, \textbf{cofibrações} e \textbf{fibrações}, as quais devem satisfazer os seguintes axiomas:
   \begin{enumerate}
   \item[(M1)] A categoria $\mathsf{M}$ é bicompleta, ou seja, admite todos os limites e colimites indexados por categorias pequenas.
     
   \item[(M2)] (Propriedade 2-de-3) Dados morfismos $f: X \to Y$ e $g: Y \to Z$ em $\mathsf{M}$, se dois dos morfismos do conjunto $\{f,\,g,\, g \circ f\}$ estiverem em $\mathcal{W}$, então o terceiro também deve estar.
     
   \item[(M3)] (Propriedade de retração) Se um morfismo $f: A \to X$ é retração de um outro morfismo $g: B \to Y$, ou seja, se existe um diagrama comutativo como abaixo,
-    \begin{displaymath}
+    \begin{equation}\label{eq:diagrama_axioma_de_retracao}
       \begin{tikzcd}
         A
         \arrow[r]
@@ -27,66 +27,72 @@
         \arrow[r]
         & X
       \end{tikzcd}
-    \end{displaymath}
-    e $g$ pertence a $\mathcal{W}$ (ou a $\mathcal{F}$, ou a $\mathcal{C}$), então $f$ também pertence a $\mathcal{W}$ (ou a $\mathcal{F}$, ou a $\mathcal{C}$, respectivamente).
-    Em suma, as classes $\mathcal{W}$, $\mathcal{F}$ e $\mathcal{C}$ são fechadas por retrações.
+    \end{equation}
+    e $g$ pertence a $\mathcal{W}$ (ou a $\mathcal{C}$, ou a $\mathcal{F}$), então $f$ também pertence a $\mathcal{W}$ (ou a $\mathcal{C}$, ou a $\mathcal{F}$, respectivamente).
+    Em suma, as classes $\mathcal{W}$, $\mathcal{C}$ e $\mathcal{F}$ são fechadas por retrações.
     
   \item[(M4)] (Propriedade de levantamento) Dado um diagrama comutativo como abaixo,
-    \begin{displaymath}
+    \begin{equation}\label{eq:diag_prob_levantamento}
       \begin{tikzcd}
         A
-        \arrow[r]
+        \arrow[r, "\alpha"]
         \arrow[d, "i" swap]
         & X
         \arrow[d, "p"]
         \\ B
-        \arrow[r]
+        \arrow[r, "\beta" swap]
         & Y
       \end{tikzcd}
-    \end{displaymath}
-    onde $i$ é uma cofibração, e $p$ é uma fibração; se um dos dois morfismos $i$ ou $p$ é também uma equivalência fraca, então o diagrama admite um levantamento, ou seja, existe um morfismo $f: B \to X$ que faz comutar o diagrama abaixo.
-    \begin{displaymath}
+    \end{equation}
+    onde $i$ é uma cofibração, e $p$ é uma fibração; se um dos dois morfismos $i$ ou $p$ é também uma equivalência fraca, então o diagrama admite um \emph{levantamento}, ou seja, existe um morfismo diagonal $f: B \to X$ que faz comutar o diagrama abaixo.
+    \begin{equation}\label{eq:diag_solucao_levantamento}
       \begin{tikzcd}
         A
-        \arrow[r]
+        \arrow[r, "\alpha"]
         \arrow[d, "i" swap]
         & X
         \arrow[d, "p"]
         \\ B
-        \arrow[r]
+        \arrow[r, "\beta" swap]
         \arrow[ru, dashed, "f" description]
         & Y
       \end{tikzcd}
-    \end{displaymath}
+    \end{equation}
     
-  \item[(M5)] (Propriedade de fatoração) Qualquer morfismo $f: X \to Y$ em $\mathsf{M}$ pode ser fatorado nas duas formas mostradas abaixo,
-    \begin{displaymath}
+  \item[(M5)] (Propriedade de fatoração) Qualquer morfismo $f: X \to Y$ em $\mathsf{M}$ pode ser na forma mostrada abaixo,
+    \begin{equation}\label{eq:diag_fatoracao_cofib_fib_trivial}
       \begin{tikzcd}
         X
         \arrow[rr, "f"]
         \arrow[rd, "i" swap]
         & & Y
-        \\ & \widehat{X}
+        \\ & Z
         \arrow[ru, "p" swap]
       \end{tikzcd}
-      \qquad
+    \end{equation}
+    onde $i$ é uma cofibração, e $p$ é simultaneamente uma fibração e uma equivalência fraca.
+    Além disso, todo morfismo também pode ser fatorado na forma mostrada abaixo,
+    \begin{equation}\label{eq:diag_fatoracao_cofib_trivial_fib}
       \begin{tikzcd}
         X
         \arrow[rr, "f"]
         \arrow[rd, "j" swap]
-        & &
-        Y
-        \\ & \widetilde{Y}
+        & & Y
+        \\ & Z
         \arrow[ru, "q" swap]
       \end{tikzcd}
-    \end{displaymath}
-    onde $p$ é simultaneamente uma fibração e uma equivalência fraca, enquanto $j$ é simultaneamente uma cofibração e uma equivalência fraca.
+    \end{equation}
+    onde nesse caso $j$ é simultaneamente uma cofibração e uma equivalência, e $q$ é uma fibração.
   \end{enumerate}
 \end{defin}
 
 Vamos introduzir um pouco de terminologia antes de fazermos alguns comentários sobre a definição acima.
-Os morfismos de $\mathsf{M}$ que pertencem à classe $\mathcal{W} \cap \mathcal{F}$ são chamados de \textbf{fibrações triviais} ou \textbf{fibrações acíclicas}, enquanto os morfismos que pertencem à classe $\mathcal{W} \cap \mathcal{C}$ são chamados de \textbf{cofibrações triviais} ou \textbf{cofibrações acíclicas}.
-Usando essa terminologia o axioma de fatoração (M5) pode ser enunciado da seguinte forma: todo morfismo em uma categoria modelo pode ser fatorado como uma cofibração seguido de uma fibração trivial, ou como uma cofibração trivial seguido de uma fibração.
+Os morfismos de $\mathsf{M}$ que pertencem à classe $\mathcal{W} \cap \mathcal{C}$ são chamados de \textbf{cofibrações triviais} ou \textbf{cofibrações acíclicas}, enquanto os morfismos que pertencem à classe $\mathcal{W} \cap \mathcal{F}$ são chamados de \textbf{fibrações triviais} ou \textbf{fibrações acíclicas}.
+Usando essa terminologia o axioma de fatoração (M5) pode ser enunciado da seguinte forma: todo morfismo em uma categoria de modelos pode ser fatorado como uma cofibração seguido de uma fibração trivial e também como uma cofibração trivial seguida de uma fibração.
+
+Um quadrado comutativo tendo uma cofibração na aresta esquerda e uma fibração na aresta direita - como no diagrama \eqref{eq:diag_prob_levantamento} - será chamado de um \textbf{problema de levantamento}.
+Caso um desses dois morfismos seja trivial, usaremos então o termo \textbf{problema de levantamento trivial}.
+Tendo em vista essa terminologia, o axioma de levantamento (M4) pode ser enunciado da seguinte forma: em uma categoria de modelos, todo problema de levantamento trivial admite uma solução.
 
 \begin{obs}\label{obs:axioma_retracao_explicacao}
   Lembremos que, dados objetos $X$ e $Y$ de uma categoria $\mathsf{C}$ qualquer, dizemos que $X$ é um \textbf{retrato} de $Y$ se existem morfismos $s: X \to Y$ e $r: Y \to X$ tais que $r \circ s = \id_{X}$.
@@ -104,7 +110,7 @@ Usando essa terminologia o axioma de fatoração (M5) pode ser enunciado da segu
   Isso nos permite encarar $X$ como um subobjeto de $Y$, e o morfismo $r$ então intuitivamente deforma $Y$ para esse subobjeto, mas de forma a mantê-lo fixado.
   Note que a condição $r \circ s = \id_{X}$ garante também que o morfismo $r$ seja um epimorfismo.
 
-  A noção de retração que aparece no axioma (M3) de uma estrutura modelo enunciado acima pode ser interpretada nesse sentido em uma categoria adequada.
+  A noção de retração que aparece no axioma (M3) de uma estrutura de modelos enunciado acima pode ser interpretada nesse sentido se introduzirmos uma categoria adequada para isso.
   Lembremos que toda categoria $\mathsf{C}$ dá origem a uma categoria de setas $\Arr(\mathsf{C})$.
   Os objetos dessa categorias são precisamente morfismos $f: A \to B$ na categoria incial $\mathsf{C}$, e dados dois tais objetos $f: A \to B$ e $g: X \to Y$, um morfismo do tipo $(f: A \to B) \to (g: X \to Y)$ na categoria de setas $\Arr(\mathsf{C})$ é dado por um par de morfismos $(\alpha: A \to X,\, \beta: B \to Y)$ satisfazendo a igualdade $\beta \circ f = g \circ \alpha$.
   Podemos então visualizar esse morfismo em $\Arr(\mathsf{C})$ na forma de um quadrado comutativo como mostrado abaixo.
@@ -204,7 +210,7 @@ Usando essa terminologia o axioma de fatoração (M5) pode ser enunciado da segu
 \end{obs}
 
 \begin{obs}
-  Quando trabalhamos com categorias modelo, no lugar de dizermos explicitamente que um morfismo é uma equivalência fraca, ou uma cofibração, ou uma fibração, simplesmente adornarmos de alguma forma a seta que representa o morfismo em questão.
+  Quando trabalhamos com categorias de modelos, ao invés de dizermos explicitamente que um morfismo é uma equivalência fraca, uma cofibração, ou uma fibração; é comum indicarmos isso decorando de alguma forma a seta que representa tal morfismo.
   A convenção notacional que seguiremos nesse aspecto é a seguinte:
   \begin{itemize}
   \item uma equivalência fraca será denotada por $\overset{\sim}{\rightarrow}$;
@@ -213,88 +219,12 @@ Usando essa terminologia o axioma de fatoração (M5) pode ser enunciado da segu
     
   \item uma fibração será denotada por $\fib$.
   \end{itemize}
-  Também denotaremos cofibrações ou fibrações trivias por uma combinação dos símbolos acima:
+  Combinando os símbolos acima obtemos outros que utilizaremos para denotar cofibrações triviais ou fibrações triviais:
   \begin{itemize}
   \item uma cofibração trivial será denotada por $\overset{\sim}{\cofib}$;
     
   \item uma fibração trivial será denotada por $\overset{\sim}{\fib}$.
   \end{itemize}
-
-  Seguindo essa convenção notacional, podemos, por exemplo, enunciar o axioma de levantamento (M4) da seguinte forma: em uma categoria modelo, todo quadrado comutativo da forma
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r]
-      \arrow[d, tail, "i" swap, "\sim" sloped]
-      & X
-      \arrow[d, two heads, "p"]
-      \\ B
-      \arrow[r]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  admite um levantamento $f: B \to X$
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r]
-      \arrow[d, tail, "i" swap, "\sim" sloped]
-      & X
-      \arrow[d, two heads, "p"]
-      \\ B
-      \arrow[r]
-      \arrow[ru, dashed, "f" description]
-      & Y,
-    \end{tikzcd}
-  \end{displaymath}
-  e todo quadrado comutativo da forma
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r]
-      \arrow[d, "i" swap]
-      & X
-      \arrow[d, two heads, "\sim" {swap, sloped}, "p"]
-      \\ B
-      \arrow[r]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  admite um levantamento $f: B \to X$
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r]
-      \arrow[d, "i" swap]
-      & X
-      \arrow[d, two heads, "\sim" {swap, sloped}, "p"]
-      \\ B
-      \arrow[r]
-      \arrow[ru, dashed, "f" description]
-      & Y.
-    \end{tikzcd}
-  \end{displaymath}
-
-  Usando a mesma convenção, o axioma de fatoração (M5) pode ser enunciado da seguinte maneira: em uma categoria modelo, todo morfismo $f: X \to Y$ possui duas fotarações como mostrado abaixo.
-  \begin{displaymath}
-    \begin{tikzcd}
-      X
-      \arrow[rr, "f"]
-      \arrow[rd, tail, "i" swap]
-      & & Y
-      \\ & \widehat{X}
-      \arrow[ru, two heads, "p" {swap}, "\sim" {sloped}]
-    \end{tikzcd}
-    \qquad
-    \begin{tikzcd}
-      X
-      \arrow[rr, "f"]
-      \arrow[rd, tail, "j" {swap}, "\sim" {sloped}]
-      & & Y
-      \\ & \widetilde{Y}
-      \arrow[ru, two heads, "q" swap]
-    \end{tikzcd}
-  \end{displaymath}
 \end{obs}
 
 \subsection{Fatorações em categorias}
