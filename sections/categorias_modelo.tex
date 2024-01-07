@@ -229,14 +229,14 @@ Tendo em vista essa terminologia, o axioma de levantamento (M4) pode ser enuncia
 
 \subsection{Fatorações em categorias}
 
-Antes de investigarmos mais a fundo as propriedades de categorias modelo, vamos investigar parte de sua estrutura sob uma perspectiva mais geral.
-O ponto central da discussão é que a definição de uma categoria modelo pode ser encapsulada totalmente pela existência de fatorações em cofibrações e fibrações que estão relacionadas por condições de levantamento.
+Uma parte essencial na definição de uma estrutura de modelos é a existência de fatorações de morfismos quaisquer em termos de cofibrações e fibrações satisfazendo condições de trivialidade, sendo que estas classes de morfismos se relacionam por propriedades de levantamento.
+Podemos reformular isso em um contexto categórico mais amplo que nos permitirá deduzir algumas das propriedades básicas de categorias de modelos de forma mais transparente.
 
-Inicialmente, definimos a noção de levantamento de forma mais geral.
+Inicialmente, analisamos as propriedades gerais de morfismos definidos em termos de propriedades de levantamento.
 
-\begin{defin}
-  Sejam $\mathsf{C}$ uma categoria e $\mathcal{A} \subseteq \Mor(\mathsf{C})$ uma classe qualquer de morfismos.
-  Dizemos que um morfismo $f: A \to B$ em $\mathsf{C}$ \textbf{satisfaz a propriedade de levantamento à esquerda com relação a $\mathcal{A}$} se todo quadrado comutativo como abaixo,
+\begin{defin}\label{defin:morfismo_K-proj}
+  Sejam $\mathsf{C}$ uma categoria e $J \subseteq \Mor(\mathsf{C})$ uma classe qualquer de morfismos.
+  Dizemos que um morfismo $f: A \to B$ em $\mathsf{C}$ \textbf{satisfaz a propriedade de levantamento à esquerda com relação a $J$} se todo quadrado comutativo como abaixo,
   \begin{displaymath}
     \begin{tikzcd}
       A
@@ -249,7 +249,7 @@ Inicialmente, definimos a noção de levantamento de forma mais geral.
       & Y
     \end{tikzcd}
   \end{displaymath}
-  onde $p: X \to Y$ pertence a $\mathcal{A}$, admite um levantamento, ou seja, existe um morfismo $h: B \to X$ que faz comutar o diagrama abaixo.
+  onde $p: X \to Y$ pertence a $J$, admite um levantamento, ou seja, existe um morfismo diagoanl $h: B \to X$ que faz comutar o diagrama abaixo.
   \begin{displaymath}
     \begin{tikzcd}
       A
@@ -263,37 +263,175 @@ Inicialmente, definimos a noção de levantamento de forma mais geral.
       & Y
     \end{tikzcd}
   \end{displaymath}
-
-  Dualmente, dizemos que um morfismo $g: X \to Y$ \textbf{satisfaz a propriedade de levantamento à direita com relação a $\mathcal{A}$} se todo quadrado comutativo como abaixo,
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[d, "i" swap]
-      \arrow[r]
-      & X
-      \arrow[d, "g"]
-      \\ B
-      \arrow[r]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  onde $i: A \to B$ pertence a $\mathcal{A}$, admite um levantamento $h: B \to X$ como mostrado abaixo.
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r]
-      \arrow[d, "i" swap]
-      & X
-      \arrow[d, "g"]
-      \\ B
-      \arrow[r]
-      \arrow[ru, dashed, "h" description]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
+  Dizemos também nesse caso que $f$ é um morfismo \textbf{$J$-projetivo}.
 \end{defin}
 
-Tendo a definição acima em mãos, podemos formular uma noção categórica de fatoração geral o suficiente para englobar a situação que aparece no estudo de categorias modelo.
+O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-projetivos.
+
+\begin{prop}\label{prop:props_morfismos_proj}
+  Sejam $\mathsf{C}$ e $K \subseteq \Mor(\mathsf{C})$ uma classe de morfismos qualquer.
+  \begin{enumerate}
+    \item[(i)] Todo isomorfismo de $\mathsf{C}$ é um morfismo $K$-projetivo.
+    
+    \item[(ii)] Se $f_1: A \to B$ e $f_2: B \to C$ são morfismos $K$-projetivos, então o morfismo composto $f_2 \circ f_1: A \to C$ é também $K$-projetivo.
+
+    \item[(iii)] Se $f_2: A_2 \to B_2$ é um retrato de $f_1: A_1 \to B_1$, e $f_1$ é um morfismo $K$-projetivo, então $f_2$ é também $K$-projetivo.
+    
+    \item[(iv)] Se o quadrado comutativo indicado abaixo é um pushout,
+    \begin{displaymath}
+      \begin{tikzcd}
+        A
+        \arrow[r, "\alpha"]
+        \arrow[d, "f_1" swap]
+        & X
+        \arrow[d, "f_2"]
+        \\ B
+        \arrow[r, "\beta" swap]
+        & Y
+      \end{tikzcd}
+    \end{displaymath}
+    e $f_1$ é $K$-projetivo, então $f_2$ também é $K$-projetivo.
+
+    \item[(v)] Se $f_1: X_1 \to Y_1$ e $f_2: X_2 \to Y_2$ são morfismos $K$-projetivos, e existem os coprodutos $X_1 \sqcup X_2$ e $Y_1 \sqcup Y_2$, então o morfismo $f_1 \sqcup f_2: X_1 \sqcup X_2 \to Y_1 \sqcup Y_2$ é $K$-projetivo.
+  \end{enumerate}
+  Em suma, a classe $K\mathsf{Proj} \subseteq \Mor(\mathsf{C})$ formada por todos os morfismos $K$-projetivos contém todos os isomorfismos e é fechada por composições, retratos, pushouts, e coprodutos.
+\end{prop}
+
+\begin{proof}
+  (i) Suponha que $f: A \to B$ seja um isomorfismo e considere o quadrado comutativo abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  onde $g$ é um morfismo qualquer pertencente à classe $K$.
+  Sendo $f$ um isomorfismo, existe o morfismo inverso $f^{-1}: B \to Y$.
+  Afirmamos então que $\alpha \circ f^{-1}: B \to X$ faz comutar o diagrama mostrado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      \arrow[ru, dashed, "\alpha \circ f^{-1}" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  A comutatividade do triângulo superior é imediata, e a comutatividade do quadrado inferior segue da sequência de igualdades:
+  \begin{align*}
+    g \circ \alpha \circ f^{-1}
+    & = \beta \circ f \circ f^{-1} \\
+    & = \beta \circ \id_B \\
+    & = \beta.
+  \end{align*}
+
+  \smallskip
+  (ii) Considere um problema de levantamento como mostrado abaixo,
+  \begin{equation}\label{eq:comp_K-proj_diag_1}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f_2 \circ f_1" swap]
+      & X
+      \arrow[d, "g"]
+      \\ C
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{equation}
+  onde $g$ é um morfismo qualquer pertence à classe $K$.
+  Nosso objetivo é obter uma solução para esse problema de levantamento.
+
+  O problema acima dá origem ao problema de levantamento indicado abaixo,
+  \begin{equation*}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f_1" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B
+      \arrow[r, "\beta \circ f_2" swap]
+      & Y
+    \end{tikzcd}
+  \end{equation*}
+  e a $K$-projetividade de $f_1$ nos permite obter um morfismo $\varphi: B \to X$ resolvendo esse problema conforme indicado abaixo.
+  \begin{equation}\label{eq:comp_K-proj_diag_3}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f_1" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B
+      \arrow[r, "\beta \circ f_2" swap]
+      \arrow[ru, dashed, "\varphi" description]
+      & Y
+    \end{tikzcd}
+  \end{equation}
+
+  A comutatividade do diagrama acima dá origem ao problema de levantamento abaixo,
+  \begin{equation*}
+    \begin{tikzcd}
+      B
+      \arrow[r, "\varphi"]
+      \arrow[d, "f_2" swap]
+      &   X
+      \arrow[d, "g"]
+      \\ C
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{equation*}
+  e a $K$-projetividade de $f_2$ nos permite obter agora um morfismo $\psi: C \to X$ fazendo comutar o diagrama abaixo.
+  \begin{equation}\label{eq:comp_K-proj_diag_5}
+    \begin{tikzcd}
+      B
+      \arrow[r, "\varphi"]
+      \arrow[d, "f_2" swap]
+      &   X
+      \arrow[d, "g"]
+      \\ C
+      \arrow[r, "\beta" swap]
+      \arrow[ru, dashed, "\psi" description]
+      & Y
+    \end{tikzcd}
+  \end{equation}
+
+  Afirmamos que $\psi$ é a solução procurada para o problema de levantamento \eqref{eq:comp_K-proj_diag_1}, ou seja, afirmamos que o diagrama indicado abaixo é comutativo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "f_2 \circ f_1" swap]
+      & X
+      \arrow[d, "g"]
+      \\ C
+      \arrow[r, "\beta" swap]
+      \arrow[ru, dashed, "\psi" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Note que a comutatividade do triângulo inferior segue imediatamente da comutatividade do diagrama \eqref{eq:comp_K-proj_diag_5}.
+  Já a comutatividade do triângulo inferior segue da seguinte sequência de igualdades:
+  \begin{align*}
+    \psi \circ f_2 \circ f_1
+    & = \varphi \circ f_1
+    \tag{pela comutatividade de \eqref{eq:comp_K-proj_diag_5}} \\
+    & = \alpha.
+    \tag{pela comutatividade de \eqref{eq:comp_K-proj_diag_3}}
+  \end{align*}
+\end{proof}
 
 \begin{defin}
   Um \textbf{sistema de fatoração fraco} em uma categoria $\mathsf{C}$ consiste de um par $(\mathcal{L},\mathcal{R})$, onde $\mathcal{L},\, \mathcal{R} \subseteq \Mor(\mathsf{C})$ são duas classes de morfismos, satisfazendo as seguintes condições:
