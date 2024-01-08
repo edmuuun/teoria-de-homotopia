@@ -227,15 +227,16 @@ Tendo em vista essa terminologia, o axioma de levantamento (M4) pode ser enuncia
   \end{itemize}
 \end{obs}
 
-\subsection{Fatorações em categorias}
+\subsection{Morfismos projetivos e injetivos}
 
 Uma parte essencial na definição de uma estrutura de modelos é a existência de fatorações de morfismos quaisquer em termos de cofibrações e fibrações satisfazendo condições de trivialidade, sendo que estas classes de morfismos se relacionam por propriedades de levantamento.
 Podemos reformular isso em um contexto categórico mais amplo que nos permitirá deduzir algumas das propriedades básicas de categorias de modelos de forma mais transparente.
+O conteúdo dessa seção é baseado principalmente em \cite{nlab:injective_or_projective_morphism}.
 
 Inicialmente, analisamos as propriedades gerais de morfismos definidos em termos de propriedades de levantamento.
 
 \begin{defin}\label{defin:morfismo_K-proj}
-  Sejam $\mathsf{C}$ uma categoria e $J \subseteq \Mor(\mathsf{C})$ uma classe qualquer de morfismos.
+  Sejam $\mathsf{C}$ uma categoria e $K \subseteq \Mor(\mathsf{C})$ uma classe qualquer de morfismos.
   Dizemos que um morfismo $f: A \to B$ em $\mathsf{C}$ \textbf{satisfaz a propriedade de levantamento à esquerda com relação a $J$} se todo quadrado comutativo como abaixo,
   \begin{displaymath}
     \begin{tikzcd}
@@ -249,7 +250,7 @@ Inicialmente, analisamos as propriedades gerais de morfismos definidos em termos
       & Y
     \end{tikzcd}
   \end{displaymath}
-  onde $p: X \to Y$ pertence a $J$, admite um levantamento, ou seja, existe um morfismo diagoanl $h: B \to X$ que faz comutar o diagrama abaixo.
+  onde $p: X \to Y$ pertence a $K$, admite um levantamento, ou seja, existe um morfismo diagoanl $h: B \to X$ que faz comutar o diagrama abaixo.
   \begin{displaymath}
     \begin{tikzcd}
       A
@@ -263,7 +264,7 @@ Inicialmente, analisamos as propriedades gerais de morfismos definidos em termos
       & Y
     \end{tikzcd}
   \end{displaymath}
-  Dizemos também nesse caso que $f$ é um morfismo \textbf{$J$-projetivo}.
+  Dizemos também nesse caso que $f$ é um morfismo \textbf{$K$-projetivo}.
 \end{defin}
 
 O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-projetivos.
@@ -280,14 +281,14 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
     \item[(iv)] Se o quadrado comutativo indicado abaixo é um pushout,
     \begin{displaymath}
       \begin{tikzcd}
-        A
+        A_1
         \arrow[r, "\alpha"]
         \arrow[d, "f_1" swap]
-        & X
+        & A_2
         \arrow[d, "f_2"]
-        \\ B
+        \\ B_1
         \arrow[r, "\beta" swap]
-        & Y
+        & B_2
       \end{tikzcd}
     \end{displaymath}
     e $f_1$ é $K$-projetivo, então $f_2$ também é $K$-projetivo.
@@ -427,11 +428,296 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
   \begin{align*}
     \psi \circ f_2 \circ f_1
     & = \varphi \circ f_1
-    \tag{pela comutatividade de \eqref{eq:comp_K-proj_diag_5}} \\
+    \tag{por \eqref{eq:comp_K-proj_diag_5}} \\
     & = \alpha.
-    \tag{pela comutatividade de \eqref{eq:comp_K-proj_diag_3}}
+    \tag{por \eqref{eq:comp_K-proj_diag_3}}
+  \end{align*}
+
+  \smallskip
+  (iii) A hipótese de retração garante a existência de um diagrama comutativo como mostrado abaixo.
+  \begin{equation}\label{eq:retracao_K-proj_diag_1}
+    \begin{tikzcd}
+      A_2
+      \arrow[r, "s_1"]
+      \arrow[d, "f_2" swap]
+      \arrow[rr, bend left=45, "\id_{A_2}"]
+      & A_1
+      \arrow[r, "r_1"]
+      \arrow[d, "f_1"]
+      & A_2
+      \arrow[d, "f_2"]
+      \\ B_2
+      \arrow[r, "s_2" swap]
+      \arrow[rr, bend right=45, "\id_{B_2}" swap]
+      & B_1
+      \arrow[r, "r_2" swap]
+      & B_2
+    \end{tikzcd}
+  \end{equation}
+
+  Considere agora um problema de levantamento como mostrado abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      A_2
+      \arrow[r, "\alpha"]
+      \arrow[d, "f_2" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B_2
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  onde $g$ é um morfismo qualquer pertencente à classe $K$.
+  Usando este problema e os morfismos do diagrama de retração obtemos um outro problema de levantamento indicado abaixo, o qual admite uma solução $\varphi: B_1 \to X$ graças à projetividade de $f_1$.
+  \begin{equation}\label{eq:retracao_K-proj_diag_3}
+    \begin{tikzcd}
+      A_1
+      \arrow[r, "\alpha \circ r_1"]
+      \arrow[d, "f_1" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B_1
+      \arrow[r, "\beta \circ r_2" swap]
+      \arrow[ru, dashed, "\varphi" description]
+      & Y
+    \end{tikzcd}
+  \end{equation}
+
+  Afirmamos que o morfismo composto $\varphi \circ s_2: B_2 \to X$ é a solução procurada para o problema de levantamento considerado inicialmente, ou seja, que ele faz comutar o diagrama abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A_2
+      \arrow[r, "\alpha"]
+      \arrow[d, "f_2" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B_2
+      \arrow[r, "\beta" swap]
+      \arrow[ru, dashed, "\varphi \circ s_2" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  De fato, por um lado temos a sequência de igualdades
+  \begin{align*}
+    \varphi \circ s_2 \circ f_2
+    & = \varphi \circ f_1 \circ s_1
+    \tag{por \eqref{eq:retracao_K-proj_diag_1}} \\
+    & = \alpha \circ r_1 \circ s_1
+    \tag{por \eqref{eq:retracao_K-proj_diag_3}} \\
+    & = \alpha \circ \id_{A_2}
+    \tag{por \eqref{eq:retracao_K-proj_diag_1}} \\
+    & = \alpha;
+  \end{align*}
+  e por outro temos a sequência de igualdades
+  \begin{align*}
+    g \circ \varphi \circ s_2
+    & = \beta \circ r_2 \circ s_2
+    \tag{por \eqref{eq:retracao_K-proj_diag_3}} \\
+    & = \beta \circ \id_{B_2}
+    \tag{por \eqref{eq:retracao_K-proj_diag_1}} \\
+    & = \beta.
+  \end{align*}
+
+  \smallskip
+  (iv) Considere um problema de levantamento como abaixo,
+  \begin{equation}\label{eq:pushout_K-proj_diag_1}
+    \begin{tikzcd}
+      A_2
+      \arrow[r, "\gamma"]
+      \arrow[d, "f_2" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B_2
+      \arrow[r, "\delta" swap]
+      & Y
+    \end{tikzcd}
+  \end{equation}
+  onde $g$ é um morfismo qualquer pertencente à classe $K$.
+
+  Usando a comutavidade do quadrado acima obtemos o problema de levantamento indicado abaixo, o qual admite uma solução $\varphi: B_1 \to X$ graças à $K$-projetividade do morfismo $f_1$.
+  \begin{equation}\label{eq:pushout_K-proj_diag_2}
+    \begin{tikzcd}
+      A_1
+      \arrow[r, "\gamma \circ \alpha"]
+      \arrow[d, "f_1" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B_1
+      \arrow[r, "\delta \circ \beta" swap]
+      \arrow[ru, dashed, "\varphi" description]
+      & Y
+    \end{tikzcd}
+  \end{equation}
+
+  A comutatividade do triângulo superior no diagrama anterior diz precisamente que a ``camada externa'' do diagrama abaixo é comutativa, portanto a propriedade universal do pushout garante a existência de um único morfismo $\psi: B_2 \to X$ fazendo comutar o diagrama todo.
+  \begin{equation}\label{eq:pushout_K-proj_diag_3}
+    \begin{tikzcd}
+      A_1
+      \arrow[r, "\alpha"]
+      \arrow[d, "f_1" swap]
+      & A_2
+      \arrow[d, "f_2"]
+      \arrow[rdd, bend left=25, "\gamma"]
+      \\ B_1
+      \arrow[r, "\beta" swap]
+      \arrow[rrd, bend right=25, "\varphi" swap]
+      & B_2
+      \arrow[rd, dashed, "\psi" description]
+      \\ & & X
+    \end{tikzcd}
+  \end{equation}
+
+  Vamos mostrar que $\psi$ é a solução procurada para o problema de levantamento \eqref{eq:pushout_K-proj_diag_1} considerado inicialmente.
+  Veja inicialmente que a igualdade
+  \begin{displaymath}
+    \psi \circ f_2 = \gamma
+  \end{displaymath}
+  segue imediatamente da comutatividade de \eqref{eq:pushout_K-proj_diag_3}.
+  A igualdade $g \circ \psi = \delta$ é um pouco mais sutil.
+  Note primeiro que $\delta$ faz comutar o diagrama abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      A_1
+      \arrow[r, "\alpha"]
+      \arrow[d, "f_1" swap]
+      & A_2
+      \arrow[d, "f_2"]
+      \arrow[rdd, bend left=25, "g \circ \gamma"]
+      \\ B_1
+      \arrow[r, "\beta" swap]
+      \arrow[rrd, bend right=25, "\delta \circ \beta" swap]
+      & B_2
+      \arrow[rd, dashed, "\delta" description]
+      \\ & & Y
+    \end{tikzcd}
+  \end{displaymath}
+  portanto pela propriedade universal do pushout sabemos que $\delta$ é na verdade o \emph{único} morfismo do tipo $B_2 \to Y$ que faz o diagrama acima comutar.
+  Mas note que $g \circ \psi$ satisfaz as mesmas condições de comutatividade, já que por um lado
+  \begin{displaymath}
+    g \circ \psi \circ f_2 = g \circ \gamma
+  \end{displaymath}
+  graças à comutatividade de \eqref{eq:pushout_K-proj_diag_3}, e por outro
+  \begin{align*}
+    g \circ \psi \circ \beta
+    & = g \circ \varphi
+    \tag{por \eqref{eq:pushout_K-proj_diag_3}} \\
+    & = \delta \circ \beta;
+    \tag{por \eqref{eq:pushout_K-proj_diag_2}}
+  \end{align*}
+  e a igualdade desejada $g \circ \psi = \delta$ segue então da unicidade mencionada acima.
+
+  \smallskip
+  (v) Considere o problema de levantamento indicado abaixo,
+  \begin{equation}\label{eq:coproduto_proj_diag_1}
+    \begin{tikzcd}
+      A_1 \sqcup A_2
+      \arrow[r, "\alpha"]
+      \arrow[d, "f_1 \sqcup f_2" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B_1 \sqcup B_2
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{equation}
+  onde $g$ é um morfismo qualquer pertencente à classe $K$.
+  Considere também as injeções canônicas $i_1: A_1 \to A_1 \sqcup A_2$, $i_2: A_2 \to A_1 \sqcup A_2$, $j_1: B_1 \to B_1 \sqcup B_2$ e $j_2: B_2 \to B_1 \sqcup B_2$ nos respectivos coprodutos.
+
+  A comutatividade do quadrado acima nos permite obter o problema de levantamento indicado abaixo, o qual admite uma solução $\varphi: B_1 \to X$ graças à projetividade do morfismo $f_1$.
+  \begin{equation}\label{eq:coproduto_proj_diag_2}
+    \begin{tikzcd}
+      A_1
+      \arrow[r, "\alpha \circ i_1"]
+      \arrow[d, "f_1" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B_1
+      \arrow[r, "\beta \circ j_1" swap]
+      \arrow[ru, dashed, "\varphi" description]
+      & Y
+    \end{tikzcd}
+  \end{equation}
+  Analogamente, temos também o outro problema de levantamento indicado abaixo, o qual admite uma solução $\psi: B_2 \to X$ graças à projetividade de $f_2$.
+  \begin{equation}\label{eq:coproduto_proj_diag_3}
+    \begin{tikzcd}
+      A_2
+      \arrow[r, "\alpha \circ i_2"]
+      \arrow[d, "f_2" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B_2
+      \arrow[r, "\beta \circ j_2" swap]
+      \arrow[ru, dashed, "\psi" description]
+      & Y
+    \end{tikzcd}
+  \end{equation}
+
+  A propriedade universal do coproduto dá origem ao morfismo $\langle \varphi,\psi \rangle: B_1 \sqcup B_2 \to X$ caracterizado unicamente por satisfazer as igualdades
+  \begin{displaymath}
+    \langle \varphi,\psi \rangle \circ j_1 = \varphi \quad \text{e} \quad \langle \varphi,\psi \rangle \circ j_2 = \psi.
+  \end{displaymath}
+  Afirmamos que este morfismo é a solução para o problema de levantamento \eqref{eq:coproduto_proj_diag_1} considerado inicialmente, ou seja, que ele faz comutar o diagrama abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A_1 \sqcup A_2
+      \arrow[r, "\alpha"]
+      \arrow[d, "f_1 \sqcup f_2" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B_1 \sqcup B_2
+      \arrow[r, "\beta" swap]
+      \arrow[ru, dashed, "{\langle \varphi,\psi \rangle}" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Graças à propriedade universal do coproduto, a comutatividade do triângulo superior é equivalente às duas igualdades abaixo
+  \begin{displaymath}
+    \begin{cases}
+      \langle \varphi,\psi \rangle \circ f_1 \sqcup f_2 \circ i_1 = \alpha \circ i_1, \\
+      \langle \varphi,\psi \rangle \circ f_1 \sqcup f_2 \circ i_2 = \alpha \circ i_2.
+    \end{cases}
+  \end{displaymath}
+  No primeiro caso temos
+  \begin{align*}
+    \langle \varphi,\psi \rangle \circ f_1 \sqcup f_2 \circ i_1
+    & = \langle \varphi,\psi \rangle \circ j_1 \circ f_1 \\
+    & = \varphi \circ f_1 \\
+    & = \alpha \circ i_1,
+    \tag{por \eqref{eq:coproduto_proj_diag_2}}
+  \end{align*}
+  e no segundo temos
+  \begin{align*}
+    \langle \varphi,\psi \rangle \circ f_1 \sqcup f_2 \circ i_2
+    & = \langle \varphi,\psi \rangle \circ j_2 \circ f_2 \\
+    & = \psi \circ f_2 \\
+    & = \alpha \circ i_2.
+    \tag{por \eqref{eq:coproduto_proj_diag_3}}
+  \end{align*}
+  Já a comutatividade do triângulo inferior é equivalente às igualdades
+  \begin{displaymath}
+    \begin{cases}
+      g \circ \langle \varphi,\psi \rangle \circ j_1 = \beta \circ j_1, \\
+      g \circ \langle \varphi,\psi \rangle \circ j_2 = \beta \circ j_2.
+    \end{cases}
+  \end{displaymath}
+  A primeira dessas igualdades é válida pois
+  \begin{align*}
+    g \circ \langle \varphi,\psi \rangle \circ j_1
+    & = g \circ \varphi \\
+    & = \beta \circ j_1,
+    \tag{por \eqref{eq:coproduto_proj_diag_2}}
+  \end{align*}
+  e a segunda igualdade também é válida pois
+  \begin{align*}
+    g \circ \langle \varphi,\psi \rangle \circ j_2
+    & = g \circ \psi \\
+    & = \beta \circ j_2.
+    \tag{por \eqref{eq:coproduto_proj_diag_3}}
   \end{align*}
 \end{proof}
+
+\subsection{Fatorações em categorias}
 
 \begin{defin}
   Um \textbf{sistema de fatoração fraco} em uma categoria $\mathsf{C}$ consiste de um par $(\mathcal{L},\mathcal{R})$, onde $\mathcal{L},\, \mathcal{R} \subseteq \Mor(\mathsf{C})$ são duas classes de morfismos, satisfazendo as seguintes condições:
