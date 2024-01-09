@@ -235,7 +235,7 @@ O conteúdo dessa seção é baseado principalmente em \cite{nlab:injective_or_p
 
 Inicialmente, analisamos as propriedades gerais de morfismos definidos em termos de propriedades de levantamento.
 
-\begin{defin}\label{defin:morfismo_K-proj}
+\begin{defin}\label{defin:morfismo_proj}
   Sejam $\mathsf{C}$ uma categoria e $K \subseteq \Mor(\mathsf{C})$ uma classe qualquer de morfismos.
   Dizemos que um morfismo $f: A \to B$ em $\mathsf{C}$ \textbf{satisfaz a propriedade de levantamento à esquerda com relação a $J$} se todo quadrado comutativo como abaixo,
   \begin{displaymath}
@@ -266,6 +266,68 @@ Inicialmente, analisamos as propriedades gerais de morfismos definidos em termos
   \end{displaymath}
   Dizemos também nesse caso que $f$ é um morfismo \textbf{$K$-projetivo}.
 \end{defin}
+
+\begin{exem}\label{exem:cofibs_sao_morfismos_proj}
+  Os principais exemplos de morfismos projetivos nos quais estaremos interessados vêm da teoria de categorias de modelos.
+  Segue diretamente do axioma de levantamento (M4) na \cref{defin:estrutura_de_modelos} que toda cofibração em uma categoria de modelos é um morfismo projetivo com relação à classe de fibrações triviais.
+  Veremos na próxima seção que isso na verdade caracteriza as cofibrações em uma estrutura de modelos.
+  Analogamente, o axioma (M4) também diz que toda cofibração trivial é projetiva com relação à classe de fibrações, e também veremos logo mais que essa propriedade de projetividade caracteriza as cofibrações triviais.
+\end{exem}
+
+\begin{exem}\label{exem:morfismo_zero_proj_sse_modulo_proj}
+  Seja $R$ um anel e considere a categoria $R\mathsf{Mod}$ de $R$-módulos e homomorfismos de $R$-módulos.
+  Considere também a classe $\mathrm{Epi} \subseteq \Mor(R\mathsf{Mod})$ formada por todos os epimorfismos de $R$-módulos.
+  Dado um $R$-módulo $M$ qualquer, se $\mathbf{0}$ denota o $R$-módulo trivial, afirmamos que o morfismo trivial $0_M: \mathbf{0} \to M$ é projetivo com relação à classe $\mathrm{Epi}$ se, e somente se, $M$ é um $R$-módulo projetivo.
+
+  Suponha inicialmente que $M$ seja um $R$-módulo projetivo, e considere o problema de levantamento indicado abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      \mathbf{0}
+      \arrow[r, "0_A"]
+      \arrow[d, "0_M" swap]
+      & A
+      \arrow[d, "p"]
+      \\ M
+      \arrow[r, "f" swap]
+      & B
+    \end{tikzcd}
+  \end{displaymath}
+  onde $p: A \to B$ é um epimorfismo de $R$-módulos.
+  Graças à projetividade de $M$, o morfismo $f$ pode ser levantado através do epimorfismo $p$, ou seja, existe um morfismo $F: M \to A$ tal que $p \circ F = f$.
+  Ora, como também vale a igualdade $F \circ 0_M = 0_A$, temos o diagrama comutativo abaixo;
+  \begin{displaymath}
+    \begin{tikzcd}
+      \mathbf{0}
+      \arrow[r, "0_A"]
+      \arrow[d, "0_M" swap]
+      & A
+      \arrow[d, "p"]
+      \\ M
+      \arrow[r, "f" swap]
+      \arrow[ru, dashed, "F" description]
+      & B
+    \end{tikzcd}
+  \end{displaymath}
+  mostrando que o problema de levantamento em questão possui uma solução e que, portanto, o morfismo $0_M$ é projetivo.
+
+  Reciprocamente, suponha que o morfismo $0_M$ seja projetivo.
+  A fim de mostrarmos que o $R$-módulo $M$ é projetivo, sejam $p: A \to B$ um epimorfismo de $R$-módulos, e $f: M \to B$ um morfismo qualquer.
+  Como as composições $p \circ 0_A$ e $f \circ 0_M$ são ambas iguais ao morfismo trivial $0_B: \mathbf{0} \to B$, temos o problema de levantamento indicado abaixo, o qual admite uma solução $F: M \to A$ graças à projetividade de $0_M$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      \mathbf{0}
+      \arrow[r, "0_A"]
+      \arrow[d, "0_M" swap]
+      & A
+      \arrow[d, "p"]
+      \\ M
+      \arrow[r, "f" swap]
+      \arrow[ru, dashed, "F" description]
+      & B
+    \end{tikzcd}
+  \end{displaymath}
+  Note então que pela comutatividade temos $p \circ F = f$, ou  seja, $F$ é o levantamento procurado para o morfismo $f$; mostrando assim a projetividade de $M$.
+\end{exem}
 
 O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-projetivos.
 
