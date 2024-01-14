@@ -10,29 +10,29 @@ Inicialmente, analisamos as propriedades gerais de morfismos definidos em termos
 
 \begin{defin}\label{defin:morfismo_proj}
   Sejam $\mathsf{C}$ uma categoria e $K \subseteq \Mor(\mathsf{C})$ uma classe qualquer de morfismos.
-  Dizemos que um morfismo $f: A \to B$ em $\mathsf{C}$ \textbf{satisfaz a propriedade de levantamento à esquerda com relação a $J$} se todo quadrado comutativo como abaixo,
+  Dizemos que um morfismo $f: A \to B$ em $\mathsf{C}$ \textbf{satisfaz a propriedade de levantamento à esquerda com relação a $K$} se todo quadrado comutativo como abaixo,
   \begin{displaymath}
     \begin{tikzcd}
       A
-      \arrow[r]
+      \arrow[r, "\alpha"]
       \arrow[d, "f" swap]
       & X
       \arrow[d, "p"]
       \\ B
-      \arrow[r]
+      \arrow[r, "\beta" swap]
       & Y
     \end{tikzcd}
   \end{displaymath}
-  onde $p: X \to Y$ pertence a $K$, admite um levantamento, ou seja, existe um morfismo diagoanl $h: B \to X$ que faz comutar o diagrama abaixo.
+  onde $p: X \to Y$ pertence a $K$, admite um levantamento, ou seja, existe um morfismo diagonal $\varphi: B \to X$ que faz comutar o diagrama abaixo.
   \begin{displaymath}
     \begin{tikzcd}
       A
-      \arrow[r]
+      \arrow[r, "\alpha"]
       \arrow[d, "f" swap]
       & X
       \arrow[d, "p"]
       \\ B
-      \arrow[r]
+      \arrow[r, "\beta" swap]
       \arrow[ru, dashed, "h" description]
       & Y
     \end{tikzcd}
@@ -141,13 +141,13 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\alpha"]
       \arrow[d, "f" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ B
       \arrow[r, "\beta" swap]
       & Y
     \end{tikzcd}
   \end{displaymath}
-  onde $g$ é um morfismo qualquer pertencente à classe $K$.
+  onde $p$ é um morfismo qualquer pertencente à classe $K$.
   Sendo $f$ um isomorfismo, existe o morfismo inverso $f^{-1}: B \to Y$.
   Afirmamos então que $\alpha \circ f^{-1}: B \to X$ faz comutar o diagrama mostrado abaixo.
   \begin{displaymath}
@@ -156,7 +156,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\alpha"]
       \arrow[d, "f" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ B
       \arrow[r, "\beta" swap]
       \arrow[ru, dashed, "\alpha \circ f^{-1}" description]
@@ -165,7 +165,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
   \end{displaymath}
   A comutatividade do triângulo superior é imediata, e a comutatividade do quadrado inferior segue da sequência de igualdades:
   \begin{align*}
-    g \circ \alpha \circ f^{-1}
+    p \circ \alpha \circ f^{-1}
     & = \beta \circ f \circ f^{-1} \\
     & = \beta \circ \id_B \\
     & = \beta.
@@ -179,13 +179,13 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\alpha"]
       \arrow[d, "f_2 \circ f_1" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ C
       \arrow[r, "\beta" swap]
       & Y
     \end{tikzcd}
   \end{equation}
-  onde $g$ é um morfismo qualquer pertence à classe $K$.
+  onde $p$ é um morfismo qualquer pertence à classe $K$.
   Nosso objetivo é obter uma solução para esse problema de levantamento.
 
   O problema acima dá origem ao problema de levantamento indicado abaixo,
@@ -195,7 +195,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\alpha"]
       \arrow[d, "f_1" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ B
       \arrow[r, "\beta \circ f_2" swap]
       & Y
@@ -208,7 +208,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\alpha"]
       \arrow[d, "f_1" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ B
       \arrow[r, "\beta \circ f_2" swap]
       \arrow[ru, dashed, "\varphi" description]
@@ -223,7 +223,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\varphi"]
       \arrow[d, "f_2" swap]
       &   X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ C
       \arrow[r, "\beta" swap]
       & Y
@@ -236,7 +236,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\varphi"]
       \arrow[d, "f_2" swap]
       &   X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ C
       \arrow[r, "\beta" swap]
       \arrow[ru, dashed, "\psi" description]
@@ -251,7 +251,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\alpha"]
       \arrow[d, "f_2 \circ f_1" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ C
       \arrow[r, "\beta" swap]
       \arrow[ru, dashed, "\psi" description]
@@ -297,13 +297,13 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\alpha"]
       \arrow[d, "f_2" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ B_2
       \arrow[r, "\beta" swap]
       & Y
     \end{tikzcd}
   \end{displaymath}
-  onde $g$ é um morfismo qualquer pertencente à classe $K$.
+  onde $p$ é um morfismo qualquer pertencente à classe $K$.
   Usando este problema e os morfismos do diagrama de retração obtemos um outro problema de levantamento indicado abaixo, o qual admite uma solução $\varphi: B_1 \to X$ graças à projetividade de $f_1$.
   \begin{equation}\label{eq:retracao_K-proj_diag_3}
     \begin{tikzcd}
@@ -311,7 +311,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\alpha \circ r_1"]
       \arrow[d, "f_1" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ B_1
       \arrow[r, "\beta \circ r_2" swap]
       \arrow[ru, dashed, "\varphi" description]
@@ -326,7 +326,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\alpha"]
       \arrow[d, "f_2" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ B_2
       \arrow[r, "\beta" swap]
       \arrow[ru, dashed, "\varphi \circ s_2" description]
@@ -346,7 +346,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
   \end{align*}
   e por outro temos a sequência de igualdades
   \begin{align*}
-    g \circ \varphi \circ s_2
+    p \circ \varphi \circ s_2
     & = \beta \circ r_2 \circ s_2
     \tag{por \eqref{eq:retracao_K-proj_diag_3}} \\
     & = \beta \circ \id_{B_2}
@@ -362,13 +362,13 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\gamma"]
       \arrow[d, "f_2" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ B_2
       \arrow[r, "\delta" swap]
       & Y
     \end{tikzcd}
   \end{equation}
-  onde $g$ é um morfismo qualquer pertencente à classe $K$.
+  onde $p$ é um morfismo qualquer pertencente à classe $K$.
 
   Usando a comutavidade do quadrado acima obtemos o problema de levantamento indicado abaixo, o qual admite uma solução $\varphi: B_1 \to X$ graças à $K$-projetividade do morfismo $f_1$.
   \begin{equation}\label{eq:pushout_K-proj_diag_2}
@@ -377,7 +377,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\gamma \circ \alpha"]
       \arrow[d, "f_1" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ B_1
       \arrow[r, "\delta \circ \beta" swap]
       \arrow[ru, dashed, "\varphi" description]
@@ -409,7 +409,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
     \psi \circ f_2 = \gamma
   \end{displaymath}
   segue imediatamente da comutatividade de \eqref{eq:pushout_K-proj_diag_3}.
-  A igualdade $g \circ \psi = \delta$ é um pouco mais sutil.
+  A igualdade $p \circ \psi = \delta$ é um pouco mais sutil.
   Note primeiro que $\delta$ faz comutar o diagrama abaixo,
   \begin{displaymath}
     \begin{tikzcd}
@@ -418,7 +418,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[d, "f_1" swap]
       & A_2
       \arrow[d, "f_2"]
-      \arrow[rdd, bend left=25, "g \circ \gamma"]
+      \arrow[rdd, bend left=25, "p \circ \gamma"]
       \\ B_1
       \arrow[r, "\beta" swap]
       \arrow[rrd, bend right=25, "\delta \circ \beta" swap]
@@ -428,19 +428,19 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
     \end{tikzcd}
   \end{displaymath}
   portanto pela propriedade universal do pushout sabemos que $\delta$ é na verdade o \emph{único} morfismo do tipo $B_2 \to Y$ que faz o diagrama acima comutar.
-  Mas note que $g \circ \psi$ satisfaz as mesmas condições de comutatividade, já que por um lado
+  Mas note que $p \circ \psi$ satisfaz as mesmas condições de comutatividade, já que por um lado
   \begin{displaymath}
-    g \circ \psi \circ f_2 = g \circ \gamma
+    p \circ \psi \circ f_2 = g \circ \gamma
   \end{displaymath}
   graças à comutatividade de \eqref{eq:pushout_K-proj_diag_3}, e por outro
   \begin{align*}
-    g \circ \psi \circ \beta
-    & = g \circ \varphi
+    p \circ \psi \circ \beta
+    & = p \circ \varphi
     \tag{por \eqref{eq:pushout_K-proj_diag_3}} \\
     & = \delta \circ \beta;
     \tag{por \eqref{eq:pushout_K-proj_diag_2}}
   \end{align*}
-  e a igualdade desejada $g \circ \psi = \delta$ segue então da unicidade mencionada acima.
+  e a igualdade desejada $p \circ \psi = \delta$ segue então da unicidade mencionada acima.
 
   \smallskip
   (v) Considere o problema de levantamento indicado abaixo,
@@ -450,13 +450,13 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\alpha"]
       \arrow[d, "f_1 \sqcup f_2" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ B_1 \sqcup B_2
       \arrow[r, "\beta" swap]
       & Y
     \end{tikzcd}
   \end{equation}
-  onde $g$ é um morfismo qualquer pertencente à classe $K$.
+  onde $p$ é um morfismo qualquer pertencente à classe $K$.
   Considere também as injeções canônicas $i_1: A_1 \to A_1 \sqcup A_2$, $i_2: A_2 \to A_1 \sqcup A_2$, $j_1: B_1 \to B_1 \sqcup B_2$ e $j_2: B_2 \to B_1 \sqcup B_2$ nos respectivos coprodutos.
 
   A comutatividade do quadrado acima nos permite obter o problema de levantamento indicado abaixo, o qual admite uma solução $\varphi: B_1 \to X$ graças à projetividade do morfismo $f_1$.
@@ -466,7 +466,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\alpha \circ i_1"]
       \arrow[d, "f_1" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ B_1
       \arrow[r, "\beta \circ j_1" swap]
       \arrow[ru, dashed, "\varphi" description]
@@ -480,7 +480,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\alpha \circ i_2"]
       \arrow[d, "f_2" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ B_2
       \arrow[r, "\beta \circ j_2" swap]
       \arrow[ru, dashed, "\psi" description]
@@ -499,7 +499,7 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
       \arrow[r, "\alpha"]
       \arrow[d, "f_1 \sqcup f_2" swap]
       & X
-      \arrow[d, "g"]
+      \arrow[d, "p"]
       \\ B_1 \sqcup B_2
       \arrow[r, "\beta" swap]
       \arrow[ru, dashed, "{\langle \varphi,\psi \rangle}" description]
@@ -532,25 +532,59 @@ O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-p
   Já a comutatividade do triângulo inferior é equivalente às igualdades
   \begin{displaymath}
     \begin{cases}
-      g \circ \langle \varphi,\psi \rangle \circ j_1 = \beta \circ j_1, \\
-      g \circ \langle \varphi,\psi \rangle \circ j_2 = \beta \circ j_2.
+      p \circ \langle \varphi,\psi \rangle \circ j_1 = \beta \circ j_1, \\
+      p \circ \langle \varphi,\psi \rangle \circ j_2 = \beta \circ j_2.
     \end{cases}
   \end{displaymath}
   A primeira dessas igualdades é válida pois
   \begin{align*}
-    g \circ \langle \varphi,\psi \rangle \circ j_1
-    & = g \circ \varphi \\
+    p \circ \langle \varphi,\psi \rangle \circ j_1
+    & = p \circ \varphi \\
     & = \beta \circ j_1,
     \tag{por \eqref{eq:coproduto_proj_diag_2}}
   \end{align*}
   e a segunda igualdade também é válida pois
   \begin{align*}
-    g \circ \langle \varphi,\psi \rangle \circ j_2
-    & = g \circ \psi \\
+    p \circ \langle \varphi,\psi \rangle \circ j_2
+    & = p \circ \psi \\
     & = \beta \circ j_2.
     \tag{por \eqref{eq:coproduto_proj_diag_3}}
   \end{align*}
 \end{proof}
+
+Agora dualizamos a discussão anterior lidando com morfismos satisfazendo uma propriedade de levantamento à direita.
+
+\begin{defin}\label{defin:morfismo_inj}
+  Sejam $\mathsf{C}$ uma categoria e $K \subseteq \Mor(\mathsf{C})$ uma classe qualquer de morfismos.
+  Dizemos que um morfismo $g: X \to Y$ \textbf{satisfaz a propriedade de levantamento à direita com relação a $K$} se todo quadrado comutativo como abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[d, "i" swap]
+      \arrow[r, "\alpha"]
+      & X
+      \arrow[d, "g"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  onde $i: A \to B$ é um morfismo qualquer pertencente a $K$, admite uma levantamento, ou seja, existe um morfismo diagonal $\varphi: B \to X$ que faz comutar o diagrama mostrado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[d, "i" swap]
+      \arrow[r, "\alpha"]
+      & X
+      \arrow[d, "g"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      \arrow[ru, dashed, "\varphi" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Dizemos também nesse caso que $g$ é um morfismo \textbf{$K$-injetivo}. 
+\end{defin}
 
 \subsection{Sistemas de fatoração fracos}
 
