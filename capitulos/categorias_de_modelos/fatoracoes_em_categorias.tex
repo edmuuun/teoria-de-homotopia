@@ -105,7 +105,7 @@ Inicialmente, analisamos as propriedades gerais de morfismos definidos em termos
 O resultado abaixo reúne algumas das principais propriedades de morfismos $K$-projetivos.
 
 \begin{prop}\label{prop:props_morfismos_proj}
-  Sejam $\mathsf{C}$ e $K \subseteq \Mor(\mathsf{C})$ uma classe de morfismos qualquer.
+  Sejam $\mathsf{C}$ uma categoria e $K \subseteq \Mor(\mathsf{C})$ uma classe de morfismos qualquer.
   \begin{enumerate}
     \item[(i)] Todo isomorfismo de $\mathsf{C}$ é um morfismo $K$-projetivo.
     
@@ -647,6 +647,194 @@ Agora dualizamos a discussão anterior lidando com morfismos satisfazendo uma pr
   \end{displaymath}
   A comutatividade do diagrama implica a igualdade $\varphi \circ i = \alpha$, ou seja, $\varphi$ estende $\alpha$ ao longo do monomorfismo $i$; portanto $M$ é um $R$-módulo injetivo.
 \end{exem}
+
+A \cref{prop:props_morfismos_proj} possui sua versão dual para morfismos injetivos a qual apresentamos abaixo.
+A demonstração é completamente dual à apresentada anteriormente, mas decidimos incluí-la aqui ainda assim por motivos de completude.
+É claro que o leitor -  o qual esperamos não estar sendo obrigado a ler estas notas sob a mira constante de uma arma - pode pular essa demonstração sem nenhum problema.
+
+\begin{prop}\label{prop:props_morfismos_inj}
+  Sejam $\mathsf{C}$ uma categoria e $K \subseteq \Mor(\mathsf{C})$ uma classe de morfismos qualquer.
+  \begin{enumerate}
+    \item[(i)] Todo isomorfismo de $\mathsf{C}$ é $K$-injetivo.
+    
+    \item[(ii)] Se $g_1: X \to Y$ e $g_2: Y \to Z$ são morfismos $K$-injetivos, então o morfismo composto $g_2 \circ g_1: X \to Z$ é também $K$-injetivo.
+    
+    \item[(iii)] Se $g_2: X_2 \to Y_2$ é um retrato de $g_1: X_1 \to Y_1$, e $g_1$ é $K$-injetivo, então $g_2$ também é $K$-injetivo.
+
+    \item[(iv)] Se o quadrado comutativo indicado abaixo é um pullback,
+    \begin{displaymath}
+      \begin{tikzcd}
+        X_2
+        \arrow[r, "\alpha"]
+        \arrow[d, "g_2" swap]
+        & X_1
+        \arrow[d, "g_1"]
+        \\ Y_2
+        \arrow[r, "\beta" swap]
+        & Y_1
+      \end{tikzcd}
+    \end{displaymath}
+    e $g_1$ é $K$-injetivo, então $g_2$ é também $K$-injetivo.
+
+    \item[(v)] Se $g_1: X_1 \to Y_1$ e $g_2: X_2 \to Y_2$ são morfismos $K$-injetivos, então o morfismo produto $g_1 \times g_2: X_1 \times X_2 \to Y_1 \times Y_2$ é também $K$-injetivo.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  (i) Suponha que $g: X \to Y$ seja um isomorfismo e considere o problema de levantamento abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "i" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  onde $i$ é um morfismo qualquer pertencente à classe $K$.
+  Sendo $g$ um isomorfismo, existe o morfismo inverso $g^{-1}: Y \to X$.
+  Afirmamos então que o morfismo composto $g^{-1} \circ \beta: B \to X$ é a solução procurada para o problema acima, ou seja, que ele faz comutar o diagrama abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "i" swap]
+      & X
+      \arrow[d, "g"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      \arrow[ru, dashed, "g^{-1} \circ \beta" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  A comutatividade do triângulo inferior é imediata, enquanto a comutatividade do superior segue das igualdades
+  \begin{align*}
+    g^{-1} \circ \beta \circ i
+    & = g^{-1} \circ g \circ \alpha \\
+    & = \id_X \circ \alpha \\
+    & = \alpha.
+  \end{align*}
+
+  \smallskip
+  (ii) Considere o problema de levantamento abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "i" swap]
+      & X
+      \arrow[d, "g_2 \circ g_1"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      & Z
+    \end{tikzcd}
+  \end{displaymath}
+  onde $i$ é um morfismo qualquer pertence à classe $K$.
+  A comutatividade acima nos permite obter o outro problema de levantamento abaixo, o qual admite uma solução $\varphi: B \to Y$ graças à injetividade do morfismo $g_2$.
+  \begin{equation}\label{eq:comp_inj_diag_2}
+    \begin{tikzcd}
+      A
+      \arrow[r, "g_1 \circ \alpha"]
+      \arrow[d, "i" swap]
+      & Y
+      \arrow[d, "g_2"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      \arrow[ru, dashed, "\varphi" description]
+      & Z
+    \end{tikzcd}
+  \end{equation}
+
+  A comutatividade do triângulo superior em \eqref{eq:comp_inj_diag_2} nos permite montar o problema de levantamento abaixo, o qual admite uma solução $\psi: B \to X$ graças à injetividade do morfismo $g_1$.
+  \begin{equation}\label{eq:comp_inj_diag_3}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "i" swap]
+      & X
+      \arrow[d, "g_1"]
+      \\ B
+      \arrow[r, "\varphi" swap]
+      \arrow[ru, dashed, "\psi" description]
+      & Y
+    \end{tikzcd}
+  \end{equation}
+
+  Afirmamos que $\psi$ é a solução procurada para o problema de levantamento considerado inicialmente, ou seja, que ele faz comutar o diagrama abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "i" swap]
+      & X
+      \arrow[d, "g_2 \circ g_1"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      \arrow[ru, "\psi" description]
+      & Z
+    \end{tikzcd}
+  \end{displaymath}
+  A comutatividade do triângulo superior segue diretamente de \eqref{eq:comp_inj_diag_3}, enquanto a comutatividade do diagrama inferior segue da sequência de igualdades
+  \begin{align*}
+    g_2 \circ g_1 \circ \psi
+    & = g_2 \circ \varphi \tag{por \eqref{eq:comp_inj_diag_3}} \\
+    & = \beta. \tag{por \eqref{eq:comp_inj_diag_2}}
+  \end{align*}
+
+  \smallskip
+  (iii) Sendo $g_2$ um retrato de $g_1$, existe um diagrama comutativo como mostrado abaixo.
+  \begin{equation}\label{eq:retracao_inj_diag_1}
+    \begin{tikzcd}
+      X_1
+      \arrow[d, "g_1" swap]
+      \arrow[r, "r_1"]
+      \arrow[rr, bend left=45, "\id_{X_1}"]
+      & X_2
+      \arrow[r, "s_1"]
+      \arrow[d, "g_2"]
+      & X_1
+      \arrow[d, "g_1"]
+      \\ Y_1
+      \arrow[r, "r_2" swap]
+      \arrow[rr, bend right=45, "\id_{Y_1}" swap]
+      & Y_2
+      \arrow[r, "s_2" swap]
+      & Y_1
+    \end{tikzcd}
+  \end{equation}
+
+  Considere então o problema de levantamento abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "i" swap]
+      & X_2
+      \arrow[d, "g_2"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      & Y_2
+    \end{tikzcd}
+  \end{displaymath}
+  onde $i$ é um morfismo qualquer pertence à classe $K$.
+  Usando a comutatividade do quadrado acima e de \eqref{eq:retracao_inj_diag_1} montamos o problema de levantamento abaixo, o qual admite uma solução $\varphi: B \to X_1$ graças à injetividade de $g_1$.
+  \begin{equation}\label{eq:retracao_inj_diag_3}
+    \begin{tikzcd}
+      A
+      \arrow[r, "s_1 \circ \alpha"]
+      \arrow[d, "i" swap]
+      & X_1
+      \arrow[d, "g_1"]
+      \\ B
+      \arrow[r, "s_2 \circ \beta" swap]
+      \arrow[ru, dashed, "\varphi" description]
+      & Y_1
+    \end{tikzcd}
+  \end{equation}
+\end{proof}
 
 \subsection{Sistemas de fatoração fracos}
 
