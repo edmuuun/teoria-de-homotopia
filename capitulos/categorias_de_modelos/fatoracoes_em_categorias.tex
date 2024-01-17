@@ -586,6 +586,68 @@ Agora dualizamos a discussão anterior lidando com morfismos satisfazendo uma pr
   Dizemos também nesse caso que $g$ é um morfismo \textbf{$K$-injetivo}. 
 \end{defin}
 
+\begin{exem}\label{exem:fibs_sao_morfismos_inj}
+  Vale uma versão dual do \cref{exem:cofibs_sao_morfismos_proj}.
+  O axioma de levantamento (M4) diz que em uma categoria de modelos as fibrações são morfismos injetivos com relação à classe das cofibrações triviais, enquanto as fibrações triviais são morfismos injetivos com relação à classe das cofibrações.
+  Veremos mais tarde que, na verdade, as fibrações e as fibrações triviais são, na verdade, completamente caracterizadas por tais propriedades de injetividade.
+\end{exem}
+
+\begin{exem}\label{exem:morfismo_zero_inj_sse_modulo_inj}
+  O \cref{exem:morfismo_zero_proj_sse_modulo_proj} tambem possui uma versão dual válida para módulos injetivos, ou seja, se consideramos na categoria $R\mathsf{Mod}$ a classe de morfismos $\mathrm{Mono} \subset \Mor(R\mathsf{Mod})$ formada por todos os monomorfismos, vale que o morfismo zero $0_M: M \to \mathbf{0}$ é injetivo com relação a essa classe se, e somente se, o módulo $M$ é injetivo.
+
+  Suponha inicialmente que $M$ seja um $R$-módulo injetivo, e considere o problema de levantamento abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "i" swap]
+      & M
+      \arrow[d, "0_M"]
+      \\ B
+      \arrow[r, "0_B" swap]
+      & \mathbf{0}
+    \end{tikzcd}
+  \end{displaymath}
+  onde $i$ é um monomorfismo.
+  Sendo $M$ projetivo, podemos estender $\alpha$ ao longo deste monomorfismo, ou seja, existe um morfismo $\varphi: B \to M$ satisfazendo a igualdade $\varphi \circ i = \alpha$.
+  ORa, trivialmente também vale a igualdade $0_M \circ \varphi = 0_B$, portanto vale a comutatividade do diagrama abaixo;
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "i" swap]
+      & M
+      \arrow[d, "0_M"]
+      \\ B
+      \arrow[r, "0_B" swap]
+      \arrow[ru, dashed, "\varphi" description]
+      & \mathbf{0}
+    \end{tikzcd}
+  \end{displaymath}
+  mostrando assim a injetividade do morfismo $0_M$ com relação à classe dos monomorfismos.
+
+  Reciprocamente, suponha que $0_M$ seja um morfismo injetivo.
+  Dado um monomorfismo de $R$-módulos $i: A \to B$, e um morfismo $\alpha: A \to M$, como valem as igualdades
+  \begin{displaymath}
+    0_M \circ \alpha = 0_A = 0_B \circ i,
+  \end{displaymath}
+  temos o problema de levantamento indicado abaixo, o qual admite uma solução $\varphi: B \to M$ graças à injetividade de $0_M$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "i" swap]
+      & M
+      \arrow[d, "0_M"]
+      \\ B
+      \arrow[r, "0_B" swap]
+      \arrow[ru, dashed, "\varphi" description]
+      & \mathbf{0}
+    \end{tikzcd}
+  \end{displaymath}
+  A comutatividade do diagrama implica a igualdade $\varphi \circ i = \alpha$, ou seja, $\varphi$ estende $\alpha$ ao longo do monomorfismo $i$; portanto $M$ é um $R$-módulo injetivo.
+\end{exem}
+
 \subsection{Sistemas de fatoração fracos}
 
 \begin{defin}
