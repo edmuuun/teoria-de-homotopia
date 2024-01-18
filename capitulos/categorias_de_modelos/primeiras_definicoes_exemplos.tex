@@ -8,24 +8,24 @@
     
   \item[(M2)] (Propriedade 2-de-3) Dados morfismos $f: X \to Y$ e $g: Y \to Z$ em $\mathsf{M}$, se dois dos morfismos do conjunto $\{f,\,g,\, g \circ f\}$ estiverem em $\mathcal{W}$, então o terceiro também deve estar.
     
-  \item[(M3)] (Propriedade de retração) Se um morfismo $f: A \to X$ é retração de um outro morfismo $g: B \to Y$, ou seja, se existe um diagrama comutativo como abaixo,
+  \item[(M3)] (Propriedade de retração) Se um morfismo $f: A \to B$ é retração de um outro morfismo $g: X \to Y$, ou seja, se existe um diagrama comutativo como abaixo,
     \begin{equation}\label{eq:diagrama_axioma_de_retracao}
       \begin{tikzcd}
         A
-        \arrow[r]
+        \arrow[r, "s_1"]
         \arrow[d, "f" swap]
-        \arrow[rr, bend left=25, "\id_{A}"]
-        & B
-        \arrow[r]
+        \arrow[rr, bend left=45, "\id_{A}"]
+        & X
+        \arrow[r, "r_1"]
         \arrow[d, "g"]
         & A
         \arrow[d, "f"]
-        \\ X
-        \arrow[r]
-        \arrow[rr, bend right=25, "\id_{X}" swap]
+        \\ B
+        \arrow[r, "s_2" swap]
+        \arrow[rr, bend right=45, "\id_{B}" swap]
         & Y
-        \arrow[r]
-        & X
+        \arrow[r, "r_2" swap]
+        & B
       \end{tikzcd}
     \end{equation}
     e $g$ pertence a $\mathcal{W}$ (ou a $\mathcal{C}$, ou a $\mathcal{F}$), então $f$ também pertence a $\mathcal{W}$ (ou a $\mathcal{C}$, ou a $\mathcal{F}$, respectivamente).

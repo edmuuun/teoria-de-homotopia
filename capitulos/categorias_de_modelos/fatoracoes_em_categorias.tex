@@ -678,6 +678,7 @@ A demonstração é completamente dual à apresentada anteriormente, mas decidim
 
     \item[(v)] Se $g_1: X_1 \to Y_1$ e $g_2: X_2 \to Y_2$ são morfismos $K$-injetivos, então o morfismo produto $g_1 \times g_2: X_1 \times X_2 \to Y_1 \times Y_2$ é também $K$-injetivo.
   \end{enumerate}
+  Em suma, a classe $K\mathrm{Inj} \subseteq \Mor(\mathsf{C})$ formada por todos os morfismos $K$-injetivos contém todos os isomorfismos e é fechada por composições, retrações, pullbacks e produtos.
 \end{prop}
 
 \begin{proof}
@@ -788,21 +789,21 @@ A demonstração é completamente dual à apresentada anteriormente, mas decidim
   (iii) Sendo $g_2$ um retrato de $g_1$, existe um diagrama comutativo como mostrado abaixo.
   \begin{equation}\label{eq:retracao_inj_diag_1}
     \begin{tikzcd}
-      X_1
-      \arrow[d, "g_1" swap]
-      \arrow[r, "r_1"]
-      \arrow[rr, bend left=45, "\id_{X_1}"]
-      & X_2
+      X_2
+      \arrow[d, "g_2" swap]
       \arrow[r, "s_1"]
-      \arrow[d, "g_2"]
+      \arrow[rr, bend left=45, "\id_{X_2}"]
       & X_1
+      \arrow[r, "r_1"]
       \arrow[d, "g_1"]
-      \\ Y_1
-      \arrow[r, "r_2" swap]
-      \arrow[rr, bend right=45, "\id_{Y_1}" swap]
-      & Y_2
+      & X_2
+      \arrow[d, "g_2"]
+      \\ Y_2
       \arrow[r, "s_2" swap]
+      \arrow[rr, bend right=45, "\id_{Y_2}" swap]
       & Y_1
+      \arrow[r, "r_2" swap]
+      & Y_2
     \end{tikzcd}
   \end{equation}
 
@@ -834,6 +835,232 @@ A demonstração é completamente dual à apresentada anteriormente, mas decidim
       & Y_1
     \end{tikzcd}
   \end{equation}
+
+  Afirmamos então que o morfismo $r_1 \circ \varphi: B \to X_2$ é a solução procurada para o problema de levantamento considerado inicialmente, ou seja, que o diagrama mostrado abaixo é comutativo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "i" swap]
+      & X_2
+      \arrow[d, "g_2"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      \arrow[ru, dashed, "r_1 \circ \varphi" description]
+      & Y_2
+    \end{tikzcd}
+  \end{displaymath}
+  De fato, no caso do triângulo superior temos as igualdades
+  \begin{align*}
+    r_1 \circ \varphi \circ i
+    & = r_1 \circ s_1 \circ \alpha
+    \tag{por \eqref{eq:retracao_inj_diag_3}} \\
+    & = \id_{X_2} \circ \alpha
+    \tag{por \eqref{eq:retracao_inj_diag_1}} \\
+    & = \alpha;
+  \end{align*}
+  enquanto no caso do triângulo inferior temos as igualdades
+  \begin{align*}
+    g_2 \circ r_1 \circ \varphi
+    & = r_2 \circ g_1 \circ \varphi
+    \tag{por \eqref{eq:retracao_inj_diag_1}} \\
+    & = r_2 \circ s_2 \circ \beta
+    \tag{por \eqref{eq:retracao_inj_diag_3}} \\
+    & = \id_{Y_2} \circ \beta
+    \tag{por \eqref{eq:retracao_inj_diag_1}} \\
+    & = \beta.
+  \end{align*}
+
+  \smallskip
+  (iv) Considere o problema de levantamento abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\gamma"]
+      \arrow[d, "i" swap]
+      & X_2
+      \arrow[d, "g_2"]
+      \\ B
+      \arrow[r, "\delta" swap]
+      & Y_2
+    \end{tikzcd}
+  \end{displaymath}
+  onde $i$ é um morfismo qualquer pertence à classe $K$.
+  A estratégia é usarmos a propriedade universal do pullback para obtermos um morfismo do tipo $B \to X_2$ que resolva o problema de levantamento acima, mas para isso precisamos antes de morfismos dos tipos $B \to X_1$ e $B \to Y_2$ satisfazendo certas condições de comutatividade.
+  No segundo caso podemos utilizar o morfismo $\delta: B \to Y_2$, mas para o primeiro caso precisamos utilizar a injetividade de $g_1$.
+  Montamos então o problema de levantamento indicado abaixo, o qual admite uma solução $\varphi: B \to X_1$ graças à injetividade de $g_1$ mencionada.
+  \begin{equation}\label{eq:pullback_inj_diag_2}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha \circ \gamma"]
+      \arrow[d, "i" swap]
+      & X_1
+      \arrow[d, "g_1"]
+      \\ B
+      \arrow[ru, dashed, "\varphi" description]
+      \arrow[r, "\beta \circ \delta" swap]
+      & Y_1
+    \end{tikzcd}
+  \end{equation}
+
+  A comutatividade do triângulo inferior em \eqref{eq:pullback_inj_diag_2} diz precisamente que a ``camada externa'' do diagrama abaixo é commutativa, portanto a propriedade universal do pullback nos fornece um único morfismo $\psi: B \to X_2$ fazendo comutar o diagrama todo.
+  \begin{equation}\label{eq:pullback_inj_diag_3}
+    \begin{tikzcd}
+      B
+      \arrow[rd, dashed, "\psi" description]
+      \arrow[rrd, bend left=30, "\varphi"]
+      \arrow[rdd, bend right=30, "\delta" swap]
+      \\ & X_2
+      \arrow[r, "\alpha"]
+      \arrow[d, "g_2" swap]
+      & X_1
+      \arrow[d, "g_1"]
+      \\ & Y_2
+      \arrow[r, "\beta" swap]
+      & Y_1
+    \end{tikzcd}
+  \end{equation}
+
+  Vamos mostrar que $\psi$ é a solução procurada para o problema de levantamento inicial, ou seja, que o diagrama mostrado abaixo é comutativo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\gamma"]
+      \arrow[d, "i" swap]
+      & X_2
+      \arrow[d, "g_2"]
+      \\ B
+      \arrow[r, "\delta" swap]
+      \arrow[ru, "\psi" description]
+      & Y_2
+    \end{tikzcd}
+  \end{displaymath}
+  A comutatividade do triângulo inferior segue diretamente de \eqref{eq:pullback_inj_diag_3}.
+  Já a comutatividade do triângulo superior é um pouco mais sutil.
+  Note primeiramente que, graças à proprieade universal do pullback, $\gamma$ é o único morfismo do tipo $A \to X_2$ que faz comutar o diagrama mostrado abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[rd, "\gamma" description]
+      \arrow[rrd, bend left=30, "\alpha \circ \gamma"]
+      \arrow[rdd, bend right=30, "g_2 \circ \gamma" swap]
+      \\ & X_2
+      \arrow[r, "\alpha"]
+      \arrow[d, "g_2" swap]
+      & X_1
+      \arrow[d, "g_1"]
+      \\ & Y_2
+      \arrow[r, "\beta" swap]
+      & Y_1
+    \end{tikzcd}
+  \end{displaymath}
+  Veja, entretanto, que o morfismo composto $\psi \circ i: A \to X_2$ também satisfaz tais condições de comutatividade, já que por um lado
+  \begin{align*}
+    \alpha \circ \psi \circ i
+    & = \varphi \circ i
+    \tag{por \eqref{eq:pullback_inj_diag_3}} \\
+    & = \alpha \circ \gamma;
+    \tag{por \eqref{eq:pullback_inj_diag_2}}
+  \end{align*}
+  enquanto por outro
+  \begin{align*}
+    g_2 \circ \psi \circ i
+    & = \delta \circ i
+    \tag{por \eqref{eq:pullback_inj_diag_3}} \\
+    &  = g_2 \circ \gamma,
+  \end{align*}
+  onde a última igualdade segue da comutatividade do próprio diagrama que representa o problema de levantamento considerado inicialmente.
+  Ora, segue então da unicidade na propriedade universal do pullback que devemos ter a igualdade $\psi \circ i = \gamma$, como queríamos mostrar.
+
+  \smallskip
+  (v) Considere as projeções canônicas $p_1: X_1 \times X_2 \to X_1$, $p_2: X_1 \times X_2 \to X_2$, $q_1: Y_1 \times Y_2 \to Y_1$ e $q_2: Y_1 \times Y_2 \to Y_2$ aos respectivos produtos.
+  Dado um problema de levantamento como abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "i" swap]
+      & X_1 \times X_2
+      \arrow[d, "g_1 \times g_2"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      & Y_1 \times Y_2
+    \end{tikzcd}
+  \end{displaymath}
+  onde $i$ é um morfismo pertencente à classe $K$, obtemos primeiramente o problema de levantamento abaixo, o qual admite uma solução graças à injetividade de $g_1$;
+  \begin{equation}\label{eq:produto_inj_diag_2}
+    \begin{tikzcd}
+      A
+      \arrow[r, "p_1 \circ \alpha"]
+      \arrow[d, "i" swap]
+      & X_1
+      \arrow[d, "g_1"]
+      \\ B
+      \arrow[r, "q_1 \circ \beta" swap]
+      \arrow[ru, dashed, "\varphi" description]
+      & Y_1
+    \end{tikzcd}
+  \end{equation}
+  e também o problema de levantamento abaixo, o qual por sua vez admite uma solução graças à injetividade de $g_2$.
+  \begin{equation}\label{eq:produto_inj_diag_3}
+    \begin{tikzcd}
+      A
+      \arrow[r, "p_2 \circ \alpha"]
+      \arrow[d, "i" swap]
+      & X_2
+      \arrow[d, "g_2"]
+      \\ B
+      \arrow[r, "q_2 \circ \beta" swap]
+      \arrow[ru, dashed, "\psi" description]
+      & Y_2
+    \end{tikzcd}
+  \end{equation}
+
+  Afirmamos que o morfismo induzido $(\varphi,\psi): B \to X_1 \times X_2$ é a solução procurada para o problema de levantamento, ou seja, que o diagrama mostrado abaixo é comutativo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\alpha"]
+      \arrow[d, "i" swap]
+      & X_1 \times X_2
+      \arrow[d, "g_1 \times g_2"]
+      \\ B
+      \arrow[r, "\beta" swap]
+      \arrow[ru, "{(\varphi,\psi)}" description]
+      & Y_1 \times Y_2
+    \end{tikzcd}
+  \end{displaymath}
+  Note que pela unicidade na propriedade universal do produto, a comutatividade do triângulo superior é equivalente à validade das igualdades
+  \begin{displaymath}
+    \begin{cases}
+      p_1 \circ (\varphi,\psi) \circ i = p_1 \circ \alpha, \\
+      p_2 \circ (\varphi,\psi) \circ i = p_2 \circ \alpha.
+    \end{cases}
+  \end{displaymath}
+  No primeiro caso temos a sequência de igualdades
+  \begin{align*}
+    p_1 \circ (\varphi,\psi) \circ i
+    & = \varphi \circ i \\
+    & = p_1 \circ
+    \tag{por \eqref{eq:produto_inj_diag_3}}.
+  \end{align*}
+  A validade da segunda igualdade segue de um raciocínio completamente análogo.
+  Já no caso do triângulo inferior, a propriedade universal do produto mais uma vez garante que sua comutatividade é equivalente à validade duas igualdades
+  \begin{displaymath}
+    \begin{cases}
+      q_1 \circ g_1 \times g_2 \circ (\varphi,\psi) = q_1 \circ \beta, \\
+      q_2 \circ g_1 \times g_2 \circ (\varphi,\psi) = q_2 \circ \beta.
+    \end{cases}
+  \end{displaymath}
+  No caso da primeira igualdades temos
+  \begin{align*}
+    q_1 \circ g_1 \times g_2 \circ (\varphi,\psi)
+    & = g_1 \circ p_1 \circ (\varphi,\psi) \\
+    & = g_1 \circ \varphi \\
+    & = q_1 \circ \beta.
+    \tag{por \eqref{eq:produto_inj_diag_2}}
+  \end{align*}
+  A validade da segunda igualdade segue também por um raciocínio análogo.
 \end{proof}
 
 \subsection{Sistemas de fatoração fracos}
