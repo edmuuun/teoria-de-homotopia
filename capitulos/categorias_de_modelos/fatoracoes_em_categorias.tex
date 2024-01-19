@@ -1065,671 +1065,154 @@ A demonstração é completamente dual à apresentada anteriormente, mas decidim
 
 \subsection{Sistemas de fatoração fracos}
 
-\begin{defin}
-  Um \textbf{sistema de fatoração fraco} em uma categoria $\mathsf{C}$ consiste de um par $(\mathcal{L},\mathcal{R})$, onde $\mathcal{L},\, \mathcal{R} \subseteq \Mor(\mathsf{C})$ são duas classes de morfismos, satisfazendo as seguintes condições:
+Usaremos agora os morfismos projetivos e injetivos introduzidos na seção anterior para definirmos a noção de um sistema de fatoração fraco.
+As propriedades estudadas anteriormente nos fornecem imediatamente as principais propriedades dos sistemas de fatoração fracos.
+Por fim, veremos a relação de tais sistemas com estruturas de modelos, o que nos permitirá deduzir algumas propriedades de preservação de cofibrações e fibraçõed que serão usadas constantemente ao longo do texto.
+
+\begin{defin}\label{defin:sistema_fatoracao_fraco}
+  Um \textbf{sistema de fatoração fraco} em uma categoria $\mathsf{C}$ consiste de um par $(L,R)$, onde $L,\, R \subseteq \Mor(\mathsf{C})$ são duas classes de morfismos, satisfazendo as seguintes condições:
   \begin{enumerate}
-  \item[(i)] Todo morfismo $f \in \Mor(\mathsf{C})$ pode ser escrito na forma $f = f_{L} \circ f_{R}$ com $f_{L} \in \mathcal{L}$ e $f_{R} \in \mathcal{R}$;
-    \begin{displaymath}
+  \item[(i)] Todo morfismo $f \in \Mor(\mathsf{C})$ pode ser escrito na forma $f = f_{L} \circ f_{R}$ com $f_{L} \in L$ e $f_{R} \in R$;
+    \begin{equation}\label{eq:sistema_fatoracao_fraco_diag}
       \begin{tikzcd}[column sep=1.25cm]
         X
-        \arrow[r, "f_{L} \in \mathcal{L}"]
-        \arrow[rr, bend right=20, "f" swap]
+        \arrow[r, "f_{L} \in L"]
+        \arrow[rr, bend right=30, "f" swap]
         & Y
-        \arrow[r, "f_{R} \in \mathcal{R}"]
+        \arrow[r, "f_{R} \in R"]
         & Z
       \end{tikzcd}
-    \end{displaymath}
+    \end{equation}
     
-  \item[(ii)] $\mathcal{L}$ consiste precisamente dos morfismos de $\mathsf{C}$ que satisfazem a propriedade de levantamente à esquerda com relação a $\mathcal{R}$;
+  \item[(ii)] $L$ consiste precisamente dos morfismos $R$-projetivos de $\mathsf{C}$, ou seja, aqueles que satisfazem a propriedade de levantamento à esquerda com relação a $R$;
     
-  \item[(iii)] $\mathcal{R}$ consiste precisamente dos morfismos de $\mathsf{C}$ que satisfazem a propriedade de levantamento à direita com relação a $\mathcal{L}$.
+  \item[(iii)] $R$ consiste precisamente dos morfismos $L$-injetivos de $\mathsf{C}$, ou seja, aqueles que satisfazem a propriedade de levantamento à direita com relação a $L$.
   \end{enumerate}
 \end{defin}
 
-Os principais exemplos de sistemas de fatoração fracos nos quais estaremos interessados envolvem as cofibrações e fibrações triviais em uma categoria modelo, embora talves ainda não seja claro como essas classes dão origem a um sistema de fatoração.
-Antes de detalharmos esse exemplo, entretanto, vamos demonstrar algumas propriedades gerais de sistemas de fatoração fracos.
+O resultado abaixo coleta as principais propriedades que os sistemas de fatoração fracos satisfazem, sendo na verdade uma consequência das propriedades satisfeitas por morfismos projetivos e injetivos.
 
 \begin{prop}\label{prop:propriedades_fatoracao_fraca}
-  Suponha que $(\mathcal{L},\mathcal{R})$ seja um sistema de fatoração fraco em uma categoria $\mathsf{C}$.
+  Sejam $\mathsf{C}$ uma categoria e $(L,R)$ um sistema de fatoração fraco em $\mathsf{C}$.
   Valem as seguintes propriedades:
   \begin{enumerate}
-  \item Ambas as classes contêm todos os isomorfismos de $\mathsf{C}$.
+  \item Ambas as classes contêm todos os isomorfismos de $\mathsf{C}$ e são fechadas por composições e retratos.
     
-  \item Ambas as classes são fechadas por composição.
+  \item A classe $L$ é fechada por pushouts e coprodutos.
     
-  \item Ambas as classes são fechadas por retratos na categoria de setas $\Arr(\mathsf{C})$.
-    
-  \item $\mathcal{L}$ é fechada pela formação de pushouts, enquanto $\mathcal{R}$ é fechada pela formação de pullbacks.
-    
-  \item $\mathcal{L}$ é fechada por coprodutos, enquanto $\mathcal{R}$ é fechada por produtos.
+  \item A classe $R$ é fechada por pullbacks e produtos.
   \end{enumerate}
 \end{prop}
 
-%TODO: Eu provavelmente deveria numerar alguns diagramas nessa demonstração e então referenciá-los nas sequências de igualdades a fim de tornar a demonstração mais fácil de acompanhar.
-
 \begin{proof}
-  1. Suponha que $f: A \to B$ seja um isomorfismo.
-  Sabemos da definição de sistema de fatoração fraco que $\mathcal{L}$ consiste precisamente dos morfismos de $\mathsf{C}$ que satisfazem a propriedade de levantamento à esquerda com relação a $\mathcal{R}$.
-  Considere então um quadrado comutativo como abaixo, onde $g: X \to Y$ é um morfismo pertencente à classe $\mathcal{R}$.
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r, "\alpha"]
-      \arrow[d, "f" swap]
-      & X
-      \arrow[d, "g"]
-      \\ B
-      \arrow[r, "\beta" swap]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  Sendo $f$ um isomorfismo por hipótese, podemos considerar o morfismo inverso $f^{-1}: B \to A$, e definir então um morfismo $h: B \to X$ por meio da composição $h \coloneqq \alpha \circ f^{-1}$.
-  Note então que por um lado
-  \begin{displaymath}
-    h \circ f
-    = \alpha \circ f^{-1} \circ f
-    = \alpha \circ \id_{A}
-    = \alpha,
-  \end{displaymath}
-  e por outro
-  \begin{displaymath}
-    g \circ h
-    = g \circ \alpha \circ f^{-1}
-    = \beta \circ f \circ f^{-1}
-    = \beta \circ \id_{B}
-    = \beta;
-  \end{displaymath}
-  mostando que $h$ faz comutar o diagrama abaixo, definindo então um levantamento para o quadrado comutativo original.
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r, "\alpha"]
-      \arrow[d, "f" swap]
-      & X
-      \arrow[d, "g"]
-      \\ B
-      \arrow[r, "\beta" swap]
-      \arrow[ru, dashed, "h" description]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
+  As afirmações a respeito de $L$ seguem do fato de $L$ ser a classe dos morfismos $R$-projetivos de $\mathsf{C}$ e das propriedades demonstradas na \cref{prop:props_morfismos_proj}, enquanto as propriedades de $R$ seguem do fato de $R$ ser a classe dos morfismos $L$-injetivos de $\mathsf{C}$ e das propriedades demonstradas na \cref{prop:props_morfismos_inj}.
+\end{proof}
 
-  A demonstração de que $\mathcal{R}$ contém todos os isomorfismos é análoga.
-  Se $g: X \to Y$ é um isomorfismo, considere o quadrado comutativo abaixo onde $f: A \to B$ pertence à classe $\mathcal{L}$.
-  \begin{displaymath}
-     \begin{tikzcd}
-      A
-      \arrow[r, "\alpha"]
-      \arrow[d, "f" swap]
-      & X
-      \arrow[d, "g"]
-      \\ B
-      \arrow[r, "\beta" swap]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  Dessa vez definimos um morfismo $h: B \to Y$ pela composição $h \coloneqq g^{-1} \circ \beta$, e notamos que esse morfismo satisfaz a igualdade
-  \begin{displaymath}
-    g \circ h
-    = g \circ g^{-1} \circ \beta
-    = \id_{Y} \circ \beta
-    = \beta,
-  \end{displaymath}
-  e também a igualdade
-  \begin{displaymath}
-    h \circ f
-    = g^{-1} \circ \beta \circ f
-    = g^{-1} \circ g \circ \alpha
-    = \id_{X} \circ \alpha
-    = \alpha;
-  \end{displaymath}
-  portanto $h$ define um levantamento neste caso também.
+Veremos agora como sistemas de fatoração fracos aparecem relacionados a estruturas de modelos.
+São estes os sistemas nos quais estaremos realmente interessados.
+Antes de enunciarmos o resultado em si, é um bom momento para introduzirmos um lema simples e puramente categórico, porém bastante útil no estudo de categorias de modelos e de sistemas de fatoração fracos em geral.
 
-  \smallskip
-  2. Suponha que $f_{1}: A \to B$ e $f_{2}: B \to C$ sejam dois morfismos pertencentes à classe $\mathcal{L}$.
-  A fim de mostrarmos que sua composição $f_{2} \circ f_{1}: A \to C$ também pertence a $\mathcal{L}$, vamos mostrar que essa composição satisfaz a condição de levantamento à esquerda com relação à $\mathcal{R}$.
-  Considere então um quadrado comutativo como abaixo, onde $g: X \to Y$ pertence à classe $\mathcal{R}$.
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r, "\alpha"]
-      \arrow[d, "f_{2} \circ f_{1}" swap]
-      & X
-      \arrow[d, "g"]
-      \\ C
-      \arrow[r, "\beta" swap]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  A partir do quadrado acima podemos obter o quadrado comutativo mostrado abaixo, o qual admite um levantamento $h_{1}: B \to Y$ pois $f_{1} \in \mathcal{L}$.
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r, "\alpha"]
-      \arrow[d, "f_{1}" swap]
-      & X
-      \arrow[d, "g"]
-      \\ B
-      \arrow[r, "\beta \circ f_{2}" swap]
-      \arrow[ru, dashed, "h_{1}" description]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  Usando o levantamento $h_{1}$ obtemos um terceiro quadrado comutativo como mostrado abaixo, o qual admite um levantamento $h_{2}: C \to X$ pois $f_{2} \in \mathcal{L}$.
-  \begin{displaymath}
-    \begin{tikzcd}
-      B
-      \arrow[r, "h_{1}"]
-      \arrow[d, "f_{2}" swap]
-      & X
-      \arrow[d, "g"]
-      \\ C
-      \arrow[r, "\beta" swap]
-      \arrow[ru, dashed, "h_{2}" description]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  Afirmamos que $h_{2}: C \to X$ define também um levantamento para o quadrado comutativo considerado inicialmente.
-  De fato, por um lado a igualade $g \circ h_{2} = \beta$ segue diretamente da comutatividade do último quadrado acima, e por outro temos a sequência de igualdades
-  \begin{displaymath}
-    h_{2} \circ f_{2} \circ f_{1} = h_{1} \circ f_{1} = \alpha;
-  \end{displaymath}
-  portanto $h_{2}$ satisfaz as condições de comutatividades necessárias.
-
-  A demonstração da segunda parte é análoga.
-  Suponha que $g_{1}: X \to Y$ e $g_{2}: Y \to Z$ sejam dois morfismos pertencentes à classe $\mathcal{R}$, e considere o quadrado comutativo abaixo, onde $f: A \to B$ pertence à classe $\mathcal{L}$.
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r, "\alpha"]
-      \arrow[d, "f" swap]
-      & X
-      \arrow[d, "g_{2} \circ g_{1}"]
-      \\ B
-      \arrow[r, "\beta" swap]
-      & Z
-    \end{tikzcd}
-  \end{displaymath}
-  Considere então o quadrado comutativo abaixo, o qual admite um levantamento $h_{2}: B \to Y$ pois $g_{2}$ pertence a $\mathcal{R}$.
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r, "g_{1} \circ \alpha"]
-      \arrow[d, "f" swap]
-      & Y
-      \arrow[d, "g_{2}"]
-      \\ B
-      \arrow[r, "\beta" swap]
-      \arrow[ru, dashed, "h_{2}" description]
-      & Z
-    \end{tikzcd}
-  \end{displaymath}
-  Usando $h_{2}$ consideramos então o quadrado comutativo abaixo, o qual também admite um levantamento $h_{1}: B \to X$ pois $g_{1} \in \mathcal{R}$.
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r, "\alpha"]
-      \arrow[d, "f" swap]
-      & X
-      \arrow[d, "g_{1}"]
-      \\ B
-      \arrow[r, "h_{2}" swap]
-      \arrow[ru, dashed, "h_{1}" description]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  O morfismo $h_{1}$ é precisamente o procurado, já que por um lado a igualdade $h_{1} \circ f = \alpha$ segue diretamente da comutatividade acima, e por outro temos a sequência de igualdades
-  \begin{displaymath}
-    g_{2} \circ g_{1} \circ h_{1} = g_{2} \circ h_{2} = \beta;
-  \end{displaymath}
-  mostrando então que $h_{1}$ define um levantamento para o quadrado comutativo inicial.
-
-  \smallskip
-  3. Suponha que o morfismo $f: A \to B$ seja um retrato do morfismo $g: X \to Y$ o qual pertence à classe $\mathcal{L}$.
-  Temos então por definição o diagrama comutativo abaixo
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r, "s_{1}"]
-      \arrow[d, "f" swap]
-      \arrow[rr, bend left=45, "\id_{A}"]
-      & X
-      \arrow[r, "r_{1}"]
-      \arrow[d, "g"]
-      & A
-      \arrow[d, "f"]
-      \\ B
-      \arrow[r, "s_{2}" swap]
-      \arrow[rr, bend right=45, "\id_{B}" swap]
-      & Y
-      \arrow[r, "r_{2}" swap]
-      & B
-    \end{tikzcd}
-  \end{displaymath}
-  A fim de mostrarmos que $f$ também pertence a $\mathcal{L}$, considere o quadrado comutativo abaixo onde $p: P \to Q$ é um morfismo qualquer da classe $\mathcal{R}$.
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r, "\alpha"]
-      \arrow[d, "f" swap]
-      & P
-      \arrow[d, "p"]
-      \\ B
-      \arrow[r, "\beta" swap]
-      & Q
-    \end{tikzcd}
-  \end{displaymath}
-  A partir deste quadrado e do diagrama anterior produzimos o quadrado comutativo, o qual admite um levantamento $h: Y \to P$ já que $g \in \mathcal{L}$ por hipótese.
+\begin{lema}[Argumento do retrato]\label{lema:argumento_do_retrato}
+  Suponha que um morfismo $f: X \to Y$ em uma categoria qualquer $\mathsf{C}$ possa ser fatorado na forma mostrada abaixo.
   \begin{displaymath}
     \begin{tikzcd}
       X
-      \arrow[r, "\alpha \circ r_{1}"]
-      \arrow[d, "g" swap]
-      & P
+      \arrow[rr, "f"]
+      \arrow[rd, "i" swap]
+      & & Y
+      \\ & Z
+      \arrow[ru, "p" swap]
+    \end{tikzcd}
+  \end{displaymath}
+  \begin{enumerate}
+    \item Se $f$ satisfaz a propriedade de levantamento à esquerda com relação a $p$, então $f$ é um retrato de $i$.
+
+    \item Se $f$ satisfaz a propriedade de levantamento à direita com relação a $i$, então $f$ é um retrato de $p$.
+  \end{enumerate}
+\end{lema}
+
+\begin{proof}
+  1. Veja que é suficiente construirmos um morfismo $\varphi: Y \to Z$ que faça comutar o diagrama mostrado abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[r, "\id_X"]
+      \arrow[rr, bend left=45, "\id_X"]
+      \arrow[d, "f" swap]
+      & X
+      \arrow[r, "\id_X"]
+      \arrow[d, "i"]
+      & X
+      \arrow[d, "f"]
+      \\ Y
+      \arrow[r, dashed, "\varphi" swap]
+      \arrow[rr, bend right=45, "\id_Y" swap]
+      & Z
+      \arrow[r, "p" swap]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  ou seja, $\varphi$ deve satisfazer as igualdades $\varphi \circ f = \id_X$ e $p \circ \varphi = \id_Y$.
+  Ora, basta então tomarmos $\varphi$ como sendo uma solução qualquer para o problema de levantamento mostrado abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      X
+      \arrow[r, "i"]
+      \arrow[d, "f" swap]
+      & Z
       \arrow[d, "p"]
       \\ Y
-      \arrow[r, "\beta \circ r_{2}" swap]
-      \arrow[ru, dashed, "h" description]
-      & Q
-    \end{tikzcd}
-  \end{displaymath}
-  Afirmamos então que o morfismo $H: B \to P$ dado pela composição $H \coloneqq h \circ s_{2}$ define um levantamento para o quadrado inicial.
-  De fato, por um lado temos
-  \begin{displaymath}
-    H \circ f = h \circ s_{2} \circ f = h \circ g \circ s_{1} = \alpha \circ r_{1} \circ s_{1} = \alpha \circ \id_{A} = \alpha,
-  \end{displaymath}
-  e por outro temos também
-  \begin{displaymath}
-    p \circ H = p \circ h \circ s_{2} = \beta \circ r_{2} \circ s_{2} = \beta \circ \id_{B} = \beta.
-  \end{displaymath}
-
-  Supondo ainda que $f$ seja um retrato de $g$, considere agora o caso em que $g$ pertence à classe $\mathcal{R}$.
-  A fim de mostrarmos que $f$ também pertence a $\mathcal{R}$, considere o quadrado comutativo abaixo onde $j: M \to N$ é um morfismo qualquer da classe $\mathcal{L}$.
-  \begin{displaymath}
-    \begin{tikzcd}
-      M
-      \arrow[r, "\varphi"]
-      \arrow[d, "j" swap]
-      & A
-      \arrow[d, "f"]
-      \\ N
-      \arrow[r, "\psi" swap]
-      & B
-    \end{tikzcd}
-  \end{displaymath}
-  A partir disso obtemos o quadrado comutativo abaixo, o qual admite um levantamento $h: N \to X$ pois $g$ pertence à classe $\mathcal{R}$ por hipótese.
-  \begin{displaymath}
-    \begin{tikzcd}
-      M
-      \arrow[r, "s_{1} \circ \varphi"]
-      \arrow[d, "j" swap]
-      & X
-      \arrow[d, "g"]
-      \\ N
-      \arrow[r, "s_{2} \circ \psi" swap]
-      \arrow[ru, dashed, "h" description]
+      \arrow[r, "\id_Y" swap]
+      \arrow[ru, dashed, "\varphi" description]
       & Y
     \end{tikzcd}
   \end{displaymath}
-  Afirmamos então que $H: N \to A$ definido por $H \coloneqq r_{1} \circ h$ é o levantamento procurado para o quadrado considerado inicialmente.
-  De fato, por um lado temos as igualdades
-  \begin{displaymath}
-    H \circ j = r_{1} \circ h \circ j = r_{1} \circ s_{1} \circ \varphi = \id_{A} \circ \varphi = \varphi,
-  \end{displaymath}
-  e por outro temos também as igualdades
-  \begin{displaymath}
-    f \circ H = f \circ r_{1} \circ h = r_{2} \circ g \circ h = r_{2} \circ s_{2} \circ \psi = \id_{B} \circ \psi = \psi.
-  \end{displaymath}
+  a qual certamente existe pois $f$ por hipótese satisfaz a condição de levantamento à esquerda com relação a $p$.
 
   \smallskip
-  4. Suponha que $f: X_{1} \to Y_{1}$ pertença a $\mathcal{L}$ e que o quadrado comutativo abaixo seja um pushout em $\mathsf{C}$.
+  2. O leitor já deve imaginar que essa demonstração é dual à anterior.
+  Note que neste caso basta construirmos um morfismo $\psi: Z \to X$ que faça comutar o diagrama mostrado abaixo,
   \begin{displaymath}
     \begin{tikzcd}
-      X_{1}
-      \arrow[r, "\alpha"]
+      X
+      \arrow[r, "i"]
+      \arrow[rr, bend left=45, "\id_X"]
       \arrow[d, "f" swap]
-      & X_{2}
-      \arrow[d, "g"]
-      \\ Y_{1}
-      \arrow[r, "\beta" swap]
-      & Y_{2}
-    \end{tikzcd}
-  \end{displaymath}
-  Nosso objetivo é mostrar que então $g$ também pertence a $\mathcal{L}$, e com esse intuito consideramos o problema de levantamento abaixo, onde $p: P \to Q$ é um morfismo qualquer na classe $\mathcal{R}$.
-  \begin{displaymath}
-    \begin{tikzcd}
-      X_{2}
-      \arrow[r, "\varphi"]
-      \arrow[d, "g" swap]
-      & P
+      & Z
+      \arrow[r, dashed, "\psi"]
       \arrow[d, "p"]
-      \\ Y_{2}
-      \arrow[r, "\psi" swap]
-      & Q
-    \end{tikzcd}
-  \end{displaymath}
-  Note primeiro que o quadrado comutativo abaixo admite um levantamento $h: Y_{1} \to P$ pois $f \in \mathcal{L}$ por hipótese.
-  \begin{displaymath}
-    \begin{tikzcd}
-      X_{1}
-      \arrow[r, "\varphi \circ \alpha"]
-      \arrow[d, "f" swap]
-      & P
-      \arrow[d, "p"]
-      \\ Y_{1}
-      \arrow[r, "\psi \circ \beta" swap]
-      \arrow[ru, dashed, "h" description]
-      & Q
-    \end{tikzcd}
-  \end{displaymath}
-  A igualdade $h \circ f = \varphi \circ \alpha$ nos permite então usar a hipótese de que temos um pushout para obtermos um morfismo $H: Y_{2} \to P$ que faz comutar todo o diagrama abaixo.
-  \begin{displaymath}
-     \begin{tikzcd}
-      X_{1}
-      \arrow[r, "\alpha"]
-      \arrow[d, "f" swap]
-      & X_{2}
-      \arrow[d, "g"]
-      \arrow[rdd, bend left=30, "\varphi"]
-      \\ Y_{1}
-      \arrow[r, "\beta" swap]
-      \arrow[rrd, bend right=30, "h" swap]
-      & Y_{2}
-      \arrow[rd, dashed, "H" description]
-      \\ & & P
-    \end{tikzcd}
-  \end{displaymath}
-  Afirmamos que o morfismo $H$ obtido dessa maneira é o levantamento procurado.
-  Note primeiro que a igualdade $H \circ g = \varphi$ segue imediatamente da comutatividade acima.
-  Já a igualdade $p \circ H = \psi$ requer um pouco mais de trabalho.
-  Repare com carinho que estes dois morfismos fazem comutar o diagrama abaixo,
-  \begin{displaymath}
-    \begin{tikzcd}
-      X_{1}
-      \arrow[r, "\alpha"]
-      \arrow[d, "f" swap]
-      & X_{2}
-      \arrow[d, "g"]
-      \arrow[rdd, bend left=30, "p \circ \varphi"]
-      \\ Y_{1}
-      \arrow[r, "\beta" swap]
-      \arrow[rrd, bend right=30, "\psi \circ \beta" swap]
-      & Y_{2}
-      \arrow[rd, shift left=1.2, "\psi"]
-      \arrow[rd, shift right=1.2, "p \circ H" swap]
-      \\ & & Q
-    \end{tikzcd}
-  \end{displaymath}
-  mas como o quadrado que aparece neste diagrama é um pushout, sua propriedade universal garante que existe um único morfismo do tipo $Y_{2} \to Q$ que faça tudo comutar, portanto deve valer a igualdade $p \circ H = \psi$.
-
-  A demonstração de que morfismos em $\mathcal{R}$ são preservados por pullbacks é novamente análoga.
-  Suponha agora que o quadrado comutativo abaixo seja um pullback e que o morfismo $g: X_{2} \to Y_{2}$ seja pertence a $\mathcal{R}$.
-  \begin{displaymath}
-    \begin{tikzcd}
-      X_{1}
-      \arrow[r, "\alpha"]
-      \arrow[d, "f" swap]
-      & X_{2}
-      \arrow[d, "g"]
-      \\ Y_{1}
-      \arrow[r, "\beta" swap]
-      & Y_{2}
-    \end{tikzcd}
-  \end{displaymath}
-  A fim de mostrarmos que $f$ também pertence a $\mathcal{R}$, consideramos o problema de levantamento abaixo, onde $j: M \to N$ é um morfismo qualquer pertencente à classe $\mathcal{L}$.
-  \begin{displaymath}
-    \begin{tikzcd}
-      M
-      \arrow[r, "\varphi"]
-      \arrow[d, "j" swap]
-      & X_{1}
+      & X
       \arrow[d, "f"]
-      \\ N
-      \arrow[r, "\psi" swap]
-      & Y_{1}
-    \end{tikzcd}
-  \end{displaymath}
-  Colando estes dois quadrados obtemos o quadrado comutativo abaixo, o qual admite um levantamento $h: N \to X_{2}$ pois $g \in \mathcal{R}$ por hipótese.
-  \begin{displaymath}
-    \begin{tikzcd}
-      M
-      \arrow[r, "\alpha \circ \varphi"]
-      \arrow[d, "j" swap]
-      & X_{2}
-      \arrow[d, "g"]
-      \\ N
-      \arrow[r, "\beta \circ \psi" swap]
-      \arrow[ru, dashed, "h" description]
-      & Y_{2}
-    \end{tikzcd}
-  \end{displaymath}
-  A estratégia para obtermos um morfismo do tipo $N \to X_{1}$ é usarmos a propriedade universal do pullback.
-  A igualdade $h \circ j = \alpha \circ \varphi$ implicada pela comutatividade acima diz que a ``camada externa'' do diagrama abaixo comuta, portanto segue da propriedade universal do pullback que existe um único morfismo do tipo $H: N \to X_{1}$ fazendo comutar o diagrama todo.
-  \begin{displaymath}
-    \begin{tikzcd}
-      N
-      \arrow[rd, dashed, "H" description]
-      \arrow[rdd, bend right=30, "\psi" swap]
-      \arrow[rrd, bend left=30, "h"]
-      \\ & X_{1}
-      \arrow[r, "\alpha"]
-      \arrow[d, "f" swap]
-      & X_{2}
-      \arrow[d, "g"]
-      \\ & Y_{1}
-      \arrow[r, "\beta" swap]
-      & Y_{2}
-    \end{tikzcd}
-  \end{displaymath}
-
-  Resta mostrarmos que $H$ é o levantamento procurado para o quadrado comutativo inicial.
-  A igualdade $f \circ H = \psi$ segue imediatamente da comutatividade acima.
-  Analogamente ao que ocorreu no caso do pushout, a fim de mostrarmos que a igualdade $H \circ j = \varphi$ também vale, precisamos utilizar a unicidade na propriedade universal do pullback.
-  Ambos os morfismos $H \circ j$ e $\varphi$ fazem comutar o diagrama abaixo,
-  \begin{displaymath}
-    \begin{tikzcd}
-      M
-      \arrow[rd, shift left=1.2, "H \circ j"]
-      \arrow[rd, shift right=1.2, "\varphi" swap]
-      \arrow[rrd, bend left=30, "\alpha \circ \varphi"]
-      \arrow[rdd, bend right=30, "f \circ \varphi" swap]
-      \\ & X_{1}
-      \arrow[r, "\alpha"]
-      \arrow[d, "f" swap]
-      & X_{2}
-      \arrow[d, "g"]
-      \\ & Y_{1}
-      \arrow[r, "\beta" swap]
-      & Y_{2}
-    \end{tikzcd}
-  \end{displaymath}
-  mas a propriedade universal do pullback garante a existência de um único morfismo do tipo $M \to X_{1}$ fazendo comutar o diagrama acima, de onde podemos concluímos enfim que a igualdade $H \circ j = \varphi$ deve ser verdadeira.
-
-  \smallskip
-  5. Suponha que $f: A_{1} \to B_{1}$ e $g: A_{2} \to B_{2}$ sejam dois morfismos que pertençam a $\mathcal{L}$.
-  A fim de mostrarmos que seu coproduto $f \sqcup g: A_{1} \sqcup A_{2} \to B_{1} \sqcup B_{2}$ também pertence a $\mathcal{L}$, basta mostrarmos que o problema de levantamento abaixo admite uma solução, onde $p: X \to Y$ é um morfismo qualquer na classe $\mathcal{R}$.
-  \begin{displaymath}
-    \begin{tikzcd}
-      A_{1} \sqcup A_{2}
-      \arrow[r, "\alpha"]
-      \arrow[d, "f \sqcup g" swap]
-      & X
-      \arrow[d, "p"]
-      \\ B_{1} \sqcup B_{2}
-      \arrow[r, "\beta" swap]
+      \\ Y
+      \arrow[r, "\id_Y" swap]
+      \arrow[rr, bend right=45, "\id_Y" swap]
+      & Y
+      \arrow[r, "\id_Y" swap]
       & Y
     \end{tikzcd}
   \end{displaymath}
-
-  Se $i_{1}: A_{1} \to A_{1} \sqcup A_{2}$, $i_{2}: A_{2} \to A_{1} \sqcup A_{2}$, $j_{1}: B_{1} \to B_{1} \sqcup B_{2}$ e $j_{2}: B_{2} \to B_{1} \sqcup B_{2}$ denotam as várias inclusões canônicas nos respectivos coprodutos, lembre-se que $f \sqcup g$ é por definição o único mapa do tipo $A_{1} \sqcup A_{2} \to B_{1} \sqcup B_{2}$ que faz comutar o diagrama abaixo.
-  \begin{displaymath}
-    \begin{tikzcd}[column sep=1.5cm]
-      A_{1}
-      \arrow[r, "f"]
-      \arrow[d, "i_{1}" swap]
-      & B_{1}
-      \arrow[d, "j_{1}"]
-      \\ A_{1} \sqcup A_{2}
-      \arrow[r, dashed, "f \sqcup g" description]
-      & B_{1} \sqcup B_{2}
-      \\ A_{2}
-      \arrow[u, "i_{2}"]
-      \arrow[r, "g" swap]
-      & B_{2}
-      \arrow[u, "j_{2}" swap]
-    \end{tikzcd}
-  \end{displaymath}
-
-  A partir do quadrado comutativo inicial obtemos o quadrado comutativo abaixo o qual admite um levantamento pois $f \in \mathcal{L}$ por hipótese.
+  ou seja, $\psi$ deve satisfazer as igualdades $\psi \circ i = \id_X$ e $f \circ \psi = p$.
+  Tomamos $\psi$ como sendo então uma solução qualquer para o problema de levantamento abaixo,
   \begin{displaymath}
     \begin{tikzcd}
-      A_{1}
-      \arrow[r, "\alpha \circ i_{1}"]
-      \arrow[d, "f" swap]
-      & X
-      \arrow[d, "p"]
-      \\ B_{1}
-      \arrow[r, "\beta \circ j_{1}" swap]
-      \arrow[ru, dashed, "h_{1}" description]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  Veja que o quadrado é realmente comutativo pois
-  \begin{displaymath}
-    \beta \circ j_{1} \circ f = \beta \circ (f \sqcup g) \circ i_{1} = p \circ \alpha \circ i_{1}.
-  \end{displaymath}
-  Analogamento, temos também o quadrado comutativo abaixo que admite um levantamento pelo fato que $g \in \mathcal{L}$ também.
-  \begin{displaymath}
-    \begin{tikzcd}
-      A_{2}
-      \arrow[r, "\alpha \circ i_{2}"]
-      \arrow[d, "g" swap]
-      & X
-      \arrow[d, "p"]
-      \\ B_{2}
-      \arrow[r, "\beta \circ j_{2}" swap]
-      \arrow[ru, dashed, "h_{2}" description]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-
-  Combinando estes dois levantamentos obtemos por meio da propriedade universal do coproduto um morfismo $\langle h_{1},h_{2} \rangle: B_{1} \sqcup B_{2} \to X$ o qual afirmamos ser o levantamento procurado para o quadrado original.
-  Por um lado, a fim de mostrarmos a igualdade
-  \begin{displaymath}
-    p \circ \langle h_{1},h_{2} \rangle = \beta,
-  \end{displaymath}
-  pela unicidade na propriedade universal do coproduto basta mostrarmos as duas igualdades abaixo,
-  \begin{displaymath}
-    \begin{cases}
-      p \circ \langle h_{1}, h_{2} \rangle \circ j_{1} = \beta \circ j_{1}, \\
-      p \circ \langle h_{1}, h_{2} \rangle \circ j_{2} = \beta \circ j_{2};
-    \end{cases}
-  \end{displaymath}
-  mas pelas propriedades dos morfismos envolvidos vemos que
-  \begin{displaymath}
-    p \circ \langle h_{1}, h_{2} \rangle \circ j_{1} =  p \circ h_{1} = \beta \circ j_{1},
-  \end{displaymath}
-  sendo que a segunda igualdade segue de uma sequência análoga de igualdades.
-
-  Já a igualdade $\langle h_{1}, h_{2} \rangle \circ (f \sqcup g) = \alpha$ seguirá também da unicidade na propriedade do coproduto se mostrarmos as igualdades
-  \begin{displaymath}
-    \begin{cases}
-      \langle h_{1}, h_{2} \rangle \circ (f \sqcup g) \circ i_{1} = \alpha \circ i_{1}, \\
-      \langle h_{1}, h_{2} \rangle \circ (f \sqcup g) \circ i_{2} = \alpha \circ i_{2}.
-    \end{cases}
-  \end{displaymath}
-  No primeiro caso basta vermos que
-  \begin{displaymath}
-    \langle h_{1}, h_{2} \rangle \circ (f \sqcup g) \circ i_{1} = \langle h_{1}, h_{2} \rangle \circ j_{1} \circ f = h_{1} \circ f = \alpha \circ i_{1},
-  \end{displaymath}
-  enquanto no segundo caso temos uma sequência análoga de igualdades.
-
-  A demonstração para o produto de morfismos na classe $\mathcal{R}$ é dual.
-  Suponha que $f: X_{1} \to Y_{1}$ e $g: X_{2} \to Y_{2}$ sejam dois morfismos da classe $\mathcal{R}$.
-  A fim de mostrarmos que o produto $f \times g: X_{1} \times X_{2} \to Y_{1} \times Y_{2}$ também pertence a $\mathcal{R}$, consideramos um morfismo $i: A \to B$ qualquer na classe $\mathcal{L}$, e procuramos uma solução para o problema de levantamento mostrado abaixo.
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r, "\alpha"]
+      X
+      \arrow[r, "\id_X"]
       \arrow[d, "i" swap]
-      & X_{1} \times X_{2}
-      \arrow[d, "f \times g"]
-      \\ B
-      \arrow[r, "\beta" swap]
-      & Y_{1} \times Y_{2}
-    \end{tikzcd}
-  \end{displaymath}
-  Se $p_{1}: X_{1} \times X_{2} \to X_{1}$, $p_{2}: X_{1} \times X_{2} \to X_{2}$, $q_{1}: Y_{1} \times Y_{2} \to Y_{1}$ e $q_{2}: Y_{1} \times Y_{2} \to Y_{2}$ denotam as projeções canônicas dos respectivos produtos, lembre-se que o morfismo $f \times g$ é por definição o único morfismo do tipo $X_{1} \times X_{2} \to Y_{1} \times Y_{2}$ que faz comutar o diagrama abaixo.
-  \begin{displaymath}
-    \begin{tikzcd}[column sep=1.5cm]
-      X_{1}
-      \arrow[r, "f"]
-      & Y_{1}
-      \\ X_{1} \times X_{2}
-      \arrow[u, "p_{1}"]
-      \arrow[r, dashed, "f \times g" description]
-      \arrow[d, "p_{2}" swap]
-      & Y_{1} \times Y_{2}
-      \arrow[u, "q_{1}" swap]
-      \arrow[d, "q_{2}"]
-      \\ Y_{1}
-      \arrow[r, "g" swap]
-      & Y_{2}
-    \end{tikzcd}
-  \end{displaymath}
-
-  Usando o quadrado comutativo inicial obtemos os dois problemas de levantamento indicados abaixo, os quais possem soluções $h_{1}$ e $h_{2}$ pois $f$ e $g$ pertencem à classe $\mathcal{R}$ por hipótese.
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r, "p_{1} \circ \alpha"]
-      \arrow[d, "i" swap]
-      & X_{1}
+      & X
       \arrow[d, "f"]
-      \\ B
-      \arrow[r, "q_{1} \circ \beta" swap]
-      \arrow[ru, dashed, "h_{1}" description]
-      & Y_{1}
-    \end{tikzcd}
-    \qquad
-    \begin{tikzcd}
-      A
-      \arrow[r, "p_{2} \circ \alpha"]
-      \arrow[d, "i" swap]
-      & X_{2}
-      \arrow[d, "g"]
-      \\ B
-      \arrow[r, "q_{2} \circ \beta" swap]
-      \arrow[ru, dashed, "h_{2}" description]
-      & Y_{2}
+      \\ Z
+      \arrow[r, "p" swap]
+      \arrow[ru, dashed, "\psi" description]
+      & Y
     \end{tikzcd}
   \end{displaymath}
-
-  Os morfismos $h_{1}$ e $h_{2}$ combinados induzem o morfismo $(h_{1},h_{2}): B \to X_{1} \times X_{2}$, o qual afirmamos ser uma solução para o problema de levantamento considerado inicialmente.
-  De fato, temos as igualdades
-  \begin{displaymath}
-    p_{1} \circ (h_{1},h_{2}) \circ i = h_{1} \circ i = p_{1} \circ \alpha,
-  \end{displaymath}
-  e também as igualdades
-  \begin{displaymath}
-    p_{2} \circ (h_{1},h_{2}) \circ i = h_{2} \circ i = p_{2} \circ \alpha,
-  \end{displaymath}
-  e juntas essas duas implicam a igualdade $(h_{1},h_{2}) \circ i = \alpha$ desejada.
-  Por fim, usando a comutatividade do diagrama que caracteriza o produto $q_{1} \times q_{2}$ vemos que também valem as igualdades
-  \begin{displaymath}
-    q_{1} \circ (f \times g) \circ (h_{1},h_{2}) = f \circ p_{1} \circ (h_{1},h_{2}) = f \circ h_{1} = q_{1} \circ \beta
-  \end{displaymath}
-  e as igualdades
-  \begin{displaymath}
-    q_{2} \circ (f \times g) \circ (h_{1},h_{2}) = g \circ p_{2} \circ (h_{1},h_{2}) = g \circ h_{2} = q_{2} \circ \beta;
-  \end{displaymath}
-  e juntas essas igualdades implicam $(f \times g) \circ (h_{1},h_{2}) = \beta$ como desejado.
+  a qual existe já que $f$ satisfaz a condição de levantamento à direita com relação a $i$ por hipótese.
 \end{proof}
 
-Agora mostramos como podemos usar a estrutura de uma categoria modelo para construirmos enfim exemplos um pouco mais concretos de sistemas de fatoração fracos.
+Usando o lema acima podemos demonstrar sem dificuldades que toda estrutura de modelos dá origem a dois sistemas de fatoração fracos envolvendo cofibrações e fibrações.
 
-\begin{prop}\label{prop:categoria_modelo_induz_sistemas_de_fatoracao}
-  Suponha que $(\mathsf{M},\mathcal{W},\mathcal{C},\mathcal{F})$ seja uma categoria modelo.
+\begin{prop}\label{prop:fatoracoes_fracas_via_estrutura_de_modelos}
+  Seja $(\mathsf{M},\mathcal{W},\mathcal{C},\mathcal{F})$ seja uma categoria de modelos.
   As seguintes afirmações são verdadeiras:
   \begin{enumerate}
   \item $(\mathcal{C} \cap \mathcal{W},\mathcal{F})$ define um sistema de fatoração fraco em $\mathsf{M}$;
@@ -1739,205 +1222,36 @@ Agora mostramos como podemos usar a estrutura de uma categoria modelo para const
 \end{prop}
 
 \begin{proof}
-  1. O axioma de fatoração (M5) garante que, dado qualquer morfismo $f: X \to Y$ em $\mathsf{M}$, existe uma cofibração trivial $j: X \overset{\sim}{\cofib} \widetilde{Y}$ e uma fibração $q: \widetilde{Y} \fib Y$ que fatoram $f$ como indicado abaixo.
-  \begin{displaymath}
-    \begin{tikzcd}
-      X
-      \arrow[r, tail, "j", "\sim" {swap}]
-      \arrow[rr, bend right=30, "f" swap]
-      & \widetilde{Y}
-      \arrow[r, two heads, "q"]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  Isso significa que o par de classes de morfismos $(\mathcal{C} \cap \mathcal{W}, \mathcal{F})$ satisfaz a primeira condição de um sistema de fatoração fraco.
+  1. O axioma de fatoração (M5) garante que todo morfismo de $\mathsf{M}$ pode ser fatorado como uma cofibração trivial seguida de uma fibração, portanto o par $(\mathcal{C} \cap \mathcal{W}, \mathcal{F})$ satisfaz a primeira condição na definição de sistema de fatoração fraco.
 
-  Resta mostrarmos que $\mathcal{C} \cap \mathcal{W}$ e $\mathcal{F}$ definem um ao outro por meio de propriedades de levantamento.
-  Note que o axioma de levantamento (M4) garante que toda fibração satisfaz a propriedade de levantamento à direita com relação à classe $\mathcal{C} \cap \mathcal{W}$ das cofibrações triviais.
-  Reciprocamente, suponha que $f: X \to Y$ satisfaça a propriedade de levantamento à direita com relação à classe das cofibrações triviais.
-  Queremos mostrar que isso garante que $f$ seja uma fibração, e como o únicos axiomas que temos para lidar com fibrações são os de retração e fatoração, não é surpresa que a estratégia da demonstração seja combinarmos esses dois axiomas com a hipótese de levantamento sobre $f$.
+  Resta mostrarmos agora as condições de projetividade e injetividade.
+  O axioma de levantamento (M4) garante que toda cofibração trivial é projetiva com relação à classe das fibrações, ou seja, vale a inclusão $\mathcal{C} \cap \mathcal{W} \subseteq \mathcal{F}\mathrm{Proj}$, mas precisamos mostrar que a inclusão reversa também é válida.
+  Suponha então que $f: X \to Y$ seja um morfismo $\mathcal{F}$-projetivo, e considere uma fatoração
+  \begin{displaymath}
+    f = p \circ i,
+  \end{displaymath}
+  onde $i: X \overset{\sim}{\cofib} Z$ é uma cofibração trivial, e $p: Z \fib Y$ é uma fibração.
+  A hipótese de projetividade garante que $f$ satisfaça a condição de levantamento à esquerda com relação a $p$, logo $f$ é um retrato de $i$ pelo Argumento do Retrato (\cref{lema:argumento_do_retrato}) e, portanto, uma cofibração trivial também pelo axioma de retração (M3).
 
-  Usando o axioma de fatoração podemos obter uma cofibração trivial $j: X \overset{\sim}{\cofib} \widetilde{Y}$ e uma fibração $q: \widetilde{Y} \fib Y$ tais que $f = q \circ j$.
-  Essa igualdade também pode ser expressa em termos do quadrado comutativo abaixo, o qual admite um levantamento $h: \widetilde{Y} \to X$ já que $f$ satisfaz a propriedade de levantamento à direita com relação às cofibrações triviais.
-  \begin{displaymath}
-    \begin{tikzcd}
-      X
-      \arrow[r, "\id_{X}"]
-      \arrow[d, tail, "j" {swap}, "\sim" {sloped}]
-      & X
-      \arrow[d, "f"]
-      \\ \widetilde{Y}
-      \arrow[r, two heads, "q" swap]
-      \arrow[ru, dashed, "h" description]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  Podemos organizar estes morfismos todos no diagrama comutativo mostrado abaixo,
-  \begin{displaymath}
-    \begin{tikzcd}
-      X
-      \arrow[r, tail, "j", "\sim" {swap}]
-      \arrow[d, "f" swap]
-      \arrow[rr, bend left=45, "\id_{X}"]
-      & \widetilde{Y}
-      \arrow[r, "h"]
-      \arrow[d, two heads, "q"]
-      & X
-      \arrow[d, "f"]
-      \\ Y
-      \arrow[r, "\id_{Y}" swap]
-      \arrow[rr, bend right=45, "\id_{Y}" swap]
-      & Y
-      \arrow[r, "\id_{Y}" swap]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  o qual mostra que $f$ é uma retração da fibração $q$ na categoria de setas $\Arr(\mathsf{M})$ e, portanto, uma fibração também.
-
-  Vejamos agora a descrição das cofibrações triviais em termos das fibrações.
-  Note inicialmente que o axioma de levantamento (M4) mais uma vez já garante que toda cofibração trivial satisfaz a propriedade de levantamento à esquerda com relação à classe de fibrações, a questão aqui é mostrar que essa propriedade de levantamento \emph{caracteriza} as cofibrações triviais.
-  Suponha então que $f: X \to Y$ satisfaça a propriedade de levantamento à esquerda com relação às fibrações.
-  Como a classe $\mathcal{C} \cap \mathcal{W}$ é fechada por retrações, pois tanto $\mathcal{C}$ quanto $\mathcal{W}$ o são, basta mostrarmos que $f$ é uma retração de uma cofibração trivial.
-  Novamente consideramos a fatoração abaixo em termos de uma cofibração trivial seguida de uma fibração.
-  \begin{displaymath}
-    \begin{tikzcd}
-      X
-      \arrow[r, "j" {swap}, "\sim"]
-      \arrow[rr, bend left=30, "f"]
-      & \widetilde{Y}
-      \arrow[r, two heads, "q" swap]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-
-  A condição $f = q \circ j$ pode ser expressa em termos do quadrado comutativo abaixo, e tal quadrado admite um levantamento $h: Y \to \widetilde{Y}$ pois $f$ por hipótese satisfaz a condição de levantamento à esquerda com relação às fibrações.
-  \begin{displaymath}
-    \begin{tikzcd}
-      X
-      \arrow[d, "f" swap]
-      \arrow[r, tail, "j", "\sim" {swap}]
-      & \widetilde{Y}
-      \arrow[d, two heads, "q"]
-      \\ Y
-      \arrow[r, "\id_{Y}" swap]
-      \arrow[ru, dashed, "h" description]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  Os morfismos todos em questão podem então ser combinados no diagrama comutativo abaixo que expressa $f$ como uma retração da cofibração trivial $j$ como queríamos.
-  \begin{displaymath}
-    \begin{tikzcd}
-      X
-      \arrow[r, "\id_{X}"]
-      \arrow[rr, bend left=45, "\id_{X}"]
-      \arrow[d, "f" swap]
-      & X
-      \arrow[d, tail, "j", "\sim" {swap, sloped}]
-      \arrow[r, "\id_{X}"]
-      & X
-      \arrow[d, "f"]
-      \\ Y
-      \arrow[r, "h" swap]
-      \arrow[rr, bend right=45, "\id_{Y}" swap]
-      & \widetilde{Y}
-      \arrow[r, two heads, "q" swap]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
+  O axioma de levantamento (M4) também mostra que vale a inclusão $\mathcal{F} \subseteq (\mathcal{C} \cap \mathcal{W})\mathrm{Inj}$.
+  Agora, seja $f: X \to Y$ um morfismo injetivo com relação à classe das cofibrações triviais.
+  Se $f = p \circ i$ é uma fatoração como acima, então $f$ satisfaz a condição de levantamento à direita com relação a $i$, logo $f$ é um retrato de $p$ pelo argumento do retrato novamente e, portanto, uma fibração também pelo axioma de retração (M3).
 
   \smallskip
-  2. Novamente pelo axioma de fatoração (M5) podemos fatorar um morfismo $f: X \to Y$ qualquer de $\mathsf{M}$ da forma indicada abaixo.
-  \begin{equation}
-    \label{eq:fatoracao_cofib_fib_triv}
-    \begin{tikzcd}
-      X
-      \arrow[r, tail, "i" swap]
-      \arrow[rr, bend left=45, "f"]
-      & \widehat{X}
-      \arrow[r, two heads, "p" {swap}, "\sim"]
-      & Y
-    \end{tikzcd}
-  \end{equation}
-  Em outras palavras, o par $(\mathcal{C}, \mathcal{F} \cap \mathcal{W})$ satisfaz a primeira condição na definição de sistema de fatoração fraco.
-  Resta verificarmos que as classes se definem mutuamente em termos de propriedades de levantamento.
+  2. O axioma de fatoração (M5) garante que todo morfismo de $f$ possa ser fatorado como uma cofibração seguida de uma fibração trivial, portanto o par $(\mathcal{C},\mathcal{F} \cap \mathcal{W})$ satisfaz a primeira condição na definição de sistema de fatoração fraco.
 
-  Inicialmente, sabemos do axioma de levantamento (M4) que toda cofibração satisfaz a propriedade de levantamento à esquerda com relação à classe das fibrações triviais.
-  Suponha agora que $f: X \to Y$ satisfaça tal propriedade de levantamento, e vamos então mostrar que $f$ é necessariamente uma cofibração trivial também, o que como nos dois casos anteriores será feito por meio do axioma de retração.
-  A condição $f = p \circ i$ pode ser expressa pela comutatividade do quadrado abaixo, e a condição de levantamento sobre $f$ nos permite obter o mapa $h: Y \to \widehat{X}$ indicado.
-  \begin{displaymath}
-    \begin{tikzcd}
-      X
-      \arrow[r, tail, "i"]
-      \arrow[d, "f" swap]
-      & \widehat{X}
-      \arrow[d, two heads, "p", "\sim" {swap, sloped}]
-      \\ Y
-      \arrow[r, "\id_{Y}" swap]
-      \arrow[ru, dashed, "h" description]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  Usando os morfismos à disposição construímos o diagrama abaixo expressando $f$ como uma retração da cofibração $i$, de onde concluímos que $f$ é também uma cofibração.
-  \begin{displaymath}
-    \begin{tikzcd}
-      X
-      \arrow[r, "\id_{X}"]
-      \arrow[d, "f" swap]
-      \arrow[rr, bend left=45, "\id_{X}"]
-      & X
-      \arrow[r, "\id_{X}"]
-      \arrow[d, tail, "i"]
-      & X
-      \arrow[d, "f"]
-      \\ Y
-      \arrow[r, "h" swap]
-      \arrow[rr, bend right=45, "\id_{Y}" swap]
-      & \widehat{X}
-      \arrow[r, two heads, "p" {swap}, "\sim"]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
+  Vejamos agora as condições de projetividade e injetividade.
+  O axioma de levantamento nos permite concluir que toda cofibração é projetiva com relação à classe de fibrações triviais.
+  Reciprocamente, suponha que $f: X \to Y$ seja $(\mathcal{F} \cap \mathcal{W})$-projetivo.
+  Podemos fatorar tal morfismos como $f = q \circ j$, onde $j: X \cofib Z$ é uma cofibração, e $q: Z \overset{\sim}{\fib} Y$ é uma fibração trivial.
+  Ora, como $f$ satisfaz a propriedade de levantamento à esquerda com relação a $q$, segue do argumento do retrato que $f$ é um retrato de $j$ e, portanto, uma cofibração.
 
-  Por fim, resta apenas mostrarmos que as fibrações triviais são precisamente os morfismos satisfazendo a condição de levantamento à direita com relação às cofibrações.
-  O axioma de levantamento (M4) nos diz que toda fibração trivial satisfaz tal propriedade de levantamento, a questão é justamente a recíproca.
-  Suponha então que $f: X \to Y$ satisfaça essa propriedade também, e seguindo a notação da fatoração em \eqref{eq:fatoracao_cofib_fib_triv}, considere o quadrado comutativo abaixo, e o mapa $h: \widehat{X} \to X$ obtido da hipótese feita sobre $f$.
-  \begin{displaymath}
-    \begin{tikzcd}
-      X
-      \arrow[r, "\id_{X}"]
-      \arrow[d, tail, "i" swap]
-      & X
-      \arrow[d, "f"]
-      \\ \widehat{X}
-      \arrow[r, two heads, "p" {swap}, "\sim"]
-      \arrow[ru, dashed, "h" description]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  Como o leitor já há muito deve ter previsto, combinando todos esses ingredientes obtemos o diagrama comutativo abaixo exibindo $f$ como uma retração da fibração trivial $p$, o que nos permite concluir enfim que $f$ é também uma fibração trivial.
-  \begin{displaymath}
-    \begin{tikzcd}
-      X
-      \arrow[r, tail, "i"]
-      \arrow[d, "f" swap]
-      \arrow[rr, bend left=45, "\id_{X}"]
-      & \widehat{X}
-      \arrow[r, "h"]
-      \arrow[d, two heads, "p", "\sim" {swap,sloped}]
-      & X
-      \arrow[d, "f"]
-      \\ Y
-      \arrow[r, "\id_{Y}" swap]
-      \arrow[rr, bend right=45, "\id_{Y}" swap]
-      & Y
-      \arrow[r, "\id_{Y}" swap]
-      & Y
-    \end{tikzcd} \qedhere
-  \end{displaymath}
+  O axioma de levantamento também nos diz que toda fibração trivial é injetiva com relação à classe das cofibrações.
+  Reciprocamente, se $f: X \to Y$ é $\mathcal{C}$-injetivo, podemos considerar uma fatoração $f = q \circ j$ exatamente como acima e usar a hipótese de injetividade juntamente com o argumento do retrato para concluirmos que $f$ é um retrato de $q$ e, portanto, uma fibração trivial também.
 \end{proof}
 
 \begin{obs}
-  É comum dizer que os resultados da \cref{prop:categoria_modelo_induz_sistemas_de_fatoracao} mostram que a estrutura de uma categoria modelo é \emph{sobredeterminada}, pois o conhecimento de duas das três classes de morfismos $\mathcal{W}$, $\mathcal{C}$ e $\mathcal{F}$ nos permite determinar totalmente a terceira.
+  É comum dizer que os resultados da \cref{prop:fatoracoes_fracas_via_estrutura_de_modelos} mostram que a estrutura de uma categoria modelo é \emph{sobredeterminada}, pois o conhecimento de duas das três classes de morfismos $\mathcal{W}$, $\mathcal{C}$ e $\mathcal{F}$ nos permite determinar totalmente a terceira.
   De fato, se conhecemos as classes $\mathcal{W}$ e $\mathcal{C}$, então conhecemos também a classe das cofibrações triviais $\mathcal{C} \cap \mathcal{W}$, e da proposição anterior sabemos que $\mathcal{F}$ pode ser descrita então como a classe dos morfismos que satisfazem a propriedade de levantamento à direita cmo relação a $\mathcal{C} \cap \mathcal{W}$.
   Analogamente, se conhecemos as classes $\mathcal{W}$ e $\mathcal{F}$, então conhecemos a classe das fibrações triviais $\mathcal{F} \cap \mathcal{W}$, e pelo resultado anterior recuperamos $\mathcal{C}$ como a classe dos morfismos que satisfazem a propriedade de levantamento à esquerda com relação a $\mathcal{F} \cap \mathcal{W}$.
   Fica a pergunta se as equivalências fracas podem ser recuperadas a partir das fibrações e cofibrações.
@@ -1948,7 +1262,7 @@ Agora mostramos como podemos usar a estrutura de uma categoria modelo para const
   Um exemplo concreto é a estrutura modelo usual na categoria $\mathsf{Top}$, onde a classe de cofibrações triviais inicial usada para gerar o resto das estruturas é o dos mapas $D^{n} \hookrightarrow D^{n} \times I$ incluindo o disco $D^{n}$ na base inferior do cilindro associado.
 \end{obs}
 
-Aplicando as propriedades gerais demonstradas na \cref{prop:propriedades_fatoracao_fraca} aos sistemas explícitos construídos na \cref{prop:categoria_modelo_induz_sistemas_de_fatoracao} obtemos as propriedades abaixo a respeito dos vários tipos de morfismos em uma categoria modelo.
+Aplicando as propriedades gerais demonstradas na \cref{prop:propriedades_fatoracao_fraca} aos sistemas explícitos construídos na \cref{prop:fatoracoes_fracas_via_estrutura_de_modelos} obtemos as propriedades abaixo a respeito dos vários tipos de morfismos em uma categoria modelo.
 
 \begin{corol}\label{corol:propriedades_de_preservacao_categoria_modelo}
   Em uma categoria modelo qualquer valem as seguintes propriedades:
@@ -1994,7 +1308,7 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria modelo tam
 \end{prop}
 
 \begin{proof}
-  A implicação $1 \implies 2$ é precisamente o conteúdo da \cref{prop:categoria_modelo_induz_sistemas_de_fatoracao}.
+  A implicação $1 \implies 2$ é precisamente o conteúdo da \cref{prop:fatoracoes_fracas_via_estrutura_de_modelos}.
 
   Reciprocamente, suponha que os pares de classes $(\mathcal{W} \cap \mathcal{C},\mathcal{F})$ e $(\mathcal{C},\mathcal{W} \cap \mathcal{F})$ definam sistemas de fatoração fracos em $\mathsf{M}$, e vamos verificar então que os axiomas de uma categoria modelo são satisfeitos.
   
