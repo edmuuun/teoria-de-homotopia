@@ -1206,7 +1206,7 @@ Antes de enunciarmos o resultado em si, é um bom momento para introduzirmos um 
       & Y
     \end{tikzcd}
   \end{displaymath}
-  a qual existe já que $f$ satisfaz a condição de levantamento à direita com relação a $i$ por hipótese.
+  a qual existe pois $f$ satisfaz a condição de levantamento à direita com relação a $i$ por hipótese.
 \end{proof}
 
 Usando o lema acima podemos demonstrar sem dificuldades que toda estrutura de modelos dá origem a dois sistemas de fatoração fracos envolvendo cofibrações e fibrações.
@@ -1254,26 +1254,22 @@ Usando o lema acima podemos demonstrar sem dificuldades que toda estrutura de mo
   É comum dizer que os resultados da \cref{prop:fatoracoes_fracas_via_estrutura_de_modelos} mostram que a estrutura de uma categoria modelo é \emph{sobredeterminada}, pois o conhecimento de duas das três classes de morfismos $\mathcal{W}$, $\mathcal{C}$ e $\mathcal{F}$ nos permite determinar totalmente a terceira.
   De fato, se conhecemos as classes $\mathcal{W}$ e $\mathcal{C}$, então conhecemos também a classe das cofibrações triviais $\mathcal{C} \cap \mathcal{W}$, e da proposição anterior sabemos que $\mathcal{F}$ pode ser descrita então como a classe dos morfismos que satisfazem a propriedade de levantamento à direita cmo relação a $\mathcal{C} \cap \mathcal{W}$.
   Analogamente, se conhecemos as classes $\mathcal{W}$ e $\mathcal{F}$, então conhecemos a classe das fibrações triviais $\mathcal{F} \cap \mathcal{W}$, e pelo resultado anterior recuperamos $\mathcal{C}$ como a classe dos morfismos que satisfazem a propriedade de levantamento à esquerda com relação a $\mathcal{F} \cap \mathcal{W}$.
-  Fica a pergunta se as equivalências fracas podem ser recuperadas a partir das fibrações e cofibrações.
-  A resposta é que em certo sentido sim, como mostra o próximo resultado, embora mais precisamente tenhamos que conhecer as fibrações e cofibrações triviais.
 
   Essa propriedade de sobredeterminação é por vezes utilizada para \emph{definirmos} uma estrutura modelo completa partindo apenas de alguns componentes de sua estrutura.
   Um exemplo onde esse fenômenos ocorre, e que abordaremos em detalhes mais tarde, é no estudo das categorias modelo \emph{cofibrantemente geradas}, onde uma estrutura modelo é gerada a partir de uma coleção de morfismos que queremos considerar como cofibrações triviais.
-  Um exemplo concreto é a estrutura modelo usual na categoria $\mathsf{Top}$, onde a classe de cofibrações triviais inicial usada para gerar o resto das estruturas é o dos mapas $D^{n} \hookrightarrow D^{n} \times I$ incluindo o disco $D^{n}$ na base inferior do cilindro associado.
+  Um exemplo concreto é a estrutura modelo usual na categoria $\mathsf{Top}$, onde a classe de cofibrações triviais inicial usada para gerar o resto das estrutura de modelos é o dos mapas $D^{n} \hookrightarrow D^{n} \times I$ incluindo o disco $D^{n}$ na base inferior do cilindro associado.
 \end{obs}
 
-Aplicando as propriedades gerais demonstradas na \cref{prop:propriedades_fatoracao_fraca} aos sistemas explícitos construídos na \cref{prop:fatoracoes_fracas_via_estrutura_de_modelos} obtemos as propriedades abaixo a respeito dos vários tipos de morfismos em uma categoria modelo.
+Aplicando as propriedades gerais demonstradas na \cref{prop:propriedades_fatoracao_fraca} aos sistemas explícitos construídos na \cref{prop:fatoracoes_fracas_via_estrutura_de_modelos} obtemos as propriedades de preservação abaixo válidas em uma categoria de modelos qualquer.
 
-\begin{corol}\label{corol:propriedades_de_preservacao_categoria_modelo}
-  Em uma categoria modelo qualquer valem as seguintes propriedades:
+\begin{corol}\label{corol:props_preservacao_categoria_de_modelos}
+  Em uma categoria de modelos qualquer valem as seguintes propriedades:
   \begin{enumerate}
-  \item Um isomorfismo é simultaneamento uma cofibração trivial e uma fibração trivial.
+  \item Todo isomorfismo é tanto uma cofibração trivial quanto uma fibração trivial.
     
-  \item Cofibrações, cofibrações triviais, fibrações e fibrações triviais são todas preservadas por composições.
-    
-  \item Cofibrações e cofibrações triviais são preservadas por pushouts, enquanto fibrações e fibrações triviais são preservadas por pullbacks.
-    
-  \item Cofibrações e cofibrações triviais são preservadas por coprodutos, enquanto fibrações e fibrações triviais são preservadas por produtos.
+  \item Cofibrações e cofibrações triviais são preservadas por composições, retrações, pushouts e coprodutos.
+
+  \item Fibrações e fibrações triviais são preservadas por composições, retrações, pullback e produtos.
   \end{enumerate}
 \end{corol}
 
@@ -1289,10 +1285,10 @@ Por fim, temos o resultado simples abaixo mostrando como ``detectar'' equivalên
   Ora, como $f$ e $i$ são equivalências fracas, segue do axioma 2-de-3 que $p$ também o é, ou seja, $p$ é uma fibração trivial, e a fatoração $f = p \circ i$ exibe $f$ como uma cofibração trivial seguida de uma fibração trivial.
 \end{proof}
 
-Encerramos essa subseção mostrando como os axiomas de uma categoria modelo também pode ser enunciados apenas em termos de sistemas de fatoração fracos.
+Encerramos essa subseção mostrando como os axiomas de uma categoria de modelos podem também ser enunciados em termos de sistemas de fatoração fracos.
 
-\begin{prop}
-  Sejam $\mathsf{M}$ uma categoria bicompleta e $\mathcal{W}$, $\mathcal{C}$ e $\mathcal{F}$ três classes de morfismos em $\mathsf{M}$.
+\begin{prop}\label{prop:estrutura_de_modelos_via_fatoracao_fraca}
+  Sejam $\mathsf{M}$ uma categoria bicompleta e $\mathcal{W},\, \mathcal{C},\, \mathcal{F} \subseteq \Mor(\mathsf{M})$ três classes de morfismos.
   Suponha ainda que a classe $\mathcal{W}$ satisfaça as seguintes condições:
   \begin{enumerate}
   \item[(i)] $\mathcal{W}$ contém todos os isomorfismos;
@@ -1301,31 +1297,33 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria modelo tam
   \end{enumerate}
   Nessas condições, as seguintes afirmações são equivalentes:
   \begin{enumerate}
-  \item $(\mathsf{M},\mathcal{W},\mathcal{C},\mathcal{F})$ é uma categoria modelo;
+  \item $(\mathsf{M},\mathcal{W},\mathcal{C},\mathcal{F})$ é uma categoria de modelos;
     
-  \item $(\mathcal{W} \cap \mathcal{C},\mathcal{F})$ e $(\mathcal{C},\mathcal{W} \cap \mathcal{F})$ são sistemas de fatoração fracos em $\mathsf{M}$.
+  \item $(\mathcal{C} \cap \mathcal{W},\mathcal{F})$ e $(\mathcal{C}, \mathcal{F} \cap \mathcal{W})$ são sistemas de fatoração fracos em $\mathsf{M}$.
   \end{enumerate}
 \end{prop}
 
 \begin{proof}
   A implicação $1 \implies 2$ é precisamente o conteúdo da \cref{prop:fatoracoes_fracas_via_estrutura_de_modelos}.
 
-  Reciprocamente, suponha que os pares de classes $(\mathcal{W} \cap \mathcal{C},\mathcal{F})$ e $(\mathcal{C},\mathcal{W} \cap \mathcal{F})$ definam sistemas de fatoração fracos em $\mathsf{M}$, e vamos verificar então que os axiomas de uma categoria modelo são satisfeitos.
+  Reciprocamente, suponha que $(\mathcal{C} \cap \mathcal{W},\mathcal{F})$ e $(\mathcal{C}, \mathcal{F} \cap \mathcal{W})$ definam sistemas de fatoração fracos em $\mathsf{M}$, e vamos verificar então que os axiomas de uma categoria modelo são satisfeitos.
   
-  O axioma de completude (M1) e o axioma 2-de-3 (M2) seguem das hipóteses impostas no enunciado.
-  Os axiomas de lavantamento (M4) e de fatoração (M5) seguem diretamente das duas propriedades que definem um sistema de fatoração fraco.
+  O axioma de completude (M1) e o axioma 2-de-3 (M2) seguem das hipóteses impostas sobre $\mathcal{W}$ no próprio enunciado.
+  Os axiomas de lavantamento (M4) e de fatoração (M5) seguem diretamente das das propriedades que definem os sistemas de fatoração fracos $(\mathcal{C} \cap \mathcal{W},\mathcal{F})$ e $(\mathcal{C},\mathcal{F} \cap \mathcal{W})$.
+
   Resta apenas verificarmos então o axioma de retração (M3).
-  Note que a validade deste para as classes de cofibrações e fibrações segue de uma aplicação direta do item (c) da \cref{prop:propriedades_fatoracao_fraca} aos dois sistemas de fatoração fracos em questão.
+  Note que a validade deste para as classes de cofibrações e fibrações segue das propriedades demonstradas na \cref{prop:propriedades_fatoracao_fraca}.
   Falta então mostrarmos que a classe das equivalências fracas é também fechada por retrações, e isso será um tanto mais emocionante.
-  Suponha que o morfismo $f: X \to Y$ seja retração de uma equivalência fraca $g: A \to B$ como mostrado no diagrama abaixo.
-  \begin{displaymath}
+  Suponha que o morfismo $f: X \to Y$ seja retração de uma equivalência fraca $g: A \overset{\sim}{\to} B$ como mostrado no diagrama abaixo.
+  \begin{equation}
+    \label{eq:estrutura_de_modelos_via_fatoracao_fraca_diag_1}
     \begin{tikzcd}
       X
       \arrow[d, "f" swap]
       \arrow[r, "s_{1}"]
       \arrow[rr, bend left=45, "\id_{X}"]
       & A
-      \arrow[d, "g"]
+      \arrow[d, "g", "\sim" {swap,sloped}]
       \arrow[r, "r_{1}"]
       & X
       \arrow[d, "f"]
@@ -1336,52 +1334,55 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria modelo tam
       \arrow[r, "r_{2}" swap]
       & Y
     \end{tikzcd}
-  \end{displaymath}
-  Suponha inicialmente que $f$ seja uma fibração.
-  O morfismo $g$ pode ser fatorado na forma $g = p \circ i$, onde $i: A \overset{\sim}{\cofib} C$ é uma cofibração trivial, e $p: C \fib B$ é uma fibração.
-  Note que, na verdade, a propriedade 2-de-3 garante que $p$ é também uma equivalência fraca e, portanto, uma fibração trivial.
-  Nosso primeiro objetivo é mostrar que $f$ é uma retração de $p$, o que garante que $f$ seja também uma fibração trivial pelo item (c) da \cref{prop:propriedades_fatoracao_fraca} e em particular uma equivalência fraca.
-  Como temos a sequência de igualdades
-  \begin{displaymath}
-    r_{2} \circ p \circ i = r_{2} \circ g = f \circ r_{1},
-  \end{displaymath}
-  o quadrado indicado abaixo é comutativo, e o fato de $i$ ser uma cofibração trivial e $f$ ser uma fibração garantem a existência do levantamento $r: C \to X$.
-  \begin{displaymath}
-    \begin{tikzcd}
-      A
-      \arrow[r, "r_{1}"]
-      \arrow[d, tail, "i" {swap}, "\sim" {sloped}]
-      & X
-      \arrow[d, two heads, "f"]
-      \\ C
-      \arrow[r, "r_{2} \circ p" swap]
-      \arrow[ru, dashed, "r" description]
-      & Y
-    \end{tikzcd}
-  \end{displaymath}
-  Usando esse morfismo $r$ construímos o diagrama comutativo abaixo, o qual expressa $f$ como uma retração da fibração trivial $p$, conforme desejado.
+  \end{equation}
+
+  Suponha inicialmente que $f$ pertença à classe $\mathcal{F}$, de forma que nosso objetivo é então mostrar que nesse caso necessariamente temos $f \in \mathcal{F} \cap \mathcal{W}$.
+  Nossa estratégia é então exibir $f$ como o retrato de um outro morfismo que pertença à classe $\mathcal{F} \cap \mathcal{W}$, a qual sabemos ser fechada por retratos pela \cref{prop:propriedades_fatoracao_fraca}.
+  
+  Aplicando qualquer um dos dois sistemas de fatoração fraca ao morfismo $g$ juntamente com a propriedade 2-de-3 podemos escrever $g = p \circ i$, onde $i: A \to C$ pertence a $\mathcal{C} \cap \mathcal{W}$ e $p: C \to B$ pertence a $\mathcal{F} \cap \mathcal{W}$.
+  Afirmamos que $f$ é um retrato de $p$.
+  Basta para isso construirmos um morfismo $\theta: C \to X$ fazendo comutar o diagrama abaixo,
   \begin{displaymath}
     \begin{tikzcd}
       X
-      \arrow[r, "i \circ s_{1}"]
-      \arrow[d, two heads, "f" swap]
-      \arrow[rr, bend left=45, "\id_{X}"]
+      \arrow[r, "i \circ s_1"]
+      \arrow[d, "f" swap]
+      \arrow[rr, bend left=45, "\id_X"]
       & C
-      \arrow[r, "r"]
-      \arrow[d, two heads, "p", "\sim" {swap, sloped}]
+      \arrow[r, dashed, "\theta"]
+      \arrow[d, "p"]
       & X
-      \arrow[d, two heads, "p"]
+      \arrow[d, "f"]
       \\ Y
-      \arrow[r, "s_{2}" swap]
-      \arrow[rr, bend right=45, "\id_{Y}" swap]
+      \arrow[r, "s_2" swap]
+      \arrow[rr, bend right=45, "\id_Y" swap]
       & B
-      \arrow[r, "r_{2}" swap]
+      \arrow[r, "r_2" swap]
       & Y
     \end{tikzcd}
   \end{displaymath}
+  ou seja, $\theta$ deve satisfazer as igualdades $f \circ \theta = p \circ r_2$ e $\theta \circ i \circ s_1 = \id_X$.
+  Basta então tomarmos $\theta$ como uma solução qualquer do problema de levantamento abaixo, a qual certamente existe pois $i \in \mathcal{C} \cap \mathcal{W}$ e $p \in \mathcal{F}$.
+  \begin{displaymath}
+    \begin{tikzcd}
+      A
+      \arrow[r, "r_1"]
+      \arrow[d, "i" swap]
+      & X
+      \arrow[d, "f"]
+      \\ C
+      \arrow[r, "r_2 \circ p" swap]
+      \arrow[ru, dashed, "\theta" description]
+      & Y
+    \end{tikzcd}
+  \end{displaymath}
+  Sendo $f$ um retrato de $p$, segue da \cref{prop:propriedades_fatoracao_fraca} que $f \in \mathcal{F} \cap \mathcal{W}$ como queríamos mostrar.
 
   Voltemos agora ao caso geral onde $f: X \to Y$ é um morfismo qualquer.
-  Sabemos da definição de um sistema de fatoração fraca que podemos escrever $f = q \circ j$, onde $j: X \overset{\sim}{\cofib} Z$ é uma cofibração trivial, e $q: Z \fib Y$ é uma fibração.
+  Utilizando o sistema de fatoração fraca $(\mathcal{C} \cap \mathcal{W},\mathcal{F})$ podemos escrever $f = q \circ j$, onde $j: X \to Z$ pertence a $\mathcal{C} \cap \mathcal{W}$ e $q: Z \to Y$ pertence a $\mathcal{F}$.
+  Note que a propriedade 2-de-3 satisfeita por $\mathcal{W}$ garante que mostrarmos que $f \in \mathcal{W}$ é equivalente a mostrarmos que $q \in \mathcal{W}$.
+  Além disso, como já temos $q \in \mathcal{F}$ de antemão, segue do caso anterior que, a fim de concluirmos que $q \in \mathcal{W}$ também, basta mostrarmos que $q$ é um retrato de um morfismo de $\mathcal{W}$; e é isso que faremos agora.
+
   Lembrando que a categoria $\mathsf{C}$ em questão é por hipótese bicompleta, podemos em particular formar o pushout do diagrama
   \begin{displaymath}
     \begin{tikzcd}
@@ -1393,75 +1394,77 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria modelo tam
     \end{tikzcd}
   \end{displaymath}
   de forma a obtermos o quadrado comutativo mostrado abaixo.
-  Note que a propriedade (d) da \cref{prop:propriedades_fatoracao_fraca} aplicado ao sistema de fatoração fraco $(\mathcal{C} \cap \mathcal{W},\mathcal{F})$ garante que o morfismo $J$ que aparece no pushout abaixo seja de fato uma cofibração trivial.
-  \begin{displaymath}
+  Como $j \in \mathcal{C} \cap \mathcal{W}$, segue da \cref{prop:propriedades_fatoracao_fraca} que o morfismo $J$ que aparece no diagrama de pushout abaixo pertence à classe $\mathcal{C} \cap \mathcal{W}$ também.
+  \begin{equation}
+    \label{eq:estrutura_de_modelos_via_fatoracao_fraca_diag_5}
     \begin{tikzcd}
       X
       \arrow[r, "s_{1}"]
-      \arrow[d, tail, "j" {swap}, "\sim" {sloped}]
+      \arrow[d, "j" swap]
       & A
-      \arrow[d, tail , "J", "\sim" {swap,sloped}]
+      \arrow[d, "J"]
       \\ Z
       \arrow[r, "S" swap]
       & P
     \end{tikzcd}
-  \end{displaymath}
-  Uma primeira aplicação da propriedade universal do pushout fornece um morfismo $R: P \to Z$ fazendo comutar o diagram abaixo.
+  \end{equation}
+  Uma primeira aplicação da propriedade universal do pushout fornece um morfismo $\varphi: P \to Z$ fazendo comutar o diagram abaixo.
   \begin{displaymath}
     \begin{tikzcd}
        X
       \arrow[r, "s_{1}"]
-      \arrow[d, tail, "j" {swap}, "\sim" {sloped}]
+      \arrow[d, "j" swap]
       & A
-      \arrow[d, tail , "J", "\sim" {swap,sloped}]
+      \arrow[d, "J"]
       \arrow[rdd, bend left=30, "j \circ r_{1}"]
       \\ Z
       \arrow[r, "S" swap]
       \arrow[rrd, bend right=30, "\id_{Z}" swap]
       & P
-      \arrow[rd, dashed, "R" description]
+      \arrow[rd, dashed, "\varphi" description]
       \\ & & Z
     \end{tikzcd}
   \end{displaymath}
-  Agora, uma segunda aplicação da propriedade universal do pushout nos fornece o morfismo $Q: P \to B$ fazendo comutar o diagrama abaixo.
+  Agora, uma segunda aplicação da propriedade universal do pushout nos fornece o morfismo $\psi: P \to B$ fazendo comutar o diagrama abaixo.
   \begin{displaymath}
     \begin{tikzcd}
       X
       \arrow[r, "s_{1}"]
-      \arrow[d, tail, "j" {swap}, "\sim" {sloped}]
+      \arrow[d, "j" swap]
       & A
-      \arrow[d, tail , "J", "\sim" {swap,sloped}]
-      \arrow[rdd, bend left=30, "g", "\sim" {swap,sloped}]
+      \arrow[d, "J"]
+      \arrow[rdd, bend left=30, "g"]
       \\ Z
       \arrow[r, "S" swap]
       \arrow[rrd, bend right=30, "s_{2} \circ q" swap]
       & P
-      \arrow[rd, dashed, "Q" description]
+      \arrow[rd, dashed, "\psi" description]
       \\ & & B
     \end{tikzcd}
   \end{displaymath}
+  Note que esse morfismo $\psi$ pertence à classe $\mathcal{W}$ devido à propriedade 2-de-3, já que $g,\,J \in \mathcal{W}$ e temos a igualdade $\psi \circ J = g$.
 
   Os morfismos envolvendo o pushout construídos acima podem então ser combinados no diagrammaso comutativo mostrado abaixo.
   \begin{displaymath}
     \begin{tikzcd}
       X
       \arrow[r, "s_{1}"]
-      \arrow[d, tail, "j" {swap}, "\sim" {sloped}]
+      \arrow[d, "j" swap]
       \arrow[rr, bend left=45, "\id_{X}"]
       \arrow[dd, bend right=45, "f" swap]
       & A
-      \arrow[d, tail, "J", "\sim" {swap,sloped}]
+      \arrow[d, "J"]
       \arrow[r, "r_{1}"]
       & X
-      \arrow[d, tail, "j", "\sim" {swap,sloped}]
+      \arrow[d, "j"]
       \\ Z
       \arrow[r, "S"]
-      \arrow[d, two heads, "q" swap]
+      \arrow[d, "q" swap]
       & P
-      \arrow[d, "Q", "\sim" {swap,sloped}]
-      \arrow[r, "R"]
+      \arrow[d, "\psi"]
+      \arrow[r, "\varphi"]
       & Z
-      \arrow[d, two heads, "q"]
+      \arrow[d, "q"]
       \\ Y
       \arrow[r, "s_{2}" swap]
       \arrow[rr, bend right=45, "\id_{Y}" swap]
@@ -1470,27 +1473,25 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria modelo tam
       & Y
     \end{tikzcd}
   \end{displaymath}
-  Veja que a propriedade 2-de-3 garante que o morfismo $Q$ é realmente uma equivalência fraca como indicado acima, pois $J$ e $g$ o são, e por construção temos a igualdade $Q \circ J = g$.
-
+  
   Temos que justificar ainda de alguma forma a comutatividade do quadrado inferior direito, mas vamos assumir isso momentaneamente e dar continuidade ao argumento.
-  Como o morfismo $R$ por construção satisfaz a igualdade $R \circ S = \id_{Z}$, os dois quadrados comutativos inferiores exibem a fibração $q: Z \fib Y$ como uma retração da equivalência fraca $Q: P \overset{\sim}{\to} B$, e o caso demonstrado anteriormente nos permite concluir então que $q$ é na verdade uma fibração trivial, sendo em particular uma equivalência fraca também.
-  Ora, segue da igualdade $f = q \circ j$ que $f$ é a composição de duas equivalências fracas, sendo portanto uma equivalência fraca também conforme queríamos mostrar.
+  Como o morfismo $\varphi$ por construção satisfaz a igualdade $\varphi \circ S = \id_{Z}$, os dois quadrados comutativos inferiores exibem o morfismo $q: Z \to Y$ como um retrato do morfismo $\psi: P \to B$, o qual pertence à classe $\mathcal{W}$, como queríamos mostrar.  
 
-  A fim de fecharmos a lacuna restante no argumento acima, note que a comutatividade do quadrado inferior direito segue imediatamente da unicidade na propriedade universal do pushout, já que os morfismos $q \circ R,\, r_{2} \circ Q: P \to Y$ ambos fazem comutar o diagrama abaixo.
+  A fim de fecharmos a lacuna restante no argumento acima, note que a comutatividade do quadrado inferior direito segue imediatamente da unicidade na propriedade universal do pushout, já que os morfismos $q \circ \varphi,\, r_{2} \circ \psi: P \to Y$ ambos fazem comutar o diagrama abaixo.
   \begin{displaymath}
     \begin{tikzcd}[column sep=1.25cm]
        X
       \arrow[r, "s_{1}"]
-      \arrow[d, tail, "j" {swap}, "\sim" {sloped}]
+      \arrow[d, "j"]
       & A
-      \arrow[d, tail , "J", "\sim" {swap,sloped}]
-      \arrow[rdd, bend left=30, "f \circ r_{1}"]
+      \arrow[d, "J"]
+      \arrow[rdd, bend left=35, "f \circ r_{1}"]
       \\ Z
       \arrow[r, "S" swap]
-      \arrow[rrd, bend right=30, "q" swap]
+      \arrow[rrd, bend right=35, "q" swap]
       & P
-      \arrow[rd, shift left=1.2, "q \circ R"]
-      \arrow[rd, shift right=1.2, "r_{2} \circ Q" swap]
+      \arrow[rd, shift left=1.2, "q \circ \varphi"]
+      \arrow[rd, shift right=1.2, "r_{2} \circ \psi" swap]
       \\ & & Y
     \end{tikzcd} \qedhere
   \end{displaymath}
