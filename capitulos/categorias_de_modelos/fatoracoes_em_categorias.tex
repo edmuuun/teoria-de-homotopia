@@ -1502,7 +1502,7 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria de modelos
   O conceito de fatoração funtorial é um tanto peculiar: na teoria ele oferece uma vantagem para descrevermos certas construções, mas na prática o processo de fatoração funtorial pode não ser necessariamente o mais simples ou o mais vantajoso em uma dada situação.
   
   Antes de definirmos uma fatoração propriamente dita, precisamos introduzir um outro tipo de categoria de setas relacionado à categoria $\Arr(\mathsf{C})$ introduzida anteriormente.
-  Dada então uma categoria $\mathsf{C}$ qualquer, considere a categoria $\mathsf{C}^{[2]}$ cujos objetos são pares $(g,f)$ de \emph{setas componíveis em $\mathsf{C}$}, ou seja, morfismos satisfazendo a condição $\dom g = \cod f$, situação esta que também representaremos pelo diagrama da forma abaixo.
+  Dada uma categoria $\mathsf{C}$ qualquer, considere a categoria $\mathsf{C}^{[2]}$ cujos objetos são pares $(g,f)$ de \emph{setas componíveis em $\mathsf{C}$}, ou seja, morfismos satisfazendo a condição $\dom(g) = \cod(f)$, situação esta que também representaremos por um diagrama como abaixo.
   \begin{displaymath}
     \begin{tikzcd}
       X
@@ -1514,8 +1514,12 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria de modelos
   \end{displaymath}
   
   Os morfismos em $\mathsf{C}^{[2]}$, como esperado, são triplas de morfismos horizontais fazendo comutar os dois quadrados evidentes.
-  Mais precisamente, dados dois pares de setas componíveis $(g,f)$ e $(g',f')$, um morfismo do tipo $(g,f) \to (g',f')$ em $\mathsf{C}^{[2]}$ é dado por uma tripla de morfismos $(\alpha: \dom f \to \dom f',\, \beta: \cod f \to \cod f',\, \gamma: \cod g \to \cod g')$ fazendo comutar o diagrama a seguir.
+  Mais precisamente, dados dois pares de setas componíveis $(g,f)$ e $(g',f')$, um morfismo do tipo $(g,f) \to (g',f')$ em $\mathsf{C}^{[2]}$ é dado por uma tripla de morfismos
   \begin{displaymath}
+    (\alpha: \dom(f) \to \dom(f'),\, \beta: \cod(f) \to \cod(f'),\, \gamma: \cod(g) \to \cod(g'))
+  \end{displaymath}
+  fazendo comutar o diagrama a seguir.
+  \begin{equation}\label{eq:morfismo_setas_componiveis_diag}
     \begin{tikzcd}
       X
       \arrow[r, "\alpha"]
@@ -1531,8 +1535,8 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria de modelos
       \arrow[r, "\gamma" swap]
       & Z'
     \end{tikzcd}
-  \end{displaymath}
-  A composição de morfismos é análoga àquela existente na categoria $\Arr(\mathsf{C})$: colamos os dois pares de quadrados comutativos ao longo da ``aresta'' comum para obtermos um terceiro par de quadrados comutativos representando a composição dos dois morfismos.
+  \end{equation}
+  A composição de morfismos é análoga àquela existente na categoria $\Arr(\mathsf{C})$: colamos os dois pares de quadrados comutativos ao longo da ``aresta'' comum para obtermos um terceiro par de quadrados comutativos representando a composição dos dois morfismos entre setas componíveis.
   
   \begin{obs}
     A notação $\mathsf{C}^{[2]}$ escolhida para denotar a categoria introduzida acima não é por acaso.
@@ -1558,7 +1562,7 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria de modelos
         & 1
       \end{tikzcd}
     \end{displaymath}
-    então a categoria $\mathsf{C}^{[1]}$ formada por funtores do tipo $[1] \to \mathsf{C}$ é exatamente a categoria de setas usual $\Arr(\mathsf{C})$ introduzida anteriormente.
+    então a categoria $\mathsf{C}^{[1]}$ formada por funtores do tipo $[1] \to \mathsf{C}$ é exatamente a categoria de setas $\Arr(\mathsf{C})$ introduzida anteriormente.
   \end{obs}
   
   Lembremos que a categoria de setas $\Arr(\mathsf{C})$ vem equipada com os funtores domínio e codomínio $\dom,\, \cod: \Arr(\mathsf{C}) \to \mathsf{C}$.
@@ -1581,7 +1585,7 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria de modelos
       \\ Y
     \end{tikzcd}
   \end{displaymath}
-  Já nos morfismos, dado um morfismo $(\alpha,\beta,\gamma): (g,f) \to (g',f')$, temos por definição $d_{0}(\alpha,\beta,\gamma) \coloneqq (\alpha,\beta)$.
+  Já nos morfismos, dado um morfismo $(\alpha,\beta,\gamma): (g,f) \to (g',f')$ na categoria $\mathsf{C^{[2]}}$, definimos $d_{0}(\alpha,\beta,\gamma) \coloneqq (\alpha,\beta)$.
   Visualmente, $d_{0}$ seleciona o primeiro quadrado comutativo do par de quadrados comutativos que representa o morfismo $(\alpha,\beta,\gamma)$ em $\mathsf{C}^{[2]}$.
   \begin{displaymath}
     \begin{tikzcd}
@@ -1612,7 +1616,7 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria de modelos
     \end{tikzcd}
   \end{displaymath}
   O funtor $d_{1}$ é análogo: nos objetos ele seleciona o segundo morfismo do par componível, logo $d_{1}(g,f) \coloneqq g$, e nos morfismos ele seleciona o segundo quadrado comutativo, de forma que $d_{1}(\alpha,\beta,\gamma) \coloneqq (\beta,\gamma)$.
-  Já o funtor $\comp: \mathsf{C}^{[2]} \to \Arr(\mathsf{C})$, como o nome muito sugere, é dado exatamente pela composição das setas componíveis.
+  Já o funtor $\comp: \mathsf{C}^{[2]} \to \Arr(\mathsf{C})$, como o nome muito sugere, é dado pela composição das duas setas componíveis.
   Dessa forma, nos objetos temos $\comp(g,f) \coloneqq g \circ f$,
   \begin{displaymath}
     \begin{tikzcd}
@@ -1659,16 +1663,16 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria de modelos
     \end{tikzcd}
   \end{displaymath}
   
-  Tendo introduzido a categoria $\mathsf{C}^{[2]}$, podemos enfim falar de fatoraçõs funtoriais.
+  Tendo introduzido a categoria de setas componíveis $\mathsf{C}^{[2]}$, podemos enfim definir a noção de uma fatoração funtorial.
   
   \begin{defin}\label{defin:fatoracao_funtorial}
-    Uma \textbf{fatoração funtorial} em uma categoria $\mathsf{C}$é  um funtor $\fac: \Arr(\mathsf{C}) \to \mathsf{C}^{[2]}$ que é uma seção do funtor de composição $\comp: \mathsf{C}^{[2]} \to \Arr(\mathsf{C})$, ou seja, que satisfaz a equação $\comp \circ \fac = \id_{\mathsf{\Arr(\mathsf{C})}}$.
+    Uma \textbf{fatoração funtorial} em uma categoria $\mathsf{C}$ é uma seção do funtor de composição $\comp: \mathsf{C^{[2]}} \to \Arr(\mathsf{C})$, ou seja, um funtor $\fac: \Arr(\mathsf{C}) \to \mathsf{C^{[2]}}$ satisfazendo a igualdade $\comp \circ \fac = \id_{\Arr(\mathsf{C})}$.
   \end{defin}
   
   Vamos procurar entender o significado prático da existência de fatorações funtoriais em uma categoria.
-  O funtor $\fac$ associa a um morfismo $f: X \to Z$ em $\mathsf{C}$ um par de morfismos $(f_{1},f_{0})$ cuja composição $f_{1} \circ f_{0}$ deve ser igual ao morfismo $f$.
-  Essa última igualdade garante então que tenhamos $\dom f_{0} = \dom f = X$ e $\cod f_{1} = \cod f = Z$.
-  Se denotarmos $Y \coloneqq \cod f_{0} = \dom f_{1}$, temos a situação indicada abaixo.
+  O funtor $\fac$ associa a um morfismo $f: X \to Z$ em $\mathsf{C}$ um par de morfismos \emph{componíveis} $(f_{1},f_{0})$ cuja composição $f_{1} \circ f_{0}$ deve ser igual ao morfismo $f$.
+  Essa última igualdade garante então que tenhamos $\dom(f_{0}) = \dom(f) = X$ e $\cod(f_{1}) = \cod(f) = Z$.
+  Se denotarmos então $Y \coloneqq \cod(f_{0}) = \dom(f_{1})$, temos a situação indicada abaixo.
   \begin{displaymath}
     \begin{tikzcd}
       X
@@ -1685,7 +1689,7 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria de modelos
       \\ Z
     \end{tikzcd}
   \end{displaymath}
-  Dado outro morfismo $f': X' \to Z'$, e um morfismo $(\alpha: X \to X',\, \gamma: Z \to Z')$ de $f$ para $f'$ em $\Arr(\mathsf{C})$, a fatoração funtorial $\fac$ associa a esse morfismo do tipo $(f_{1},f_{0}) \to (f_{1}',f_{0}')$ em $\mathsf{C}^{[2]}$, ou seja, uma tripla de morfismos $(\varphi: X \to X',\, \psi: Y \to Y',\, \theta: Z \to Z')$ fazendo comutar os dois quadrados adjacentes.
+  Dado outro morfismo $f': X' \to Z'$, e um morfismo $(\alpha: X \to X',\, \gamma: Z \to Z')$ de $f$ para $f'$ em $\Arr(\mathsf{C})$, aplicando o funtor $\fac$ ao morfismo $(\alpha,\beta)$ obtemos um morfismo do tipo $(f_{1},f_{0}) \to (f_{1}',f_{0}')$ em $\mathsf{C}^{[2]}$, ou seja, uma tripla de morfismos $(\varphi: X \to X',\, \psi: Y \to Y',\, \theta: Z \to Z')$ fazendo comutar os dois quadrados adjacentes.
   Note que, como $\fac$ é uma seção de $\comp$, devemos ter $(\alpha,\beta) = \comp(\fac(\alpha,\beta)) = \comp(\varphi,\psi,\theta) = (\varphi,\theta)$, de forma que os morfismos $\alpha$ e $\beta$ são em certo sentido preservados na fatoração funtorial, conforme indicado abaixo.
   \begin{displaymath}
     \begin{tikzcd}
@@ -1716,19 +1720,20 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria de modelos
     \end{tikzcd}
   \end{displaymath}
   
-  Por fim, introduzimos a noção de um sistema de fatoração fraca funtorial, a noção que será de fato de nosso interesse no estudo de categorias modelo.
+  Por fim, introduzimos a noção de um sistema de fatoração fraca funtorial, a noção que será de fato de nosso interesse no estudo de categorias de modelos.
   
   \begin{defin}\label{defin:fatoracao_fraca_funtorial}
-    Um sistema de fatoração fraco $(\mathcal{L},\mathcal{R})$ uma categoria $\mathsf{C}$ é dito \textbf{funtorial} se existe um funtor $\fac: \Arr(\mathsf{C}) \to \mathsf{C}^{[2]}$ satisfazendo ass seguintes condições:
+    Um sistema de fatoração fraco $(L,R)$ em uma categoria $\mathsf{C}$ é dito \textbf{funtorial} se existe um funtor $\fac: \Arr(\mathsf{C}) \to \mathsf{C}^{[2]}$ satisfazendo ass seguintes condições:
     \begin{enumerate}
     \item $\comp \circ \fac = \id_{\Arr(\mathsf{C})}$;
       
-    \item $d_{0}(\fac(f)) \in \mathcal{L}$ e $d_{1}(\fac(f)) \in \mathcal{R}$ para todo $f \in \Arr(\mathsf{C})$.
+    \item $d_{0}(\fac(f)) \in L$ e $d_{1}(\fac(f)) \in R$ para todo $f \in \Arr(\mathsf{C})$.
     \end{enumerate}
   \end{defin}
   
-  A primeira condição acima diz simplesmente que o funtor $\fac$ define uma fatoração funtorial em $\mathsf{C}$, mas a segunda condição impõe que os morfismos que aparecem nessa fatoração interajam adequadamente com o sistema de fatoração fraco existente: o primeiro morfismo da fatoração deve necessariamente pertence à classe $\mathcal{L}$, enquanto o segundo deve necessariamente pertencer à classe $\mathcal{R}$.
-  \begin{displaymath}
+  A primeira condição acima diz simplesmente que o funtor $\fac$ define uma fatoração funtorial em $\mathsf{C}$ no sentido da \cref{defin:fatoracao_funtorial}.
+  Já a segunda condição impõe que os morfismos que aparecem nessa fatoração interajam adequadamente com o sistema de fatoração fraco existente: o primeiro morfismo da fatoração deve necessariamente pertence à classe $L$, enquanto o segundo deve necessariamente pertencer à classe $R$.
+  \begin{equation}\label{eq:fatoracao_fraca_funtorial_diag}
     \begin{tikzcd}
       X
       \arrow[d, "f" swap]
@@ -1737,15 +1742,17 @@ Encerramos essa subseção mostrando como os axiomas de uma categoria de modelos
     \quad \overset{\fac}{\rightsquigarrow} \quad
     \begin{tikzcd}
       X
-      \arrow[d, "f_{0} \in \mathcal{L}" swap]
+      \arrow[d, "f_{0} \in L" swap]
       \arrow[dd, bend left=45, "f_{1} \circ f_{0} = f"]
       \\ Y
-      \arrow[d, "f_{1} \in \mathcal{R}" swap]
+      \arrow[d, "f_{1} \in R" swap]
       \\ Z
     \end{tikzcd}
-  \end{displaymath}
+  \end{equation}
   
-  Muitos autores exigem que os sistemas de fatoração fracos $(\mathcal{C} \cap \mathcal{W},\mathcal{F})$ e $(\mathcal{C},\mathcal{F} \cap \mathcal{W})$ de uma categoria modelo sejam funtoriais no sentido acima.
+  Muitos autores exigem que os sistemas de fatoração fracos $(\mathcal{C} \cap \mathcal{W},\mathcal{F})$ e $(\mathcal{C},\mathcal{F} \cap \mathcal{W})$ provenientes de uma estrutura de modelos sejam funtoriais no sentido acima.
   Isso nem sempre é estritamente necessário, mas é algo que facilita a nossa vida em alguns momentos.
-  É importante comentar que, embora nem toda estrutura modelo admita fatorações funtoriais, uma grande parte delas admite, incluindo aquelas obtidas por meio do famigerado Argumento do Objeto Pequeno que estudaremos mais adiante.
+  Entretanto, como já mencionado anteriormente, as fatorações fornecidas por um funtor de fatoração, especialmente no contexto de estruturas de modelos, são muitas vezes bastante complicadas, tendo então um valor mais teórico do que prático.
+  
+  É importante ressaltar que, embora nem toda estrutura de modelos admita fatorações funtoriais, uma grande parte delas admite, incluindo aquelas obtidas por meio do famigerado \emph{Argumento do Objeto Pequeno} que estudaremos mais adiante.
 \end{proof}
