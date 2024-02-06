@@ -1,8 +1,8 @@
-\section{Exemplos bobos e construções}
+\section{Alguns exemplos e construções}
 
-O objetivo dessa seção é dar alguns exemplos de categorias modelo e descrever também algumasc construções que podem ser feitas com tais categorias.
-Todos os exemplos que podemos dar por hora são extremamente simples e essencialmente inúteis.
-Em todos os exemplos úteis e relevantes de categorias modelo, a verificação dos axiomas é bastante trabalhosa.
+O objetivo dessa seção é dar alguns exemplos de categorias de modelos e descrever também algumas construções possíveis com tais categorias.
+Infelizmente, a maioria dos exemplos que podemos dar no momento são ou muito simples, ou puramente teóricos, não sendo portanto muito úteis.
+Na maioria dos exemplos úteis e concretos, a verificação dos axiomas de uma estrutura de modelos costuma ser bastante trabalhosa e exige resultados adicionais que veremos mais adiante.
 
 \begin{exem}
   Seja $\mathsf{M}$ uma categoria bicompleta qualquer, considere $\mathcal{W}$ como sendo a classe dos isomorfismos em $\mathsf{C}$, e considere $\mathcal{C}$ e $\mathcal{F}$ como sendo a classe de todos os morfismos.
@@ -110,6 +110,38 @@ Em todos os exemplos úteis e relevantes de categorias modelo, a verificação d
     f = \id_{Y} \circ f
   \end{displaymath}
   expressa $f$ como uma cofibração seguida de uma fibração trivial.
+\end{exem}
+
+\begin{exem}[Produto de categorias de modelos]
+  \label{exem:prod_categorias_de_modelos}
+  Sejam $\mathsf{M}$ e $\mathsf{N}$ duas categorias de modelos.
+  Lembre-se que podemos formar a categoria produto $\mathsf{M} \times \mathsf{N}$ cujos objetos são pares $(X,Y)$, onde $X$ é um objeto de $\mathsf{M}$, e $Y$ é um objeto de $\mathsf{N}$; e um morfismo do tipo $(X,Y) \to (X',Y')$ é dado por um par $(f,g)$, onde $f$ é um morfismo do tipo $X \to X'$ em $\mathsf{M}$, e $g$ é um morfismo do tipo $Y \to Y'$ em $\mathsf{N}$.
+  Em suma, definimos
+  \begin{displaymath}
+    \Hom_{\mathsf{M} \times \mathsf{N}}((X,Y),(X',Y')) \coloneqq \Hom_\mathsf{M}(X,X') \times \Hom_\mathsf{N}(Y,Y').
+  \end{displaymath}
+  A composição em $\mathsf{M} \times \mathsf{N}$ é dada pelas composições em $\mathsf{M}$ e $\mathsf{N}$ nas respectivas coordenadas, ou seja, dados morfismos $(f_1,g_1): (X_1,Y_1) \to (X_2,Y_2)$ e $(f_2,g_2): (X_2,Y_2) \to (X_3,Y_3)$, definimos sua composição pela fórmula
+  \begin{displaymath}
+    (f_2,g_2) \circ (f_1,g_1) \coloneqq (f_2 \circ f_1,g_2 \circ g_1): (X_1,Y_1) \to (X_3,Y_3).
+  \end{displaymath}
+
+  Afirmamos que o produto $\mathsf{M} \times \mathsf{N}$ também admite uma estrutura de modelos obtida pela combinação das estruturas existentes em $\mathsf{M}$ e $\mathsf{N}$.
+  As classes de morfismos em questão são definidas da seguinte maneira: um morfismo $(f,g): (X,Y) \to (X',Y')$ em $\mathsf{M} \times \mathsf{N}$ é dito uma
+  \begin{itemize}
+    \item equivalência fraca se $f: X \to X'$ e $g: Y \to Y'$ são equivalências fracas em $\mathsf{M}$ e $\mathsf{N}$, respectivamente;
+
+    \item cofibração se $f: X \to X'$ e $g: Y \to Y'$ são cofibrações em $\mathsf{M}$ e $\mathsf{N}$, respectivamente;
+
+    \item fibração se $f: X \to X'$ e $g: Y \to Y'$ são fibrações em $\mathsf{M}$ e $\mathsf{N}$, respectivamente.
+  \end{itemize}
+
+  Resta verificarmos a validade dos axiomas.
+  A bicompletude de $\mathsf{M} \times \mathsf{N}$ é uma questão puramente categórica: o (co)limite de um funtor $F: \mathsf{J} \to \mathsf{M} \times \mathsf{N}$ pode ser calculado a partir dos (co)limites dos funtores componentes $\mathsf{J} \to \mathsf{M}$ e $\mathsf{J} \to \mathsf{N}$ obtidos a partir dos funtores de projeção $\mathsf{M} \times \mathsf{N} \to \mathsf{M}$ e $\mathsf{M} \times \mathsf{N} \to \mathsf{N}$.
+
+  Vejamos a questão ad propriedade 2-de-3 em $\mathsf{M} \times \mathsf{N}$. Suponha que tenhamos dois morfismos $(f_1,g_1): (X_1,Y_1) \to (X_2,Y_2)$ e $(f_2,g_2): (X_2,Y_2) \to (X_3,Y_3)$ e suponha que $(f_1,g_1)$ e a composição $(f_2,g_2) \circ (f_1,g_1) = (f_2 \circ f_1,g_2 \circ g_1)$ sejam equivalências fracas.
+  Segue da definição de equivalência fraca em $\mathsf{M} \times \mathsf{N}$ que $f_1$ e $f_2 \circ f_1$ são equivalências fracas em $\mathsf{M}$, enquanto $g_1$ e $g_2 \circ g_1$ são equivalêncisa fracas em $\mathsf{N}$.
+  Aplicando então a propriedade 2-de-3 nas categorias $\mathsf{M}$ e $\mathsf{N}$ concluímos que $f_2$ é uma equivalência fraca em $\mathsf{M}$, e $g_2$ é uma equivalência fraca em $\mathsf{N}$; portanto o par $(f_2,g_2)$ define uma equivalência fraca em $\mathsf{M} \times \mathsf{N}$ como gostaríamos.
+  Os outros dois casos possíveis da propriedade 2-de-3 seguem por um raciocínio completamente análogo.
 \end{exem}
 
 %%% Local Variables:
