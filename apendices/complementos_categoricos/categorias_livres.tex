@@ -1,0 +1,51 @@
+\section{Categorias livres}
+
+Comumente representamos uma categoria por meio de um grafo orientado tendo os objetos da categoria como vértices e os morfismos da categoria como arestas.
+Apesar dessa representação bastante útil, uma categoria possui mais estrutura do que um mero grafo orientado, visto que podemos compor os morfismos de uma categoria para obtermos novos morfismos, mas não existe uma operação análoga de composição das arestas de um grafo.
+Mais precisamente, toda categoria possui um grafo orientado \emph{subjacente} que esquece da estrutura algébrica da composição.
+Os leitores com alguma experiência em Teoria de Categorias já devem esperar que exista também uma construção no sentido contrário por meio da qual um grafo orientado dá origem a uma categoria obtida pela adição da forma mais simples possível de morfismos que representem a composição das arestas do grafo.
+A categoria assim obtida é a chamada \emph{categoria livre} gerada pelo grafo, e essa construção é o objetivo central desta seção.
+
+\begin{defin}\label{defin:grafo_orientado}
+    Um \textbf{grafo orientado} consiste de uma tupla $(V,A,s,t)$, onde $V$ e $A$ são conjuntos, e $s,\,t: A \to V$ são funções.
+\end{defin}
+
+Dado um grafo orientado $(V,A,s,t)$, os elementos de $V$ são chamados de \textbf{vértices} do grafo, enquanto os elementos de $A$ são chamados de \textbf{arestas} do grafo.
+As funções $s$ e $t$ são chamadas de funções \textbf{source} e \textbf{target}, respectivamente.
+Visualmente, cada elemento $e \in A$ deve ser visualizado como uma aresta direcionada começando no vértice $s(e)$ e terminando no vértice $t(e)$.
+
+\begin{exem}\label{exem:grafo_orientado_discreto}
+    Um conjunto $X$ pode ser usado para definir um grafo orientado $GX$ dado pela tupla $GX \coloneqq (X,X,\id_X,\id_X)$.
+    Visualmente, tal grafo possui um vértice para cada elemento $x \in X$ e também uma aresta direcionada desse elemento para si mesmo formando um laço.
+    O grafo orientado $GX$ assim deifnido é chamado de \textbf{grafo orientado discreto} gerado por $X$.
+\end{exem}
+
+\begin{exem}\label{exem:grafo_orientado_via_relacao}
+    Seja $R \subseteq X \times X$ uma relação qualquer em um conjunto $X$.
+    Podemos construir a partir dessa relação um grafo orientado $G \coloneqq (X,R,s,t)$, onde $s,\,t: R \to X$ são as restriçõs das projeções canônicas associadas ao produto $X \times X$, ou seja, $s(x_1,x_2) \coloneqq x_1$ e $t(x_1,x_2) \coloneqq x_2$ para qualquer par $(x_1,x_2) \in R$.
+
+    É especialmente comum considerarmos essa construção no caso em que a relação $R$ é uma pré-ordem $\leq$ no conjunto $X$, ou seja, uma relação reflexiva e transitiva.
+    Nesse caso, o sentido das arestas da grafo orientado ``acompanham o sentido de crescimento'' da pré-ordem $\leq$.
+\end{exem}
+
+\begin{exem}\label{exem:grafo_orientado_oposto}
+    Todo grafo orientado $G=(V,A,s,t)$ dá origem a um \textbf{grafo orientado oposto} $G^{\mathsf{op}}$ definido pela tupla $(V,A,t,s)$.
+    Visualmente, $G^{\mathsf{op}}$ possui os mesmos vértices de $G$, mas com as arestas indo no sentido oposto.
+\end{exem}
+
+\begin{defin}\label{defin:morfismo_grafos_orientados}
+    Dados dois grafos orientados $G_1 \coloneqq (V_1,A_1,s_1,t_1)$ e $G_2 \coloneqq (V_2,A_2,s_2,t_2)$, um \textbf{morfismo de grafos orientados} do tipo $G_1 \to G_2$ é por definição um par de funções $(f: V_1 \to V_2,\, F: A_1 \to A_2)$ satisfazendo as igualdades $s_2 \circ F = f \circ s_1$ e $t_2 \circ F = f \circ t_1$.
+\end{defin}
+
+\begin{exem}
+    Sejam $(X_1,R_1)$ e $(X_2,R_2)$ dois conjuntos equipados com relações, e suponha que $f: X_1 \to X_2$ seja uma função que respeita as relações, ou seja, se $(x,x') \in R_1$, então $(f(x),f(x')) \in R_2$.
+    Considere os grafos $G_1$ e $G_2$ associados às relações $R_1$ e $R_2$, respectivamente, conforme discutido no \cref{exem:grafo_orientado_via_relacao}.
+    Como $f$ respeita as relações $R_1$ e $R_2$, a função produto $f \times f: X_1 \times X_1 \to X_2 \times X_2$ satisfaz $(f \times f)(R_1) \subseteq R_2$, portanto podemos considerar a função restrita
+    \begin{displaymath}
+        f \times f \rvert_{R_1}: R_1 \to R_2.
+    \end{displaymath}
+    O par de funções $(f,f \times f\rvert_{R_1})$ define então um morfismo de grafos orientados de $G_1$ para $G_2$.
+
+    No caso em que $R_1$ e $R_2$ são relações de pré-ordem $\leq_1$ e $\leq_2$, a condição de $f$ respeitas as relações diz que, se $x \leq_1 x'$, então $f(x) \leq_2 f(x')$; ou seja, $f$ é uma função monótona.
+    Segue da discussão acima que funções monótonas entre conjuntos pré-ordenados dão origem a morfismos entre os grafos orientados obtidos a partir deles.
+\end{exem}
