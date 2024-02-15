@@ -33,9 +33,24 @@ Visualmente, cada elemento $e \in A$ deve ser visualizado como uma aresta direci
     Visualmente, $G^{\mathsf{op}}$ possui os mesmos vértices de $G$, mas com as arestas indo no sentido oposto.
 \end{exem}
 
+\begin{exem}\label{exem:grafo_orientado_via_espaco_top}
+    Seja $X$ um espaço topológico qualquer, e considere o conjunto\footnote{É verdade que também podemos considerar $X^I$ como um espaço equipado com a topologia compacto-aberto, por exemplo, mas aqui não existe essa necessidade.} $X^I$ formado por todas as funções contínuas do tipo $I \to X$, onde $I$ denota o intervalo unitário $[0,1]$.
+    Podemos considerar as funções de avaliação $e_0,\, e_1: X^I \to X$ dadas por $e_0(\gamma) \coloneqq \gamma(0)$ e $e_1(\gamma) \coloneqq \gamma(1)$ para todo $\gamma \in X^{I}$.
+    A tupla $(X,X^I,e_0,e_1)$ define então um grafo orientado.
+\end{exem}
+
+\begin{exem}\label{exem:grafo_orientado_subjacente_categoria}
+    Seja $\mathsf{C}$ uma categoria pequena.
+    Se $\dom,\,\cod: \Mor(\mathsf{C}) \to \mathsf{C}$ são as funções que associam a cada morfismo de $\mathsf{C}$ seu domínio e codomínio, respectivamente, então a tupla $U(\mathsf{C}) \coloneqq (\mathsf{C},\Mor(\mathsf{C}),\dom,\cod)$ define o \textbf{grafo orientado subjacente à categoria} $\mathsf{C}$.
+\end{exem}
+
 \begin{defin}\label{defin:morfismo_grafos_orientados}
     Dados dois grafos orientados $G_1 \coloneqq (V_1,A_1,s_1,t_1)$ e $G_2 \coloneqq (V_2,A_2,s_2,t_2)$, um \textbf{morfismo de grafos orientados} do tipo $G_1 \to G_2$ é por definição um par de funções $(f: V_1 \to V_2,\, F: A_1 \to A_2)$ satisfazendo as igualdades $s_2 \circ F = f \circ s_1$ e $t_2 \circ F = f \circ t_1$.
 \end{defin}
+
+\begin{exem}
+    Dados dois conjuntos $X_1$ e $X_2$ e uma função $f: X_1 \to X_2$, o par $(f,f)$ define um morfismo de grafos orientados $(X_1,X_1,\id_{X_1},\id_{X_1}) \to (X_2,X_2,\id_{X_2},\id_{X_2})$ entre os grafos discretos gerados por tais conjuntos de acordo com o \cref{exem:grafo_orientado_discreto}.
+\end{exem}
 
 \begin{exem}
     Sejam $(X_1,R_1)$ e $(X_2,R_2)$ dois conjuntos equipados com relações, e suponha que $f: X_1 \to X_2$ seja uma função que respeita as relações, ou seja, se $(x,x') \in R_1$, então $(f(x),f(x')) \in R_2$.
@@ -46,6 +61,60 @@ Visualmente, cada elemento $e \in A$ deve ser visualizado como uma aresta direci
     \end{displaymath}
     O par de funções $(f,f \times f\rvert_{R_1})$ define então um morfismo de grafos orientados de $G_1$ para $G_2$.
 
-    No caso em que $R_1$ e $R_2$ são relações de pré-ordem $\leq_1$ e $\leq_2$, a condição de $f$ respeitas as relações diz que, se $x \leq_1 x'$, então $f(x) \leq_2 f(x')$; ou seja, $f$ é uma função monótona.
+    No caso em que $R_1$ e $R_2$ são relações de pré-ordem $\leq_1$ e $\leq_2$, a condição de $f$ respeitar as relações diz que, se $x \leq_1 x'$, então $f(x) \leq_2 f(x')$; ou seja, $f$ é uma função monótona.
     Segue da discussão acima que funções monótonas entre conjuntos pré-ordenados dão origem a morfismos entre os grafos orientados obtidos a partir deles.
 \end{exem}
+
+\begin{exem}
+    Uma função contínua $f: X \to Y$ entre espaços topológicos dá origem a uma função de pushforward $X^f: X^I \to Y^{I}$ definida por $X^f(\gamma) \coloneqq f \circ \gamma$ para todo $\gamma \in X^{I}$.
+    O par $(f,X^f)$ define então um morfismo de grafos orientados
+    \begin{displaymath}
+        (f,X^f): (X,X^I,e^X_0,e^X_1) \to (Y,Y^I,e^Y_0,e^Y_1)
+    \end{displaymath}
+    entre os grafos orientados definidos no \cref{exem:grafo_orientado_via_espaco_top}.
+    De fato, para qualquer $\gamma \in X^I$ por um lado temos
+    \begin{displaymath}
+        e^Y_0(X^f(\gamma)) = e^Y_0(f \circ \gamma) = f(\gamma(0)) = f(e^X_0(\gamma)),
+    \end{displaymath}
+    enquanto por outro temos
+    \begin{displaymath}
+        e^Y_1(X^f(\gamma)) = e^Y_1(f \circ \gamma) = f(\gamma(1)) = f(e^X_1(\gamma)).
+    \end{displaymath}
+\end{exem}
+
+\begin{exem}\label{exem:funtor_induz_morfismo_de_grafos}
+    Lembre-se que um funtor $F: \mathsf{C} \to \mathsf{D}$ é dado por uma função $F: \mathsf{C} \to \mathsf{D}$ a nível de objetos e também por uma função $\Mor(F): \Mor(\mathsf{C}) \to \Mor(\mathsf{D})$ a nível de morfismos a qual é compatível com as funções de domínio e codomínio de cada uma das categorias e também com as respectivas operações de composição.
+    A compatibilidade com as funções de domínio e codomínio, em particular, faz com que o par $(F,\Mor(F))$ defina um morfismo do tipo $U(\mathsf{C}) \to U(\mathsf{D})$ entre os grafos orientados subjacentes às categorias como discutido no \cref{exem:grafo_orientado_subjacente_categoria}.
+\end{exem}
+
+Dois morfismos de grafos orientados $(f_1,F_1): G_1 \to G_2$ e $(f_2,F_2): G_2 \to G_3$ podem ser compostos para definir um outro morfismo de grafos orientados $(f_2,F_2) \circ (f_1,F_1): G_1 \to G_3$ pela regra
+\begin{displaymath}
+    (f_2,F_2) \circ (f_1,F_1) \coloneqq (f_2 \circ f_1,F_2 \circ F_1).
+\end{displaymath}
+Além disso, todo grafo orientado $G$ tem associado a ele um morfismo identidade $\id_G: G \to G$ dado pelo par $(\id_{V(G)},\id_{A(G)})$, onde $V(G)$ e $A(G)$ denotam os conjuntos de vértices e arestas de $G$, respectivamente.
+Uma conta simples mostra que o morfismo $\id_G$ realmente age como uma identidade para a composição de morfismos de grafos orientados introduzida acima.
+Em resumo, temos uma categoria $\mathsf{GrafOr}$ formadas por grafos orientados e morfismos entre eles.
+Diversas das construções introduzidas nos exemplos anteriores podem ser estendidas para funtores que estão definidos na categoria $\mathsf{GrafOr}$, ou então que tomam valores nela.
+
+\begin{exem}\label{exem:funtor_esquecimento_cat_grafo_orientado}
+    Vimos no \cref{exem:grafo_orientado_subjacente_categoria} que toda categoria pequena $\mathsf{C}$ possui um grafo orientado subjacente $U(\mathsf{C})$ e vimos também no \cref{exem:funtor_induz_morfismo_de_grafos} que um funtor $F: \mathsf{C} \to \mathsf{D}$ induz um morfismo $U(F) \coloneqq (F,\Mor(F)): U(\mathsf{C}) \to U(\mathsf{D})$ entre os grafos orientados subjacentes.
+    Essas duas construções combinadas nos permitem definir um \emph{funtor de esquecimento} $U: \mathsf{Cat} \to \mathsf{GrafOr}$ definido na categoria de categorias pequenas e tomando valores na categoria de grafos orientados definida anteriormente.
+    Usamos o termo funtor de esquecimento pois ao passar da categoria $\mathsf{C}$ para seu grafo orientado subjacente $U(\mathsf{C})$ nos esquecemos da estrutura de composição de morfismos existente na categoria original.
+\end{exem}
+
+Nosso interesse é investigar a existência de um funtor no sentido contrário $\mathsf{GrafOr} \to \mathsf{Cat}$ que associa a cada grafo orientado uma categoria onde podemos compor formalmente suas arestas da forma mais simples possível.
+A existência de tal funtor está ligada à existência de categorias livres gerados por grafos orientados que definimos agora.
+
+\begin{defin}\label{defin:categoria_livre}
+    Dado um grafo orientado $G$, uma \textbf{categoria livre gerada por $G$} é um par $(\mathsf{C},i)$, onde $\mathsf{C}$ é uma categoria pequena, e $i: G \to U(\mathsf{C})$ é um morfismo de grafos orientados satisfazendo a seguinte propriedade universal: se $\mathsf{D}$ é outra categoria pequena qualquer, e $j: G \to U(\mathsf{D})$ é um morfismo de grafos orientados, então existe um único funtor $F: \mathsf{C} \to \mathsf{D}$ tal que $U(F) \circ i = j$.
+    \begin{displaymath}
+        \begin{tikzcd}
+            U(\mathsf{C})
+            \arrow[r, dashed, "U(F)"]
+            & U(\mathsf{D})
+            \\ G
+            \arrow[u, "i"]
+            \arrow[ru, "j" swap]
+        \end{tikzcd}
+    \end{displaymath}
+\end{defin}
