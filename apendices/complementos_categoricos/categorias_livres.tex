@@ -52,6 +52,8 @@ Por vezes será mais conveniente denotarmos uma aljava simplesmente por uma letr
     Dadas duas aljavas $Q_1$ e $Q_2$, um \textbf{morfismo de aljavas} do tipo $Q_1 \to Q_2$ é por definição um par de funções $(f: V(Q_1) \to V(Q_2),\, F: A(Q_1) \to A(Q_2))$ satisfazendo as igualdades $s_{Q_2} \circ F = f \circ s_{Q_1}$ e $t_{Q_2} \circ F = f \circ t_{Q_1}$.
 \end{defin}
 
+Assim como no caso de funtores entre categorias onde comumente usamos a mesma letra para designar a ação nos objetos e nos vértices, utilizaremos por vezes um único símbolo para designar ação de um morfismo de aljava tanto nos vértices quanto nas arestas.
+
 \begin{exem}
     Dados dois conjuntos $X_1$ e $X_2$ e uma função $f: X_1 \to X_2$, o par $(f,f)$ define um morfismo $QX_1 \to QX_2$ entre as aljavas discretas geradas por $X_1$ e $X_2$ de acordo com o \cref{exem:aljava_discreta}.
 \end{exem}
@@ -146,5 +148,136 @@ A existência de tal funtor está ligada à existência de categorias livres ger
 \end{defin}
 
 Tendo em mãos a definição de uma categoria livre, começaremos a caminhar agora em direção à construção de um modelo explícito para uma categoria livre.
-Dado um natural $n \in \mathbb{N}$, denotaremos por $[n]$ o conjunto parcialmente ordenado $\{0 \leq 1 \leq \dotsm \leq n\}$.
-Sabemos pelo \cref{exem:aljava_via_relacao} que $[n]$ dá origem a uma alajva que denotaremos também por $[n]$.
+Dado um natural $n \in \mathbb{N}$, considere a aljava $[n]$ definida da seguinte maneira: o conjunto de vértices é por definição $V([n]) \coloneqq \{0,\dots,n\}$, enquanto o conjunto de arestas é por definição $A([n]) \coloneqq \{(k,k+1) \mid 0 \leq k \leq n-1\}$.
+As funções source e target são então restrições das projeções canônicas associadas ao produto $\{0,\dots,n\} \times \{0,\dots,n\}$, ou seja, temos
+\begin{displaymath}
+    s(k,k+1) \coloneqq k
+    \quad \text{e} \quad
+    t(k,k+1) \coloneqq k+1
+\end{displaymath}
+para todo $0 \leq k \leq n-1$.
+Visualmente, $[n]$ possui $n+1$ vértices rotulados pelos números o conjunto $\{0,\dots,n\}$ e $n$ vértices, sendo que cada vértice liga um número desse conjunto ao seu sucessor.
+Note então que a aljava $[0]$ possui um único vértice $0$ sem nenhuma aresta.
+
+%TODO: Adicionar uns desenhos de algumas dessas aljavas.
+
+\begin{obs}
+    A aljava $[n]$ introduzida acima é \emph{diferente} da aljava associada ao conjunto parcialmente ordenado $(\{0,\dots,n\},\leq)$ de acordo com o \cref{exem:aljava_via_relacao}!
+    Enquanto a primeira possui arestas apenas entre vértices sucessivos, a segunda possui arestas ligando dois vértices $m$ e $n$ sempre que $m \leq n$, ou seja, a segunda possui uma qunatidade bem maior de vértices.
+    Em particular, a segunda aljava possui arestas formando laços, já que a relação $\leq$ é reflexiva, enquanto a primeira aljava não possui nenhum laço como é evidente de sua definição.
+\end{obs}
+
+%TODO: Adicionar uma figura ilustrando visualmente as diferenças entre as duas aljavas.
+
+Definimos um \textbf{caminho de comprimento $n+1$} em uma aljava $Q$ como sendo um morfismo de aljavas $\gamma: [n] \to Q$.
+A justificativa para a terminologia é que a aljava $[n]$ possui $n+1$ vértices, portanto o morfismo $\gamma$ seleciona $n+1$ vértices de $Q$ conectados por uma sequência de arestas.
+
+A ideia básica para construirmos uma categoria a partir de uma aljava é que, embora não possamos compor duas arestas consecutivas de uma aljava de forma a obtermos uma \emph{outra aresta}, podemos compor caminhos de comprimentos quaisquer, portanto podemos reinterpretar arestas como caminhos de comprimento $2$ na aljava e encarar sua composição como sendo um caminho de comprimento $3$.
+O fato que nos permite compor caminhos é que duas aljavas $[m]$ e $[n]$ podem ser coladas ao longo de seus pontos extremos para formarem uma aljava do tipo $[m+n]$.
+A melhor maneira de formalizarmos essa ideia de colagem é por meio de um pushout na categoria de aljavas, mas para isso precisamos antes introduzir alguns morfismos específicos.
+
+Dados dois números naturais $m$ e $n$ tais que $m \leq n$, considere o morfismo de aljavas $\iota_{m,n}: [m] \to [n]$ definido da seguinte maneira: nos vértices de $[m]$ temos $\iota_{m,n}(k) \coloneqq k$ para todo $k \in \{0,\dots,m\}$, enquanto nas arestas de $[m]$ temos $\iota_{m,n}(k,k+1) \coloneqq (k,k+1)$ para qualquer $k \in \{0,\dots,m-1\}$.
+Visualmente, $\iota_{m,n}$ inclui a aljava $[m]$ no \emph{segmento inicial} da aljava $[n]$ formado pelos $m+1$ primeiros vértices e todas as arestas entre eles.
+Considere também o morfismo $\theta_{m,n}: [m] \to [n]$ definido da seguinte forma: nos vértices temos $\theta_{m,n}(k) \coloneqq k+n-m$ para todo $k \in \{0,\dots,m\}$, enquanto nas arestas temos $\theta_{m,n}(k,k+1) \coloneqq (k+n-m,k+n-m+1)$ para todo $k \in \{0,\dots,m-1\}$.
+Visualmente, $\theta_{m,n}$ inclui a aljava $[m]$ no \emph{segmento terminal} da aljava $[n]$ formado pelos seus últimos $m+1$ vértices e todas as arestas entre eles.
+
+Note que, quando $m=0$, o morfismo $\iota_{0,n}$ destaca o vértice inicial de $[n]$, e o morfismo $\theta_{0,n}$ destaca o último terminal de $[n]$.
+
+O lema abaixo descreve o processo de colagem de aljavas mencionado anteiormente em termos de um pushout.
+
+\begin{lema}\label{lema:pushout_aljavas_ordinais}
+    O diagrama comutativo abaixo define um pushout na categoria $\mathsf{Alj}$.
+    \begin{equation}\label{eq:pushout_aljavas_ordinais_diag}
+        \begin{tikzcd}[column sep=1.35cm]
+            {[0]}
+            \arrow[r,"{\theta_{0,m}}"]
+            \arrow[d, "{\iota_{0,n}}" swap]
+            & {[m]}
+            \arrow[d, "{\iota_{m,m+n}}"]
+            \\ {[n]}
+            \arrow[r, "{\theta_{n,m+n}}" swap]
+            & {[m+n]}
+        \end{tikzcd}
+    \end{equation}
+\end{lema}
+
+\begin{proof}
+    Note primeiro que o diagrama acima é realmente comutativo.
+    No único vértice $0$ da aljava $[0]$ temos por um lado
+    \begin{displaymath}
+        \iota_{m,m+n}(\theta_{0,m}(0))
+        = \iota_{m,m+n}(0+m-0)
+        = \iota_{m,m+n}(m)
+        = m
+    \end{displaymath}
+    e por outro
+    \begin{displaymath}
+        \theta_{n,m+n}(\iota_{0,n}(0))
+        = \theta_{n,m+n}(0)
+        = 0 + (m+n) - n
+        = m.
+    \end{displaymath}
+
+    Suponha agora que $Q$ seja uma aljava qualquer e que tenhamos morfismos $f: [m] \to Q$ e $g: [n] \to Q$ tais que $f \circ \theta_{0,m} = g \circ \iota_{0,n}$.
+    Nosso objetivo é mostrar a existência de um único morfismo $\phi: [m+n] \to Q$ fazendo comutar o diagrama abaixo.
+    \begin{displaymath}
+        \begin{tikzcd}[column sep=1.35cm]
+            {[0]}
+            \arrow[r,"{\theta_{0,m}}"]
+            \arrow[d, "{\iota_{0,n}}" swap]
+            & {[m]}
+            \arrow[d, "{\iota_{m,m+n}}"]
+            \arrow[rdd, bend left=30, "f"]
+            \\ {[n]}
+            \arrow[r, "{\theta_{n,m+n}}" swap]
+            \arrow[rrd, bend right=30, "g" swap]
+            & {[m+n]}
+            \arrow[rd, dashed, "\phi" description]
+            \\ & & Q
+        \end{tikzcd}
+    \end{displaymath}
+    Nos vértices de $[m+n]$ definimos
+    \begin{displaymath}
+        \phi(k) \coloneqq
+        \begin{cases}
+            f(k), & \text{se } 0 \leq k \leq m; \\
+            g(k-m), & \text{se } m \leq k \leq m+n.
+        \end{cases}
+    \end{displaymath}
+    Veja que $\phi$ está bem-definida nos vértices pois a condição de comutatividade $f \circ \theta_{0,m} = g \circ \iota_{0,n}$ diz precisamente que vale a igualdade $f(m) = g(0)$.
+    A definição de $\phi$ nas arestas é a esperada: utilizamos o morfismo $f$ nas $m$ primeiras arestas e o morfismo $g$ nas $n$ últimas.
+    Explicitamente, definimos
+    \begin{displaymath}
+        \phi(k,k+1) \coloneqq
+        \begin{cases}
+            f(k,k+1), & \text{se } 0 \leq k \leq m-1; \\
+            g(k-m,k-m+1), & \text{se } m \leq k \leq m+n-1.
+        \end{cases}
+    \end{displaymath}
+
+    Uma conta direta usando o fato de $f$ e $g$ morfismos de aljavas mostra que $\phi$ é também um morfismo de aljavas.
+    Resta agora mostrarmos que $\phi$ é na verdade o único morfismo possível satisfazendo as condições de comutatividade em questão.
+    Suponha então que $\psi: [m+n] \to Q$ seja um outro morfismo de aljavas tal que $\psi \circ \iota_{m,m+n} = f$ e $\psi \circ \theta_{n,m+n} = g$.
+    Dado um vértice $k \in \{0,\dots,m+n\}$ qualquer, se $0 \leq k \leq m$, então
+    \begin{displaymath}
+        \psi(k) = \psi(\iota_{m,m+n}(k)) = f(k) = \phi(k),
+    \end{displaymath}
+    e se $m \leq k \leq m+n$, então
+    \begin{displaymath}
+        \psi(k) = \psi((k-m)+m) = \psi(\theta_{n,m+n}(k-m)) = g(k-m) = \phi(k);
+    \end{displaymath}
+    portanto $\psi$ coincide com $\phi$ nos vértices.
+    Dada agora uma aresta $(k,k+1)$ de $[m+n]$, se $0 \leq k \leq m-1$ temos
+    \begin{displaymath}
+        \psi(k,k+1) = \psi(\iota_{m,m+n}(k,k+1)) = f(k,k+1) = \phi(k,k+1),
+    \end{displaymath}
+    e se $m \leq k \leq m+n-1$ temos
+    \begin{align*}
+        \psi(k,k+1)
+        & = \psi((k-m)+m,(k-m+1)+m) \\
+        & = \psi(\theta_{n,m+n}(k-m,k-m+1)) \\
+        & = g(k-m,k-m+1) \\
+        & = \phi(k,k+1);
+    \end{align*}
+    portanto $\psi$ coincide com $\phi$ nos vértices também como queríamos mostrar.
+\end{proof}
