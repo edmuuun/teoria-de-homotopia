@@ -27,7 +27,7 @@ Por vezes será mais conveniente denotarmos uma aljava simplesmente por uma letr
 \begin{exem}\label{exem:aljava_via_relacao}
     Seja $R \subseteq X \times X$ uma relação qualquer em um conjunto $X$.
     Podemos construir a partir dessa relação uma aljava $Q \coloneqq (X,R,s,t)$, onde $s,\,t: R \to X$ são as restriçõs das projeções canônicas associadas ao produto $X \times X$, ou seja, $s(x_1,x_2) \coloneqq x_1$ e $t(x_1,x_2) \coloneqq x_2$ para qualquer par $(x_1,x_2) \in R$.
-
+    
     É especialmente comum considerarmos essa construção no caso em que a relação $R$ é uma pré-ordem $\leq$ no conjunto $X$, ou seja, uma relação reflexiva e transitiva.
     Nesse caso, as arestas da aljava``acompanham o sentido de crescimento'' da pré-ordem $\leq$.
 \end{exem}
@@ -66,7 +66,7 @@ Assim como no caso de funtores entre categorias onde comumente usamos a mesma le
         f \times f \rvert_{R_1}: R_1 \to R_2.
     \end{displaymath}
     O par de funções $(f,f \times f\rvert_{R_1})$ define então um morfismo de aljavas do tipo $Q_1$ para $Q_2$.
-
+    
     No caso em que $R_1$ e $R_2$ são relações de pré-ordem $\leq_1$ e $\leq_2$, a condição de $f$ respeitar as relações diz que, se $x \leq_1 x'$, então $f(x) \leq_2 f(x')$; ou seja, $f$ é uma função monótona.
     Segue da discussão acima que funções monótonas entre conjuntos pré-ordenados dão origem a morfismos entre as aljavas obtidas a partir deles.
 \end{exem}
@@ -106,7 +106,7 @@ Diversas das construções introduzidas nos exemplos anteriores podem ser estend
     Considere a categoria $\mathsf{SetRel}$ cujos objetos são conjuntos equipados com alguma relação e cujos morfismos são funções preservando tais relações.\footnote{É tentador usar o nome $\mathsf{Rel}$ para tal categoria, mas é comum na literatura usar esse nome para identificar a categoria onde relações aparecem como \emph{morfismos} entre conjuntos.}
     Vimos no \cref{exem:aljava_via_relacao} que todo conjunto equipado com uma relação $(X,\leq)$ dá origem a uma aljava, e que funções preservando tais relações dão origem a morfismos entre as aljavas correspondentes.
     Uma conta simples mostra que essa construção preserva composições e morfismos identidade, definindo portanto um funtor $F: \mathsf{SetRel} \to \mathsf{Alj}$.
-
+    
     Existe também um funtor no sentido contrário $\mathsf{Alj} \to \mathsf{SetRel}$.
     Dada uma aljava $Q$, definimos uma relação $R_Q$ no conjunto de vértices $V(Q)$ da aljava por meio da fórmula
     \begin{displaymath}
@@ -156,15 +156,61 @@ As funções source e target são então restrições das projeções canônicas
     t(k,k+1) \coloneqq k+1
 \end{displaymath}
 para todo $0 \leq k \leq n-1$.
-Visualmente, $[n]$ possui $n+1$ vértices rotulados pelos números o conjunto $\{0,\dots,n\}$ e $n$ vértices, sendo que cada vértice liga um número desse conjunto ao seu sucessor.
-Note então que a aljava $[0]$ possui um único vértice $0$ sem nenhuma aresta.
+Visualmente, $[n]$ possui $n+1$ vértices rotulados pelos números o conjunto $\{0,\dots,n\}$ e $n$ vértices, sendo que cada vértice liga um número desse conjunto ao seu sucessor como mostrado na figura abaixo.
+Note, em particular, que a aljava $[0]$ consiste de um único vértice $0$ sem nenhuma aresta.
 
-%TODO: Adicionar uns desenhos de algumas dessas aljavas.
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \node (zero) [circle,draw] {0};
+        \node (one) [circle,draw,right=of zero] {1};
+        \node (two) [circle,draw,right=of one] {2};
+        \node (dots) [circle,right=of two] {$\cdots$};
+        \node (ultimo) [circle,draw,right=of dots] {$n$};
+        
+        \draw[-stealth] (zero) to (one);
+        \draw[-stealth] (one) to (two);
+        \draw[-stealth] (two) to (dots);
+        \draw[-stealth] (dots) to (ultimo);
+    \end{tikzpicture}
+    \caption{Representação visual da aljava $[n]$.}
+    \label{fig:aljava_ordinal}
+\end{figure}
 
 \begin{obs}
-    A aljava $[n]$ introduzida acima é \emph{diferente} da aljava associada ao conjunto parcialmente ordenado $(\{0,\dots,n\},\leq)$ de acordo com o \cref{exem:aljava_via_relacao}!
+    A aljava $[n]$ introduzida acima é \emph{diferente} da aljava associada ao conjunto parcialmente ordenado $(\{0,\dots,n\},\leq)$ como no \cref{exem:aljava_via_relacao}!
     Enquanto a primeira possui arestas apenas entre vértices sucessivos, a segunda possui arestas ligando dois vértices $m$ e $n$ sempre que $m \leq n$, ou seja, a segunda possui uma qunatidade bem maior de vértices.
     Em particular, a segunda aljava possui arestas formando laços, já que a relação $\leq$ é reflexiva, enquanto a primeira aljava não possui nenhum laço como é evidente de sua definição.
+    A figura \cref{fig:aljava_ordinal_versus_aljava_poset} ilustra explicitamente a diferença entre a aljava $[2]$ e a aljava obtida a partir do conjunto $\{0,1,2\}$ munido de sua ordem parcial usual.
+    
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}[->,>=stealth]
+            \node (zero) [circle,draw] {0};
+            \node (one) [circle,draw,right=of zero] {1};
+            \node (two) [circle,draw,right=of one] {2};
+            
+            \path
+            (zero) edge (one)
+            (one) edge (two);
+            
+            \begin{scope}[xshift=6cm]
+                \node (zero) [circle,draw] {0};
+                \node (one) [circle,draw,right=of zero] {1};
+                \node (two) [circle,draw,right=of one] {2};
+                
+                \path
+                (zero) edge (one)
+                (zero) edge [out=120,in=60,loop]
+                (zero) edge [bend right] (two)
+                (one) edge (two)
+                (one) edge [out=120,in=60,loop] (one)
+                (two) edge [out=120,in=60,loop] (two);
+            \end{scope}
+        \end{tikzpicture}
+        \caption{Comparação entre a aljava $[2]$, representada à esquerda, e a aljava associada ao conjunto parcialmente ordenado $\{0,1,2\}$, representada à direita.}
+        \label{fig:aljava_ordinal_versus_aljava_poset}
+    \end{figure}
 \end{obs}
 
 %TODO: Adicionar uma figura ilustrando visualmente as diferenças entre as duas aljavas.
@@ -217,7 +263,7 @@ O lema abaixo descreve o processo de colagem de aljavas mencionado anteiormente 
         = 0 + (m+n) - n
         = m.
     \end{displaymath}
-
+    
     Suponha agora que $Q$ seja uma aljava qualquer e que tenhamos morfismos $f: [m] \to Q$ e $g: [n] \to Q$ tais que $f \circ \theta_{0,m} = g \circ \iota_{0,n}$.
     Nosso objetivo é mostrar a existência de um único morfismo $\phi: [m+n] \to Q$ fazendo comutar o diagrama abaixo.
     \begin{displaymath}
@@ -227,10 +273,10 @@ O lema abaixo descreve o processo de colagem de aljavas mencionado anteiormente 
             \arrow[d, "{\iota_{0,n}}" swap]
             & {[m]}
             \arrow[d, "{\iota_{m,m+n}}"]
-            \arrow[rdd, bend left=30, "f"]
+            \arrow[rdd, bend left=45, "f"]
             \\ {[n]}
             \arrow[r, "{\theta_{n,m+n}}" swap]
-            \arrow[rrd, bend right=30, "g" swap]
+            \arrow[rrd, bend right=45, "g" swap]
             & {[m+n]}
             \arrow[rd, dashed, "\phi" description]
             \\ & & Q
@@ -254,7 +300,7 @@ O lema abaixo descreve o processo de colagem de aljavas mencionado anteiormente 
             g(k-m,k-m+1), & \text{se } m \leq k \leq m+n-1.
         \end{cases}
     \end{displaymath}
-
+    
     Uma conta direta usando o fato de $f$ e $g$ morfismos de aljavas mostra que $\phi$ é também um morfismo de aljavas.
     Resta agora mostrarmos que $\phi$ é na verdade o único morfismo possível satisfazendo as condições de comutatividade em questão.
     Suponha então que $\psi: [m+n] \to Q$ seja um outro morfismo de aljavas tal que $\psi \circ \iota_{m,m+n} = f$ e $\psi \circ \theta_{n,m+n} = g$.
@@ -281,3 +327,114 @@ O lema abaixo descreve o processo de colagem de aljavas mencionado anteiormente 
     \end{align*}
     portanto $\psi$ coincide com $\phi$ nos vértices também como queríamos mostrar.
 \end{proof}
+
+Temos agora em mãos todos os ingredientes necessários para construirmos uma categoria que depois mostraremos que satisfaz a propriedade universal que caracteriza a categoria livremente gerada por uma aljava.
+
+Dada uma aljava qualquer $Q$, considere a categoria $\mathsf{FQ}$ tendo como objetos os vértices $V(Q)$ da aljava inicial $Q$ e tendo como morfismos entre dois objetos $a,\, b \in V(Q)$ o conjunto definido por
+\begin{equation}\label{eq:morfismo_categoria_livre_defin}
+    \Hom_{\mathsf{FQ}}(a,b) \coloneqq \bigcup_{n \in \mathbb{N}} \{F: [n] \to Q \mid F(0) = a \text{ e } F(n) = b\};
+\end{equation}
+ou seja, um morfismo de $a$ para $b$ em $\mathsf{FQ}$ é um caminho de tamanho qualquer na aljava $Q$ começando em $a$ e terminando em $b$.
+
+Vamos definir uma operação de composição nesses conjuntos de morfismos.
+Dados três objetos $a$, $b$ e $c$ em $\mathsf{FQ}$, se $F:[m] \to Q$ é um morfismo de $a$ para $b$, e $G:[n] \to Q$ é um morfismo de $b$ para $c$, como $F(m) = b = G(0)$, os morfismos compostos $F \circ \theta_{0,m},\, G \circ \iota_{0,n}: [0] \to Q$ são iguais, portanto existe um único morfismo de aljavas $G \star F: [m+n] \to Q$ fazendo comutar o diagrama mostrado abaixo graças ao \cref{lema:pushout_aljavas_ordinais}.
+\begin{displaymath}
+    \begin{tikzcd}
+        {[0]}
+        \arrow[r, "{\theta_{0,m}}"]
+        \arrow[d, "{\iota_{0,n}}" swap]
+        & {[m]}
+        \arrow[d, "\iota_{m,m+n}"]
+        \arrow[rdd, bend left=45, "F"]
+        \\ {[n]}
+        \arrow[r, "{\theta_{n,m+n}}" swap]
+        \arrow[rrd, bend right=45, "G" swap]
+        & {[m+n]}
+        \arrow[rd, dashed, "G \star F" description]
+        \\ & & Q
+    \end{tikzcd}
+\end{displaymath}
+Veja que pelas condições de comutatividade temos
+\begin{displaymath}
+    (G \star F)(0) = [(G \star F) \circ \iota_{m,m+n}](0) = F(0) = a
+\end{displaymath}
+e também
+\begin{displaymath}
+    (G \star F)(m+n) = [(G \star F) \circ \theta_{n,m+n}](n) = G(n) = c;
+\end{displaymath}
+ou seja, $G \star F$ define um caminho em $Q$ começando em $a$ e terminando em $c$, portanto um morfismo de $a$ para $c$ em $\mathsf{FQ}$ conforme definido em \eqref{eq:morfismo_categoria_livre_defin}.
+É este morfismo $G \star F$ que consideraremos como sendo a composição dos morfismos $F$ e $G$.
+Note que pela construção dada no \cref{lema:pushout_aljavas_ordinais} podemos descrever $G \star F$ explictamente: em um vértice $k \in \{0,\dots,m+n\}$ qualquer temos
+\begin{displaymath}
+    (G \star F)(k) =
+    \begin{cases}
+        F(k), & \text{se } 0 \leq k \leq m, \\
+        G(k-m), & \text{se } m \leq k \leq m+n;
+    \end{cases}
+\end{displaymath}
+e em uma aresta $(k,k+1)$ qualquer temos
+\begin{displaymath}
+    (G \star F)(k,k+1) =
+    \begin{cases}
+        F(k,k+1), & \text{se } 0 \leq k \leq m-1, \\
+        G(k-m,k-m+1), & \text{se } m \leq k \leq m+n-1.
+    \end{cases}
+\end{displaymath}
+
+Dado um objeto $a \in \mathsf{FQ}$ qualquer, considere o morfismo de aljavas $p_a: [0] \to Q$ que mapeia o único vértice $0 \in [0]$ para $a$.
+Esse morfismo define um caminho na aljava $Q$ começando e terminando no vértice $a$, ou seja, um morfismo do tipo $a \to a$ na categoria $FQ$.
+Vamos mostrar que esse morfismo é uma identidade para a operação de composição definida acima.
+Considere um morfismo do tipo $a \to b$ dado por um caminho $G:[n] \to Q$ começando em $a$ e terminando em $b$ e vamos mostrar que vale a igualdade $G \star p_a = G$.
+Uma maneira de fazermos isso é simplesmente compararmos diretamente ambos os lados usando a descrição explícita para a composição $G \star p_a$ dada acima, mas também podemos mostrar essa igualdade usando a unicidade que caracteriza o morfismo $G \star p_a$.
+Mais precisamente, $G \star p_a$ é o \emph{único} morfismo de alajvas do tipo $[0+n] = [n] \to Q$ que faz comutar o diagrama mostrado abaio.
+\begin{displaymath}
+    \begin{tikzcd}
+        {[0]}
+        \arrow[r, "{\theta_{0,0}}"]
+        \arrow[d, "{\iota_{0,n}}" swap]
+        & {[0]}
+        \arrow[d, "\iota_{0,n}"]
+        \arrow[rdd, bend left=45, "p_a"]
+        \\ {[n]}
+        \arrow[r, "{\theta_{n,n}}" swap]
+        \arrow[rrd, bend right=45, "G" swap]
+        & {[n]}
+        \arrow[rd, dashed, "G \star p_a" description]
+        \\ & & Q
+    \end{tikzcd}
+\end{displaymath}
+Segue dessa unicidade que caracteriza $G \star p_a$ que a validade da igualdade $G \star p_a = G$ é equivalente à validade das igualdades
+\begin{displaymath}
+    \begin{cases}
+        G \circ \iota_{0,n} = p_a, \\
+        G \circ \theta_{n,n} = G.
+    \end{cases}
+\end{displaymath}
+A primeira dessas igualdade é verdadeira pois $G$ é por hipótese um caminho começando no vértice $a$, enquanto a segunda é verdadeira pois o morfismo $\theta_{n,n}$ é igual ao morfismo identidade $\id_{[n]}$.
+Considere agora um morfismo do tipo $z \to a$ na categoria $FQ$ dado por um caminho $F:[m] \to Q$ começando em $z$ e terminando em $a$.
+A composição $p_a \star F: [m] \to Q$ é por definição o único morfismo de aljavas do tipo $[m] \to Q$ fazendo comutar o diagrama abaixo.
+\begin{displaymath}
+    \begin{tikzcd}
+        {[0]}
+        \arrow[r, "{\theta_{0,m}}"]
+        \arrow[d, "{\iota_{0,0}}" swap]
+        & {[m]}
+        \arrow[d, "\iota_{m,m}"]
+        \arrow[rdd, bend left=45, "F"]
+        \\ {[0]}
+        \arrow[r, "{\theta_{0,m}}" swap]
+        \arrow[rrd, bend right=45, "p_a" swap]
+        & {[m]}
+        \arrow[rd, dashed, "p_a \star F" description]
+        \\ & & Q
+    \end{tikzcd}
+\end{displaymath}
+A igualdade $p_a \star F = F$ seguirá então se mostrarmos que $F$ satisfaz as igualdades
+\begin{displaymath}
+    \begin{cases}
+        F \circ \iota_{m,m} = F, \\
+        F \circ \theta_{0,m} = p_a.
+    \end{cases}
+\end{displaymath}
+A primeira das igualdades acima é válida pois o morfismo $\iota_{m,m}$ é igual ao morfismo identidade $\id_{[m]}$, enquanto a segunda é válida pois o caminho $F$ termina no vértice $a$ por hipótese.
+Concluímos enfim que o morfismo do tipo $a \to a$ em $\mathsf{FQ}$ dado pelo caminho $p_a: [0] \to Q$ é uma identidade para a operação de composição $\star$ em questão.
