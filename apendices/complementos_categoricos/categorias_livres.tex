@@ -438,3 +438,133 @@ A igualdade $p_a \star F = F$ seguirá então se mostrarmos que $F$ satisfaz as 
 \end{displaymath}
 A primeira das igualdades acima é válida pois o morfismo $\iota_{m,m}$ é igual ao morfismo identidade $\id_{[m]}$, enquanto a segunda é válida pois o caminho $F$ termina no vértice $a$ por hipótese.
 Concluímos enfim que o morfismo do tipo $a \to a$ em $\mathsf{FQ}$ dado pelo caminho $p_a: [0] \to Q$ é uma identidade para a operação de composição $\star$ em questão.
+
+Vejamos agora a questão da associatividade da operação de composição.
+Considere três objetos $a$, $b$, $c$ e $d$ de $\mathsf{FQ}$ juntamento com morfismos do tipo $a \to b$, $b \to c$ e $c \to d$ dados, respectivamente, por caminhos $F: [\ell] \to Q$, $G: [m] \to Q$ e $H: [n] \to Q$.
+Os morfismos $G \star F$ e $H \star G$ são caracterizados como os únicos morfismos de seus respectivos tipos que fazem comutar os diagramas abaixo,
+\begin{equation}\label{eq:associatividade_cat_livre_diag_1}
+    \begin{tikzcd}
+        {[0]}
+        \arrow[r, "{\theta_{0,\ell}}"]
+        \arrow[d, "{\iota_{0,m}}" swap]
+        & {[\ell]}
+        \arrow[d, "{\iota_{\ell,\ell+m}}"]
+        \arrow[rdd, bend left=45, "F"]
+        \\ {[m]}
+        \arrow[r, "{\theta_{m,\ell+m}}" swap]
+        \arrow[rrd, bend right=45, "G" swap]
+        & {[\ell+m]}
+        \arrow[rd, dashed, "G \star F" description]
+        \\ & & Q
+    \end{tikzcd}
+    \qquad
+    \begin{tikzcd}
+        {[0]}
+        \arrow[r, "{\theta_{0,m}}"]
+        \arrow[d, "{\iota_{0,n}}" swap]
+        & {[m]}
+        \arrow[d, "{\iota_{m,m+n}}"]
+        \arrow[rdd, bend left=45, "G"]
+        \\ {[n]}
+        \arrow[r, "{\theta_{n,m+n}}" swap]
+        \arrow[rrd, bend right=45, "H" swap]
+        & {[m+n]}
+        \arrow[rd, dashed, "H \star G" description]
+        \\ & & Q
+    \end{tikzcd}
+\end{equation}
+enquanto os morfismos $H \star (G \star F)$ e $(H \star G) \star F$ são os únicos que fazem comutar os dois diagramas mostrados abaixo.
+\begin{equation}\label{eq:associatividade_cat_livre_diag_2}
+    \begin{tikzcd}[column sep=1.25cm]
+        {[0]}
+        \arrow[r, "{\theta_{0,\ell+m}}"]
+        \arrow[d, "{\iota_{0,n}}" swap]
+        & {[\ell+m]}
+        \arrow[d, "{\iota_{\ell+m,\ell+m+n}}"]
+        \arrow[rdd, bend left=45, "G \star F"]
+        \\ {[n]}
+        \arrow[r, "{\theta_{n,\ell+m+n}}" swap]
+        \arrow[rrd, bend right=45, "H" swap]
+        & {[\ell+m+n]}
+        \arrow[rd, dashed, "H \star (G \star F)" description]
+        \\ & & Q
+    \end{tikzcd}
+    \quad
+    \begin{tikzcd}[column sep=1.35cm]
+        {[0]}
+        \arrow[r, "{\theta_{0,\ell}}"]
+        \arrow[d, "{\iota_{0,m+n}}" swap]
+        & {[\ell]}
+        \arrow[d, "{\iota_{\ell,\ell+m+n}}"]
+        \arrow[rdd, bend left=45, "F"]
+        \\ {[m+n]}
+        \arrow[r, "{\theta_{m+n,\ell+m+n}}" swap]
+        \arrow[rrd, bend right=45, "H \star G" swap]
+        & {[\ell+m+n]}
+        \arrow[rd, dashed, "(H \star G) \star F" description]
+        \\ & & Q
+    \end{tikzcd}
+\end{equation}
+Graças à unicidade que caracteriza $(H \star G) \star F$, a igualdade $H \star (G \star F) = (H \star G) \star F$ desejada seguirá se mostrarmos a validade das igualdades
+\begin{displaymath}
+    \begin{cases}
+        (H \star (G \star F)) \circ \iota_{\ell,\ell+m+n} = F, \\
+        (H \star (G \star F)) \circ \theta_{m+n,\ell+m+n} = H \star G.
+    \end{cases}
+\end{displaymath}
+No caso da primeira igualdade, veja inicialmente que o morfismo $\iota_{\ell,\ell+m+n}: [\ell] \to [\ell+m+n]$ pode ser reescrito como a composição
+\begin{displaymath}
+    \iota_{\ell,\ell+m+n} = \iota_{\ell+m,\ell+m+n} \circ \iota_{\ell,\ell+m}.
+\end{displaymath}
+Usando isso vemos então que
+\begin{align*}
+    (H \star (G \star F)) \circ \iota_{\ell,\ell+m+n}
+    & = (H \star (G \star F)) \circ \iota_{\ell+m,\ell+m+n} \circ \iota_{\ell,\ell+m} \\
+    & = (G \star F) \circ \iota_{\ell,\ell+m}
+    \tag{por \eqref{eq:associatividade_cat_livre_diag_2}} \\
+    & = F
+    \tag{por \eqref{eq:associatividade_cat_livre_diag_1}}.
+\end{align*}
+Já no caso da segunda igualdades, graças à unicidade que caracteriza o morfismo $H \star G$, ``basta'' mostrarmos a validade das igualdades abaixo.
+\begin{displaymath}
+    \begin{cases}
+        (H \star (G \star F)) \circ \theta_{m+n,\ell+m+n} \circ \theta_{n,m+n} = H, \\
+        (H \star (G \star F)) \circ \theta_{m+n,\ell+m+n} \circ \iota_{m,m+n} = G.
+    \end{cases}
+\end{displaymath}
+No primeiro caso, como vale a igualdade
+\begin{displaymath}
+    \theta_{m+n,\ell+m+n} \circ \theta_{n,m+n}
+    = \theta_{n,\ell+m+n}
+\end{displaymath}
+temos a sequência de igualdades
+\begin{align*}
+    (H \star (G \star F)) \circ \theta_{m+n,\ell+m+n} \circ \theta_{n,m+n}
+    & = (H \star (G \star F)) \circ \theta_{n,\ell+m+n} \\
+    & = H. \tag{por \eqref{eq:associatividade_cat_livre_diag_2}}
+\end{align*}
+Por fim, para a segunda igualdade, veja inicialmente que vale a condição de comutatividade
+\begin{displaymath}
+    \theta_{m+n,\ell+m+n} \circ \iota_{m,m+n}
+    = \iota_{\ell+m,\ell+m+n} \circ \theta_{m,\ell+m}.
+\end{displaymath}
+Usando isso vemos então que
+\begin{align*}
+    (H \star (G \star F)) \circ \theta_{m+n,\ell+m+n} \circ \iota_{m+n,\ell+m+n}
+    & = (H \star (G \star F)) \circ \iota_{\ell+m,\ell+m+n} \circ \theta_{m,\ell+m} \\
+    & = (G \star F) \circ \theta_{m,\ell+m},
+    \tag{por \eqref{eq:associatividade_cat_livre_diag_2}} \\
+    & = G.
+    \tag{por \eqref{eq:associatividade_cat_livre_diag_1}}
+\end{align*}
+
+O raciocínio acima mostra a associatividade da operação de composição $\star$ definida e nos permite concluir enfim que $\mathsf{FQ}$ define de fato uma categoria.
+Fica claro da definição que $\mathsf{FQ}$ é uma categoria localmente pequena e que ela possui um conjunto de objetos, sendo portanto uma categoria pequena.
+
+Vamos agora estabelecer uma relação entre a aljava inicial $Q$ e a aljava $U(\mathsf{FQ})$ subjacente à categoria $\mathsf{FQ}$ que acabamos de construir.
+Veja que, como o conjunto de objetos de $\mathsf{FQ}$ foi definido como o conjunto de vértices de $Q$, as aljavas $Q$ e $U(\mathsf{FQ})$ possuem o mesmo conjunto de vértices.
+Lembrando que o conjunto de arestas de $U(\mathsf{FQ})$ é por definição o conjunto de morfismos de $\mathsf{FQ}$, podemos definir uma função $i: A(Q) \to A(U(\mathsf{FQ}))$ que mapeia uma aresta $e$ da aljava $Q$ para o morfismo (= caminho) $i_e: [1] \to Q$ dado por $i_e(0) \coloneqq s(e)$, $i_e(1) \coloneqq t(e)$ e $i_e(0,1) \coloneqq e$.
+Essa função $i_e$ não faz nada mais do que reinterpretar uma aresta de $Q$ como um caminho de comprimento $2$.
+O par $(\id_{V(Q)},i)$ define então um morfismo de aljavas $Q \to U(\mathsf{FQ})$ o qual denotaremos simplesmente por $i$.
+
+% TODO: Pensar em uma figura que ilustre a função i que reinterpreta uma aresta de Q como um caminho de comprimento 2 e, portanto, um morfismo na categoria FQ gerada a partir de Q.
