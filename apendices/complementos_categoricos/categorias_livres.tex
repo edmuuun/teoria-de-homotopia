@@ -213,8 +213,6 @@ Note, em particular, que a aljava $[0]$ consiste de um único vértice $0$ sem n
     \end{figure}
 \end{obs}
 
-%TODO: Adicionar uma figura ilustrando visualmente as diferenças entre as duas aljavas.
-
 Definimos um \textbf{caminho de comprimento $n+1$} em uma aljava $Q$ como sendo um morfismo de aljavas $\gamma: [n] \to Q$.
 A justificativa para a terminologia é que a aljava $[n]$ possui $n+1$ vértices, portanto o morfismo $\gamma$ seleciona $n+1$ vértices de $Q$ conectados por uma sequência de arestas.
 
@@ -222,12 +220,83 @@ A ideia básica para construirmos uma categoria a partir de uma aljava é que, e
 O fato que nos permite compor caminhos é que duas aljavas $[m]$ e $[n]$ podem ser coladas ao longo de seus pontos extremos para formarem uma aljava do tipo $[m+n]$.
 A melhor maneira de formalizarmos essa ideia de colagem é por meio de um pushout na categoria de aljavas, mas para isso precisamos antes introduzir alguns morfismos específicos.
 
-Dados dois números naturais $m$ e $n$ tais que $m \leq n$, considere o morfismo de aljavas $\iota_{m,n}: [m] \to [n]$ definido da seguinte maneira: nos vértices de $[m]$ temos $\iota_{m,n}(k) \coloneqq k$ para todo $k \in \{0,\dots,m\}$, enquanto nas arestas de $[m]$ temos $\iota_{m,n}(k,k+1) \coloneqq (k,k+1)$ para qualquer $k \in \{0,\dots,m-1\}$.
-Visualmente, $\iota_{m,n}$ inclui a aljava $[m]$ no \emph{segmento inicial} da aljava $[n]$ formado pelos $m+1$ primeiros vértices e todas as arestas entre eles.
-Considere também o morfismo $\theta_{m,n}: [m] \to [n]$ definido da seguinte forma: nos vértices temos $\theta_{m,n}(k) \coloneqq k+n-m$ para todo $k \in \{0,\dots,m\}$, enquanto nas arestas temos $\theta_{m,n}(k,k+1) \coloneqq (k+n-m,k+n-m+1)$ para todo $k \in \{0,\dots,m-1\}$.
-Visualmente, $\theta_{m,n}$ inclui a aljava $[m]$ no \emph{segmento terminal} da aljava $[n]$ formado pelos seus últimos $m+1$ vértices e todas as arestas entre eles.
+Dados números naturais $m$ e $n$ tais que $m \leq n$, considere o morfismo de aljavas
+\begin{displaymath}
+    \iota_{m,n}: [m] \to [n]
+\end{displaymath}
+definido da seguinte maneira: nos vértices temos $\iota_{m,n}(k) \coloneqq k$ para todo $k \in \{0,\dots,m\}$, enquanto nas arestas de $[m]$ temos $\iota_{m,n}(k,k+1) \coloneqq (k,k+1)$ para qualquer $k \in \{0,\dots,m-1\}$.
+Visualmente, $\iota_{m,n}$ inclui a aljava $[m]$ no \emph{segmento inicial} da aljava $[n]$ formado pelos $m+1$ primeiros vértices e todas as arestas entre eles, conforme mostrado na \cref{fig:morfismo_aljavas_segmento_inicial}.
 
-Note que, quando $m=0$, o morfismo $\iota_{0,n}$ destaca o vértice inicial de $[n]$, e o morfismo $\theta_{0,n}$ destaca o último terminal de $[n]$.
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[->,>=stealth]
+        \node[draw,circle] (zero) at (0,0) {$0$};
+        \node[draw,circle,right=of zero] (one) {$1$};
+        \node[draw,circle,right=of one] (two) {$2$};
+        
+        \path
+        (zero) edge (one)
+        (one) edge (two);
+
+        \begin{scope}[xshift=4cm]
+            \node (seta-inicio) {};
+            \node[right=of seta-inicio] (seta-fim) {};
+            \draw (seta-inicio) to node[auto] {$\iota_{2,3}$} (seta-fim);
+        \end{scope}
+        
+        \begin{scope}[xshift=6cm]
+            \node[draw,red,circle] (zero) at (0,0) {$0$};
+            \node[draw,red,circle,right=of zero] (one) {$1$};
+            \node[draw,red,circle,right=of one] (two) {$2$};
+            \node[draw,circle,right=of two] (three) {$3$};
+            
+            \path
+            (zero) edge[red] (one)
+            (one) edge[red] (two)
+            (two) edge (three);
+        \end{scope}
+    \end{tikzpicture}
+    \caption{Visualização do morfismo de aljavas $\iota_{2,3}: [2] \to [3]$. Os vértices e arestam em vermelho indicam a ``imagem'' do morfismo.}
+    \label{fig:morfismo_aljavas_segmento_inicial}
+\end{figure}
+
+Considere também o morfismo $\tau_{m,n}: [m] \to [n]$ definido da seguinte forma: nos vértices temos $\tau_{m,n}(k) \coloneqq k+n-m$ para todo $k \in \{0,\dots,m\}$, enquanto nas arestas temos $\tau_{m,n}(k,k+1) \coloneqq (k+n-m,k+n-m+1)$ para todo $k \in \{0,\dots,m-1\}$.
+Visualmente, $\tau_{m,n}$ inclui a aljava $[m]$ no \emph{segmento terminal} da aljava $[n]$ formado pelos seus últimos $m+1$ vértices e todas as arestas entre eles, conforme mostrado na \cref{fig:morfismo_aljavas_segmento_terminal}.
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[->,>=stealth]
+        \node[draw,circle] (zero) at (0,0) {$0$};
+        \node[draw,circle,right=of zero] (one) {$1$};
+        \node[draw,circle,right=of one] (two) {$2$};
+        
+        \path
+        (zero) edge (one)
+        (one) edge (two);
+
+        \begin{scope}[xshift=4cm]
+            \node (seta-inicio) {};
+            \node[right=of seta-inicio] (seta-fim) {};
+            \draw (seta-inicio) to node[auto] {$\tau_{2,3}$} (seta-fim);
+        \end{scope}
+        
+        \begin{scope}[xshift=6cm]
+            \node[draw,circle] (zero) at (0,0) {$0$};
+            \node[draw,red,circle,right=of zero] (one) {$1$};
+            \node[draw,red,circle,right=of one] (two) {$2$};
+            \node[draw,red,circle,right=of two] (three) {$3$};
+            
+            \path
+            (zero) edge (one)
+            (one) edge[red] (two)
+            (two) edge[red] (three);
+        \end{scope}
+    \end{tikzpicture}
+    \caption{Visualização do morfismo de aljavas $\tau_{2,3}: [2] \to [3]$. Os vértices e arestas em vermelho indicam a ``imagem'' do morfismo.}
+    \label{fig:morfismo_aljavas_segmento_terminal}
+\end{figure}
+
+Note que, quando $m=0$, o morfismo $\iota_{0,n}$ destaca o vértice inicial de $[n]$, enquanto o morfismo $\tau_{0,n}$ destaca o último terminal de $[n]$.
 
 O lema abaixo descreve o processo de colagem de aljavas mencionado anteiormente em termos de um pushout.
 
@@ -236,12 +305,12 @@ O lema abaixo descreve o processo de colagem de aljavas mencionado anteiormente 
     \begin{equation}\label{eq:pushout_aljavas_ordinais_diag}
         \begin{tikzcd}[column sep=1.35cm]
             {[0]}
-            \arrow[r,"{\theta_{0,m}}"]
+            \arrow[r,"{\tau_{0,m}}"]
             \arrow[d, "{\iota_{0,n}}" swap]
             & {[m]}
             \arrow[d, "{\iota_{m,m+n}}"]
             \\ {[n]}
-            \arrow[r, "{\theta_{n,m+n}}" swap]
+            \arrow[r, "{\tau_{n,m+n}}" swap]
             & {[m+n]}
         \end{tikzcd}
     \end{equation}
@@ -251,31 +320,31 @@ O lema abaixo descreve o processo de colagem de aljavas mencionado anteiormente 
     Note primeiro que o diagrama acima é realmente comutativo.
     No único vértice $0$ da aljava $[0]$ temos por um lado
     \begin{displaymath}
-        \iota_{m,m+n}(\theta_{0,m}(0))
+        \iota_{m,m+n}(\tau_{0,m}(0))
         = \iota_{m,m+n}(0+m-0)
         = \iota_{m,m+n}(m)
         = m
     \end{displaymath}
     e por outro
     \begin{displaymath}
-        \theta_{n,m+n}(\iota_{0,n}(0))
-        = \theta_{n,m+n}(0)
+        \tau_{n,m+n}(\iota_{0,n}(0))
+        = \tau_{n,m+n}(0)
         = 0 + (m+n) - n
         = m.
     \end{displaymath}
     
-    Suponha agora que $Q$ seja uma aljava qualquer e que tenhamos morfismos $f: [m] \to Q$ e $g: [n] \to Q$ tais que $f \circ \theta_{0,m} = g \circ \iota_{0,n}$.
+    Suponha agora que $Q$ seja uma aljava qualquer e que tenhamos morfismos $f: [m] \to Q$ e $g: [n] \to Q$ tais que $f \circ \tau_{0,m} = g \circ \iota_{0,n}$.
     Nosso objetivo é mostrar a existência de um único morfismo $\phi: [m+n] \to Q$ fazendo comutar o diagrama abaixo.
     \begin{displaymath}
         \begin{tikzcd}[column sep=1.35cm]
             {[0]}
-            \arrow[r,"{\theta_{0,m}}"]
+            \arrow[r,"{\tau_{0,m}}"]
             \arrow[d, "{\iota_{0,n}}" swap]
             & {[m]}
             \arrow[d, "{\iota_{m,m+n}}"]
             \arrow[rdd, bend left=45, "f"]
             \\ {[n]}
-            \arrow[r, "{\theta_{n,m+n}}" swap]
+            \arrow[r, "{\tau_{n,m+n}}" swap]
             \arrow[rrd, bend right=45, "g" swap]
             & {[m+n]}
             \arrow[rd, dashed, "\phi" description]
@@ -290,7 +359,7 @@ O lema abaixo descreve o processo de colagem de aljavas mencionado anteiormente 
             g(k-m), & \text{se } m \leq k \leq m+n.
         \end{cases}
     \end{displaymath}
-    Veja que $\phi$ está bem-definida nos vértices pois a condição de comutatividade $f \circ \theta_{0,m} = g \circ \iota_{0,n}$ diz precisamente que vale a igualdade $f(m) = g(0)$.
+    Veja que $\phi$ está bem-definida nos vértices pois a condição de comutatividade $f \circ \tau_{0,m} = g \circ \iota_{0,n}$ diz precisamente que vale a igualdade $f(m) = g(0)$.
     A definição de $\phi$ nas arestas é a esperada: utilizamos o morfismo $f$ nas $m$ primeiras arestas e o morfismo $g$ nas $n$ últimas.
     Explicitamente, definimos
     \begin{displaymath}
@@ -303,14 +372,14 @@ O lema abaixo descreve o processo de colagem de aljavas mencionado anteiormente 
     
     Uma conta direta usando o fato de $f$ e $g$ morfismos de aljavas mostra que $\phi$ é também um morfismo de aljavas.
     Resta agora mostrarmos que $\phi$ é na verdade o único morfismo possível satisfazendo as condições de comutatividade em questão.
-    Suponha então que $\psi: [m+n] \to Q$ seja um outro morfismo de aljavas tal que $\psi \circ \iota_{m,m+n} = f$ e $\psi \circ \theta_{n,m+n} = g$.
+    Suponha então que $\psi: [m+n] \to Q$ seja um outro morfismo de aljavas tal que $\psi \circ \iota_{m,m+n} = f$ e $\psi \circ \tau_{n,m+n} = g$.
     Dado um vértice $k \in \{0,\dots,m+n\}$ qualquer, se $0 \leq k \leq m$, então
     \begin{displaymath}
         \psi(k) = \psi(\iota_{m,m+n}(k)) = f(k) = \phi(k),
     \end{displaymath}
     e se $m \leq k \leq m+n$, então
     \begin{displaymath}
-        \psi(k) = \psi((k-m)+m) = \psi(\theta_{n,m+n}(k-m)) = g(k-m) = \phi(k);
+        \psi(k) = \psi((k-m)+m) = \psi(\tau_{n,m+n}(k-m)) = g(k-m) = \phi(k);
     \end{displaymath}
     portanto $\psi$ coincide com $\phi$ nos vértices.
     Dada agora uma aresta $(k,k+1)$ de $[m+n]$, se $0 \leq k \leq m-1$ temos
@@ -321,7 +390,7 @@ O lema abaixo descreve o processo de colagem de aljavas mencionado anteiormente 
     \begin{align*}
         \psi(k,k+1)
         & = \psi((k-m)+m,(k-m+1)+m) \\
-        & = \psi(\theta_{n,m+n}(k-m,k-m+1)) \\
+        & = \psi(\tau_{n,m+n}(k-m,k-m+1)) \\
         & = g(k-m,k-m+1) \\
         & = \phi(k,k+1);
     \end{align*}
@@ -337,17 +406,17 @@ Dada uma aljava qualquer $Q$, considere a categoria $\mathsf{FQ}$ tendo como obj
 ou seja, um morfismo de $a$ para $b$ em $\mathsf{FQ}$ é um caminho de tamanho qualquer na aljava $Q$ começando em $a$ e terminando em $b$.
 
 Vamos definir uma operação de composição nesses conjuntos de morfismos.
-Dados três objetos $a$, $b$ e $c$ em $\mathsf{FQ}$, se $F:[m] \to Q$ é um morfismo de $a$ para $b$, e $G:[n] \to Q$ é um morfismo de $b$ para $c$, como $F(m) = b = G(0)$, os morfismos compostos $F \circ \theta_{0,m},\, G \circ \iota_{0,n}: [0] \to Q$ são iguais, portanto existe um único morfismo de aljavas $G \star F: [m+n] \to Q$ fazendo comutar o diagrama mostrado abaixo graças ao \cref{lema:pushout_aljavas_ordinais}.
+Dados três objetos $a$, $b$ e $c$ em $\mathsf{FQ}$, se $F:[m] \to Q$ é um morfismo de $a$ para $b$, e $G:[n] \to Q$ é um morfismo de $b$ para $c$, como $F(m) = b = G(0)$, os morfismos compostos $F \circ \tau_{0,m},\, G \circ \iota_{0,n}: [0] \to Q$ são iguais, portanto existe um único morfismo de aljavas $G \star F: [m+n] \to Q$ fazendo comutar o diagrama mostrado abaixo graças ao \cref{lema:pushout_aljavas_ordinais}.
 \begin{displaymath}
     \begin{tikzcd}
         {[0]}
-        \arrow[r, "{\theta_{0,m}}"]
+        \arrow[r, "{\tau_{0,m}}"]
         \arrow[d, "{\iota_{0,n}}" swap]
         & {[m]}
         \arrow[d, "\iota_{m,m+n}"]
         \arrow[rdd, bend left=45, "F"]
         \\ {[n]}
-        \arrow[r, "{\theta_{n,m+n}}" swap]
+        \arrow[r, "{\tau_{n,m+n}}" swap]
         \arrow[rrd, bend right=45, "G" swap]
         & {[m+n]}
         \arrow[rd, dashed, "G \star F" description]
@@ -360,26 +429,26 @@ Veja que pelas condições de comutatividade temos
 \end{displaymath}
 e também
 \begin{displaymath}
-    (G \star F)(m+n) = [(G \star F) \circ \theta_{n,m+n}](n) = G(n) = c;
+    (G \star F)(m+n) = [(G \star F) \circ \tau_{n,m+n}](n) = G(n) = c;
 \end{displaymath}
 ou seja, $G \star F$ define um caminho em $Q$ começando em $a$ e terminando em $c$, portanto um morfismo de $a$ para $c$ em $\mathsf{FQ}$ conforme definido em \eqref{eq:morfismo_categoria_livre_defin}.
 É este morfismo $G \star F$ que consideraremos como sendo a composição dos morfismos $F$ e $G$.
 Note que pela construção dada no \cref{lema:pushout_aljavas_ordinais} podemos descrever $G \star F$ explictamente: em um vértice $k \in \{0,\dots,m+n\}$ qualquer temos
-\begin{displaymath}
+\begin{equation}\label{eq:composicao_caminhos_aljava_1}
     (G \star F)(k) =
     \begin{cases}
         F(k), & \text{se } 0 \leq k \leq m, \\
         G(k-m), & \text{se } m \leq k \leq m+n;
     \end{cases}
-\end{displaymath}
+\end{equation}
 e em uma aresta $(k,k+1)$ qualquer temos
-\begin{displaymath}
+\begin{equation}\label{eq:composicao_caminhos_aljava_2}
     (G \star F)(k,k+1) =
     \begin{cases}
         F(k,k+1), & \text{se } 0 \leq k \leq m-1, \\
         G(k-m,k-m+1), & \text{se } m \leq k \leq m+n-1.
     \end{cases}
-\end{displaymath}
+\end{equation}
 
 Dado um objeto $a \in \mathsf{FQ}$ qualquer, considere o morfismo de aljavas $p_a: [0] \to Q$ que mapeia o único vértice $0 \in [0]$ para $a$.
 Esse morfismo define um caminho na aljava $Q$ começando e terminando no vértice $a$, ou seja, um morfismo do tipo $a \to a$ na categoria $FQ$.
@@ -390,13 +459,13 @@ Mais precisamente, $G \star p_a$ é o \emph{único} morfismo de alajvas do tipo 
 \begin{displaymath}
     \begin{tikzcd}
         {[0]}
-        \arrow[r, "{\theta_{0,0}}"]
+        \arrow[r, "{\tau_{0,0}}"]
         \arrow[d, "{\iota_{0,n}}" swap]
         & {[0]}
         \arrow[d, "\iota_{0,n}"]
         \arrow[rdd, bend left=45, "p_a"]
         \\ {[n]}
-        \arrow[r, "{\theta_{n,n}}" swap]
+        \arrow[r, "{\tau_{n,n}}" swap]
         \arrow[rrd, bend right=45, "G" swap]
         & {[n]}
         \arrow[rd, dashed, "G \star p_a" description]
@@ -407,22 +476,22 @@ Segue dessa unicidade que caracteriza $G \star p_a$ que a validade da igualdade 
 \begin{displaymath}
     \begin{cases}
         G \circ \iota_{0,n} = p_a, \\
-        G \circ \theta_{n,n} = G.
+        G \circ \tau_{n,n} = G.
     \end{cases}
 \end{displaymath}
-A primeira dessas igualdade é verdadeira pois $G$ é por hipótese um caminho começando no vértice $a$, enquanto a segunda é verdadeira pois o morfismo $\theta_{n,n}$ é igual ao morfismo identidade $\id_{[n]}$.
+A primeira dessas igualdade é verdadeira pois $G$ é por hipótese um caminho começando no vértice $a$, enquanto a segunda é verdadeira pois o morfismo $\tau_{n,n}$ é igual ao morfismo identidade $\id_{[n]}$.
 Considere agora um morfismo do tipo $z \to a$ na categoria $FQ$ dado por um caminho $F:[m] \to Q$ começando em $z$ e terminando em $a$.
 A composição $p_a \star F: [m] \to Q$ é por definição o único morfismo de aljavas do tipo $[m] \to Q$ fazendo comutar o diagrama abaixo.
 \begin{displaymath}
     \begin{tikzcd}
         {[0]}
-        \arrow[r, "{\theta_{0,m}}"]
+        \arrow[r, "{\tau_{0,m}}"]
         \arrow[d, "{\iota_{0,0}}" swap]
         & {[m]}
         \arrow[d, "\iota_{m,m}"]
         \arrow[rdd, bend left=45, "F"]
         \\ {[0]}
-        \arrow[r, "{\theta_{0,m}}" swap]
+        \arrow[r, "{\tau_{0,m}}" swap]
         \arrow[rrd, bend right=45, "p_a" swap]
         & {[m]}
         \arrow[rd, dashed, "p_a \star F" description]
@@ -433,138 +502,74 @@ A igualdade $p_a \star F = F$ seguirá então se mostrarmos que $F$ satisfaz as 
 \begin{displaymath}
     \begin{cases}
         F \circ \iota_{m,m} = F, \\
-        F \circ \theta_{0,m} = p_a.
+        F \circ \tau_{0,m} = p_a.
     \end{cases}
 \end{displaymath}
 A primeira das igualdades acima é válida pois o morfismo $\iota_{m,m}$ é igual ao morfismo identidade $\id_{[m]}$, enquanto a segunda é válida pois o caminho $F$ termina no vértice $a$ por hipótese.
 Concluímos enfim que o morfismo do tipo $a \to a$ em $\mathsf{FQ}$ dado pelo caminho $p_a: [0] \to Q$ é uma identidade para a operação de composição $\star$ em questão.
 
-Vejamos agora a questão da associatividade da operação de composição.
-Considere três objetos $a$, $b$, $c$ e $d$ de $\mathsf{FQ}$ juntamento com morfismos do tipo $a \to b$, $b \to c$ e $c \to d$ dados, respectivamente, por caminhos $F: [\ell] \to Q$, $G: [m] \to Q$ e $H: [n] \to Q$.
-Os morfismos $G \star F$ e $H \star G$ são caracterizados como os únicos morfismos de seus respectivos tipos que fazem comutar os diagramas abaixo,
-\begin{equation}\label{eq:associatividade_cat_livre_diag_1}
-    \begin{tikzcd}
-        {[0]}
-        \arrow[r, "{\theta_{0,\ell}}"]
-        \arrow[d, "{\iota_{0,m}}" swap]
-        & {[\ell]}
-        \arrow[d, "{\iota_{\ell,\ell+m}}"]
-        \arrow[rdd, bend left=45, "F"]
-        \\ {[m]}
-        \arrow[r, "{\theta_{m,\ell+m}}" swap]
-        \arrow[rrd, bend right=45, "G" swap]
-        & {[\ell+m]}
-        \arrow[rd, dashed, "G \star F" description]
-        \\ & & Q
-    \end{tikzcd}
-    \qquad
-    \begin{tikzcd}
-        {[0]}
-        \arrow[r, "{\theta_{0,m}}"]
-        \arrow[d, "{\iota_{0,n}}" swap]
-        & {[m]}
-        \arrow[d, "{\iota_{m,m+n}}"]
-        \arrow[rdd, bend left=45, "G"]
-        \\ {[n]}
-        \arrow[r, "{\theta_{n,m+n}}" swap]
-        \arrow[rrd, bend right=45, "H" swap]
-        & {[m+n]}
-        \arrow[rd, dashed, "H \star G" description]
-        \\ & & Q
-    \end{tikzcd}
-\end{equation}
-enquanto os morfismos $H \star (G \star F)$ e $(H \star G) \star F$ são os únicos que fazem comutar os dois diagramas mostrados abaixo.
-\begin{equation}\label{eq:associatividade_cat_livre_diag_2}
-    \begin{tikzcd}[column sep=1.25cm]
-        {[0]}
-        \arrow[r, "{\theta_{0,\ell+m}}"]
-        \arrow[d, "{\iota_{0,n}}" swap]
-        & {[\ell+m]}
-        \arrow[d, "{\iota_{\ell+m,\ell+m+n}}"]
-        \arrow[rdd, bend left=45, "G \star F"]
-        \\ {[n]}
-        \arrow[r, "{\theta_{n,\ell+m+n}}" swap]
-        \arrow[rrd, bend right=45, "H" swap]
-        & {[\ell+m+n]}
-        \arrow[rd, dashed, "H \star (G \star F)" description]
-        \\ & & Q
-    \end{tikzcd}
-    \quad
-    \begin{tikzcd}[column sep=1.35cm]
-        {[0]}
-        \arrow[r, "{\theta_{0,\ell}}"]
-        \arrow[d, "{\iota_{0,m+n}}" swap]
-        & {[\ell]}
-        \arrow[d, "{\iota_{\ell,\ell+m+n}}"]
-        \arrow[rdd, bend left=45, "F"]
-        \\ {[m+n]}
-        \arrow[r, "{\theta_{m+n,\ell+m+n}}" swap]
-        \arrow[rrd, bend right=45, "H \star G" swap]
-        & {[\ell+m+n]}
-        \arrow[rd, dashed, "(H \star G) \star F" description]
-        \\ & & Q
-    \end{tikzcd}
-\end{equation}
-Graças à unicidade que caracteriza $(H \star G) \star F$, a igualdade $H \star (G \star F) = (H \star G) \star F$ desejada seguirá se mostrarmos a validade das igualdades
-\begin{displaymath}
+Vejamos agora a questão da associatividade da operação de composição $\star$.
+Essa propriedade pode ser verificada de uma forma categórica similar ao que fizemos acima, mas por comodidade vamos mostrar isso usando as fórmulas explícitas para a composição.
+Considere então objetos $a$, $b$, $c$ e $d$ em $\mathsf{FQ}$ e dados morfismos do tipo $a \to b$, $b \to c$ e $c \to d$ representados por caminhos $F: [\ell] \to Q$, $G: [m] \to Q$ e $H: [n] \to Q$, respectivamente.
+Usando \eqref{eq:composicao_caminhos_aljava_1} vemos que a ação do morfismo $(H \star G) \star F: [\ell+m+n] \to Q$ nos vértices é dada pela fórmula
+\begin{align*}
+    ((H \star G) \star F)(k) & =
     \begin{cases}
-        (H \star (G \star F)) \circ \iota_{\ell,\ell+m+n} = F, \\
-        (H \star (G \star F)) \circ \theta_{m+n,\ell+m+n} = H \star G.
-    \end{cases}
-\end{displaymath}
-No caso da primeira igualdade, veja inicialmente que o morfismo $\iota_{\ell,\ell+m+n}: [\ell] \to [\ell+m+n]$ pode ser reescrito como a composição
-\begin{displaymath}
-    \iota_{\ell,\ell+m+n} = \iota_{\ell+m,\ell+m+n} \circ \iota_{\ell,\ell+m}.
-\end{displaymath}
-Usando isso vemos então que
-\begin{align*}
-    (H \star (G \star F)) \circ \iota_{\ell,\ell+m+n}
-    & = (H \star (G \star F)) \circ \iota_{\ell+m,\ell+m+n} \circ \iota_{\ell,\ell+m} \\
-    & = (G \star F) \circ \iota_{\ell,\ell+m}
-    \tag{por \eqref{eq:associatividade_cat_livre_diag_2}} \\
-    & = F
-    \tag{por \eqref{eq:associatividade_cat_livre_diag_1}}.
-\end{align*}
-Já no caso da segunda igualdades, graças à unicidade que caracteriza o morfismo $H \star G$, ``basta'' mostrarmos a validade das igualdades abaixo.
-\begin{displaymath}
+        F(k), & \text{se } 0 \leq k \leq \ell, \\
+        (H \star G)(k-\ell), & \text{se } \ell \leq k \leq \ell+m+n
+    \end{cases} \\
+    & =
     \begin{cases}
-        (H \star (G \star F)) \circ \theta_{m+n,\ell+m+n} \circ \theta_{n,m+n} = H, \\
-        (H \star (G \star F)) \circ \theta_{m+n,\ell+m+n} \circ \iota_{m,m+n} = G.
+        F(k), & \text{se } 0 \leq k \leq \ell, \\
+        G(k-\ell), & \text{se } \ell \leq k \leq \ell+m, \\
+        H(k-\ell-m), & \text{se } \ell+m \leq k \leq \ell+m+n;
     \end{cases}
-\end{displaymath}
-No primeiro caso, como vale a igualdade
-\begin{displaymath}
-    \theta_{m+n,\ell+m+n} \circ \theta_{n,m+n}
-    = \theta_{n,\ell+m+n}
-\end{displaymath}
-temos a sequência de igualdades
-\begin{align*}
-    (H \star (G \star F)) \circ \theta_{m+n,\ell+m+n} \circ \theta_{n,m+n}
-    & = (H \star (G \star F)) \circ \theta_{n,\ell+m+n} \\
-    & = H. \tag{por \eqref{eq:associatividade_cat_livre_diag_2}}
 \end{align*}
-Por fim, para a segunda igualdade, veja inicialmente que vale a condição de comutatividade
-\begin{displaymath}
-    \theta_{m+n,\ell+m+n} \circ \iota_{m,m+n}
-    = \iota_{\ell+m,\ell+m+n} \circ \theta_{m,\ell+m}.
-\end{displaymath}
-Usando isso vemos então que
+enquanto sua ação nas arestas é dada pelas fórmulas
 \begin{align*}
-    (H \star (G \star F)) \circ \theta_{m+n,\ell+m+n} \circ \iota_{m+n,\ell+m+n}
-    & = (H \star (G \star F)) \circ \iota_{\ell+m,\ell+m+n} \circ \theta_{m,\ell+m} \\
-    & = (G \star F) \circ \theta_{m,\ell+m},
-    \tag{por \eqref{eq:associatividade_cat_livre_diag_2}} \\
-    & = G.
-    \tag{por \eqref{eq:associatividade_cat_livre_diag_1}}
+    ((H \star G) \star F)(k,k+1) & =
+    \begin{cases}
+        F(k,k+1), & \text{se } 0 \leq k \leq \ell-1, \\
+        (H \star G)(k-\ell,k-\ell+1), & \text{se } \ell \leq k \leq \ell+m+n-1,
+    \end{cases} \\
+    & =
+    \begin{cases}
+        F(k,k+1), & \text{se } 0 \leq k \leq \ell-1, \\
+        G(k-\ell,k-\ell+1), & \text{se } \ell \leq k \leq \ell+m-1, \\
+        H(k-\ell-m,k-\ell-m+1), & \text{se } \ell+m \leq k \leq \ell+m+n-1.
+    \end{cases}
 \end{align*}
+Analogamente, a ação de $H \star (G \star F): [\ell+m+n] \to Q$ nos vértices é dada pelas fórmulas
+\begin{align*}
+    (H \star (G \star F))(k)
+    & =
+    \begin{cases}
+        (F \star G)(k) & \text{se } 0 \leq k \leq \ell+m, \\
+        H(k-\ell-m), & \text{se } \ell+m \leq k \leq \ell+m+n,
+    \end{cases} \\
+    & =
+    \begin{cases}
+        F(k), & \text{se } 0 \leq k \leq \ell, \\
+        G(k-\ell), & \text{se } \ell \leq k \leq \ell+m, \\
+        H(k-\ell-m), & \text{se } \ell+m \leq k \leq \ell+m+n;
+    \end{cases}
+\end{align*}
+enquanto sua ação nas arestas é dada pelas fórmulas
+\begin{align*}
+    (H \star (G \star F))(k,k+1)
+    & =
+    \begin{cases}
+        (G \star F)(k,k+1), & \text{se } 0 \leq k \leq \ell+m-1, \\
+        H(k-\ell-m,k-\ell-m+1), & \text{se } \ell+m \leq k \leq \ell+m+n-1,
+    \end{cases} \\
+    & =
+    \begin{cases}
+        F(k,k+1), & \text{se } 0 \leq k \leq \ell-1, \\
+        G(k-\ell,k-\ell+1), & \text{se } \ell \leq k \leq \ell+m-1, \\
+        H(k-\ell-m,k-\ell-m+1), & \text{se } \ell+m \leq k \leq \ell+m+n.
+    \end{cases}
+\end{align*}
+Comparando as fórmulas obtidas vemos que os morfismos $(H \star G) \star F$ e $H \star (G \star F)$ agem exatamente da mesma forma tanto nos vértices quanto nas arestas de $[\ell+m+n]$, portanto vale a igualdade $(H \star G) \star F = H \star (G \star F)$ desejada.
 
 O raciocínio acima mostra a associatividade da operação de composição $\star$ definida e nos permite concluir enfim que $\mathsf{FQ}$ define de fato uma categoria.
 Fica claro da definição que $\mathsf{FQ}$ é uma categoria localmente pequena e que ela possui um conjunto de objetos, sendo portanto uma categoria pequena.
-
-Vamos agora estabelecer uma relação entre a aljava inicial $Q$ e a aljava $U(\mathsf{FQ})$ subjacente à categoria $\mathsf{FQ}$ que acabamos de construir.
-Veja que, como o conjunto de objetos de $\mathsf{FQ}$ foi definido como o conjunto de vértices de $Q$, as aljavas $Q$ e $U(\mathsf{FQ})$ possuem o mesmo conjunto de vértices.
-Lembrando que o conjunto de arestas de $U(\mathsf{FQ})$ é por definição o conjunto de morfismos de $\mathsf{FQ}$, podemos definir uma função $i: A(Q) \to A(U(\mathsf{FQ}))$ que mapeia uma aresta $e$ da aljava $Q$ para o morfismo (= caminho) $i_e: [1] \to Q$ dado por $i_e(0) \coloneqq s(e)$, $i_e(1) \coloneqq t(e)$ e $i_e(0,1) \coloneqq e$.
-Essa função $i_e$ não faz nada mais do que reinterpretar uma aresta de $Q$ como um caminho de comprimento $2$.
-O par $(\id_{V(Q)},i)$ define então um morfismo de aljavas $Q \to U(\mathsf{FQ})$ o qual denotaremos simplesmente por $i$.
-
-% TODO: Pensar em uma figura que ilustre a função i que reinterpreta uma aresta de Q como um caminho de comprimento 2 e, portanto, um morfismo na categoria FQ gerada a partir de Q.
