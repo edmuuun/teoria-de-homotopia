@@ -572,4 +572,66 @@ enquanto sua ação nas arestas é dada pelas fórmulas
 Comparando as fórmulas obtidas vemos que os morfismos $(H \star G) \star F$ e $H \star (G \star F)$ agem exatamente da mesma forma tanto nos vértices quanto nas arestas de $[\ell+m+n]$, portanto vale a igualdade $(H \star G) \star F = H \star (G \star F)$ desejada.
 
 O raciocínio acima mostra a associatividade da operação de composição $\star$ definida e nos permite concluir enfim que $\mathsf{FQ}$ define de fato uma categoria.
-Fica claro da definição que $\mathsf{FQ}$ é uma categoria localmente pequena e que ela possui um conjunto de objetos, sendo portanto uma categoria pequena.
+Veja que $\mathsf{FQ}$ é uma categoria pequena, visto que seus objetos formam um conjunto - o conjunto de vértices de $Q$ por definição -  e para quaisquer dois objetos $a$ e $b$ de $\mathsf{FQ}$, os morfismos do tipo $a \to b$, ou seja, os caminhos na aljava $Q$ começando em $a$ e terminando em $b$ também constituem um conjunto.
+
+Nosso objetivo é mostrar que a categoria $\mathsf{FQ}$ que acabamos de construir fornece um modelo concreto para a categoria livremente gerada por $Q$.
+Tendo em vista a \cref{defin:categoria_livre}, precisamos antes de algum morfismo de aljavas $i: Q \to U(\mathsf{FQ})$, onde $U: \mathsf{Cat} \to \mathsf{Alj}$ denota o funtor de esquecimento.
+Pensando inicialmente na ação de $i$ nos vértices, lembre que pela definição do funtor $U$, a aljava $U(\mathsf{FQ})$ tem como vértices os objetos de $\mathsf{FQ}$, mas o conjunto de tais objetos é por definição o conjunto $V(Q)$ de vértices da aljava $Q$ inicial, portanto faz sentido definirmos $i: V(Q) \to V(U(\mathsf{FQ}))$ pondo $i(a) \coloneqq a$ para todo vértice $a \in V(Q)$.
+Pensando agora na ação nas arestas, lembre-se que por definição o conjunto de arestas $A(U(\mathsf{FQ}))$ é dado pelo conjunto de todos os morfismos em $\mathsf{FQ}$, ou seja, todos os caminhos na aljava $Q$.
+Assim, precisamos associar a cada aresta de $Q$ um caminho na própria aljava $Q$, e a ideia por trás disso é interpretar uma aresta como um caminho entre seus vértices inicial e final.
+Mais precisamente, se $e \in A(Q)$ é uma aresta qualquer, considere o caminho $i_e: [1] \to Q$ definido da seguinte forma: nos vértices de $[1]$ temos $i_e(0) \coloneqq s_Q(e)$ e $i_e(1) \coloneqq t_Q(e)$, onde $s_Q,\,t_Q: A(Q) \to V(Q)$ são as funções \emph{source} e \emph{target} de $Q$; enquanto na única aresta $(0,1) \in A([1])$ temos $i_e(0,1) \coloneqq e$.
+Uma conta direta mostra que $i_e$ é compatível com as funções source e target de $[1]$ e $Q$, definindo de fato um morfismo de aljavas e, portanto, um morfismo na categoria $\mathsf{FQ}$.
+Tendo essa construção em mãos, definimos uma função $i: A(Q) \to A(U(\mathsf{FQ}))$ entre as arestas simplesmente por $i(e) \coloneqq i_e$ para toda aresta $e \in A(Q)$.
+
+As funções $i$ a nível de vértices e arestas construídas acima juntas definem um morfismo de aljavas $i: Q \to U(\mathsf{FQ})$.
+De fato, como as funções source e target da aljava $U(\mathsf{FQ})$ são as funções domínio e codomínio da categoria $\mathsf{FQ}$, e para toda aresta $e \in A(Q)$, $i_e$ define explicitamente um morfismo do tipo $s_Q(e) \to t_Q(e)$, fica claro que as funções $i$ são compatíveis com as funções source e target das aljavas $Q$ e $\mathsf{FQ}$.
+
+Tendo em mãos um ``morfismo de comparação'' entre $Q$ e $U(\mathsf{FQ})$, podemos enfim demonstrar o resultado principal da seção.
+
+\begin{teo}
+    Dada uma aljava qualquer $Q$, o par $(\mathsf{FQ},i)$ satisfaz a propriedade universal de uma categoria livremente gerada por $Q$.
+\end{teo}
+
+\begin{proof}
+    Seja $\mathsf{C}$ uma categoria pequena e suponha que tenhamos um morfismo de aljavas $f: Q \to U(\mathsf{C})$.
+    Nosso objetivo é mostrar que esse morfismo de aljavas pode ser unicamente ``estendido'' a um funtor $F: \mathsf{FQ} \to \mathsf{C}$.
+    Vamos denotar por $f_V: V(Q) \to V(U(\mathsf{C})) = \Ob(\mathsf{C})$ a ação do morfismo $f$ a nível dos vértices e por $f_A: A(Q) \to A(U(\mathsf{C})) = \Mor(\mathsf{C})$ a ação do morfismo $f$ a nível das arestas.
+
+    A fim de definirmos um funtor $F: \mathsf{FQ} \to \mathsf{C}$, precisamos descrever sua ação nos vértices e nos morfismos.
+    Por construção temos $\Ob(\mathsf{FQ}) = V(Q)$, logo a nível de objetos podemos definir $F(a) \coloneqq f_V(a)$ para todo $a \in \Ob(\mathsf{FQ})$.
+    Resta agora associarmos a cada morfismo de $\mathsf{FQ}$, ou seja, a cada caminho na aljava $Q$, um morfismo correspondente na categoria $\mathsf{C}$.
+    A ideia é que caminhos de comprimento qualquer em $Q$ são transformados em \emph{composições de morfismos} em $\mathsf{C}$.
+    Mais precisamente, dado um caminho $\gamma: [n] \to Q$ qualquer, definimos um morfismo $F(\gamma) \in \Mor(\mathsf{C})$ pondo
+    \begin{displaymath}
+        F(\gamma) \coloneqq f_A(\gamma(n-1,n)) \circ \dotsm \circ f_A(\gamma(1,2)) \circ f_A(\gamma(0,1)).
+    \end{displaymath}
+    Vejamos que a expressão acima faz sentido.
+    Primeiramente, para qualquer $k \in \{0,\dots,n-1\}$, $(k,k+1)$ é uma aresta de $[n]$, logo $\gamma(k,k+1)$ é uma aresta de $Q$ e $f_A(\gamma(k,k+1))$ é um morfismo em $\mathsf{C}$.
+    Além disso, como $f$ e $\gamma$ são morfismos de aljavas por hipótese, temos por um lado
+    \begin{align*}
+        \dom(f_A(\gamma(k+1,k+2)))
+        & = f_V(s_Q(\gamma(k+1,k+2))) \\
+        & = f_V(\gamma(s(k+1,k+2))) \\
+        & = f_V(\gamma(k+1)),
+    \end{align*}
+    e por outro
+    \begin{align*}
+        \cod(f_A(\gamma(k,k+1)))
+        & = f_V(t_Q(\gamma(k,k+1))) \\
+        & = f_V(\gamma(t(k,k+1))) \\
+        & = f_V(\gamma(k+1));
+    \end{align*}
+    ou seja, as composições da forma $f_A(\gamma(k+1,k+2)) \circ f_A(\gamma(k,k+1))$ que aparecem na definição de $F(\gamma)$ fazem sentido.
+
+    É imediato da definição de $F$ nas arestas que por um lado
+    \begin{displaymath}
+        \dom(F(\gamma)) = \dom f_A(\gamma(0,1)) = f_V(\gamma(0)) = F(\gamma(0)),
+    \end{displaymath}
+    e por outro
+    \begin{displaymath}
+        \cod(F(\gamma)) = \cod f_A(\gamma(n-1,n)) = f_V(\gamma(n)) = F(\gamma(n));
+    \end{displaymath}
+    ou seja, $\gamma$ define um morfismo do tipo $\gamma(0) \to \gamma(n)$ em $\mathsf{FQ}$, e ao aplicarmos $F$ obtemoso o morfismo $F(\gamma): F(\gamma(0)) \to F(\gamma(n))$ em $\mathsf{C}$, logo $F$ como foi definido é compatível com as funções domínio e codomínio das categorias $\mathsf{FQ}$ e $\mathsf{C}$.
+
+    Resta mostrarmos agora que $F$ preserva morfismos identidade e também composições.
+\end{proof}
