@@ -598,6 +598,58 @@ Comparando as fórmulas obtidas vemos que os morfismos $(H \star G) \star F$ e $
 O raciocínio acima mostra a associatividade da operação de composição $\star$ definida e nos permite concluir enfim que $\mathsf{FQ}$ define de fato uma categoria.
 Veja que $\mathsf{FQ}$ é uma categoria pequena, visto que seus objetos formam um conjunto - o conjunto de vértices de $Q$ por definição -  e para quaisquer dois objetos $a$ e $b$ de $\mathsf{FQ}$, os morfismos do tipo $a \to b$, ou seja, os caminhos na aljava $Q$ começando em $a$ e terminando em $b$ também constituem um conjunto.
 
+Uma propriedade bastante útil da categoria $\mathsf{FQ}$ é que todo morfismo nela pode ser decomposto como uma composição de morfismos que são em certo sentidos mais simples.
+O significado preciso disso é o conteúdo do lema abaixo.
+
+\begin{lema}\label{lema:decompondo_caminhos_aljava}
+    Seja $Q$ um aljava qualquer.
+    Dado um natural $n \geq 1$ e um caminho $\gamma: [n] \to Q$, existem caminhos $\gamma_1,\dots,\gamma_n: [1] \to Q$ tais que
+    \begin{displaymath}
+        \gamma = \gamma_1 \star \dotsm \star \gamma_{n}.
+    \end{displaymath}
+\end{lema}
+
+\begin{proof}
+    A prova é por indução sobre o comprimento do caminhos.
+    Se $n = 1$ o resultado é imediato pois o caminho já está decomposto na forma necessária, ou seja, basta tomarmos $\gamma_1 \coloneqq \gamma$.
+
+    Suponha agora que o resultado seja verdadeiro para caminhos do tipo $[n] \to Q$ e considere então um caminho $\gamma: [n+1] \to Q$.
+    Lembrando dos morfismos de aljavas $\tau_{1,n+1}: [1] \to [n+1]$ e $\iota_{n,n+1}: [n] \to [n+1]$ introduzidos logo antes do \cref{lema:pushout_aljavas_ordinais}, considere os caminhos $\gamma_{n+1}: [1] \to Q$ e $\delta: [n] \to Q$ definidos pelas composições
+    \begin{displaymath}
+        \gamma_{n+1} \coloneqq \gamma \circ \tau_{1,n+1}
+        \quad \text{e} \quad
+        \delta \coloneqq \gamma \circ \iota_{n,n+1}.
+    \end{displaymath}
+    
+    Podemos então formar o caminho composto $\delta \star \gamma_{n+1}: [n+1] \to Q$ que por construção é o único de seu tipo que faz comutar o diagrama abaixo.
+    \begin{displaymath}
+        \begin{tikzcd}[column sep=1.25cm]
+            {[0]}
+            \arrow[r, "{\tau_{0,n}}"]
+            \arrow[d, "{\iota_{0,1}}" swap]
+            & {[n]}
+            \arrow[d, "{\iota_{n,n+1}}"]
+            \arrow[rdd, bend left=45, "\delta"]
+            \\ {[1]}
+            \arrow[r, "{\tau_{1,n+1}}" swap]
+            \arrow[rrd, bend right=45, "\gamma_{n+1}" swap]
+            & {[n+1]}
+            \arrow[rd, dashed, "\delta \star \gamma_{n+1}" description]
+            \\ & & Q
+        \end{tikzcd}
+    \end{displaymath}
+    Ora, fica claro da definição dos morfismos $\delta$ e $\gamma_{n+1}$ que o caminho inicial $\gamma: [n+1] \to Q$ também faz comutar o diagrama acima, portanto segue da unicidade que vale a igualdade
+    \begin{displaymath}
+        \gamma = \delta \star \gamma_{n+1}.
+    \end{displaymath}
+
+    Aplicando a hipótese de indução ao caminho $\delta: [n] \to Q$ obtemos caminhos $\gamma_1, \dots, \gamma_n: [1] \to Q$ tais que $\delta = \gamma_1 \star \dotsm \star \gamma_n$.
+    Substituindo isso na igualdade anterior obtemos a decomposição desejada
+    \begin{displaymath}
+        \gamma = \delta \star \gamma_{n+1} = \gamma_1 \star \dotsm \star \gamma_n \star \gamma_{n+1}. \qedhere
+    \end{displaymath}
+\end{proof}
+
 Nosso objetivo é mostrar que a categoria $\mathsf{FQ}$ que acabamos de construir fornece um modelo concreto para a categoria livremente gerada por $Q$.
 Tendo em vista a \cref{defin:categoria_livre}, precisamos antes de algum morfismo de aljavas $i: Q \to U(\mathsf{FQ})$, onde $U: \mathsf{Cat} \to \mathsf{Alj}$ denota o funtor de esquecimento.
 Pensando inicialmente na ação de $i$ nos vértices, lembre que pela definição do funtor $U$, a aljava $U(\mathsf{FQ})$ tem como vértices os objetos de $\mathsf{FQ}$, mas o conjunto de tais objetos é por definição o conjunto $V(Q)$ de vértices da aljava $Q$ inicial, portanto faz sentido definirmos $i: V(Q) \to V(U(\mathsf{FQ}))$ pondo $i(a) \coloneqq a$ para todo vértice $a \in V(Q)$.
