@@ -49,10 +49,34 @@ Por vezes será mais conveniente denotarmos uma aljava simplesmente por uma letr
 \end{exem}
 
 \begin{defin}\label{defin:morfismo_aljavas}
-    Dadas duas aljavas $Q_1$ e $Q_2$, um \textbf{morfismo de aljavas} do tipo $Q_1 \to Q_2$ é por definição um par de funções $(f: V(Q_1) \to V(Q_2),\, F: A(Q_1) \to A(Q_2))$ satisfazendo as igualdades $s_{Q_2} \circ F = f \circ s_{Q_1}$ e $t_{Q_2} \circ F = f \circ t_{Q_1}$.
+    Dadas duas aljavas $Q_1$ e $Q_2$, um \textbf{morfismo de aljavas} do tipo $Q_1 \to Q_2$ é por definição um par de funções $(f_V: V(Q_1) \to V(Q_2),\, f_A: A(Q_1) \to A(Q_2))$ satisfazendo as igualdades $s_{Q_2} \circ f_A = f_V \circ s_{Q_1}$ e $t_{Q_2} \circ f_A = f_V \circ t_{Q_1}$, ou seja, os dois diagramas abaixo são comutativos.
+    \begin{displaymath}
+        \begin{tikzcd}
+            A(Q_1)
+            \arrow[r, "f_A"]
+            \arrow[d, "s_{Q_1}" swap]
+            & A(Q_2)
+            \arrow[d, "s_{Q_2}"]
+            \\ V(Q_1)
+            \arrow[r, "f_V" swap]
+            & V(Q_2)
+        \end{tikzcd}
+        \qquad
+        \begin{tikzcd}
+            A(Q_1)
+            \arrow[r, "f_A"]
+            \arrow[d, "t_{Q_1}" swap]
+            & A(Q_2)
+            \arrow[d, "t_{Q_2}"]
+            \\ V(Q_1)
+            \arrow[r, "f_V" swap]
+            & V(Q_2)
+        \end{tikzcd}
+    \end{displaymath}
 \end{defin}
 
-Assim como no caso de funtores entre categorias onde comumente usamos a mesma letra para designar a ação nos objetos e nos vértices, utilizaremos por vezes um único símbolo para designar ação de um morfismo de aljava tanto nos vértices quanto nas arestas.
+Durante as demonstrações faremos questão por motivos de clareza de utilizar símbolos diferentes para denotar as duas funções que compõem um morfismo de aljavas.
+Entretanto, na prática é muito comum denotarmos ambas as funções pelo mesmo símbolo, da mesma forma como usamos um único símbolo para denotar a ação de um funtor nos objetos e nos morfismos.
 
 \begin{exem}
     Dados dois conjuntos $X_1$ e $X_2$ e uma função $f: X_1 \to X_2$, o par $(f,f)$ define um morfismo $QX_1 \to QX_2$ entre as aljavas discretas geradas por $X_1$ e $X_2$ de acordo com o \cref{exem:aljava_discreta}.
@@ -597,41 +621,77 @@ Tendo em mãos um ``morfismo de comparação'' entre $Q$ e $U(\mathsf{FQ})$, pod
     Nosso objetivo é mostrar que esse morfismo de aljavas pode ser unicamente ``estendido'' a um funtor $F: \mathsf{FQ} \to \mathsf{C}$.
     Vamos denotar por $f_V: V(Q) \to V(U(\mathsf{C})) = \Ob(\mathsf{C})$ a ação do morfismo $f$ a nível dos vértices e por $f_A: A(Q) \to A(U(\mathsf{C})) = \Mor(\mathsf{C})$ a ação do morfismo $f$ a nível das arestas.
 
-    A fim de definirmos um funtor $F: \mathsf{FQ} \to \mathsf{C}$, precisamos descrever sua ação nos vértices e nos morfismos.
-    Por construção temos $\Ob(\mathsf{FQ}) = V(Q)$, logo a nível de objetos podemos definir $F(a) \coloneqq f_V(a)$ para todo $a \in \Ob(\mathsf{FQ})$.
-    Resta agora associarmos a cada morfismo de $\mathsf{FQ}$, ou seja, a cada caminho na aljava $Q$, um morfismo correspondente na categoria $\mathsf{C}$.
-    A ideia é que caminhos de comprimento qualquer em $Q$ são transformados em \emph{composições de morfismos} em $\mathsf{C}$.
-    Mais precisamente, dado um caminho $\gamma: [n] \to Q$ qualquer, definimos um morfismo $F(\gamma) \in \Mor(\mathsf{C})$ pondo
-    \begin{displaymath}
-        F(\gamma) \coloneqq f_A(\gamma(n-1,n)) \circ \dotsm \circ f_A(\gamma(1,2)) \circ f_A(\gamma(0,1)).
-    \end{displaymath}
+    Um funtor $F: \mathsf{FQ} \to \mathsf{C}$ é dado por funções $F_{\Ob}: \Ob(\mathsf{FQ}) \to \Ob(\mathsf{C})$ e $F_{\Mor}: \Mor(\mathsf{FQ}) \to \Mor(\mathsf{C})$ compatíveis com toda a estrutura presente.
+    Por construção temos $\Ob(\mathsf{FQ}) = V(Q)$, logo a nível de objetos podemos definir uma função $F_{\Ob}: V(Q) \to \Ob(\mathsf{C})$ por $F_{\Ob}(a) \coloneqq f_V(a)$ para todo vértice $a \in V(Q)$.
+
+    Resta definirmos uma função $F_{\Mor}: \Mor(\mathsf{FQ}) \to \Mor(\mathsf{C})$.
+    Lembrando que por construção os morfismos em $\mathsf{FQ}$ são dados por caminhos de comprimento qualquer na aljava $Q$, a ideia é pensar em um caminho como uma ``composição de arestas'' vistas como caminhos de comprimento $2$, e transformar essa composição de arestas em uma composição de morfismos em $\mathsf{C}$ por meio da função $f_A: A(Q) \to \Mor(\mathsf{C})$.
+    Mais precisamente, dado um caminho $\gamma: [n] \to Q$ com $n \geq 1$, ou seja, $\gamma$ tem comprimento pelo menos $2$, definimos um morfismo $F_{\Mor}(\gamma) \in \Mor(\mathsf{C})$ pela fórmula:
+    \begin{equation}\label{eq:cat_livre_funtor_induzido}
+        F(\gamma) \coloneqq f_A(\gamma_A(n-1,n)) \circ \dotsm \circ f_A(\gamma_A(1,2)) \circ f_A(\gamma_A(0,1)).
+    \end{equation}
     Vejamos que a expressão acima faz sentido.
-    Primeiramente, para qualquer $k \in \{0,\dots,n-1\}$, $(k,k+1)$ é uma aresta de $[n]$, logo $\gamma(k,k+1)$ é uma aresta de $Q$ e $f_A(\gamma(k,k+1))$ é um morfismo em $\mathsf{C}$.
-    Além disso, como $f$ e $\gamma$ são morfismos de aljavas por hipótese, temos por um lado
+    Primeiramente, para qualquer $k \in \{0,\dots,n-1\}$, $(k,k+1)$ é uma aresta de $[n]$, logo $\gamma_A(k,k+1)$ é uma aresta de $Q$, e $f_A(\gamma_A(k,k+1))$ é uma aresta da aljava subjacente $U(\mathsf{C})$, ou seja, um morfismo da categoria $\mathsf{C}$.
+    Além disso, como $f$ e $\gamma$ são morfismos de aljavas por hipótese, por um lado temos
     \begin{align*}
-        \dom(f_A(\gamma(k+1,k+2)))
-        & = f_V(s_Q(\gamma(k+1,k+2))) \\
-        & = f_V(\gamma(s(k+1,k+2))) \\
-        & = f_V(\gamma(k+1)),
+        \dom(f_A(\gamma_A(k+1,k+2)))
+        & = f_V(s_Q(\gamma_A(k+1,k+2))) \\
+        & = f_V(\gamma_V(s(k+1,k+2))) \\
+        & = f_V(\gamma_V(k+1)),
     \end{align*}
     e por outro
     \begin{align*}
-        \cod(f_A(\gamma(k,k+1)))
-        & = f_V(t_Q(\gamma(k,k+1))) \\
-        & = f_V(\gamma(t(k,k+1))) \\
-        & = f_V(\gamma(k+1));
+        \cod(f_A(\gamma_A(k,k+1)))
+        & = f_V(t_Q(\gamma_A(k,k+1))) \\
+        & = f_V(\gamma_V(t(k,k+1))) \\
+        & = f_V(\gamma(_Vk+1));
     \end{align*}
-    ou seja, as composições da forma $f_A(\gamma(k+1,k+2)) \circ f_A(\gamma(k,k+1))$ que aparecem na definição de $F(\gamma)$ fazem sentido.
+    ou seja, as composições da forma $f_A(\gamma_A(k+1,k+2)) \circ f_A(\gamma_A(k,k+1))$ que aparecem na equação \eqref{eq:cat_livre_funtor_induzido} fazem sentido.
 
-    É imediato da definição de $F$ nas arestas que por um lado
-    \begin{displaymath}
-        \dom(F(\gamma)) = \dom f_A(\gamma(0,1)) = f_V(\gamma(0)) = F(\gamma(0)),
-    \end{displaymath}
-    e por outro
-    \begin{displaymath}
-        \cod(F(\gamma)) = \cod f_A(\gamma(n-1,n)) = f_V(\gamma(n)) = F(\gamma(n));
-    \end{displaymath}
-    ou seja, $\gamma$ define um morfismo do tipo $\gamma(0) \to \gamma(n)$ em $\mathsf{FQ}$, e ao aplicarmos $F$ obtemoso o morfismo $F(\gamma): F(\gamma(0)) \to F(\gamma(n))$ em $\mathsf{C}$, logo $F$ como foi definido é compatível com as funções domínio e codomínio das categorias $\mathsf{FQ}$ e $\mathsf{C}$.
+    É claro que a definição acima só funciona se $n \geq 1$.
+    No caso de um caminho $\gamma: [0] \to Q$ de tamanho $1$, definimos à força $F_{\Mor}(\gamma) \coloneqq \id_{f_V(\gamma_V(0))}$.
+    Veja que isso faz bastante sentido pois os caminhos de comprimento $1$ são os morfismos idênticos da categoria $\mathsf{FQ}$, e é bom que a função $F_{\Mor}$ preserve esses morfismos.
 
-    Resta mostrarmos agora que $F$ preserva morfismos identidade e também composições.
+    Vejamos agora que as funções $F_{\Ob}$ e $F_{\Mor}$ juntas definem de fato um funtor $\mathsf{FQ} \to \mathsf{C}$.
+    O primeiro passo é verificarmos a compatibilidade com as funções de domínio e codomínio das respectivas categorias.
+    Veja inicialmente que pela definição de um morfismo de aljavas temos as condições de compatibilidade
+    \begin{displaymath}
+        f_V \circ s_Q = \dom_{\mathsf{C}} \circ f_A
+        \quad \text{e} \quad
+        f_V \circ t_Q = \cod_{\mathsf{C}} \circ f_A.
+    \end{displaymath}
+    Inicialmente, se $\gamma: [0] \to Q$ é um caminho de comprimento de $1$, temos
+    \begin{align*}
+        \dom_{\mathsf{C}}(F_{\Mor}(\gamma))
+        & = \dom_{\mathsf{C}}(\id_{f_V(\gamma_V(0))}) \\
+        & = f_V(\gamma_V(0)) \\
+        & = F_{\Ob}(\gamma_V(0)) \\
+        & = F_{\Ob}(\dom_{\mathsf{FQ}}(\gamma)).
+    \end{align*}
+    Um raciocínio completamente análogo mostra que nesse caso também temos a compatibilidade com os codomínios, ou seja, que vale a igualdade $\cod_{\mathsf{C}}(F_{\Mor}(\gamma)) = F_{\Ob}(\cod_{\mathsf{FQ}}(\gamma))$.
+
+    Suponha agora que $\gamma: [n] \to Q$ seja um caminho tal que $n \geq 1$.
+    Usando então a definição de $F$ temos
+    \begin{align*}
+        \dom_{\mathsf{C}}(F_{\Mor}(\gamma))
+        & = \dom_{\mathsf{C}}(f_A(\gamma_A(n-1,n)) \circ \dotsm \circ f_A(\gamma_A(1,2)) \circ f_A(\gamma_A(0,1))) \\
+        & = \dom_{\mathsf{C}}(f_A(\gamma_A(0,1))) \\
+        & = f_V(s_Q(\gamma_A(0,1))) \\
+        & = f_V(\gamma_V(s(0,1))) \\
+        & = f_V(\gamma_V(0)) \\
+        & = F_{\Ob}(\dom_{\mathsf{FQ}}(\gamma)).
+    \end{align*}
+    Analagomente, no caso das funções codomínio temos
+    \begin{align*}
+        \cod_{\mathsf{C}}(F_{\Mor}(\gamma))
+        & = \cod_{C}(f_A(\gamma_A(n-1,n)) \circ \dotsm \circ f_A(\gamma_A(1,2)) \circ f_A(\gamma_A(0,1))) \\
+        & = \cod_{\mathsf{C}}(f_A(\gamma_A(n-1,n))) \\
+        & = f_V(t_Q(\gamma_A(n-1,n))) \\
+        & = f_V(\gamma_V(t(0,1))) \\
+        & = f_V(\gamma_v(n)) \\
+        & = F_{\Ob}(\cod_{\mathsf{FQ}}(\gamma)).
+    \end{align*}
+
+    Já discutimos anteriormente que $F_{\Mor}$ por construção preserva os morfismos identidade de $\mathsf{FQ}$ dados pelos caminhos de comprimento $1$, logo resta apenas verificarmos a compatibilidade de $F_{\Mor}$ com a operação de composição.
+    É suficiente para isso mostrarmos que $F_{\Mor}$ preserva a composição de caminhos de comprimento $2$, já que uma composição qualquer pode ser reduzida a uma sequência de composições deste tipo.
 \end{proof}
