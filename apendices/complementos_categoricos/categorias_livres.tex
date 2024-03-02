@@ -605,7 +605,7 @@ O significado preciso disso é o conteúdo do lema abaixo.
     Seja $Q$ um aljava qualquer.
     Dado um natural $n \geq 1$ e um caminho $\gamma: [n] \to Q$, existem caminhos $\gamma_1,\dots,\gamma_n: [1] \to Q$ tais que
     \begin{displaymath}
-        \gamma = \gamma_1 \star \dotsm \star \gamma_{n}.
+        \gamma = \gamma_n \star \dotsm \star \gamma_1.
     \end{displaymath}
 \end{lema}
 
@@ -621,7 +621,7 @@ O significado preciso disso é o conteúdo do lema abaixo.
         \delta \coloneqq \gamma \circ \iota_{n,n+1}.
     \end{displaymath}
     
-    Podemos então formar o caminho composto $\delta \star \gamma_{n+1}: [n+1] \to Q$ que por construção é o único de seu tipo que faz comutar o diagrama abaixo.
+    Podemos então formar o caminho composto $\gamma_{n+1} \star \delta: [n+1] \to Q$ que por construção é o único de seu tipo que faz comutar o diagrama abaixo.
     \begin{displaymath}
         \begin{tikzcd}[column sep=1.25cm]
             {[0]}
@@ -634,19 +634,20 @@ O significado preciso disso é o conteúdo do lema abaixo.
             \arrow[r, "{\tau_{1,n+1}}" swap]
             \arrow[rrd, bend right=45, "\gamma_{n+1}" swap]
             & {[n+1]}
-            \arrow[rd, dashed, "\delta \star \gamma_{n+1}" description]
+            \arrow[rd, dashed, "\gamma_{n+1} \star \delta" description]
             \\ & & Q
         \end{tikzcd}
     \end{displaymath}
     Ora, fica claro da definição dos morfismos $\delta$ e $\gamma_{n+1}$ que o caminho inicial $\gamma: [n+1] \to Q$ também faz comutar o diagrama acima, portanto segue da unicidade que vale a igualdade
     \begin{displaymath}
-        \gamma = \delta \star \gamma_{n+1}.
+        \gamma = \gamma_{n+1} \star \delta.
     \end{displaymath}
 
-    Aplicando a hipótese de indução ao caminho $\delta: [n] \to Q$ obtemos caminhos $\gamma_1, \dots, \gamma_n: [1] \to Q$ tais que $\delta = \gamma_1 \star \dotsm \star \gamma_n$.
+    Aplicando a hipótese de indução ao caminho $\delta: [n] \to Q$ obtemos caminhos $\gamma_1, \dots, \gamma_n: [1] \to Q$ tais que $\delta = \gamma_n \star \dotsm \star \gamma_1$.
     Substituindo isso na igualdade anterior obtemos a decomposição desejada
     \begin{displaymath}
-        \gamma = \delta \star \gamma_{n+1} = \gamma_1 \star \dotsm \star \gamma_n \star \gamma_{n+1}. \qedhere
+        \gamma = \gamma_{n+1} \star \delta
+        = \gamma_{n+1} \star \gamma_n \star \dotsm \star \gamma_1. \qedhere
     \end{displaymath}
 \end{proof}
 
@@ -745,5 +746,32 @@ Tendo em mãos um ``morfismo de comparação'' entre $Q$ e $U(\mathsf{FQ})$, pod
     \end{align*}
 
     Já discutimos anteriormente que $F_{\Mor}$ por construção preserva os morfismos identidade de $\mathsf{FQ}$ dados pelos caminhos de comprimento $1$, logo resta apenas verificarmos a compatibilidade de $F_{\Mor}$ com a operação de composição.
-    É suficiente para isso mostrarmos que $F_{\Mor}$ preserva a composição de caminhos de comprimento $2$, já que uma composição qualquer pode ser reduzida a uma sequência de composições deste tipo.
+    Considere então dois morfismos $a \to b$ e $b \to c$ dados, respectivamente, por caminhos $\gamma: [m] \to Q$ e $\delta: [n] \to Q$.
+    Vamos assumir por simplicidade inicialmente que $n=1$.
+    Como já sabemos que $F_{\Mor}$ preserva morfismos identidade, podemos assumir também que $m \geq 1$.
+    Temos então
+    \begin{align*}
+        F_{Mor}(\delta) \circ F_{\Mor}(\gamma)
+        & = f_A(\delta_A(0,1)) \circ f_A(\gamma_A(m-1,m)) \circ \dotsm \circ f_A(\gamma_A(0,1)) \\
+        & = f_A((\delta \star \gamma)_A(m,m+1)) \circ f_A((\delta \star \gamma)_A(m-1,,m)) \circ \dotsm \circ f_A((\delta \star \gamma)_A(0,1)) \\
+        & = F_{\Mor}(\delta \star \gamma).
+    \end{align*}
+    Isso mostra que $F_{\Mor}$ preserva todas as composições nas quais o segundo caminho é do tipo $[1] \to Q$.
+    
+    O caso acima nos permite demostrar o caso geral fazendo uma indução no comprimento do segundo caminho que aparece na composição.
+    O caso em que $n=1$ é o que demonstramos acima.
+    Supondo que o resultado seja verdadeiro para caminhos do tipo $[n] \to Q$, considere agora que o segundo caminho é do tipo $\delta: [n+1] \to Q$.
+    Uma consequência do \cref{lema:decompondo_caminhos_aljava} é que podemos encontrar caminhos $\delta_{n+1}: [1] \to Q$ e $\delta': [n] \to Q$ tais que $\delta = \delta_{n+1} \star \delta'$.
+    Note então que
+    \begin{align*}
+        F_{\Mor}(\delta) \circ F_{\Mor}(\gamma)
+        & = F_{\Mor}(\delta_{n+1} \star \delta') \circ F_{\Mor}(\gamma) \\
+        & = F_{\Mor}(\delta_{n+1}) \circ F_{\Mor}(\delta') \circ F_{\Mor}(\gamma)
+        \tag{caso base da indução} \\
+        & = F_{\Mor}(\delta_{n+1}) \circ F_{\Mor}(\delta' \star \gamma)
+        \tag{hipótese de indução} \\
+        & = F_{\Mor}(\delta_{n+1} \star \delta' \star \gamma)
+        \tag{caso base da indução} \\
+        & = F_{\Mor}(\delta \star \gamma).
+    \end{align*}
 \end{proof}
