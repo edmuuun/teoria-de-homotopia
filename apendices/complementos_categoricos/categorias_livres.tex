@@ -1,5 +1,7 @@
 \section{Categorias livres}
 
+%TODO: Revisar essa seção.
+
 Comumente representamos uma categoria por meio de um grafo orientado tendo os objetos da categoria como vértices e os morfismos da categoria como arestas.
 Apesar dessa representação bastante útil, uma categoria possui mais estrutura do que um mero grafo orientado, visto que podemos compor os morfismos de uma categoria para obtermos novos morfismos, mas não existe uma operação análoga de composição das arestas de um grafo.
 Mais precisamente, toda categoria possui um grafo orientado \emph{subjacente} que esquece da estrutura algébrica da composição.
@@ -158,13 +160,13 @@ Nosso interesse é investigar a existência de um funtor no sentido contrário $
 A existência de tal funtor está ligada à existência de categorias livres gerados por aljavas que definimos agora.
 
 \begin{defin}\label{defin:categoria_livre}
-    Dada uma aljava $Q$, uma \textbf{categoria livre gerada por $Q$} é um par $(\mathsf{C},i)$, onde $\mathsf{C}$ é uma categoria pequena, e $i: G \to U(\mathsf{C})$ é um morfismo de aljavas satisfazendo a seguinte propriedade universal: se $\mathsf{D}$ é outra categoria pequena qualquer, e $j: G \to U(\mathsf{D})$ é um morfismo de aljavas, então existe um único funtor $F: \mathsf{C} \to \mathsf{D}$ tal que $U(F) \circ i = j$.
+    Dada uma aljava $Q$, uma \textbf{categoria livre gerada por $Q$} é um par $(\mathsf{C},i)$, onde $\mathsf{C}$ é uma categoria pequena, e $i: Q \to U(\mathsf{C})$ é um morfismo de aljavas satisfazendo a seguinte propriedade universal: se $\mathsf{D}$ é outra categoria pequena qualquer, e $j: G \to U(\mathsf{D})$ é um morfismo de aljavas, então existe um único funtor $F: \mathsf{C} \to \mathsf{D}$ tal que $U(F) \circ i = j$.
     \begin{displaymath}
         \begin{tikzcd}
             U(\mathsf{C})
             \arrow[r, dashed, "U(F)"]
             & U(\mathsf{D})
-            \\ G
+            \\ Q
             \arrow[u, "i"]
             \arrow[ru, "j" swap]
         \end{tikzcd}
@@ -774,4 +776,40 @@ Tendo em mãos um ``morfismo de comparação'' entre $Q$ e $U(\mathsf{FQ})$, pod
         \tag{caso base da indução} \\
         & = F_{\Mor}(\delta \star \gamma).
     \end{align*}
+
+    Sabendo que as funções $F_{\Ob}$ e $F_{\Mor}$ juntas definem realmente um funtor $F: \mathsf{FQ} \to \mathsf{C}$, vejamos que ele satisfaz a condição, $U(F) \circ i = f$.
+    Lembremos que o morfismo de aljavas $i: Q \to U(\mathsf{FQ})$ a nível de objetos é dado pela função identidade $\id_{V(Q)}$, enquanto o morfismo $U(F): U(\mathsf{FQ}) \to U(\mathsf{C})$ é dado pela função $F_{\Ob}: \Ob(\mathsf{FQ}) \to \Ob(\mathsf{C})$, a qual foi definida como sendo igual à função $f_V: V(Q) \to \Ob(\mathsf{C})$.
+    É imediato então que os morfismos de aljavas $U(F) \circ i$ e $f$ coincidem nos vértices de $Q$.
+    Lembre agora que $U(F)$ é dado nas arestas pela função $F_{\Mor}: \Mor(\mathsf{FQ}) \to \Mor(\mathsf{C})$ que construímos acima, e que $i_A: A(Q) \to A(U(\mathsf{FQ}))$ mapeia uma aresta $e \in A(Q)$ para o caminho $i_e: [1] \to Q$ conectando $s_Q(e)$ a $t_Q(e)$ por meio da própria aresta $e$.
+    Usando então a definição de $F_{\Mor}$ vemos que
+    \begin{displaymath}
+        F_{\Mor}(i_A(e))
+        = F_{\Mor}(i_e)
+        = f_A(i_e(0,1))
+        = f_A(e);
+    \end{displaymath}
+    mostrando assim que $F \circ i$ e $f$ também coincidem nas arestas de $Q$, portanto vale a igualdade $F \circ i = f$ desejada.
+
+    Enfim, resta apenas verificarmos a unicidade do funtor $F$ satisfazendo tal condição de comutatividade.
+    Suponha que $G = (G_{\Ob},G_{\Mor}): \mathsf{FQ} \to \mathsf{C}$ seja um outro funtor satisfazendo $U(G) \circ i = f$.
+    No nível dos vértices, isso significa que vale a igualdade $G_{\Ob} \circ i_V = f_V$, mas como $i_V$ é dado pela função idêntica $\id_{V(Q)}$, essa igualdade diz apenas que $G_{\Ob} = f_v = F_{\Ob}$, ou seja, já concluímos assim que $F$ e $G$ coincidem nos objetos da categoria $\mathsf{FQ}$.
+    Pensando agora nas arestas, temos a igualdade $G_{\Mor} \circ i_A = f_A$.
+    Afirmamos então que $G_{\Mor}$ e $F_{\Mor}$ coincidem nos morfismos de $\mathsf{FQ}$ dados por caminhos do tipo $[1] \to Q$.
+    Dado um tal caminho $\gamma: [1] \to Q$, se definirmos a aresta $e \coloneqq \gamma_A(0,1) \in A(Q)$, então por hipótese temos $G_{\Mor}(i_A(e)) = f_A(e)$.
+    Ora, o caminho $i_A(e) = i_e: [1] \to Q$ é nada mais que o próprio caminho $\gamma$ considerado inicialmente, já que no vértice $0 \in V([1])$ temos
+    \begin{displaymath}
+        i_e(0)
+        = s_Q(e)
+        = s_Q(\gamma_A(0,1))
+        = \gamma_V(s(0,1))
+        = \gamma_V(0),
+    \end{displaymath}
+    no vértice $1 \in V([1])$ temos uma igualdade análoga, e na única areta $(0,1) \in A([1])$ temos
+    \begin{displaymath}
+        i_e(0,1)
+        = e
+        = \gamma_A(0,1).
+    \end{displaymath}
+    Sabendo disso, a hipótese sobre $G$ nos permite concluir que $G_{\Mor}(\gamma)$ é dado por $f_A(\gamma_A(0,1))$, mas esse é justamente o valor de $F_{\Mor}(\gamma)$ também.
+    Concluímos assim que $G_{\Mor}$ e $F_{\Mor}$ coincidem nos caminhos de comprimento $2$ em $Q$, e combinando isso com uma aplicação direta do \cref{lema:decompondo_caminhos_aljava} concluímos que as funções $G_{\Mor}$ e $F_{\Mor}$ coincidem na verdade em todos os caminhos.
 \end{proof}
