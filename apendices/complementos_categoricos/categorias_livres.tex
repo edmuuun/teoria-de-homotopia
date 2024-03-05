@@ -667,7 +667,7 @@ De fato, como as funções source e target da aljava $U(\mathsf{FQ})$ são as fu
 
 Tendo em mãos um ``morfismo de comparação'' entre $Q$ e $U(\mathsf{FQ})$, podemos enfim demonstrar o resultado principal da seção.
 
-\begin{teo}
+\begin{teo}\label{teo:categoria_livremente_gerada_por_aljava}
     Dada uma aljava qualquer $Q$, o par $(\mathsf{FQ},i)$ satisfaz a propriedade universal de uma categoria livremente gerada por $Q$.
 \end{teo}
 
@@ -813,3 +813,49 @@ Tendo em mãos um ``morfismo de comparação'' entre $Q$ e $U(\mathsf{FQ})$, pod
     Sabendo disso, a hipótese sobre $G$ nos permite concluir que $G_{\Mor}(\gamma)$ é dado por $f_A(\gamma_A(0,1))$, mas esse é justamente o valor de $F_{\Mor}(\gamma)$ também.
     Concluímos assim que $G_{\Mor}$ e $F_{\Mor}$ coincidem nos caminhos de comprimento $2$ em $Q$, e combinando isso com uma aplicação direta do \cref{lema:decompondo_caminhos_aljava} concluímos que as funções $G_{\Mor}$ e $F_{\Mor}$ coincidem na verdade em todos os caminhos.
 \end{proof}
+
+\begin{obs}[Questões de tamanho]
+    \label{obs:questoes_de_tamanho}
+    Frequentemente na Teoria de Categorias somos naturalmente levados a manipular coleções grandes demais para serem consideradas conjuntos legítimos segundo os axiomas de ZFC usuais da Teoria de Conjuntos, e a manipulação descuidada de tais coleções pode causar algumas dores de cabeça.
+    
+    Uma maneira de contornarmos esse problema é trabalharmos com um sistema de axiomas que nos permita manipular formalmente tais coleções muito grandes.
+    Um exemplo possível de tal sistema são os axiomas de \emph{Neumann-Bernays-Gödel}, no qual as coleções muito grandes mencionadas anteriormente são chamadas de \emph{classes}.
+
+    Existe uma outra estratégia - a qual vem se tornando mais e mais popular -  para contornarmos o problema em questão sem nos distanciarmos tanto da axiomática usual da Teoria de Conjuntos: suplementamos os axiomas de ZFC com novos axiomas a respeito da existência dos chamados \emph{universos de Gröthendieck}.
+    Sem entrar em muitos detalhes, um universo de Gröthendieck é um conjunto $U$ grande o suficiente para que possamos ``fazer Teoria dos Conjuntos internamente a $U$'', ou seja, podemos utilizar todas as construções usuais da Teoria de Conjuntos com os elementos de $U$ e ter a certeza de que ao final obteremos um outro elemento de $U$.
+    Quando fixamos um tal universo, dizemos que os conjuntos que pertencem a $U$ são \emph{pequenos}.
+   
+    Fixada então essa noção \emph{relativa} de tamannho, redefinimos nossos objetos de estudo como sendo os conjuntos pequenos, os grupos pequenos, os espaços topológicos pequenos, e por aí vai...
+    Redefinimos então nos objetos de estudo de forma a levarmos em conta essa restrição relativa sobre o tamanho dos conjuntos subjacentes: passamoss a estudar grupos pequenos, espaços vetoriais pequenos e espaços topológicos pequenos, por exemplo.
+
+    Poderíamos então considerar apenas categorias cujos conjuntos de objetos e morfismos são pequenos em relação ao universo fixado inicialmente.
+    Infelizmente, isso não é suficiente para resolver todos os nossos problemas.
+    Veja que o universo $U$ em si não é pequeno, pois isso implicaria $U \in U$, relação esta que nunca é válida em ZFC graças ao Axioma de Regularidade.
+    Consequentemente, diversas coleções de objetos pequenas não são pequenas.
+    Assim, embora posssamos falar de conjuntos pequenos em relação ao $U$, não podemos formar a categoria $U\mathsf{Set}$ cujos objetos são os conjuntos pequenos, já que $U$ em si não é um conjunto pequeno.
+    Essa noção de categoria com uma condição de tamanho relativas nos objetos e morfismos é então restrita demais na prática.
+
+    A solução frequentemente adotada é então trabalharmos com \emph{dois} universos de Gröthendieck $U_1$ e $U_2$ tais que $U_1 \in U_2$.
+    Os conjuntos pertencentes a $U_1$ seriam então os conjuntos pequenos da teoria, os conjuntos pertencentes a $U_2$ seria os conjuntos grandes, e os conjuntos que não pertencem nem mesmo a $U_2$ seriam considerado demasiadamente grandes e estariam fora do escopo da teoria.
+
+    Adotando então essa estratégia de dois universos de Gröthendieck, definimos uma categoria $\mathsf{C}$ como tendo conjuntos possivelmente grandes de objetos e morfismos, ou seja, consideramos que $\Ob(\mathsf{C})$ e $\Mor(\mathsf{C})$ pertencem a $U_2$.
+    No caso especial em que $\Ob(\mathsf{C})$ e $\Mor(\mathsf{C})$ pertencem não só a $U_2$, mas também a $U_1$, dizemos que $\mathsf{C}$ é uma categoria pequena.
+    Note que agora podemos construir uma categoria $U_1-\mathsf{Set}$ tendo como objetos os conjuntos pequenos da categoria.
+    Embora tal categoria não seja pequena, a existência do segundo universo $U_2$ nos permite construí-la formalmente dentro da teoria.
+    Analogamente, podemos também considerar a categorias (grandes!) $U_1-\mathsf{Grp}$ cujos objetos são os grupos pequenos da teoria, ou a categoria $U_1-\mathsf{Top}$ cujos objetos são os espaços topológicos pequenos da teoria.
+
+    As duas noções relativas de tamanho nos permitem formalizar tambéma a noção de uma categoria localmente pequena.
+    Precisamente, uma categoria $\mathsf{C}$ (possivelmente grande) é dita \emph{localmente pequena} se, dados quaisquer dois objetos $X,\, Y \in \Ob(\mathsf{C})$, o conjunto de morfismos $\Mor_{\mathsf{C}}(X,Y)$ é pequeno na teoria, ou seja, $\Mor_{\mathsf{C}}(X,Y) \in U_1$.
+    Todas as categorias mencionadas no parágrafo anterior são localmente pequenas nesse sentido preciso.
+
+    Veja que é possível então impormos condições de tamanho sobre outros objetos que tenham relação com categorias.
+    Por exemplo, podemos agora considerar aljavas $Q$ pequenas ou grandes, a depender do tamanhos dos conjuntos $V(Q)$ e $A(Q)$ de vértices e arestas.
+    Naturalmente, podemos também definir a noção de uma aljava localmente pequena.
+    A construção apresentada na demonstração do \cref{teo:categoria_livremente_gerada_por_aljava} mostra então que, se uma aljava $Q$ é pequena em relação a algum universo fixado, então a categoria $\mathsf{FQ}$ livremente gerada por ela é também pequena em relação a esse universo.
+    Note, entretanto, que a propriedade universal de uma categoria livre só faz sentido para o primeiro universo $U_1$, já que a categoria $U_1-\mathsf{Cat}$ formada pelas categorias pequenas forma uma categoria de fato, a qual é grande, mas a coleção de todas as categorias grandes é grande demais para pertencer a $U_2$, portanto não somos capazes de formar a categoria $U_2-\mathsf{Cat}$ utilizando apenas dois universos.
+
+    Um cuidado particular deve ser tomado com as aljavas localmente pequenas.
+    Parece razoável esperar que a categoria $\mathsf{FQ}$ livremente gerada por uma aljava localmente pequena $Q$ seja localmente pequena também, mas o exemplo abaixo mostra que isso não é verdade em geral!
+\end{obs}
+
+%TODO: Pensar em um exemplo disso...
