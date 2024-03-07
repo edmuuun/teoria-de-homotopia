@@ -1,0 +1,23 @@
+\section{Quocientes de categorias}
+
+Nessa seção discutimos como definir um quociente de uma categoria de forma a introduzir identificações entre morfismos.
+A ideia básica é que temos coleções de relações de equivalências nos conjuntos de morfismos entre dois objetos quaisquer, e queremos obter uma nova categoria os conjuntos de morfismos foram quocientados pelas relações em questão.
+Como precisamos conseguir compor essas classes de equivalência de morfismos, as relações na categoria inicial devem satisfazer alguma condição de compatibilidade com a operação de composição.
+A definição abaixo formaliza essa condição.
+
+\begin{defin}\label{defin:congruencia_em_categoria}
+    Uma \textbf{congruência} em uma categoria $\mathsf{C}$ consiste de uma relação de equivalência $\sim_{a,b}$ no conjunto de morfismos $\mathsf{C}(a,b)$ para qualquer par de objetos $(a,b) \in \Ob(\mathsf{C}) \times \Ob(\mathsf{C})$ satisfazendo a seguinte condição: se $g_1,\, g_2: a \to b$ são dois morfismos tais que $g_1 \sim_{a,b} g_2$, então para quaisquer morfismos $f: x \to a$ e $h: b \to y$ vale também que $g_1 \circ f \sim_{x,b} g_2 \circ f$ e $h \circ g_1 \sim_{a,y} h \circ g_2$.
+\end{defin}
+
+\begin{obs}
+    Alguns autores chamam uma congruência de um \emph{ideal} em uma categoria.
+\end{obs}
+
+\begin{exem}\label{exem:congruencia_em_monoide}
+    Seja $M$ um monoide, ou seja, um conjunto equipado com uma operação binária $\cdot: M \times M \to M$ que é associativa e possui um elemento neutro.
+    Considere a categoria $\mathsf{BM}$ que possui um único objeto $*$, cujo conjunto de morfismos $\mathsf{BM}(*,*) \coloneqq M$ é dado pelo próprio conjunto subjacente ao monoide, e cuja operação de composição é dada pela operação binária do monoide.
+    A associatividade da operação $\cdot$ em $M$ garante a associatividade da composição em $\mathsf{BM}$, e o elemento neutro $e$ de $M$ define precisamente o morfismo identidade $\id_*: * \to *$, portanto $\mathsf{BM}$ é de fato uma categoria.
+
+    Uma congruência em $\mathsf{BM}$ consiste de uma única relação de equivalência $\sim$ no conjunto $\mathsf{BM}(*,*) = M$ satisfazendo a seguinte condição: se $a,\, b \in M$ são tais que $a \sim b$, então para quaisquer outros elementos $x,\, y \in M$ vale também que $ax \sim bx$ e $ya \sim yb$.
+    Isso é precisamente a definição de uma congruência em um monoide, a qual é abarcada portanto pela noção de congruência em uma categoria.
+\end{exem}
