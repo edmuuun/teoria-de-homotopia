@@ -21,3 +21,66 @@ A definição abaixo formaliza essa condição.
     Uma congruência em $\mathsf{BM}$ consiste de uma única relação de equivalência $\sim$ no conjunto $\mathsf{BM}(*,*) = M$ satisfazendo a seguinte condição: se $a,\, b \in M$ são tais que $a \sim b$, então para quaisquer outros elementos $x,\, y \in M$ vale também que $ax \sim bx$ e $ya \sim yb$.
     Isso é precisamente a definição de uma congruência em um monoide, a qual é abarcada portanto pela noção de congruência em uma categoria.
 \end{exem}
+
+\begin{exem}\label{exem:congruencias_em_grupos}
+    Dado um grupo $G$, como todo grupo é também um monoide, podemos aplicar a construção do \cref{exem:congruencia_em_monoide} a $G$ para obtermos a categoria $\mathsf{BG}$ tendo um único objeto $*$ e tendo o próprio $G$ como conjunto de morfismos $* \to *$.
+    Note que, como todo elemento de um grupo é invertível, todo morfismo em $\mathsf{BG}$ é um isomorfismo, ou seja, a categoria $\mathsf{BG}$ define um \emph{grupoide}.
+
+    Dado um subgrupo normal $H \trianglelefteq G$, lembremos que $H$ induz a famigerada relação de equivalência \emph{módulo $H$} $\equiv_H$ em $G = \mathsf{BG}(*,*)$ dada por $a \equiv_H b$ se, e somente se, $ab^{-1} \in H$.
+    Afirmamos que essa relação de equivalência define também uma congruência em $\mathsf{BG}$.
+    De fato, se $a,\,b \in G$ são tais que $a \equiv_H b$, então para qualquer outro $x \in G$ vale também que $ax \equiv_H bx$ pois
+    \begin{displaymath}
+        ax(bx)^{-1} = axx^{-1}b^{-1} = aeb^{-1} = ab^{-1} \in H,
+    \end{displaymath}
+    e para qualquer $y \in G$ vale também que $ya \equiv_H yb$ pois
+    \begin{displaymath}
+        ya(yb)^{-1} = yab^{-1}y^{-1} = y(ab^{-1})y^{-1} \in H;
+    \end{displaymath}
+    onde no último passo foi necessário usar o fato de $H$ ser um subgrupo normal.
+
+    É interessante observar que toda congruência em $\mathsf{BG}$ é induzida por algum subgrupo normal de $G$.
+    De fato, se $\sim$ é uma congruência em $\mathsf{BG}$, portanto uma relação de equivalência em $G$ ``invariante'' pela multiplicação de elementos de $G$ em ambos os lados, seja $H \coloneqq [e]$ a classe de equivalência do elemento neutro.
+    Vamos mostrar que $H$ é um subgrupo normal de $G$.
+    \begin{itemize}
+        \item A reflexividade de $\sim$ nos dá que $e \sim e$, portanto $e \in H$.
+
+        \item Dados dois elementos $a,b \in H$, multiplicando a relação $a \sim e$ por $b$ à direita vemos que $ab \sim b$, mas $b \sim e$ por hipótese, e a transitividade nos dá então $ab \sim e$, ou seja, $ab \in H$.
+        
+        \item Se $a \in H$, multiplicando a relação $a \sim e$ por $a^{-1}$ concluímos que $e \sim a^{-1}$, logo $a^{-1} \sim e$ por simetria, de onde segue que $a^{-1} \in H$.
+    
+        \item Suponha que $a \in H$, e seja $g \in G$ um elemento qualquer.
+        A fim de mostrarmos que $H$ é normal, queremos mostrar que a conjugação $gag^{-1}$ também pertence a $H$.
+        Multiplicando a relação $a \sim e$ por $g$ à esquerda concluímos que $ga \sim g$, e multiplicando esta última por $g^{-1}$ à direita concluímos que $gag^{-1} \sim gg^{-1} = e$, portanto $gag^{-1} \in H$ como queríamos mostrar.
+    \end{itemize}
+
+    Sabendo que $H$ define de fato um subgrupo normal, afirmamos que a relação $\equiv_H$ induzida por $H$ coincide com a congruência $\sim$ inicial.
+    De fato, se $a,\,b \in G$ são tais que $a \equiv_H b$, então $ab^{-1} \in H$, o que pela definição de $H$ significa que $ab^{-1} \sim e$, mas isso é equivalente a $a \sim b$ graças à compatibilidade de $\sim$ com a operação de multiplicação do grupo.
+\end{exem}
+
+\begin{exem}\label{exem:homotopia_como_congruencia}
+    Dados dois espaços topológicos $X$ e $Y$, considere a relação $\sim_{X,Y}$ em $\mathsf{Top}(X,Y)$ dada por $f \sim_{X,Y} g$ se, e somente se, $f$ e $g$ são homotópicos.
+    É bem sabido da Teoria de Homotopia que $\sim_{X,Y}$ define uma relação de equivalência no conjunto de mapas $\mathsf{Top}(X,Y)$ que é preservada pela pré-composição ou pós-composição com outros mapas quaisquer.
+    Em outras palavras, a coleção de relações de equivalência $\{\sim_{X,Y}\}_{X,Y \in \mathsf{Top}}$ define uma congruência na categoria $\mathsf{Top}$.
+\end{exem}
+
+O resultado no qual estamos interessados diz que uma congruência nos permite definir uma nova categoria cujos morfismos são obtidos identificando os morfismos da categoria inicial.
+
+\begin{teo}\label{teo:existencia_categoria_quociente}
+    Sejam $\mathsf{C}$ uma categoria e $\sim = \{\sim_{a,b}\}_{a,b \in \mathsf{C}}$ uma congruência em $\mathsf{C}$.
+    Existe então um par $(\mathsf{C}/\sim,\pi)$, onde $\mathsf{C}/\sim$ é uma categoria, e $\pi: \mathsf{C} \to \mathsf{C}/\sim$ é um funtor, satisfazendo as seguintes condições:
+    \begin{enumerate}
+        \item $\pi$ identifica morfismos equivalentes em $\mathsf{C}$, ou seja, se $f,\,g: a \to b$ são morfismos em $\mathsf{C}$ tais que $f \sim_{a,b} g$, então $\pi(f) = \pi(g)$.
+
+        \item Se $\mathsf{D}$ é uma categoria qualquer, e $F: \mathsf{C} \to \mathsf{D}$ é um funtor que identifica morfismos em $\mathsf{C}$, então existe um único funtor $\overline{F}: \mathsf{C}/\sim \to \mathsf{D}$ satisfazendo a igualdade $\overline{F} \circ \pi = f$.
+        \begin{displaymath}
+            \begin{tikzcd}
+                \mathsf{C}
+                \arrow[r, "F"]
+                \arrow[d, "\pi" swap]
+                & \mathsf{D}
+                \\ \mathsf{C}/\sim
+                \arrow[ru, dashed, "\overline{F}" swap]
+            \end{tikzcd}
+        \end{displaymath}
+    \end{enumerate}
+\end{teo}
