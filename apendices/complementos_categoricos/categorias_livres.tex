@@ -858,4 +858,22 @@ Tendo em mãos um ``morfismo de comparação'' entre $Q$ e $U(\mathsf{FQ})$, pod
     Parece razoável esperar que a categoria $\mathsf{FQ}$ livremente gerada por uma aljava localmente pequena $Q$ seja localmente pequena também, mas o exemplo abaixo mostra que isso não é verdade em geral!
 \end{obs}
 
-%TODO: Pensar em um exemplo disso...
+\begin{exem}
+    Considere dois universos do Gröthendieck $U_1$ e $U_2$ tais que $U_1 \in U_2$ como na \cref{obs:questoes_de_tamanho}, e considere a aljava $Q \coloneqq (U_1,U_1 \times U_1, \pi_1,\pi_2)$, onde $\pi_1,\pi_2: U_1 \times U_1 \to U_1$ são as projeções canônicas.
+    Note que $Q$ é uma aljava grande, pois o conjunto de vértices $U_1$ e o conjunto de arestas $U_1 \times U_2$ não pertencem ao primeiro universo $U_1$, mas sim ao segundo universo $U_2$.
+    Note, entretanto, que para quaisquer dois vértices $A,\, B \in U_1$, o conjunto de arestas de $Q$ começando em $A$ e terminando em $B$ possui como único elemento o par $(A,B)$, e como tal par pertence ao universo $U_1$, o mesmo vale para o conjunto unitário formado por ele.
+    Isso mostra que temos um conjunto pequeno de arestas entre dois vértices quaisquer, ou seja, $Q$ é uma aljava localmente pequena.
+
+    Afirmamos, entretanto, que a categoria $\mathsf{FQ}$ livremente gerada por $Q$ não é localmente pequena.
+    De fato, afirmamos mais ainda que, para quaisquer dois objetos $A,\, B \in U_1 = \Ob(\mathsf{FQ})$, o conjunto de morfismos $\Mor_{\mathsf{FQ}}(A,B)$ entre eles é necessariamente grande.
+    Dado qualquer conjunto pequeno $X \in U_1$, considere o caminho
+    \begin{displaymath}
+        \gamma^X: [2] \to Q
+    \end{displaymath}
+    definido da seguinte forma: nos vértices $\gamma^X$ é definido por $\gamma^X_V(0) \coloneqq A$, $\gamma^X_V(1) \coloneqq X$ e $\gamma^X_V(2) \coloneqq B$; enquanto nas arestas $\gamma^X$ é dado por $\gamma^X_A(0,1) \coloneqq (A,X)$ e $\gamma^X_A(1,2) \coloneqq (X,B)$.
+    Uma verificação direta mostra que $\gamma^X$ define de fato um morfismo de aljavas, e como tal caminho começa em $A$ e termina em $B$, ele define um morfismo do tipo $A \to B$ an categoria $\mathsf{FQ}$.
+    Ora, é claro que se $Y \in U_1$ é outro conjunto pequeno diferente de $X$, então o caminho $\gamma^Y$ correspondente é diferente de $\gamma^X$, portanto a associação $X \mapsto \gamma^X$ define uma injeção $U_1 \cofib \Mor_{\mathsf{FQ}}(A,B)$.
+    Concluímos então que $\Mor_{\mathsf{FQ}}(A,B)$ não pode ser um conjunto pequeno, pois nesse caso usando a injeção mencionada concluiríamos que $U_1$ em si é um conjunto pequeno, mas já discutimos anteriormente que isso não é verdade.
+\end{exem}
+
+%TODO: Revisar os argumentos envolvendo universos de Gröthendieck que eu usei no exemplo anterior.
