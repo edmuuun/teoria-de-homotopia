@@ -67,20 +67,99 @@ O resultado no qual estamos interessados diz que uma congruência nos permite de
 
 \begin{teo}\label{teo:existencia_categoria_quociente}
     Sejam $\mathsf{C}$ uma categoria e $\sim = \{\sim_{a,b}\}_{a,b \in \mathsf{C}}$ uma congruência em $\mathsf{C}$.
-    Existe então um par $(\mathsf{C}/\sim,\pi)$, onde $\mathsf{C}/\sim$ é uma categoria, e $\pi: \mathsf{C} \to \mathsf{C}/\sim$ é um funtor, satisfazendo as seguintes condições:
+    Existe então um par $(\overline{\mathsf{C}},\pi)$, onde $\overline{\mathsf{C}}$ é uma categoria, e $\pi: \mathsf{C} \to \overline{\mathsf{C}}$ é um funtor, satisfazendo as seguintes condições:
     \begin{enumerate}
         \item $\pi$ identifica morfismos equivalentes em $\mathsf{C}$, ou seja, se $f,\,g: a \to b$ são morfismos em $\mathsf{C}$ tais que $f \sim_{a,b} g$, então $\pi(f) = \pi(g)$.
 
-        \item Se $\mathsf{D}$ é uma categoria qualquer, e $F: \mathsf{C} \to \mathsf{D}$ é um funtor que identifica morfismos em $\mathsf{C}$, então existe um único funtor $\overline{F}: \mathsf{C}/\sim \to \mathsf{D}$ satisfazendo a igualdade $\overline{F} \circ \pi = f$.
+        \item Se $\mathsf{D}$ é uma categoria qualquer, e $F: \mathsf{C} \to \mathsf{D}$ é um funtor que identifica morfismos em $\mathsf{C}$, então existe um único funtor $\overline{F}: \overline{\mathsf{C}} \to \mathsf{D}$ satisfazendo a igualdade $\overline{F} \circ \pi = f$.
         \begin{displaymath}
             \begin{tikzcd}
                 \mathsf{C}
                 \arrow[r, "F"]
                 \arrow[d, "\pi" swap]
                 & \mathsf{D}
-                \\ \mathsf{C}/\sim
+                \\ \overline{\mathsf{C}}
                 \arrow[ru, dashed, "\overline{F}" swap]
             \end{tikzcd}
         \end{displaymath}
     \end{enumerate}
 \end{teo}
+
+\begin{proof}
+    Considere a categoria $\overline{\mathsf{C}}$ tendo os mesmos objetos de $\mathsf{C}$, e dados então dois objetos $a,\,b \in \Ob(\overline{\mathsf{C}})$, considere o conjunto de morfismos do tipo $a \to b$ em $\overline{\mathsf{C}}$ definido por
+    \begin{displaymath}
+        \overline{\mathsf{C}}(a,b) \coloneqq \overline{C}(a,b)/\sim_{a,b},
+    \end{displaymath}
+    ou seja, os conjuntos de morfismos são todos quocientes pelas relações de equivalência que definem a congruência em $\sim$ em $\mathsf{C}$.
+    Dado um morfismo $f \in \mathsf{C}(a,b)$, denotaremos por $\overline{f} \in \overline{\mathsf{C}}(a,b)$ o morfismo correspondente em $\overline{\mathsf{C}}$ dado pela imagem de $f$ ao longo da projeção canônica
+    \begin{displaymath}
+        \pi_{a,b}: \mathsf{C}(a,b) \to \overline{\mathsf{C}}(a,b).
+    \end{displaymath}
+
+    Precisamos definir uma operação de composição de morfismos em $\overline{\mathsf{C}}$ e verificar que ela possui identidades e é associativa.
+    Dado então dois morfismos $\overline{f} \in \overline{\mathsf{C}}(a,b)$ e $\overline{g} \in \overline{\mathsf{C}}(b,c)$, definimos sua composição $\overline{g} \circ \overline{f} \in \overline{\mathsf{C}}(a,c)$ por meio da fórmula
+    \begin{displaymath}
+        \overline{g} \circ \overline{f} \coloneqq \overline{g \circ f}.
+    \end{displaymath}
+    O fato de tal expressão independer dos representates das classes de equivalência $\overline{f}$ e $\overline{g}$ é uma consequência direta do fato de $\sim$ ser uma \emph{congruência} na categoria $\mathsf{C}$, e não apenas uma coleção de relações de equivalência nos conjuntos de morfismos.
+    
+    Dado um objeto qualquer $x \in \Ob(\overline{\mathsf{C}})$, a classe $\overline{\id_x}$ do morfismo idêntico $\id_x$ em $\mathsf{C}$ é uma unidade para a composição em $\overline{\mathsf{C}}$ definida acima.
+    De fato, dado um morfismo $f: w \to x$ em $\overline{\mathsf{C}}$ temos
+    \begin{displaymath}
+        \overline{id_x} \circ \overline{f} = \overline{\id_x \circ f} = \overline{f},
+    \end{displaymath}
+    e dado um morfismo $\overline{g}: x \to y$ em $\overline{\mathsf{C}}$ temos
+    \begin{displaymath}
+        \overline{g} \circ \overline{\id_x} = \overline{g \circ \id_x} = \overline{g}.
+    \end{displaymath}
+    Além disso, dados três morfismos quaisquer $\overline{f}: w \to x$, $\overline{g}: x \to y$ e $\overline{h}: y \to z$ em $\overline{\mathsf{C}}$, utlizando a associatividade da composição em $\mathsf{C}$ vemos que
+    \begin{displaymath}
+        (\overline{h} \circ \overline{g}) \circ \overline{f}
+        = \overline{h \circ g} \circ \overline{f}
+        = \overline{(h \circ g) \circ f}
+        = \overline{h \circ (g \circ f)}
+        = \overline{h} \circ \overline{g \circ f}
+        = \overline{h} \circ (\overline{g} \circ \overline{f}),
+    \end{displaymath}
+    ou seja, a operação de composição em $\overline{\mathsf{C}}$ é associativa também.
+
+    O raciocínio acima mostra que $\overline{\mathsf{C}}$ define de fato uma categoria.
+    O funtor $\pi: \mathsf{C} \to \overline{\mathsf{C}}$ do enunciado pode ser definido da seguinte maneira: nos objetos $\pi_{\Ob}: \Ob(\mathsf{C}) \to \Ob(\overline{\mathsf{C}})$ é dado simplemsente pela função identidade, e para dois objetos $a,\,b \in \Ob(\mathsf{C})$ quaisquer, a compomente do funtor nos morfismos entre esses dois objetos é dado pela projeção canônica
+    \begin{displaymath}
+        \pi_{a,b}: \mathsf{C}(a,b) \to \overline{\mathsf{C}}(a,b)
+    \end{displaymath}
+    mencionada anteriormente.
+    Segue diretamente da forma como a composição e os morfismos identidade em $\overline{\mathsf{C}}$ foram definidos que $\pi$ é de fato um funtor.
+    Além disso, $\pi$ identifica morfismos relacionados, pois se $f \sim_{a,b} g$, temos a igualdade de clases de equivalência $\overline{f} = \overline{g}$ e, portanto, a igualdade $\pi(f) = \pi(g)$.
+
+    suponha agora que tenhamos um funtor $F: \mathsf{C} \to \mathsf{D}$ que identifica os morfismo de $\mathsf{C}$ relacionados pela congruência $\sim$.
+    Denotando por $F_{a,b}: \mathsf{C}(a,b) \to \mathsf{D}(a,b)$ a componente de $F$ nos morfismos entre $a$ e $b$, por hipótese tal função é constante nas classes de equivalência de $\sim_{a,b}$, portanto a propriedade universal do quociente em conjuntos nos fornece uma única função $\overline{F}_{a,b}: \overline{\mathsf{C}}(a,b) \to \mathsf{D}(a,b)$ satisfazendo a igualdade $\overline{F}_{a,b} \circ \pi_{a,b} = F_{a,b}$.
+
+    Afirmamos que a função $F_{\Ob}: \Ob(\mathsf{C}) = \Ob(\overline{\mathsf{C}}) \to \Ob(\mathsf{D})$ juntamente com a família de funções $(\overline{F}_{a,b})_{a,\,b}$ juntas definem o funtor $\overline{F}: \overline{\mathsf{C}} \to \overline{D}$ desejado.
+    Note que a composição de morfismos é preservada, já que para quaisquer dois morfismos $\overline{f}: a \to b$ e $\overline{g}: b \to c$ em $\overline{\mathsf{C}}$ temos
+    \begin{displaymath}
+        \overline{F}_{a,b}(\overline{g} \circ \overline{f})
+        = \overline{F}_{a,b}(\overline{g \circ f})
+        = F_{a,b}(g \circ f)
+        = F_{b,c}(g) \circ F_{a,b}(f)
+        = \overline{F}_{b,c}(\overline{g}) \circ \overline{F}_{a,b}(\overline{f}).
+    \end{displaymath}
+    Analogamente, $\overline{F}$ também preserva morfismos identidade, já que para qualquer objeto $x \in \Ob(\overline{\mathsf{C}})$ temos
+    \begin{displaymath}
+        \overline{F}_{x,x}(\overline{\id_x})
+        = F_{x,x}(\id_x)
+        = \id_{F(x)}
+        = \id_{\overline{F}(x)}.
+    \end{displaymath}
+
+    Sabendo que $\overline{F}$ define de fato um funtor, segue diretamente de sua definição que a igualdade $\overline{F} \circ \pi = F$ é satisfeita.
+    Por fim, se $G: \overline{\mathsf{C}} \to \mathsf{D}$ é outro funtor tal que $G \circ \pi = F$, então por um lado a nível dos objetos temos
+    \begin{displaymath}
+        G_{\Ob} = G_{\Ob} \circ \id_{\Ob(\mathsf{C})}
+        = G_{\Ob} \circ \pi_{\Ob}
+        = F_{\Ob}
+        = \overline{F}_{\Ob},
+    \end{displaymath}
+    enquanto para quaisquer dois objetos $a,\,b \in \Ob(\overline{\mathsf{C}})$ temos a igualdade $G_{a,b} \circ \pi_{a,b} = F_{a,b}$ e, portanto, $G_{a,b} = \overline{F}_{a,b}$ graças à unicidade que caracteriza a função $\overline{F}_{a,b}$ na propreidade universal do quociente de conjuntos.
+    Segue desse raciocínio que a igualdade desejada $G = \overline{F}$ é válida.
+\end{proof}
