@@ -26,6 +26,12 @@ Por vezes será mais conveniente denotarmos uma aljava simplesmente por uma letr
     A aljava $QX$ assim definida é chamada de \textbf{aljava discreta} gerado por $X$.
 \end{exem}
 
+\begin{exem}\label{exem:aljava_sobre_ponto}
+    Todo conjunto $X$ pode ser visto como o conjunto de arestas de uma aljava contendo um único vértice.
+    Mais precisamente, a tupla $(\{*\},X,\ct_{X,*},\ct_{X,*})$ define uma aljava, onde $\{*\}$ denota um conjunto unitário qualquer, e $\ct_{X,*}: X \to \{*\}$ denota a função constante.
+    Aljavas construídas dessa maneira são relevantes, por exemplo, na discussão de monoides livres.
+\end{exem}
+
 \begin{exem}\label{exem:aljava_via_relacao}
     Seja $R \subseteq X \times X$ uma relação qualquer em um conjunto $X$.
     Podemos construir a partir dessa relação uma aljava $Q \coloneqq (X,R,s,t)$, onde $s,\,t: R \to X$ são as restriçõs das projeções canônicas associadas ao produto $X \times X$, ou seja, $s(x_1,x_2) \coloneqq x_1$ e $t(x_1,x_2) \coloneqq x_2$ para qualquer par $(x_1,x_2) \in R$.
@@ -82,6 +88,19 @@ Entretanto, na prática é muito comum denotarmos ambas as funções pelo mesmo 
 
 \begin{exem}
     Dados dois conjuntos $X_1$ e $X_2$ e uma função $f: X_1 \to X_2$, o par $(f,f)$ define um morfismo $QX_1 \to QX_2$ entre as aljavas discretas geradas por $X_1$ e $X_2$ de acordo com o \cref{exem:aljava_discreta}.
+\end{exem}
+
+\begin{exem}
+    Vimos no \cref{exem:aljava_sobre_ponto} que todo conjunto $X$ dá origem a uma aljava $(\{*\},X,\ct_{X,*},\ct_{Y,*})$ contendo um único vértice.
+    Se $f: X \to Y$ é uma função qualquer entre conjuntos, então o par $(\id_{\{*\}},f)$ define um morfismo de aljavas
+    \begin{displaymath}
+        (\{*\},X,\ct_{X,*},\ct_{X,*}) \to (\{*\},Y,\ct_{Y,*},\ct_{Y,*}).
+    \end{displaymath}
+    As duas condições de comutatividade necessárias sõa iguais nesse caso e dadas pela igualdade
+    \begin{displaymath}
+        \ct_{Y,*} \circ f = \id_{\{*\}} \circ \ct_{X,*},
+    \end{displaymath}
+    a qual é certamente válida pois $\ct_{X,*}$ e $\ct_{Y,*}$ são funções constantes.
 \end{exem}
 
 \begin{exem}
@@ -813,6 +832,10 @@ Tendo em mãos um ``morfismo de comparação'' entre $Q$ e $U(\mathsf{FQ})$, pod
     Sabendo disso, a hipótese sobre $G$ nos permite concluir que $G_{\Mor}(\gamma)$ é dado por $f_A(\gamma_A(0,1))$, mas esse é justamente o valor de $F_{\Mor}(\gamma)$ também.
     Concluímos assim que $G_{\Mor}$ e $F_{\Mor}$ coincidem nos caminhos de comprimento $2$ em $Q$, e combinando isso com uma aplicação direta do \cref{lema:decompondo_caminhos_aljava} concluímos que as funções $G_{\Mor}$ e $F_{\Mor}$ coincidem na verdade em todos os caminhos.
 \end{proof}
+
+A construção de categorias livremente geradas por aljavas será é usada no corpo do texto juntamente com a construção de quocientes de categorias discutida na \cref{sec:quocientes_categorias} para  construir ``na marra'' a localização de uma categoria em uma classe de morfismos.
+Existe, entretanto, um exemplo mais elementar e ainda assim interessante de categoria livre que podemos analisar nesse momento.
+A discussão abaixo é baseada em \cite[Capítulo 2, Seção 7, Corolário 2]{mac_lane_categories_1978}.
 
 \begin{obs}[Questões de tamanho]
     \label{obs:questoes_de_tamanho}

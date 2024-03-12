@@ -7,12 +7,12 @@ Nessa seção discutimos inicialmente a noção de localização de uma categori
 Em geral, a única forma possível de compararmos dois morfismos em uma categoria $\mathsf{C}$ qualquer é por meio de igualdades.
 Note, entretanto, que a situação é mais sútil para morfismos na categoria de categorias $\mathsf{Cat}$, já que dois funtores podem estar relacionados por uma igualdade ou também por um isomorfismo natural.
 Isso significa que construções universais envolvendo \emph{categorias em si} podem ser formuladas de duas formas: uma versão \emph{estrita} usando apenas igualdades entre funtores, e uma versão \emph{fraca} usando isomorfismos naturais entre funtores.
-A primeira definição de localização que daremos, a qual aparece por exemplo nas referências \cite[Definição 7.30]{heuts-moerdijk} e \cite{nlab:localization}, é a versão fraca.
+A primeira definição de localização que daremos, a qual aparece por exemplo nas referências \cite[Definição 7.30]{heuts_simplicial_2022} e \cite{nlab:localization}, é a versão fraca.
 Essa é a versão que realmente aparece na teoria de categoria de modelos, já que a construção de uma localização na classe de equivalências fracas por meio das classes de homotopia de morfismos entre objetos bifibrantes satisfaz apenas essa versão fraca da definição.
 Uma boa discussão comparando estas duas possíveis definições e também outras existentes na literatura também pode ser encontrada em \cite{overflow:localization}.
 
 \begin{defin}\label{defin:localizacao_fraca}
-  Sejam $\mathsf{C}$ uma categoria e $\mathcal{W} \Mor(\mathsf{C})$ uma classe qualquer de morfismos.
+  Sejam $\mathsf{C}$ uma categoria e $\mathcal{W} \subseteq \Mor(\mathsf{C})$ uma classe qualquer de morfismos.
   Uma \textbf{localização fraca de $\mathsf{C}$ em $\mathcal{W}$} é um par $(\mathsf{L},\gamma)$, onde $\mathsf{L}$ é uma categoria e $\gamma: \mathsf{C} \to \mathsf{L}$ é um funtor, satisfazendo as seguintes condições:
   \begin{enumerate}
   \item[(i)] O funtor $\gamma$ transforma os morfismos de $\mathcal{W}$ em isomorfismos de $\mathsf{L}$.
@@ -56,7 +56,7 @@ O resultado abaixo mostra que a definição acima pode ser reformulada de forma 
   O resultado do enunciado segue então dessa caracterização de equivalência aplicada ao funtor $\Fun(\gamma,\mathsf{D}): \Fun(\mathsf{L},\mathsf{D}) \to \Fun_{\mathcal{W}}(\mathsf{C},\mathsf{D})$.
 \end{proof}
 
-Apesar da formulação de localização acima ser mais similar a outras propriedades unviversais com as quias estamos acostumados, existe uma diferença sútil mas importante: as propriedades universais usuais estabelecem a existência sob certas condições de um morfismo \emph{único} satisfazendo certas \emph{igualdades}.
+Apesar da formulação de localização acima ser mais similar a outras propriedades unviversais com as quias estamos acostumados, existe uma diferença sutil mas importante: as propriedades universais usuais estabelecem a existência sob certas condições de um morfismo \emph{único} satisfazendo certas \emph{igualdades}.
 Já a propriedade universal da \cref{prop:localizacao_fraca_via_prop_universal} que caracteriza a localização fraca estabelece a existência sob certas hipóteses de \emph{algum} funtor satisfazendo uma condição de \emph{isomorfismo natural} e não de igualdade.
 Veremos agora que, apesar de não termos a unicidade na caracterização acima, temos uma unicidade a menos de isomorfismos naturais de funtores.
 
