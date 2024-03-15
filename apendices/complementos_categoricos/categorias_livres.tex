@@ -837,6 +837,59 @@ A construção de categorias livremente geradas por aljavas será é usada no co
 Existe, entretanto, um exemplo mais elementar e ainda assim interessante de categoria livre que podemos analisar nesse momento.
 A discussão abaixo é baseada em \cite[Capítulo 2, Seção 7, Corolário 2]{mac_lane_categories_1978}.
 
+\begin{exem}[Monoides livres via categorias livres]
+    \label{exem:monoide_livre_via_cat_livre}
+    Lembremos que todo monoide $M$ dá origem a uma categoria $\mathsf{BM}$ contendo um único objeto $*$, e cujo conjunto de morfismos $\mathsf{BM}(*,*)$ é por definição o conjunto subjacente do monoide, e a operação de composição de morfismos
+    \begin{displaymath}
+        \mathsf{BM}(*,*) \times \mathsf{BM}(*,*) \to \mathsf{BM}(*,*)
+    \end{displaymath}
+    é dada pela própria operação de multiplicação existente no monoide $M$.
+
+    Reciprocamente, se $\mathsf{C}$ é uma categoria contendo um único objeto $*$, então o conjunto $M \coloneqq \mathsf{C}(*,*)$ admite uma estrutura de monoide, onde a operação de multiplicação é dada pela operação de composição existente na categoria $\mathsf{C}$.
+
+    Suponha agora que $X$ seja um conjunto qualquer.
+    Vimos no \cref{exem:aljava_sobre_ponto} que a tupla $(\{*\},X,\ct_{X,*},\ct_{X,*})$ define uma aljava contendo um único vértice.
+    Vamos denotar tal aljava por $MX$ ao longo deste exemplo.
+    Aplicando a construção vista nessa seção temos então a categoria $\mathsf{FMX}$ livremente gerada por essa aljava.
+    Lembrando que o conjunto de objetos de $\mathsf{FMX}$ por construção coincide com o conjunto de vértices da aljava original, segue que $\mathsf{FMX}$ possui um único objeto, logo pela discussão anterior seu conjunto de morfismos $\Mor(\mathsf{FMX})$ admite uma estrutura de monoide dada pela operação de composição.
+
+    Lembre-se também que por construção $\Mor(\mathsf{FX})$ é formado por todos os caminhos de diferentes comprimentos na aljava subjacente.
+    Mas veja que um caminho $\gamma:[n] \to MX$ é particularmente simples, pois como $MX$ possui um único vértice, esse morfismo de aljava nos vértices
+    \begin{displaymath}
+        \gamma_V: \{0,\dots,n\} \to \{*\}
+    \end{displaymath}
+    é necessariamente constante, e a nível das arestas a função
+    \begin{displaymath}
+        \gamma_A: \{(0,1),\dots,(n-1,n)\} \to X
+    \end{displaymath}
+    é na verdade arbitrária, pois como os mapas source e target de $MX$ são iguais, a condição de compatibilidade que define um morfismo de aljavas é automaticamente satisfeita.
+    Assim, se desconsiderarmos a informação irrelevante da função constante $\gamma_V$, um caminho $[n] \to MX$ é essencialmente dado uma por uma sequência $x_1 \dotsm x_n$ de $n$ elementos de $X$.
+    É comum se referir a uma tal sequência como uma \emph{palavra de tamanho $n$ no alfabeto $X$}.
+    A operação de composição em $\Mor(\mathsf{FMX})$ interpretada nessa linguagem de palavras é dada simplesmente pela justaposição: dadas duas palavras $x_1 \dotsm x_m,\, y_1 \dotsm y_n \in \Mor(\mathsf{FMX})$, seu produto
+    \begin{displaymath}
+        (x_1 \dotsm x_m) \cdot (y_1 \dotsm y_n)
+    \end{displaymath}
+    é dado pela palavra
+    \begin{displaymath}
+        x_1 \dotsm x_m y_1 \dotsm y_n \in \Mor(\mathsf{FMX})
+    \end{displaymath}
+    obtida pela justaposição das duas palavras, a qual se corresponde como esperado com um caminho do tipo $[m+n] \to MX$ pela discussão anterior.
+
+    O monoide $\Mor(\mathsf{FMX})$ obtido por essa noção de palavras e com tal operação de justaposição é o \emph{monoide livre gerado por $X$}.
+    O nome monoide livre não é à toa, pois se $i_V: X \to \Mor(\mathsf{FMX})$ é a componente nos vértices do morfismo de aljavas $i: MX \to U(\mathsf{FMX})$ que aparece na propriedade universal da categoria livre, então o par $(\Mor(\mathsf{FMX}),i_V)$ satisfaz a seguinte propriedade universal na categoria de monoides: dado um monoide $N$ qualquer, se $U(N)$ denota o conjunto subjacente a $N$, e $f: X \to U(N)$ é uma função qualquer, então existe um único morfismo de monoides $F: \Mor(\mathsf{FMX}) \to N$ tal que $F \circ i_V = f$.
+    \begin{displaymath}
+        \begin{tikzcd}
+            \Mor(\mathsf{FMX})
+            \arrow[r, dashed, "F"]
+            & N
+            \\ X
+            \arrow[u, "i_V"]
+            \arrow[ru, "f" swap]
+        \end{tikzcd}
+    \end{displaymath}
+    Essa propriedade universal segue diretamente da propriedade universal da categoria livre, bastando para isso reinterpretarmos a função $f: X \to U(N)$ como um morfismo de aljavas $MX \to U(\mathsf{BN})$, utilizarmos a propriedade universal da categoria livre para obtermos um funtor do tipo $\mathsf{FMX} \to \mathsf{BN}$, e então olharmos para a componente desse funtor nos morfismos para obtermos o morfismo de monoides desejado, lembrando é claro que $\Mor(\mathsf{BN}) = N$ pela própria definição da categoria $\mathsf{BN}$.
+\end{exem}
+
 \begin{obs}[Questões de tamanho]
     \label{obs:questoes_de_tamanho}
     Frequentemente na Teoria de Categorias somos naturalmente levados a manipular coleções grandes demais para serem consideradas conjuntos legítimos segundo os axiomas de ZFC usuais da Teoria de Conjuntos, e a manipulação descuidada de tais coleções pode causar algumas dores de cabeça.
